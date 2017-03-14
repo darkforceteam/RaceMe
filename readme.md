@@ -1,7 +1,6 @@
-Ruwime - Run With Me app
+# Ruwime - Run With Me app
 
 Ruwime is a platform for sharing and exploring sport activities around one location in real time.
-
 
 ## User Stories
 
@@ -11,10 +10,11 @@ A. ACCOUNT MANAGEMENT
 - [ ] User can sign in using Twitter/Google/Facebook.
 - [ ] User can sync their friend list from T/G/F to find who has already registered at Ruwime.
 - [ ] User can send invitation to join Ruwime to friends in contact list
-- [ ] 
+
 B. ACTIVITY LOGGING
 - [ ] User can use the app to track their running/biking/hiking (Workout) activity
 - [ ] User can manually enter record of their Workout activity
+
 C. CREATE AND EXPLORING GROUP CHALLENGES
 - [ ] Route of Workout are automatically saved after an Workout activity is complete
 - [ ] User can select an existing work out and enter next run date and time to share with other. User can chose to share this route with Friend only/Public => Now this is called a CHALLENGE
@@ -23,6 +23,7 @@ C. CREATE AND EXPLORING GROUP CHALLENGES
     - [ ] User can see upcoming CHALLENGES of friend in their friendlist. This way, a User in a far city can decide to ~Virtually Join~ that workout with his friends 
 - [ ] User can chose to join a CHALLENGES Shared by other user.
 - [ ] All Users joined a CHALLENGE will be able to see list of participants
+
 D. GROUP CHALLENGES in action
 - [ ] Before CHALLENGE starttime. All participant recieve notification.
 - [ ] When open app before start time, user will see list of participants that are READY for the CHALLENGE.
@@ -31,11 +32,13 @@ D. GROUP CHALLENGES in action
 - [ ] During CHALLENGE time. All participant will receive live update of CHALLENGE statistic such as: who is leading, at what distance, who is infront - distance, who is behind - distance.
 - [ ] When CHALLENGE completed. All participant can see result of the CHALLENGE
 - [ ] Friends of participant that did not join CHALLENGE can also see result notification about their friend's CHALLENGE
+
 E. SOLO WORK OUT - GOSH RUN
 - [ ] User enter Start workout screen and can select the following option:
     - [ ] Workout type: Running/Biking/Hiking/Trail
     - [ ] Gosh select: chose a pass workout record to race agains.
     - [ ] Music: chose a playlist to play music from iTunes
+
 F. PROFILE PAGE
 - [ ] User can set up their profile page with the following info
     - [ ] Avatar. By default get from T/G/F
@@ -46,14 +49,14 @@ F. PROFILE PAGE
     - [ ] Datetime
     - [ ] Location
 
-
 The following **optional** features are implemented:
 
-C. CREATE AND EXPLORING CHALLENGES
+G. CREATE AND EXPLORING CHALLENGES
 - [ ] User can import Record from other Systems to import workout history into Ruwime.
 - [ ] User can draw routes for next CHALLENGES on Map.
 - [ ] After a CHALLENGE is created. User can chose wich friends from their friendlist to invite to this CHALLENGE.
-E. SOLO WORK OUT - GOSH RUN
+
+H. SOLO WORK OUT - GOSH RUN
 - [ ] User can chose a workout record of other user to race again.
 
 ## Video Walkthrough
@@ -74,7 +77,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright 2017 Vu Long
+    Copyright 2017 The Dark Force Team
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
