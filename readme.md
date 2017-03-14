@@ -33,10 +33,10 @@ D. GROUP CHALLENGES in action
 - [ ] When CHALLENGE completed. All participant can see result of the CHALLENGE
 - [ ] Friends of participant that did not join CHALLENGE can also see result notification about their friend's CHALLENGE
 
-E. SOLO WORK OUT - GOSH RUN
+E. SOLO WORK OUT - GHOST RUN
 - [ ] User enter Start workout screen and can select the following option:
     - [ ] Workout type: Running/Biking/Hiking/Trail
-    - [ ] Gosh select: chose a pass workout record to race agains.
+    - [ ] Ghost select: chose a pass workout record to race agains.
     - [ ] Music: chose a playlist to play music from iTunes
 
 F. PROFILE PAGE
@@ -56,16 +56,18 @@ G. CREATE AND EXPLORING CHALLENGES
 - [ ] User can draw routes for next CHALLENGES on Map.
 - [ ] After a CHALLENGE is created. User can chose wich friends from their friendlist to invite to this CHALLENGE.
 
-H. SOLO WORK OUT - GOSH RUN
+H. SOLO WORK OUT - GHOST RUN
 - [ ] User can chose a workout record of other user to race again.
 
-## Video Walkthrough
-
-Here's a walkthrough of implemented user stories:
+## Survey Results
 
 <img src='survey.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+## Wireframe
+
+<img src='wireframe.png' title='Wireframe' width='' alt='Wireframe' />
 
 ## Notes
 
