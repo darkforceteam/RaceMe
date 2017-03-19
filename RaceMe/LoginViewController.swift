@@ -19,19 +19,11 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        // Do any additional setup after loading the view.
-        FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
-            if user != nil {
-                self.initialViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
-                self.present(self.initialViewController!, animated: true, completion: nil)
-            }
-        }
-
         // Add a custom login button to your app
         let fbLoginButton = UIButton(type: .custom)
         fbLoginButton.backgroundColor = UIColor.darkGray
-        fbLoginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40);
-        fbLoginButton.center = view.center;
+        fbLoginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40)
+        fbLoginButton.center = view.center
         fbLoginButton.setTitle("My Login Button", for: .normal)
         
         // Handle clicks on the button

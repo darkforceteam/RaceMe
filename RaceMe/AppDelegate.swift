@@ -14,21 +14,66 @@ import FacebookCore
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var initialViewController: UIViewController?
+    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
         
-        if AccessToken.current != nil {
-            initialViewController = ProfileViewController(nibName:"ProfileViewController", bundle:nil)
-        } else {
-            initialViewController = LoginViewController(nibName:"LoginViewController", bundle:nil)
+        FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
+            if user != nil {
+                
+                // Set up the Profile View Controller
+                let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+                profileViewController.tabBarItem.title = "Me"
+                profileViewController.tabBarItem.image = UIImage(named: "profile")
+                
+                // Set up the Find Friends View Controller
+                let findFriendsViewController = FindFriendsViewController(nibName: "FindFriendsViewController", bundle: nil)
+                findFriendsViewController.tabBarItem.title = "Friends"
+                findFriendsViewController.tabBarItem.image = UIImage(named: "people-add")
+
+                // Set up the Tracking View Controller
+                let trackingViewController = TrackingViewController(nibName: "TrackingViewController", bundle: nil)
+                trackingViewController.tabBarItem.title = "Tracking"
+                trackingViewController.tabBarItem.image = UIImage(named: "play")
+                
+                // Set up the Explore View Controller
+                let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
+                groupViewController.tabBarItem.title = "Group"
+                groupViewController.tabBarItem.image = UIImage(named: "group")
+                
+                // Set up the Explore View Controller
+                let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
+                exploreViewController.tabBarItem.title = "Explore"
+                exploreViewController.tabBarItem.image = UIImage(named: "radar")
+
+                // Set up the Tab Bar Controller to have two tabs
+                let tabBarController = UITabBarController()
+                tabBarController.viewControllers = [profileViewController, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
+                
+                // Custom Colors
+//                let primaryColor = UIColor(red: 136/255, green: 160/255, blue: 31/255, alpha: 1)
+//                let darkColor = UIColor(red: 30/255, green: 34/255, blue: 36/255, alpha: 1)
+//                
+//                // Customize Tab Bar Colors
+//                tabBarController.tabBar.barStyle = UIBarStyle.black
+//                tabBarController.tabBar.barTintColor = darkColor
+//                tabBarController.tabBar.tintColor = primaryColor
+                
+                // Make the Tab Bar Controller the root view controller
+                self.window?.rootViewController = tabBarController
+                self.window?.makeKeyAndVisible()
+            } else {
+                var initialViewController: UIViewController?
+                initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+                let frame = UIScreen.main.bounds
+                self.window = UIWindow(frame: frame)
+                self.window!.rootViewController = initialViewController
+                self.window!.makeKeyAndVisible()
+            }
         }
-        let frame = UIScreen.main.bounds
-        window = UIWindow(frame: frame)
-        window!.rootViewController = initialViewController
-        window!.makeKeyAndVisible()
+        
         
         return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     }

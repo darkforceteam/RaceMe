@@ -13,6 +13,12 @@
 		B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */; };
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
 		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
+		B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177A51E7EC6B800FF760F /* ExploreViewController.swift */; };
+		B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177A61E7EC6B800FF760F /* ExploreViewController.xib */; };
+		B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177A91E7ED1E500FF760F /* TrackingViewController.swift */; };
+		B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */; };
+		B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177AD1E7ED20200FF760F /* GroupViewController.swift */; };
+		B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177AE1E7ED20200FF760F /* GroupViewController.xib */; };
 		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
 		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
@@ -31,6 +37,12 @@
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
 		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B68177A41E7E93BC00FF760F /* CICRun-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CICRun-Header.h"; sourceTree = "<group>"; };
+		B68177A51E7EC6B800FF760F /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
+		B68177A61E7EC6B800FF760F /* ExploreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExploreViewController.xib; sourceTree = "<group>"; };
+		B68177A91E7ED1E500FF760F /* TrackingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingViewController.swift; sourceTree = "<group>"; };
+		B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackingViewController.xib; sourceTree = "<group>"; };
+		B68177AD1E7ED20200FF760F /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		B68177AE1E7ED20200FF760F /* GroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupViewController.xib; sourceTree = "<group>"; };
 		B68D08211E7E2A9100DC971F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +91,12 @@
 				B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */,
 				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
 				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
+				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
+				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
+				B68177A91E7ED1E500FF760F /* TrackingViewController.swift */,
+				B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */,
+				B68177AD1E7ED20200FF760F /* GroupViewController.swift */,
+				B68177AE1E7ED20200FF760F /* GroupViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -200,9 +218,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
 				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
 				B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */,
+				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
+				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
 				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
@@ -267,8 +288,11 @@
 			files = (
 				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
 				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
+				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
+				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
