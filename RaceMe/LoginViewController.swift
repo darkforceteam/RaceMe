@@ -24,7 +24,7 @@ class LoginViewController: UIViewController {
         fbLoginButton.backgroundColor = UIColor.darkGray
         fbLoginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40)
         fbLoginButton.center = view.center
-        fbLoginButton.setTitle("My Login Button", for: .normal)
+        fbLoginButton.setTitle("Login With Facebook", for: .normal)
         
         // Handle clicks on the button
         fbLoginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)

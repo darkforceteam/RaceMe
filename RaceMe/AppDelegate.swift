@@ -15,7 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FIRApp.configure()
@@ -52,15 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let tabBarController = UITabBarController()
                 tabBarController.viewControllers = [profileViewController, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
                 
-                // Custom Colors
-//                let primaryColor = UIColor(red: 136/255, green: 160/255, blue: 31/255, alpha: 1)
-//                let darkColor = UIColor(red: 30/255, green: 34/255, blue: 36/255, alpha: 1)
-//                
-//                // Customize Tab Bar Colors
-//                tabBarController.tabBar.barStyle = UIBarStyle.black
-//                tabBarController.tabBar.barTintColor = darkColor
-//                tabBarController.tabBar.tintColor = primaryColor
-                
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController
                 self.window?.makeKeyAndVisible()
@@ -73,8 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window!.makeKeyAndVisible()
             }
         }
-        
-        
+
         return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
