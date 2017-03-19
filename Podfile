@@ -6,5 +6,7 @@ target 'RaceMe' do
   use_frameworks!
 
   # Pods for RaceMe
+  pod 'Firebase'
+  pod 'Firebase/Auth'
   pod 'FacebookLogin'
 end

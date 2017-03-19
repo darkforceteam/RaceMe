@@ -12,6 +12,7 @@
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
 		B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */; };
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
+		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
 		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
 		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
@@ -24,11 +25,12 @@
 		3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		B637D2321E7E46E900F41A07 /* RaceMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RaceMe.entitlements; sourceTree = "<group>"; };
 		B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsViewController.swift; sourceTree = "<group>"; };
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
+		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		B68177A41E7E93BC00FF760F /* CICRun-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CICRun-Header.h"; sourceTree = "<group>"; };
 		B68D08211E7E2A9100DC971F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -116,7 +118,6 @@
 		B6A6C26F1E76DF550021EFC0 /* RaceMe */ = {
 			isa = PBXGroup;
 			children = (
-				B637D2321E7E46E900F41A07 /* RaceMe.entitlements */,
 				B68D08201E7E2A4200DC971F /* Models */,
 				B68D081F1E7E2A3500DC971F /* Views */,
 				B68D081E1E7E2A1D00DC971F /* Controllers */,
@@ -124,7 +125,9 @@
 				B637D2251E7E2F6600F41A07 /* Main.storyboard */,
 				B6A6C2771E76DF550021EFC0 /* Assets.xcassets */,
 				B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */,
+				B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */,
 				B6A6C27C1E76DF550021EFC0 /* Info.plist */,
+				B68177A41E7E93BC00FF760F /* CICRun-Header.h */,
 			);
 			path = RaceMe;
 			sourceTree = "<group>";
@@ -168,7 +171,7 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -203,6 +206,7 @@
 				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
+				B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,13 +384,13 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RaceMe/RaceMe.entitlements;
 				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
 				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -399,13 +403,13 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RaceMe/RaceMe.entitlements;
 				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
 				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
