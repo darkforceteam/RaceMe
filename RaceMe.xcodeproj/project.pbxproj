@@ -7,21 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
+		B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */; };
+		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
+		B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */; };
+		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
+		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
+		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
-		B6A6C2731E76DF550021EFC0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2721E76DF550021EFC0 /* ViewController.swift */; };
-		B6A6C2761E76DF550021EFC0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2741E76DF550021EFC0 /* Main.storyboard */; };
 		B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2771E76DF550021EFC0 /* Assets.xcassets */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
+		F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
+		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		B637D2321E7E46E900F41A07 /* RaceMe.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RaceMe.entitlements; sourceTree = "<group>"; };
+		B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
+		B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsViewController.swift; sourceTree = "<group>"; };
+		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
+		B68D08211E7E2A9100DC971F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6A6C2721E76DF550021EFC0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B6A6C2751E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B6A6C2771E76DF550021EFC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A6C27C1E76DF550021EFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +44,64 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		377C58573ABCFBD1DB4C733D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8C3F4CED547B237FEF0507D8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */,
+				E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B68D081E1E7E2A1D00DC971F /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B68D08211E7E2A9100DC971F /* LoginViewController.swift */,
+				B68D08221E7E2A9100DC971F /* LoginViewController.xib */,
+				B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */,
+				B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */,
+				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
+				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B68D081F1E7E2A3500DC971F /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		B68D08201E7E2A4200DC971F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		B6A6C2641E76DF550021EFC0 = {
 			isa = PBXGroup;
 			children = (
 				B6A6C26F1E76DF550021EFC0 /* RaceMe */,
 				B6A6C26E1E76DF550021EFC0 /* Products */,
+				8C3F4CED547B237FEF0507D8 /* Pods */,
+				377C58573ABCFBD1DB4C733D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,9 +116,12 @@
 		B6A6C26F1E76DF550021EFC0 /* RaceMe */ = {
 			isa = PBXGroup;
 			children = (
+				B637D2321E7E46E900F41A07 /* RaceMe.entitlements */,
+				B68D08201E7E2A4200DC971F /* Models */,
+				B68D081F1E7E2A3500DC971F /* Views */,
+				B68D081E1E7E2A1D00DC971F /* Controllers */,
 				B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */,
-				B6A6C2721E76DF550021EFC0 /* ViewController.swift */,
-				B6A6C2741E76DF550021EFC0 /* Main.storyboard */,
+				B637D2251E7E2F6600F41A07 /* Main.storyboard */,
 				B6A6C2771E76DF550021EFC0 /* Assets.xcassets */,
 				B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */,
 				B6A6C27C1E76DF550021EFC0 /* Info.plist */,
@@ -71,9 +136,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B6A6C27F1E76DF550021EFC0 /* Build configuration list for PBXNativeTarget "RaceMe" */;
 			buildPhases = (
+				B3ADF545CE0EAF636A57144B /* [CP] Check Pods Manifest.lock */,
 				B6A6C2691E76DF550021EFC0 /* Sources */,
 				B6A6C26A1E76DF550021EFC0 /* Frameworks */,
 				B6A6C26B1E76DF550021EFC0 /* Resources */,
+				40745AFA9EF44EDCEDD92803 /* [CP] Embed Pods Frameworks */,
+				1D80B481310B7DDC1DCD8F2E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -98,6 +166,11 @@
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 566T8PK976;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -124,20 +197,73 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
+				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
 				B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */,
 				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
-				B6A6C2761E76DF550021EFC0 /* Main.storyboard in Resources */,
+				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
+				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1D80B481310B7DDC1DCD8F2E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		40745AFA9EF44EDCEDD92803 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B3ADF545CE0EAF636A57144B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B6A6C2691E76DF550021EFC0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6A6C2731E76DF550021EFC0 /* ViewController.swift in Sources */,
+				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
+				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,14 +271,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B6A6C2741E76DF550021EFC0 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B6A6C2751E76DF550021EFC0 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -259,9 +377,15 @@
 		};
 		B6A6C2801E76DF550021EFC0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RaceMe/RaceMe.entitlements;
 				DEVELOPMENT_TEAM = 566T8PK976;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RaceMe",
+				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
@@ -272,9 +396,15 @@
 		};
 		B6A6C2811E76DF550021EFC0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = RaceMe/RaceMe.entitlements;
 				DEVELOPMENT_TEAM = 566T8PK976;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/RaceMe",
+				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
@@ -302,6 +432,7 @@
 				B6A6C2811E76DF550021EFC0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
