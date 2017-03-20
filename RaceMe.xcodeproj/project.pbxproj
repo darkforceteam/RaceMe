@@ -185,7 +185,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 566T8PK976;
+						DevelopmentTeam = D7RX787JDX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
@@ -408,7 +408,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -427,7 +427,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
