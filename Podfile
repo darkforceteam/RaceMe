@@ -8,6 +8,7 @@ target 'RaceMe' do
   # Pods for RaceMe
   pod 'Firebase'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
   pod 'FacebookLogin'
   pod 'AFNetworking'
 end
