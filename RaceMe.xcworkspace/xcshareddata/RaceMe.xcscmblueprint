@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "B478923B32F334D7B5CF9E11ECF1E523C0DEF319",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "B478923B32F334D7B5CF9E11ECF1E523C0DEF319" : 9223372036854775807,
+    "78BC981234DC9ACF745E820B97CE28D46F6D69E7" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F93711C0-3A62-4372-9F7F-5B5AF059CA37",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "B478923B32F334D7B5CF9E11ECF1E523C0DEF319" : "Final\/",
+    "78BC981234DC9ACF745E820B97CE28D46F6D69E7" : "GeoFire\/geofire-objc\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "RaceMe",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "RaceMe.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/firebase\/geofire-objc.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "78BC981234DC9ACF745E820B97CE28D46F6D69E7"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/darkforceteam\/RaceMe",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B478923B32F334D7B5CF9E11ECF1E523C0DEF319"
+    }
+  ]
+}

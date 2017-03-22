@@ -24,6 +24,9 @@
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
 		B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2771E76DF550021EFC0 /* Assets.xcassets */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
+		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
+		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
+		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
 		F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +53,9 @@
 		B6A6C2771E76DF550021EFC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A6C27C1E76DF550021EFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
+		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +117,8 @@
 		B68D08201E7E2A4200DC971F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				D9D9DF171E81057C008C086C /* Location.swift */,
+				D9D9DF191E810991008C086C /* Workout.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -140,6 +148,7 @@
 				B68D081F1E7E2A3500DC971F /* Views */,
 				B68D081E1E7E2A1D00DC971F /* Controllers */,
 				B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */,
+				D9D9DF1B1E810EB5008C086C /* Constants.swift */,
 				B637D2251E7E2F6600F41A07 /* Main.storyboard */,
 				B6A6C2771E76DF550021EFC0 /* Assets.xcassets */,
 				B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */,
@@ -185,9 +194,12 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 566T8PK976;
+						DevelopmentTeam = D7RX787JDX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 0;
 							};
@@ -288,8 +300,11 @@
 			files = (
 				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
 				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
+				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
+				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
@@ -408,7 +423,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -427,7 +442,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
