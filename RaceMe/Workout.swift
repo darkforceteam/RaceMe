@@ -2,7 +2,7 @@
 //  Workout.swift
 //  RaceMe
 //
-//  Created by LVMBP on 3/21/17.
+//  Created by vulong.com on 3/21/17.
 //  Copyright © 2017 CoderSchool. All rights reserved.
 //
 
@@ -36,16 +36,16 @@ class Workout: NSObject {
     init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        userId = snapshotValue["userId"] as! String
-        type = snapshotValue["type"] as! String
-        startTime = snapshotValue["startTime"] as! String
-        routeId = snapshotValue["routeId"] as! String
-        startLocation = snapshotValue["startLocation"] as? Location
-        endTime = snapshotValue["endTime"] as? String
-        endLocation = snapshotValue["endLocation"] as? Location
-        distanceKm = (snapshotValue["distanceKm"] as? Double)!
-        distanceMi = (snapshotValue["distanceMi"] as? Double)!
-        duration = (snapshotValue["duration"] as? Double)!
+        userId = snapshotValue[Constants.Workout.USER_ID] as! String
+        type = snapshotValue[Constants.Workout.TYPE] as! String
+        startTime = snapshotValue[Constants.Workout.START_TIME] as! String
+        routeId = snapshotValue[Constants.Workout.ROUTE_ID] as! String
+        startLocation = snapshotValue[Constants.Workout.START_LOC] as? Location
+        endTime = snapshotValue[Constants.Workout.END_TIME] as? String
+        endLocation = snapshotValue[Constants.Workout.END_LOC] as? Location
+        distanceKm = (snapshotValue[Constants.Workout.DISTANCE_KM] as? Double)!
+        distanceMi = (snapshotValue[Constants.Workout.DISTANCE_MI] as? Double)!
+        duration = (snapshotValue[Constants.Workout.DURATION] as? Double)!
         ref = snapshot.ref
     }
     
@@ -59,16 +59,16 @@ class Workout: NSObject {
     
     func toAnyObject() -> Any {
         return [
-            "userId": userId,
-            "type": type,
-            "startTime": startTime,
-            "routeId": routeId,
+            Constants.Workout.USER_ID: userId,
+            Constants.Workout.TYPE : type,
+            Constants.Workout.START_TIME : startTime,
+            Constants.Workout.ROUTE_ID : routeId,
 //            "startLocation": startLocation!.toAnyObject(),
-            "endTime": endTime!,
+            Constants.Workout.END_TIME : endTime!,
 //            "endLocation": endLocation!.toAnyObject(),
-            "distanceKm": "\(distanceKm)",
-            "distanceMi": "\(distanceMi)",
-            "duration": "\(duration)"
+            Constants.Workout.DISTANCE_KM : "\(distanceKm)",
+            Constants.Workout.DISTANCE_MI : "\(distanceMi)",
+            Constants.Workout.DURATION : "\(duration)"
         ]
     }
 

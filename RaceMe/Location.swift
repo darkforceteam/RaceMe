@@ -30,19 +30,19 @@ class Location: NSObject {
     init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        longtitude = snapshotValue["longtitude"] as! String
-        lattitude = snapshotValue["lattitude"] as! String
-        timestamp = snapshotValue["timestamp"] as! String
-        speed = snapshotValue["speed"] as! String
+        longtitude = snapshotValue[Constants.Location.LONGTITUDE] as! String
+        lattitude = snapshotValue[Constants.Location.LATTITUDE] as! String
+        timestamp = snapshotValue[Constants.Location.TIMESTAMP] as! String
+        speed = snapshotValue[Constants.Location.SPEED] as! String
         ref = snapshot.ref
     }
     
     func toAnyObject() -> Any {
         return [
-            "longtitude": longtitude,
-            "lattitude": lattitude,
-            "timestamp": timestamp,
-            "speed": speed
+            Constants.Location.LONGTITUDE: longtitude,
+            Constants.Location.LATTITUDE: lattitude,
+            Constants.Location.TIMESTAMP: timestamp,
+            Constants.Location.SPEED: speed
         ]
     }
     
