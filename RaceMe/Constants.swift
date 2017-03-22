@@ -11,4 +11,12 @@ struct Constants {
     struct UnitExchange {
         static let ONE_KM_IN_MILE = 0.621371
     }
+    struct Route{
+        static let TABLE_NAME = "ROUTES"
+        static let ROUTE_DISTANCE = "DISTANCE"
+    }
+    struct Workout{
+        static let TABLE_NAME = "WORKOUTS"
+        static let ROUTE_DISTANCE = "DISTANCE"
+    }
 }

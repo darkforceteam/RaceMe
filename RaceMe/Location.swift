@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import CoreLocation
 
 class Location: NSObject {
     var key: String
@@ -45,13 +46,12 @@ class Location: NSObject {
         ]
     }
     
-//    class func messageArray(array: [NSDictionary]) -> [Message] {
-//        var messages = [Message]()
-//        for item in array {
-//            let message = Message(msgData: item)
-//            messages.append(message)
-//        }
-//        return messages
-//    }
-
+    static func initArray(gpsLocs: [CLLocation]) -> [Location]{
+        var locations = [Location]()
+        for loc in gpsLocs {
+            let location = Location(longtitude: String(loc.coordinate.longitude), lattitude: String(loc.coordinate.longitude), speed: String(loc.speed), timestamp: "\(loc.timestamp)")
+            locations.append(location)
+        }
+        return locations
+    }
 }

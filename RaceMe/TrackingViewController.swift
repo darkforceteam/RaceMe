@@ -73,10 +73,26 @@ class TrackingViewController: UIViewController {
     }
     
     @IBAction func saveRun(_ sender: UIButton) {
-        print("Saving working")
-        print(newWorkOut?.toAnyObject())
-        ref.child("workouts").childByAutoId().setValue(newWorkOut?.toAnyObject())
+        print("routes detail:")
+//        print(locations)
+        var locs = Location.initArray(gpsLocs: locations)
+        saveRoute(locs: locs)
+
+        print("Saving workout")
+//        print(newWorkOut?.toAnyObject())
+        ref.child(Constants.Workout.TABLE_NAME).childByAutoId().setValue(newWorkOut?.toAnyObject())
     }
+
+    func saveRoute(locs: [Location]){
+        var routeRef = ref.child(Constants.Route.TABLE_NAME).childByAutoId()
+        routeRef.child(Constants.Route.ROUTE_DISTANCE ).setValue("\(self.distanceKm)")
+        var i = 0
+        for loc in locs{
+            routeRef.child("\(i)").setValue(loc.toAnyObject())
+            i += 1
+        }
+    }
+    
     
     func eachSecond(timer: Timer) {
         duration += 1
