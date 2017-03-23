@@ -16,7 +16,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var userStatisticsScrollView: UIScrollView!
     @IBOutlet weak var userStatisticsPageControl: UIPageControl!
-    
+
     let userStats1 = ["title":"Kilometers", "current_period":"8.3", "last_period":"0"]
     let userStats2 = ["title":"Average Pace (Min/Km)", "current_period":"1:15:08", "last_period":"2:33:54"]
     let userStats3 = ["title":"Activities", "current_period":"2", "last_period":"1"]
@@ -26,7 +26,12 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
+        scrollView.addSubview(view)
+        view = scrollView
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        scrollView.backgroundColor = .white
+
         userStatisticsArray = [userStats1,userStats2,userStats3,userStats4]
         userStatisticsScrollView.isPagingEnabled = true
         userStatisticsScrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(userStatisticsArray.count), height: 120)
