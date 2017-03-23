@@ -321,7 +321,8 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         
         for location in locations {
             let locationKey = newRoute.childByAutoId()
-            let location = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, timestamp: "\(location.timestamp)")
+            //let location = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, timestamp: "\(location.timestamp)")
+            let location = Location(longtitude: "\(location.coordinate.longitude)", lattitude: "\(location.coordinate.latitude)", speed: "\(location.speed)", timestamp: "\(location.timestamp)", key: "")
             locationKey.setValue(location.toAnyObject())
         }
     }
