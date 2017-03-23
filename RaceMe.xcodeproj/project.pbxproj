@@ -12,6 +12,8 @@
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
 		B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */; };
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
+		B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65F1AD71E82E12E009E526B /* UserStatistics.xib */; };
+		B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */; };
 		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
 		B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177A51E7EC6B800FF760F /* ExploreViewController.swift */; };
 		B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177A61E7EC6B800FF760F /* ExploreViewController.xib */; };
@@ -38,6 +40,8 @@
 		B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsViewController.swift; sourceTree = "<group>"; };
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
+		B65F1AD71E82E12E009E526B /* UserStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatistics.xib; sourceTree = "<group>"; };
+		B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatisticsView.swift; sourceTree = "<group>"; };
 		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B68177A41E7E93BC00FF760F /* CICRun-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CICRun-Header.h"; sourceTree = "<group>"; };
 		B68177A51E7EC6B800FF760F /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +114,8 @@
 		B68D081F1E7E2A3500DC971F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
+				B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -194,7 +200,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = D7RX787JDX;
+						DevelopmentTeam = 566T8PK976;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -237,6 +243,7 @@
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
 				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
+				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 				B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */,
@@ -306,6 +313,7 @@
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
+				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);
@@ -423,7 +431,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -442,7 +450,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",

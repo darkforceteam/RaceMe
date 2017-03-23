@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
             if user != nil {
                 
@@ -57,7 +59,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 var initialViewController: UIViewController?
                 initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-                let frame = UIScreen.main.bounds
+                
+                let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                //let frame = UIScreen.main.bounds
                 self.window = UIWindow(frame: frame)
                 self.window!.rootViewController = initialViewController
                 self.window!.makeKeyAndVisible()
