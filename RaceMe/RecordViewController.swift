@@ -14,13 +14,13 @@ import Neon
 
 class RecordViewController: UIViewController, MKMapViewDelegate {
     
-    private var seconds = 0
+    private var duration = 0
     var distance = 0.0
     lazy var locations = [CLLocation]()
     private lazy var timer = Timer()
     var mapOverlay: MKTileOverlay!
     var user: User!
-    var run: Run!
+    var workout: Workout!
     
     let ref = FIRDatabase.database().reference()
     let onlineRef = FIRDatabase.database().reference(withPath: "online")
@@ -262,13 +262,13 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     }
     
     func eachSecond(timer: Timer) {
-        seconds += 1
+        duration += 1
         
-        hourDisplay.text = "\(seconds.toHours)"
-        minDisplay.text = "\(seconds.toMinutes)"
-        secDisplay.text = "\(seconds.toSeconds)"
+        hourDisplay.text = "\(duration.toHours)"
+        minDisplay.text = "\(duration.toMinutes)"
+        secDisplay.text = "\(duration.toSeconds)"
         
-        let totalTime = Double(seconds)
+        let totalTime = Double(duration)
         let paceQuantity = totalTime * 1000 / distance
         paceDisplay.text = "\(paceQuantity.stringWithPaceFormat)"
         distanceDisplay.text = String(format: "%.1f", distance / 1000)
@@ -277,7 +277,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     func startButtonTapped() {
         startButton.isHidden = true
         stopButton.isHidden = false
-        seconds = 0
+        duration = 0
         distance = 0
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
@@ -291,7 +291,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
             self.reset()
             
             let summaryController = RunSummaryViewController()
-            summaryController.run = self.run
+            summaryController.workout = self.workout
             summaryController.locations = self.locations
             let summaryNav = UINavigationController(rootViewController: summaryController)
             self.present(summaryNav, animated: true, completion: nil)
@@ -313,25 +313,21 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         let routeRef = ref.child(Constants.Route.TABLE_NAME).childByAutoId()
         for (i, loc) in locations.enumerated() {
             let locationRef = routeRef.child("\(i)")
-            let location = Location(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude, timestamp: "\(loc.timestamp)", speed: loc.speed)
+            let location = Location(loc)
             locationRef.setValue(location.toAnyObject())
         }
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
         distanceRef.setValue(distance)
         
         let workoutRef = ref.child(Constants.Workout.TABLE_NAME).childByAutoId()
-        let distanceKm = distance / 1000
-        let distanceMi = distanceKm * Constants.UnitExchange.ONE_KM_IN_MILE
-        if let startTime = locations.first?.timestamp, let endTime = locations.last?.timestamp {
-            let workout = Workout(userId: user.uid, startTime: "\(startTime)", endTime: "\(endTime)", routeId: routeRef.key, distanceKm: distanceKm, distanceMi: distanceMi, duration: seconds)
-            workoutRef.setValue(workout.toAnyObject())
-        }
+        workout = Workout(user, routeRef.key, locations, distance, duration)
+        workoutRef.setValue(workout.toAnyObject())
     }
     
     func reset() {
         timer.invalidate()
         distance = 0
-        seconds = 0
+        duration = 0
         hourDisplay.text = "00"
         minDisplay.text = "00"
         secDisplay.text = "00"

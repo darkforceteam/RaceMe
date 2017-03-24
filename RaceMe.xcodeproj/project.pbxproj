@@ -11,7 +11,6 @@
 		B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22978361E83FD85005F41B3 /* RecordViewController.xib */; };
 		B229783A1E83FE1E005F41B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978391E83FE1E005F41B3 /* User.swift */; };
 		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
-		B229783E1E8400E5005F41B3 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783D1E8400E5005F41B3 /* Run.swift */; };
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
 		B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */; };
@@ -42,7 +41,6 @@
 		B22978361E83FD85005F41B3 /* RecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordViewController.xib; sourceTree = "<group>"; };
 		B22978391E83FE1E005F41B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		B229783D1E8400E5005F41B3 /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -135,7 +133,6 @@
 				B22978391E83FE1E005F41B3 /* User.swift */,
 				D9D9DF171E81057C008C086C /* Location.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
-				B229783D1E8400E5005F41B3 /* Run.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -322,7 +319,6 @@
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
-				B229783E1E8400E5005F41B3 /* Run.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,

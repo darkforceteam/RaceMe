@@ -8,21 +8,22 @@
 
 import Foundation
 import Firebase
+import CoreLocation
 
 struct Location {
-    let key: String
-    let latitude: Double
-    let longitude: Double
-    let speed: Double
-    let timestamp: String
-    let ref: FIRDatabaseReference?
+    var key: String
+    var latitude: Double
+    var longitude: Double
+    var speed: Double
+    var timestamp: String
+    var ref: FIRDatabaseReference?
     
-    init(key: String = "", latitude: Double, longitude: Double, timestamp: String, speed: Double) {
+    init(key: String = "", _ location: CLLocation) {
         self.key = key
-        self.latitude = latitude
-        self.longitude = longitude
-        self.timestamp = timestamp
-        self.speed = speed
+        self.latitude = location.coordinate.latitude
+        self.longitude = location.coordinate.longitude
+        self.timestamp = "\(location.timestamp)"
+        self.speed = location.speed
         self.ref = nil
     }
     
@@ -44,13 +45,4 @@ struct Location {
             Constants.Location.SPEED: speed
         ]
     }
-    
-//    static func initArray(gpsLocs: [CLLocation]) -> [Location]{
-//        var locations = [Location]()
-//        for loc in gpsLocs {
-//            let location = Location(longtitude: String(loc.coordinate.longitude), latitude: String(loc.coordinate.longitude), speed: String(loc.speed), timestamp: "\(loc.timestamp)")
-//            locations.append(location)
-//        }
-//        return locations
-//    }
 }

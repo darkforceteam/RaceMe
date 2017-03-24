@@ -11,28 +11,31 @@ import Firebase
 import CoreLocation
 
 struct Workout {
-    let key: String
-    let userId: String
-    let type: String
-    let startTime: String
-    let endTime: String
-    let routeId: String
-    let distanceKm: Double
-    let distanceMi: Double
-    let duration: Int
-    let ref: FIRDatabaseReference?
+    var key: String
+    var userId: String
+    var type: String
+    var startTime = ""
+    var endTime = ""
+    var routeId: String
+    var distanceKm: Double
+    var distanceMi: Double
+    var duration: Int
+    var ref: FIRDatabaseReference?
     
-    init(key: String = "", userId: String, type: String = "RUN", startTime: String, endTime: String, routeId: String, distanceKm: Double, distanceMi: Double, duration: Int) {
+    init(key: String = "", type: String = "RUN", _ user: User, _ routeId: String, _ locations: [CLLocation], _ distance: Double, _ duration: Int) {
         self.key = key
-        self.userId = userId
         self.type = type
-        self.startTime = startTime
-        self.endTime = endTime
+        self.userId = user.uid
         self.routeId = routeId
-        self.distanceKm = distanceKm
-        self.distanceMi = distanceMi
+        self.distanceKm = distance / 1000
+        self.distanceMi = distanceKm * Constants.UnitExchange.ONE_KM_IN_MILE
         self.duration = duration
         self.ref = nil
+        
+        if let startTime = locations.first?.timestamp, let endTime = locations.last?.timestamp {
+            self.startTime = "\(startTime)"
+            self.endTime = "\(endTime)"
+        }
     }
     
     init(snapshot: FIRDataSnapshot) {
@@ -63,7 +66,7 @@ struct Workout {
     }
 }
 
-//class WorkoutLong: NSObject {
+//class Workout: NSObject {
 //    var key: String
 //    var userId: String
 //    var type: String

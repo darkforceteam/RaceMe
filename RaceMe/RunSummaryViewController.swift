@@ -14,16 +14,13 @@ import Neon
 class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     
     var locations = [CLLocation]()
-    var run: Run! {
+    var workout: Workout! {
         didSet {
-            if let distance = run?.distance, let timestamp = run?.timestamp, let duration = run?.duration {
-                let distanceQuantity = String(format: "%.1f", distance / 1000)
-                
-                dateLabel.text = "\(timestamp)"
+            if let distance = workout?.distanceKm, let timestamp = workout?.startTime, let duration = workout?.duration {
+                dateLabel.text = timestamp
                 durationDisplay.text = "\(duration.toMinutes):\(duration.toSeconds)"
-                distanceDisplay.text = "\(distanceQuantity) km"
-                let duration = Double(duration)
-                let pace = duration * 1000 / distance
+                distanceDisplay.text = String(format: "%.1f km", distance)
+                let pace = Double(duration) / distance
                 paceDisplay.text = "\(pace.stringWithPaceFormat) /km"
             }
         }
