@@ -22,9 +22,9 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     var user: User!
     var run: Run!
     
-    let feedsRef = FIRDatabase.database().reference(withPath: "feeds")
+    let ref = FIRDatabase.database().reference()
     let onlineRef = FIRDatabase.database().reference(withPath: "online")
-    
+
     private lazy var locationManager: CLLocationManager = {
         var lm = CLLocationManager()
         lm.delegate = self
@@ -287,7 +287,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     func stopButtonTapped() {
         let actionController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let saveAction = UIAlertAction(title: "Save", style: .default) { (action) in
-            self.saveRun()
+            self.saveData()
             self.reset()
             
             let summaryController = RunSummaryViewController()
@@ -309,21 +309,22 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         locationManager.stopUpdatingLocation()
     }
     
-    func saveRun() {
-        let newFeed = feedsRef.childByAutoId()
-        let newRoute = newFeed.child("/route")
-        let newRun = newFeed.child("/run")
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd, yyyy HH:mm"
-        let timeStart = dateFormatter.string(from: locations[0].timestamp)
-        run = Run(distance: distance, duration: seconds, timestamp: timeStart, addedByUser: user.email)
-        newRun.setValue(run.toAnyObject())
+    func saveData() {
+        let routeRef = ref.child(Constants.Route.TABLE_NAME).childByAutoId()
+        for (i, loc) in locations.enumerated() {
+            let locationRef = routeRef.child("\(i)")
+            let location = Location(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude, timestamp: "\(loc.timestamp)", speed: loc.speed)
+            locationRef.setValue(location.toAnyObject())
+        }
+        let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
+        distanceRef.setValue(distance)
         
-        for location in locations {
-            let locationKey = newRoute.childByAutoId()
-            //let location = Location(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude, timestamp: "\(location.timestamp)")
-            let location = Location(longtitude: "\(location.coordinate.longitude)", lattitude: "\(location.coordinate.latitude)", speed: "\(location.speed)", timestamp: "\(location.timestamp)", key: "")
-            locationKey.setValue(location.toAnyObject())
+        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).childByAutoId()
+        let distanceKm = distance / 1000
+        let distanceMi = distanceKm * Constants.UnitExchange.ONE_KM_IN_MILE
+        if let startTime = locations.first?.timestamp, let endTime = locations.last?.timestamp {
+            let workout = Workout(userId: user.uid, startTime: "\(startTime)", endTime: "\(endTime)", routeId: routeRef.key, distanceKm: distanceKm, distanceMi: distanceMi, duration: seconds)
+            workoutRef.setValue(workout.toAnyObject())
         }
     }
     
