@@ -357,24 +357,24 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        mapView.anchorToEdge(.top, padding: 64, width: view.frame.width, height: view.frame.width * 0.6)
-        timeLabel.align(.underCentered, relativeTo: mapView, padding: 10, width: view.frame.width, height: 20)
-        minDisplay.align(.underCentered, relativeTo: timeLabel, padding: 0, width: 80, height: 60)
+        startButton.anchorToEdge(.bottom, padding: 55, width: 70, height: 70)
+        stopButton.anchorToEdge(.bottom, padding: 55, width: 70, height: 70)
+        seperatorLineView1.align(.aboveCentered, relativeTo: stopButton, padding: 6, width: view.frame.width - 20, height: 0.5)
+        paceUnit.align(.aboveMatchingLeft, relativeTo: seperatorLineView1, padding: 10, width: seperatorLineView1.width / 2, height: 20)
+        distanceUnit.align(.aboveMatchingRight, relativeTo: seperatorLineView1, padding: 10, width: paceUnit.width, height: 20)
+        paceDisplay.align(.aboveCentered, relativeTo: paceUnit, padding: 0, width: paceUnit.width, height: 60)
+        paceLabel.align(.aboveCentered, relativeTo: paceDisplay, padding: 0, width: paceDisplay.width, height: 20)
+        distanceDisplay.align(.aboveCentered, relativeTo: distanceUnit, padding: 0, width: distanceUnit.width, height: 60)
+        distanceLabel.align(.aboveCentered, relativeTo: distanceDisplay, padding: 0, width: distanceDisplay.width, height: 20)
+        seperatorLineView2.align(.aboveCentered, relativeTo: seperatorLineView1, padding: 10, width: 0.5, height: 100)
+        seperatorLineView3.align(.aboveCentered, relativeTo: seperatorLineView2, padding: 10, width: seperatorLineView1.width, height: 0.5)
+        minDisplay.align(.aboveCentered, relativeTo: seperatorLineView3, padding: 0, width: 80, height: 60)
         hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
         hourDisplay.align(.toTheLeftCentered, relativeTo: hourColon, padding: 0, width: 80, height: 60)
         minColon.align(.toTheRightCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
         secDisplay.align(.toTheRightCentered, relativeTo: minColon, padding: 0, width: 80, height: 60)
-        seperatorLineView1.align(.underCentered, relativeTo: minDisplay, padding: 0, width: view.frame.width - 20, height: 0.5)
-        paceLabel.align(.underMatchingLeft, relativeTo: seperatorLineView1, padding: 10, width: seperatorLineView1.width / 2, height: 20)
-        paceDisplay.align(.underCentered, relativeTo: paceLabel, padding: 0, width: paceLabel.width, height: 60)
-        paceUnit.align(.underCentered, relativeTo: paceDisplay, padding: 0, width: paceDisplay.width, height: 20)
-        distanceLabel.align(.underMatchingRight, relativeTo: seperatorLineView1, padding: 10, width: seperatorLineView1.width / 2, height: 20)
-        seperatorLineView2.align(.underCentered, relativeTo: seperatorLineView1, padding: 10, width: 0.5, height: 100)
-        distanceDisplay.align(.underCentered, relativeTo: distanceLabel, padding: 0, width: distanceLabel.width, height: 60)
-        distanceUnit.align(.underCentered, relativeTo: distanceDisplay, padding: 0, width: distanceDisplay.width, height: 20)
-        seperatorLineView3.align(.underCentered, relativeTo: seperatorLineView2, padding: 10, width: seperatorLineView1.width, height: 0.5)
-        startButton.anchorToEdge(.bottom, padding: 15, width: 70, height: 70)
-        stopButton.anchorToEdge(.bottom, padding: 15, width: 70, height: 70)
+        timeLabel.align(.aboveCentered, relativeTo: minDisplay, padding: 0, width: 200, height: 20)
+        mapView.align(.aboveCentered, relativeTo: timeLabel, padding: 10, width: view.frame.width, height: view.frame.height - 416)
     }
 }
 
