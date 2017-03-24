@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 import HealthKit
 import FirebaseDatabase
+import MapKit
 
 class TrackingViewController: UIViewController {
     let WO_STARTED = 1
@@ -17,6 +18,7 @@ class TrackingViewController: UIViewController {
     let WO_SAVED = 3
     var workOutStatus = 0
     
+    @IBOutlet weak var mkMapview: MKMapView!
     var ref: FIRDatabaseReference!
     fileprivate var _refHandle: FIRDatabaseHandle!
     
@@ -92,6 +94,7 @@ class TrackingViewController: UIViewController {
     func saveRoute(locs: [Location]){
         let routeID = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
         
+        
         let routeRef = ref.child("\(Constants.Route.TABLE_NAME)/\(routeID)")
         
         routeRef.child(Constants.Route.ROUTE_DISTANCE ).setValue("\(distanceKm)")
@@ -107,6 +110,7 @@ class TrackingViewController: UIViewController {
         newWorkOut?.routeId = routeID
         ref.child(Constants.Workout.TABLE_NAME).childByAutoId().setValue(newWorkOut?.toAnyObject())
         workOutStatus = WO_SAVED
+        loadMap()
     }
     
     
@@ -149,6 +153,66 @@ class TrackingViewController: UIViewController {
         // TODO: set up what needs to be deinitialized when view is no longer being used
         //        ref.child("workouts").removeObserver(withHandle: _refHandle)
         
+    }
+    func mapRegion() -> MKCoordinateRegion {
+        let initialLoc = self.locations[0] 
+        
+        var minLat = initialLoc.coordinate.latitude
+        var minLng = initialLoc.coordinate.longitude
+        var maxLat = minLat
+        var maxLng = minLng
+        
+        for location in locations {
+            minLat = min(minLat, location.coordinate.latitude)
+            minLng = min(minLng, location.coordinate.longitude)
+            maxLat = max(maxLat, location.coordinate.latitude)
+            maxLng = max(maxLng, location.coordinate.longitude)
+        }
+        
+        return MKCoordinateRegion(
+            center: CLLocationCoordinate2D(latitude: (minLat + maxLat)/2,
+                                           longitude: (minLng + maxLng)/2),
+            span: MKCoordinateSpan(latitudeDelta: (maxLat - minLat)*1.1,
+                                   longitudeDelta: (maxLng - minLng)*1.1))
+    }
+    func mapView(mapView: MKMapView!, rendererForOverlay overlay: MKOverlay!) -> MKOverlayRenderer! {
+        if !overlay.isKind(of: MKPolyline.self) {
+            return nil
+        }
+        
+        let polyline = overlay as! MKPolyline
+        let renderer = MKPolylineRenderer(polyline: polyline)
+        renderer.strokeColor = UIColor.black
+        renderer.lineWidth = 3
+        return renderer
+    }
+    func loadMap() {
+        if locations.count > 0 {
+            mkMapview.isHidden = false
+            
+            // Set the map bounds
+            mkMapview.region = mapRegion()
+            
+            // Make the line(s!) on the map
+            mkMapview.add(polyline())
+        } else {
+            // No locations were found!
+            mkMapview.isHidden = true
+            
+            UIAlertView(title: "Error",
+                        message: "Sorry, this run has no locations saved",
+                        delegate:nil,
+                        cancelButtonTitle: "OK").show()
+        }
+    }
+    func polyline() -> MKPolyline {
+        var coords = [CLLocationCoordinate2D]()
+        for location in locations {
+            coords.append(CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                                 longitude: location.coordinate.longitude))
+        }
+        
+        return MKPolyline(coordinates: &coords, count: locations.count)
     }
 }
 extension TrackingViewController: CLLocationManagerDelegate {
