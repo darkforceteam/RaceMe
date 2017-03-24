@@ -12,16 +12,16 @@ import CoreLocation
 
 class Location: NSObject {
     var key: String
-    var longitude: String
-    var lattitude: String
+    var longitude: Double
+    var lattitude: Double
     var speed: String
     var timestamp: String
     let ref: FIRDatabaseReference?
     
     init(longtitude: String, lattitude: String, speed: String, timestamp: String, key: String = "") {
         self.key = key
-        self.longitude = longtitude
-        self.lattitude = lattitude
+        self.longitude = Double(longtitude)!
+        self.lattitude = Double(lattitude)!
         self.timestamp = timestamp
         self.speed = speed
         self.ref = nil
@@ -30,8 +30,8 @@ class Location: NSObject {
     init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        longitude = snapshotValue[Constants.Location.LONGTITUDE] as! String
-        lattitude = snapshotValue[Constants.Location.LATITUDE] as! String
+        longitude = snapshotValue[Constants.Location.LONGTITUDE] as! Double
+        lattitude = snapshotValue[Constants.Location.LATITUDE] as! Double
         timestamp = snapshotValue[Constants.Location.TIMESTAMP] as! String
         speed = snapshotValue[Constants.Location.SPEED] as! String
         ref = snapshot.ref
