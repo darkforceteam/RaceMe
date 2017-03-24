@@ -26,7 +26,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: view.bounds.size.height))
+        let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: UIScreen.main.bounds.height))
         scrollView.addSubview(view)
         view = scrollView
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -78,6 +78,16 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let page = scrollView.contentOffset.x / scrollView.frame.size.width
         userStatisticsPageControl.currentPage = Int(page)
+    }
+
+    @IBAction func onSettingsButton(_ sender: UIButton) {
+        let profileSettingsViewController = ProfileSettingsViewController(nibName: "ProfileSettingsViewController", bundle: nil)
+        navigationController?.pushViewController(profileSettingsViewController, animated: true)
+    }
+    
+    @IBAction func onNotificationsButton(_ sender: UIButton) {
+        let notificationsViewController = NotificationsViewController(nibName: "NotificationsViewController", bundle: nil)
+        navigationController?.pushViewController(notificationsViewController, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
