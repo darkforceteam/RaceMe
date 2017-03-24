@@ -49,7 +49,6 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "DURATION"
         label.textColor = .darkGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16)
         return label
