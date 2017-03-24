@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 findFriendsViewController.tabBarItem.image = UIImage(named: "people-add")
 
                 // Set up the Tracking View Controller
-                let trackingViewController = TrackingViewController(nibName: "TrackingViewController", bundle: nil)
+                let trackingViewController = RecordViewController(nibName: "RecordViewController", bundle: nil)
                 trackingViewController.tabBarItem.title = "Tracking"
                 trackingViewController.tabBarItem.image = UIImage(named: "play")
                 

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978351E83FD85005F41B3 /* RecordViewController.swift */; };
+		B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22978361E83FD85005F41B3 /* RecordViewController.xib */; };
+		B229783A1E83FE1E005F41B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978391E83FE1E005F41B3 /* User.swift */; };
+		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
+		B229783E1E8400E5005F41B3 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783D1E8400E5005F41B3 /* Run.swift */; };
+		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
 		B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */; };
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
@@ -34,6 +40,12 @@
 
 /* Begin PBXFileReference section */
 		3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B22978351E83FD85005F41B3 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
+		B22978361E83FD85005F41B3 /* RecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordViewController.xib; sourceTree = "<group>"; };
+		B22978391E83FE1E005F41B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		B229783D1E8400E5005F41B3 /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
+		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +119,9 @@
 				B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */,
 				B68177AD1E7ED20200FF760F /* GroupViewController.swift */,
 				B68177AE1E7ED20200FF760F /* GroupViewController.xib */,
+				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
+				B22978361E83FD85005F41B3 /* RecordViewController.xib */,
+				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -123,8 +138,10 @@
 		B68D08201E7E2A4200DC971F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B22978391E83FE1E005F41B3 /* User.swift */,
 				D9D9DF171E81057C008C086C /* Location.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
+				B229783D1E8400E5005F41B3 /* Run.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -155,6 +172,7 @@
 				B68D081E1E7E2A1D00DC971F /* Controllers */,
 				B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */,
 				D9D9DF1B1E810EB5008C086C /* Constants.swift */,
+				B229783B1E840066005F41B3 /* Extensions.swift */,
 				B637D2251E7E2F6600F41A07 /* Main.storyboard */,
 				B6A6C2771E76DF550021EFC0 /* Assets.xcassets */,
 				B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */,
@@ -247,6 +265,7 @@
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 				B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */,
+				B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -310,8 +329,13 @@
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
+				B229783E1E8400E5005F41B3 /* Run.swift in Sources */,
+				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
+				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
+				B229783C1E840066005F41B3 /* Extensions.swift in Sources */,
+				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
@@ -437,7 +461,7 @@
 					"$(PROJECT_DIR)/RaceMe",
 				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -456,7 +480,7 @@
 					"$(PROJECT_DIR)/RaceMe",
 				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
