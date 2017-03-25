@@ -19,6 +19,7 @@ class NotificationsViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.tableFooterView = UIView(frame: .zero)
         tableView.register(UINib(nibName: "NotificationCell", bundle: nil), forCellReuseIdentifier: "NotificationCell")
     }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ProfileSettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
@@ -19,6 +20,8 @@ class ProfileSettingsViewController: UIViewController {
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
+        //tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
+        //tableView.tableFooterView?.backgroundColor = .black
         tableView.register(UINib(nibName: "TextSettingCell", bundle: nil), forCellReuseIdentifier: "TextSettingCell")
         tableView.register(UINib(nibName: "DisclosureIndicatorCell", bundle: nil), forCellReuseIdentifier: "DisclosureIndicatorCell")
     }
@@ -55,15 +58,6 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
         }
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case 1:
-            return "Profile"
-        default:
-            return "Account"
-        }
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
         case 1:
@@ -75,6 +69,21 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
             cell.settingLabel.text = items[indexPath.row]
             return cell
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.section {
+        case 1:
+            try! FIRAuth.auth()!.signOut()
+            var initialViewController: UIViewController?
+            initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+            let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+            var window: UIWindow?
+            window = UIWindow(frame: frame)
+            window!.rootViewController = initialViewController
+            window!.makeKeyAndVisible()
+        default:
+            break
+        }
     }
 }
