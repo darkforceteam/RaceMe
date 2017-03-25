@@ -50,6 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Set up the Tab Bar Controller to have two tabs
                 let tabBarController = UITabBarController()
                 tabBarController.viewControllers = [profileViewController, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
+                tabBarController.selectedIndex = 2
                 
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController

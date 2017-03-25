@@ -55,4 +55,8 @@ extension UIColor {
 
 let customGray = UIColor(170, 184, 194)
 let customGreen = UIColor(74, 167, 127)
-let customOrange = UIColor(253, 149, 111)
+let customOrange = UIColor(255, 183, 68)
+let stopColor = UIColor(239, 93, 53)
+let pauseColor = UIColor(46, 201, 214)
+let resumeColor = UIColor(135, 229, 127)
+let backgroundGray = UIColor(239, 239, 244)

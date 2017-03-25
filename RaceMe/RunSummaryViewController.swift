@@ -197,7 +197,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func exitButtonDidTouch() {
-        dismiss(animated: true, completion: nil)
+        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {
