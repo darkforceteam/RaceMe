@@ -9,6 +9,8 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseDatabase
+import FacebookCore
 import FacebookLogin
 
 class LoginViewController: UIViewController {
@@ -53,6 +55,22 @@ class LoginViewController: UIViewController {
                     if error != nil {
                         print(error!.localizedDescription)
                     }
+                    let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender,birthday"], accessToken: accessToken, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
+                    request.start { (response, result) in
+                        switch result {
+                        case .success(let value):
+                            let profile = value.dictionaryValue!
+                            FIRDatabase.database().reference().child("USERS").child((user?.uid)!).setValue([
+                                "email": profile["email"],
+                                "name": profile["name"],
+                                "picture": profile["picture"],
+                                "gender": profile["gender"],
+                                "birthday": profile["birthday"]])
+                        case .failed(let error):
+                            print(error)
+                        }
+                    }
+                    
                     self.initialViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
                     self.present(self.initialViewController!, animated: true, completion: nil)
                 })
@@ -60,15 +78,4 @@ class LoginViewController: UIViewController {
             }
         }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

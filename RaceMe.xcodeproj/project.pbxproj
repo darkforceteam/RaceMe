@@ -38,6 +38,10 @@
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
 		B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2771E76DF550021EFC0 /* Assets.xcassets */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
+		B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */; };
+		B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */; };
+		B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */; };
+		B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */; };
 		B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */; };
 		B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */; };
 		B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520081E8500A90071E361 /* NotificationsViewController.swift */; };
@@ -85,6 +89,10 @@
 		B6A6C2771E76DF550021EFC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A6C27C1E76DF550021EFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightDetailCell.swift; sourceTree = "<group>"; };
+		B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightDetailCell.xib; sourceTree = "<group>"; };
+		B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerSettingCell.swift; sourceTree = "<group>"; };
+		B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerSettingCell.xib; sourceTree = "<group>"; };
 		B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSettingsViewController.xib; sourceTree = "<group>"; };
 		B6F520081E8500A90071E361 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -161,6 +169,10 @@
 				B6860B681E8566F70008B06A /* NotificationCell.xib */,
 				B6860B6B1E85776C0008B06A /* DisclosureIndicatorCell.swift */,
 				B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */,
+				B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */,
+				B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */,
+				B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */,
+				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -288,11 +300,13 @@
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
 				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
 				B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */,
+				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
 				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
 				B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */,
 				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
+				B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
 				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
@@ -364,6 +378,7 @@
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
 				B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */,
+				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
 				B229783E1E8400E5005F41B3 /* Run.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
@@ -377,6 +392,7 @@
 				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,
 				B6860B651E8563AD0008B06A /* TextSettingCell.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
+				B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */,
 				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,

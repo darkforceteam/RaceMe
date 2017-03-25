@@ -40,7 +40,7 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
         loadUserStatistics()
 
         // Do any additional setup after loading the view.
-        let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
+        let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender,birthday"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
         request.start { (response, result) in
             switch result {
             case .success(let value):
@@ -83,11 +83,13 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBAction func onSettingsButton(_ sender: UIButton) {
         let profileSettingsViewController = ProfileSettingsViewController(nibName: "ProfileSettingsViewController", bundle: nil)
         navigationController?.pushViewController(profileSettingsViewController, animated: true)
+        
     }
     
     @IBAction func onNotificationsButton(_ sender: UIButton) {
         let notificationsViewController = NotificationsViewController(nibName: "NotificationsViewController", bundle: nil)
         navigationController?.pushViewController(notificationsViewController, animated: true)
+        
     }
 
     override func didReceiveMemoryWarning() {

@@ -30,15 +30,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 profileNavVC.addChildViewController(profileViewController)
                 
                 // Style for Navigation Bar
-                //profileNavVC.navigationBar.barTintColor = UIColor(red: 39/255, green: 129/255, blue: 240/255, alpha: 1.0)
-                //profileNavVC.navigationBar.alpha = 1.0
-                //profileNavVC.navigationBar.isTranslucent = false
-                
+                profileNavVC.navigationBar.barTintColor = primaryColor
+                profileNavVC.navigationBar.isTranslucent = false
                 profileNavVC.navigationBar.topItem?.title = "Me"
-                profileNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor(red: 39/255, green: 129/255, blue: 240/255, alpha: 1.0)]
-                //profileNavVC.navigationBar.barStyle = UIBarStyle.black
-                profileNavVC.navigationBar.tintColor = UIColor(red: 39/255, green: 129/255, blue: 240/255, alpha: 1.0)
-                profileNavVC.navigationBar.shadowImage = nil
+                profileNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                profileNavVC.navigationBar.barStyle = UIBarStyle.black
+                profileNavVC.navigationBar.tintColor = .white
                 
                 profileViewController.tabBarItem.title = "Me"
                 profileViewController.tabBarItem.image = UIImage(named: "profile")
@@ -65,6 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 // Set up the Tab Bar Controller to have two tabs
                 let tabBarController = UITabBarController()
+                tabBarController.tabBar.tintColor = primaryColor
                 tabBarController.viewControllers = [profileNavVC, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
                 
                 // Make the Tab Bar Controller the root view controller

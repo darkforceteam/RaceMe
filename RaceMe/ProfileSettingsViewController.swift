@@ -9,39 +9,37 @@
 import UIKit
 import FirebaseAuth
 
+enum TableSection: Int {
+    case accountInfo = 0, accountActions
+}
+
+enum AccountInfoRow: Int {
+    case email = 0, birthday, gender, height, weight
+    static var count: Int { return 5 }
+}
+
 class ProfileSettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
-    var items = ["Item 1", "Item2", "Item3", "Item4"]
+    var items = ["Email", "Gender", "Birthday", "Height (inches)", "Weight (lbs)"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 1))
-        //tableView.tableFooterView?.backgroundColor = .black
-        tableView.register(UINib(nibName: "TextSettingCell", bundle: nil), forCellReuseIdentifier: "TextSettingCell")
+        tableView.register(UINib(nibName: "RightDetailCell", bundle: nil), forCellReuseIdentifier: "RightDetailCell")
+        tableView.register(UINib(nibName: "PickerSettingCell", bundle: nil), forCellReuseIdentifier: "PickerSettingCell")
         tableView.register(UINib(nibName: "DisclosureIndicatorCell", bundle: nil), forCellReuseIdentifier: "DisclosureIndicatorCell")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "Settings"
     }
-    */
-
 }
 
 extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -50,30 +48,48 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 1:
+        switch TableSection(rawValue: section)! {
+        case TableSection.accountActions:
             return 1
         default:
-            return items.count
+            return AccountInfoRow.count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch TableSection(rawValue: section)! {
+        case TableSection.accountActions:
+            return "Account Actions"
+        default:
+            return "Account Informations"
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 1:
+        switch TableSection(rawValue: indexPath.section)! {
+        case TableSection.accountActions:
             let cell = tableView.dequeueReusableCell(withIdentifier: "DisclosureIndicatorCell", for: indexPath) as! DisclosureIndicatorCell
             cell.titleLabel.text = "Logout"
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextSettingCell", for: indexPath) as! TextSettingCell
-            cell.settingLabel.text = items[indexPath.row]
-            return cell
+            switch AccountInfoRow(rawValue: indexPath.row)! {
+            case AccountInfoRow.email:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailCell", for: indexPath) as! RightDetailCell
+                cell.titleLabel.text = "Email"
+                cell.detailLabel.text = "dk@yoarts.com"
+                return cell
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "PickerSettingCell", for: indexPath) as! PickerSettingCell
+                cell.titleLabel.text = items[indexPath.row]
+                cell.detailLabel.text = items[indexPath.row]
+                return cell
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.section {
-        case 1:
+        switch TableSection(rawValue: indexPath.section)! {
+        case TableSection.accountActions:
             try! FIRAuth.auth()!.signOut()
             var initialViewController: UIViewController?
             initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
@@ -83,7 +99,12 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
             window!.rootViewController = initialViewController
             window!.makeKeyAndVisible()
         default:
-            break
+            switch AccountInfoRow(rawValue: indexPath.row)! {
+            case AccountInfoRow.email:
+                tableView.deselectRow(at: indexPath, animated: true)
+            default:
+                break
+            }
         }
     }
 }
