@@ -6,52 +6,43 @@
 //  Copyright © 2017 CoderSchool. All rights reserved.
 //
 
-import UIKit
-import FirebaseDatabase
+import Foundation
+import Firebase
 import CoreLocation
 
-class Location: NSObject {
+struct Location {
     var key: String
-    var longtitude: String
-    var lattitude: String
-    var speed: String
+    var latitude: Double
+    var longitude: Double
+    var speed: Double
     var timestamp: String
-    let ref: FIRDatabaseReference?
+    var ref: FIRDatabaseReference?
     
-    init(longtitude: String, lattitude: String, speed: String, timestamp: String, key: String = "") {
+    init(key: String = "", _ location: CLLocation) {
         self.key = key
-        self.longtitude = longtitude
-        self.lattitude = lattitude
-        self.timestamp = timestamp
-        self.speed = speed
+        self.latitude = location.coordinate.latitude
+        self.longitude = location.coordinate.longitude
+        self.timestamp = "\(location.timestamp)"
+        self.speed = location.speed
         self.ref = nil
     }
     
     init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
         let snapshotValue = snapshot.value as! [String: AnyObject]
-        longtitude = snapshotValue[Constants.Location.LONGTITUDE] as! String
-        lattitude = snapshotValue[Constants.Location.LATTITUDE] as! String
+        longitude = snapshotValue[Constants.Location.LONGTITUDE] as! Double
+        latitude = snapshotValue[Constants.Location.LATITUDE] as! Double
         timestamp = snapshotValue[Constants.Location.TIMESTAMP] as! String
-        speed = snapshotValue[Constants.Location.SPEED] as! String
+        speed = snapshotValue[Constants.Location.SPEED] as! Double
         ref = snapshot.ref
     }
     
     func toAnyObject() -> Any {
         return [
-            Constants.Location.LONGTITUDE: longtitude,
-            Constants.Location.LATTITUDE: lattitude,
+            Constants.Location.LONGTITUDE: longitude,
+            Constants.Location.LATITUDE: latitude,
             Constants.Location.TIMESTAMP: timestamp,
             Constants.Location.SPEED: speed
         ]
-    }
-    
-    static func initArray(gpsLocs: [CLLocation]) -> [Location]{
-        var locations = [Location]()
-        for loc in gpsLocs {
-            let location = Location(longtitude: String(loc.coordinate.longitude), lattitude: String(loc.coordinate.longitude), speed: String(loc.speed), timestamp: "\(loc.timestamp)")
-            locations.append(location)
-        }
-        return locations
     }
 }
