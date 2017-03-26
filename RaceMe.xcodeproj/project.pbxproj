@@ -48,6 +48,7 @@
 		B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */; };
 		B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520081E8500A90071E361 /* NotificationsViewController.swift */; };
 		B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520091E8500A90071E361 /* NotificationsViewController.xib */; };
+		D9433AC01E8521DB00F085B3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9433ABF1E8521DB00F085B3 /* Route.swift */; };
 		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
 		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
 		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
@@ -101,6 +102,7 @@
 		B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSettingsViewController.xib; sourceTree = "<group>"; };
 		B6F520081E8500A90071E361 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		B6F520091E8500A90071E361 /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		D9433ABF1E8521DB00F085B3 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
