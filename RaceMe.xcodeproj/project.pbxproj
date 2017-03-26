@@ -56,6 +56,7 @@
 		D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */; };
 		D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */; };
 		D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */; };
+		D9F7B20A1E8817AB00B692FF /* WorkoutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */; };
 		F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -114,6 +115,7 @@
 		D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTimeViewController.xib; sourceTree = "<group>"; };
 		D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOnlyTableViewCell.swift; sourceTree = "<group>"; };
 		D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextOnlyTableViewCell.xib; sourceTree = "<group>"; };
+		D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutObject.swift; sourceTree = "<group>"; };
 		E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -205,6 +207,7 @@
 				D9D9DF171E81057C008C086C /* Location.swift */,
 				D9433ABF1E8521DB00F085B3 /* Route.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
+				D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */,
 				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
+				D9F7B20A1E8817AB00B692FF /* WorkoutObject.swift in Sources */,
 				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
