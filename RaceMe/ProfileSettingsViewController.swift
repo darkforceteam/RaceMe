@@ -119,7 +119,6 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
             window!.makeKeyAndVisible()
         default:
             tableView.deselectRow(at: indexPath, animated: true)
-            l
         }
     }
 }
