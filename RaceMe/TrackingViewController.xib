@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -14,6 +14,7 @@
                 <outlet property="currentPaceLabel" destination="qfn-gR-VHy" id="vKj-rk-VRS"/>
                 <outlet property="distanceLabel" destination="HHd-fm-dO2" id="Cps-Hx-8EL"/>
                 <outlet property="durationLabel" destination="Yck-1O-KtZ" id="YyY-1H-atr"/>
+                <outlet property="mkMapview" destination="amu-wI-bZK" id="b2T-nb-tuT"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -88,6 +89,10 @@
                         <action selector="stopRun:" destination="-1" eventType="touchUpInside" id="E9h-bD-T1Q"/>
                     </connections>
                 </button>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="amu-wI-bZK">
+                    <rect key="frame" x="16" y="336" width="343" height="311"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </mapView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
