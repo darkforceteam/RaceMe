@@ -64,6 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
                 tabBarController.viewControllers = [profileNavVC, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
+                tabBarController.selectedIndex = 2
                 
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController
@@ -71,7 +72,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 var initialViewController: UIViewController?
                 initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-                let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                let frame = UIScreen.main.bounds
                 self.window = UIWindow(frame: frame)
                 self.window!.rootViewController = initialViewController
                 self.window!.makeKeyAndVisible()
