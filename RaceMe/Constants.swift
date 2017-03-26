@@ -30,7 +30,7 @@ struct Constants {
     }
     struct Location{
         static let LONGTITUDE = "longtitude"
-        static let LATTITUDE = "lattitude"
+        static let LATITUDE = "latitude"
         static let TIMESTAMP = "timestamp"
         static let SPEED = "speed"
     }
