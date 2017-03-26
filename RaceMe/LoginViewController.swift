@@ -55,22 +55,6 @@ class LoginViewController: UIViewController {
                     if error != nil {
                         print(error!.localizedDescription)
                     }
-                    let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender,birthday"], accessToken: accessToken, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
-                    request.start { (response, result) in
-                        switch result {
-                        case .success(let value):
-                            let profile = value.dictionaryValue!
-                            FIRDatabase.database().reference().child("USERS").child((user?.uid)!).setValue([
-                                "email": profile["email"],
-                                "name": profile["name"],
-                                "picture": profile["picture"],
-                                "gender": profile["gender"],
-                                "birthday": profile["birthday"]])
-                        case .failed(let error):
-                            print(error)
-                        }
-                    }
-                    
                     self.initialViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
                     self.present(self.initialViewController!, animated: true, completion: nil)
                 })

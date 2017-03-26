@@ -18,6 +18,8 @@
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
 		B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */; };
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
+		B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */; };
+		B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */; };
 		B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65F1AD71E82E12E009E526B /* UserStatistics.xib */; };
 		B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */; };
 		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
@@ -66,6 +68,8 @@
 		B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsViewController.swift; sourceTree = "<group>"; };
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
+		B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerSettingCell.swift; sourceTree = "<group>"; };
+		B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerSettingCell.xib; sourceTree = "<group>"; };
 		B65F1AD71E82E12E009E526B /* UserStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatistics.xib; sourceTree = "<group>"; };
 		B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatisticsView.swift; sourceTree = "<group>"; };
 		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 				B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */,
 				B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */,
 				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
+				B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */,
+				B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -296,6 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
 				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
@@ -381,6 +388,7 @@
 				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
 				B229783E1E8400E5005F41B3 /* Run.swift in Sources */,
+				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
 				B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */,
 				B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */,

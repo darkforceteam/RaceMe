@@ -20,8 +20,9 @@ enum AccountInfoRow: Int {
 
 class ProfileSettingsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    var items = ["Email", "Gender", "Birthday", "Height (inches)", "Weight (lbs)"]
+
+    var items = ["Email", "Birthday", "Gender", "Height (kg)", "Weight (cm)"]
+    var placeholder = ["", "mm dd, yy", "Not Specified", "0", "0"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class ProfileSettingsViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(UINib(nibName: "RightDetailCell", bundle: nil), forCellReuseIdentifier: "RightDetailCell")
         tableView.register(UINib(nibName: "PickerSettingCell", bundle: nil), forCellReuseIdentifier: "PickerSettingCell")
+        tableView.register(UINib(nibName: "DatePickerSettingCell", bundle: nil), forCellReuseIdentifier: "DatePickerSettingCell")
         tableView.register(UINib(nibName: "DisclosureIndicatorCell", bundle: nil), forCellReuseIdentifier: "DisclosureIndicatorCell")
     }
 
@@ -78,10 +80,27 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
                 cell.titleLabel.text = "Email"
                 cell.detailLabel.text = "dk@yoarts.com"
                 return cell
+            case AccountInfoRow.birthday:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerSettingCell", for: indexPath) as! DatePickerSettingCell
+                cell.settingLabel.text = items[indexPath.row]
+                cell.settingTextField.placeholder = placeholder[indexPath.row]
+                return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PickerSettingCell", for: indexPath) as! PickerSettingCell
-                cell.titleLabel.text = items[indexPath.row]
-                cell.detailLabel.text = items[indexPath.row]
+                cell.settingLabel.text = items[indexPath.row]
+                cell.settingTextField.placeholder = placeholder[indexPath.row]
+                switch AccountInfoRow(rawValue: indexPath.row)! {
+                case AccountInfoRow.height:
+                    for i in 120...220 {
+                        cell.pickerData.append(("\(i)", "\(i) cm"))
+                    }
+                case AccountInfoRow.weight:
+                    for i in 20...150 {
+                        cell.pickerData.append(("\(i)", "\(i) kg"))
+                    }
+                default:
+                    cell.pickerData = [("Not Specified", "Not Specified"), ("Male", "Male"), ("Female", "Female")]
+                }
                 return cell
             }
         }
@@ -99,12 +118,8 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
             window!.rootViewController = initialViewController
             window!.makeKeyAndVisible()
         default:
-            switch AccountInfoRow(rawValue: indexPath.row)! {
-            case AccountInfoRow.email:
-                tableView.deselectRow(at: indexPath, animated: true)
-            default:
-                break
-            }
+            tableView.deselectRow(at: indexPath, animated: true)
+            l
         }
     }
 }
