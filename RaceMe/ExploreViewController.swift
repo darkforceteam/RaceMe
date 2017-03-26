@@ -17,15 +17,29 @@ class ExploreViewController: UIViewController {
     var myLat = 0.00
     var myLong = 0.00
     var ref: FIRDatabaseReference!
+    
+    @IBAction func selectTime(_ sender: UIButton) {
+        let selectTimeVC = SelectTimeViewController(nibName: "SelectTimeViewController", bundle: nil)
+        selectTimeVC.modalPresentationStyle = UIModalPresentationStyle.popover
+        // set up the popover presentation controller
+//        selectTimeVC.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.up
+        selectTimeVC.popoverPresentationController?.delegate = self
+        selectTimeVC.popoverPresentationController?.sourceView = sender
+        selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
+        selectTimeVC.preferredContentSize.height = 200
+        
+        selectTimeVC.delegate = self
+        // present the popover
+        self.present(selectTimeVC, animated: true, completion: nil)
+    }
 
+    @IBOutlet weak var selectTimeButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         ref = FIRDatabase.database().reference()
-        loadData()
-        
         mapView.delegate = self
         mapView.showsUserLocation = true
         locationManager.delegate = self
@@ -40,17 +54,80 @@ class ExploreViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.startUpdatingLocation()
         
+        loadData()
     }
+    
+    var allRoute = [Route]()
+    var displayRoute = [Route]()
+    var todayRoute = [Route]()
+    var tomorrowRoute = [Route]()
+    var laterRoute = [Route]()
+    var selectedTime = "0"
     
     func loadData(){
         ref.child(Constants.Route.TABLE_NAME).observeSingleEvent(of: .value, with: { (snapshot) in
-            let routes = Route.decodeRoute(routesData: snapshot)
+            let routes = Route.decodeRoutes(routesData: snapshot)
             for route in routes{
-                self.drawRoute(route: route.locations)
+                if route.isPublic {
+                    print("drawing route with distance: \(route.distance)")
+                    self.allRoute.append(route)
+                }
             }
+            self.filterRoutesData(newTime: self.selectedTime)
+            self.refreshDisplayRoute()
         }) { (error) in
             print(error.localizedDescription)
         }
+    }
+    
+    func refreshDisplayRoute(){
+        let overlays = mapView.overlays
+        mapView.removeOverlays(overlays)
+        
+        for route in displayRoute {
+            drawRoute(route: route.locations)
+        }
+    }
+    
+    func filterRoutesData(newTime: String){
+        if newTime != selectedTime{
+            switch newTime {
+            case "0":
+                displayRoute = allRoute
+            case "1":
+                if todayRoute.count == 0 {
+                    todayRoute = buildDisplayRoute(timeIndex: newTime)
+                }
+                displayRoute = todayRoute
+            case "2":
+                if tomorrowRoute.count == 0 {
+                    tomorrowRoute = buildDisplayRoute(timeIndex: newTime)
+                }
+                displayRoute = tomorrowRoute
+            default:
+                if laterRoute.count == 0 {
+                    laterRoute = buildDisplayRoute(timeIndex: newTime)
+                }
+                displayRoute = laterRoute
+            }
+            selectedTime = newTime
+        } else {
+            displayRoute = allRoute
+            selectedTime = newTime
+        }
+    }
+    
+    func buildDisplayRoute(timeIndex: String) -> [Route]{
+        var returnRoute = [Route]()
+        switch timeIndex {
+        case "1":
+            returnRoute.append(allRoute.first!)
+        case "2":
+            returnRoute.append(allRoute.last!)
+        default:
+            returnRoute.append(allRoute.last!)
+        }
+        return returnRoute
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,7 +149,7 @@ class ExploreViewController: UIViewController {
      }
      */
 }
-extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate {
+extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate, SelectTimeViewControllerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
 //            print("Found User's location: \(location11)")
@@ -96,5 +173,14 @@ extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate {
         renderer.lineWidth = 4.0
         
         return renderer
+    }
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        // return UIModalPresentationStyle.FullScreen
+        return UIModalPresentationStyle.none
+    }
+    func changeTime(selectTimeVC: SelectTimeViewController, selectedTime: String){
+        print("Selected value: \(selectedTime)")
+        filterRoutesData(newTime: selectedTime)
+        refreshDisplayRoute()
     }
 }

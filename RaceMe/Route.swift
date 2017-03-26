@@ -10,7 +10,9 @@ import UIKit
 import CoreLocation
 import FirebaseDatabase
 class Route: NSObject {
+    var distance: String = ""
     var locations = [CLLocationCoordinate2D]()
+    var isPublic = false
     init(locationsData: FIRDataSnapshot){
         print("initializing Route")
         var locCount = 0
@@ -18,8 +20,16 @@ class Route: NSObject {
             
             if let oneLoc = loc.value as? NSDictionary{
                 let location = CLLocationCoordinate2D(latitude: oneLoc.value(forKey: Constants.Location.LATITUDE) as! CLLocationDegrees, longitude: oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! CLLocationDegrees)
-                    locations.append(location)
-                    locCount += 1
+                locations.append(location)
+                locCount += 1
+            } else {
+                if loc.key == "DISTANCE" {
+                    distance = loc.value as! String
+                } else if loc.key == "PUBLIC" {
+                    isPublic = true
+                } else {
+                    
+                }
             }
         }
         print("Route has \(locCount) locs")
@@ -30,14 +40,16 @@ class Route: NSObject {
         //            locations.append(location)
     }
     
-    static func decodeRoute(routesData: FIRDataSnapshot) -> [Route]{
+    static func decodeRoutes(routesData: FIRDataSnapshot) -> [Route]{
         var routes = [Route]()
         var i = 0
         for child in routesData.children.allObjects as! [FIRDataSnapshot] {
             let route = Route(locationsData: child)
-            routes.append(route)
-            i+=1
-            print("added route number: \(i)")
+            if route.locations.count > 0 {
+                routes.append(route)
+                i+=1
+                print("added route number: \(i)")
+            }
         }
         return routes
     }
