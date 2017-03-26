@@ -52,6 +52,10 @@
 		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
 		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
 		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
+		D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */; };
+		D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */; };
+		D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */; };
+		D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */; };
 		F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +110,10 @@
 		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeViewController.swift; sourceTree = "<group>"; };
+		D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTimeViewController.xib; sourceTree = "<group>"; };
+		D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOnlyTableViewCell.swift; sourceTree = "<group>"; };
+		D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextOnlyTableViewCell.xib; sourceTree = "<group>"; };
 		E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -182,6 +190,10 @@
 				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
 				B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */,
 				B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */,
+				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
+				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
+				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
+				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -269,7 +281,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 566T8PK976;
+						DevelopmentTeam = D7RX787JDX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -305,6 +317,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */,
 				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
@@ -318,6 +331,7 @@
 				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
 				B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
+				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
 				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 				B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */,
@@ -392,13 +406,13 @@
 				B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */,
 				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
-				B229783E1E8400E5005F41B3 /* Run.swift in Sources */,
 				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
 				B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */,
 				B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */,
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
 				B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */,
+				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B229783C1E840066005F41B3 /* Extensions.swift in Sources */,
@@ -407,6 +421,7 @@
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */,
 				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
+				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);
@@ -524,7 +539,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -532,7 +547,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.run;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -543,7 +558,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -551,7 +566,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.run;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
