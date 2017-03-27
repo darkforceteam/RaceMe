@@ -331,7 +331,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
         distanceRef.setValue(distance)
         
-        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).childByAutoId()
+        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
         workout = Workout(user, routeRef.key, locations, distance, duration)
         workoutRef.setValue(workout.toAnyObject())
     }

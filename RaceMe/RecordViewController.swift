@@ -47,10 +47,6 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         authObserving()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        startButton.isHidden = false
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         centerMapOnLocation()
     }
