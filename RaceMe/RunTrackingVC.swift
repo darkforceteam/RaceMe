@@ -202,6 +202,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.backgroundColor = stopColor
         button.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
         return button
     }()
     
@@ -212,6 +214,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.backgroundColor = pauseColor
         button.addTarget(self, action: #selector(pauseResumeButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 20
+        button.clipsToBounds = true
         return button
     }()
     
@@ -369,8 +373,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        stopButton.anchorInCorner(.bottomLeft, xPad: 0, yPad: 0, width: view.frame.width / 2, height: 60)
-        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: view.frame.width / 2, height: 60)
+        stopButton.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 40)
+        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 40)
         seperatorLineView1.anchorToEdge(.bottom, padding: 60, width: view.frame.width, height: 20)
         minDisplay.align(.aboveCentered, relativeTo: seperatorLineView1, padding: 0, width: 80, height: 60)
         hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
