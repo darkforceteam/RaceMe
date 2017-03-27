@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Firebase. All rights reserved.
 //
 
-#import </Users/mrlong/Desktop/iOS/Final/Pods/FirebaseDatabase/Frameworks/FirebaseDatabase.framework/Headers/FIRDatabase.h>
+#import </Volumes/Mac/Data/Apps/Codeschool/RaceMe/Pods/FirebaseDatabase/Frameworks/FirebaseDatabase.framework/Headers/FIRDatabase.h>
 #import "GeoFire.h"
 #import "GeoFire+Private.h"
 #import "GFGeoHash.h"

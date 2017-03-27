@@ -7,6 +7,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
+import FirebaseAuth
 import FacebookCore
 import FacebookLogin
 import AFNetworking
@@ -16,6 +20,14 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var avatarImage: UIImageView!
     @IBOutlet weak var userStatisticsScrollView: UIScrollView!
     @IBOutlet weak var userStatisticsPageControl: UIPageControl!
+    
+    var dataBaseRef: FIRDatabaseReference! {
+        return FIRDatabase.database().reference()
+    }
+    
+    var storageRef: FIRStorage {
+        return FIRStorage.storage()
+    }
 
     let userStats1 = ["title":"Kilometers", "current_period":"8.3", "last_period":"0"]
     let userStats2 = ["title":"Average Pace (Min/Km)", "current_period":"1:15:08", "last_period":"2:33:54"]
@@ -26,42 +38,42 @@ class ProfileViewController: UIViewController, UIScrollViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: view.bounds.size.width, height: UIScreen.main.bounds.height))
         scrollView.addSubview(view)
         view = scrollView
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         scrollView.backgroundColor = .white
-
+        
         userStatisticsArray = [userStats1,userStats2,userStats3,userStats4]
         userStatisticsScrollView.isPagingEnabled = true
         userStatisticsScrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * CGFloat(userStatisticsArray.count), height: 120)
         userStatisticsScrollView.showsHorizontalScrollIndicator = false
         userStatisticsScrollView.delegate = self
         loadUserStatistics()
-
-        // Do any additional setup after loading the view.
-        let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender,birthday"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
-        request.start { (response, result) in
-            switch result {
-            case .success(let value):
-                let profile = value.dictionaryValue!
-                self.nameLabel.text = profile["name"] as! String?
-
-                if let picture = profile["picture"] as? NSDictionary {
-                    let avatarURL = URL(string: picture.value(forKeyPath: "data.url") as! String)
-                    self.avatarImage.setImageWith(avatarURL!)
-                    self.avatarImage.layer.cornerRadius = self.avatarImage.frame.width / 2
-                    self.avatarImage.layer.borderColor = UIColor.white.cgColor
-                    self.avatarImage.layer.borderWidth = 3
-                    self.avatarImage.clipsToBounds = true
-                }
-                
-            case .failed(let error):
-                print(error)
-            }
-        }
     }
-    
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        self.avatarImage.layer.cornerRadius = self.avatarImage.frame.width / 2
+        self.avatarImage.layer.borderColor = UIColor.white.cgColor
+        self.avatarImage.layer.borderWidth = 3
+        self.avatarImage.clipsToBounds = true
+        loadUserInfo()
+    }
+
+    func loadUserInfo() {
+        let userRef = dataBaseRef.child("USERS/\(FIRAuth.auth()!.currentUser!.uid)")
+        userRef.observe(.value, with: { (snapshot) in
+            let user = User(snapshot: snapshot)
+            self.nameLabel.text = user.displayName
+            if nil != user.photoUrl {
+                let avatarURL = URL(string: user.photoUrl!)
+                self.avatarImage.setImageWith(avatarURL!)
+            }
+        })
+    }
+
     func loadUserStatistics() {
         for (index, userStatistics) in userStatisticsArray.enumerated() {
             if let userStatisticsView = Bundle.main.loadNibNamed("UserStatistics", owner: self, options: nil)?.first as? UserStatisticsView {

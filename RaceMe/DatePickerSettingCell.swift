@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class DatePickerSettingCell: UITableViewCell {
     @IBOutlet weak var settingLabel: UILabel!
     @IBOutlet weak var settingTextField: UITextField!
-
+    
+    var dataRef: String?
     var datePicker = UIDatePicker()
     
     override func awakeFromNib() {
@@ -49,6 +51,11 @@ class DatePickerSettingCell: UITableViewCell {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
         settingTextField.text = "\(dateFormatter.string(from: datePicker.date))"
+        
+        if ( nil != dataRef ) {
+            FIRDatabase.database().reference().child(dataRef!).setValue("\(dateFormatter.string(from: datePicker.date))")
+        }
+        
         settingTextField.resignFirstResponder()
     }
     func cancelPicker() {

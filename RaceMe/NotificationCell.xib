@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="287" height="69"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ivy-O3-vZO">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="Ivy-O3-vZO">
                         <rect key="frame" x="15" y="15" width="40" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="XAh-PT-Rjh"/>
@@ -65,4 +65,7 @@
             <point key="canvasLocation" x="25" y="65"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="default-avatar" width="64" height="64"/>
+    </resources>
 </document>

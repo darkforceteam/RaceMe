@@ -26,7 +26,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVI-Lj-aU5">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="B5l-2n-xsQ">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-avatar" translatesAutoresizingMaskIntoConstraints="NO" id="B5l-2n-xsQ">
                             <rect key="frame" x="159" y="30" width="56" height="56"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="56" id="3pI-cY-Jyd"/>
@@ -223,6 +223,7 @@
     </objects>
     <resources>
         <image name="bell-icon" width="30" height="30"/>
+        <image name="default-avatar" width="64" height="64"/>
         <image name="settings-icon" width="30" height="30"/>
     </resources>
 </document>
