@@ -15,6 +15,8 @@ class Route: NSObject {
     var isPublic = false
     //    var startLoc: CLLocationCoordinate2D
     init(locationsData: FIRDataSnapshot){
+        
+        var ref = locationsData.ref
         print("initializing Route")
         var locCount = 0
         for loc in locationsData.children.allObjects as! [FIRDataSnapshot] {
@@ -26,6 +28,7 @@ class Route: NSObject {
                 locCount += 1
                 } else {
                     //LONG TODO handle GeoFire Data
+                    //no need. Moved GeoFire marking to global
                 }
             } else {
                 if let key = loc.key as String? {
