@@ -18,7 +18,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     var workout: Workout! {
         didSet {
             if let distance = workout?.distanceKm, let timestamp = workout?.startTime, let duration = workout?.duration {
-                dateLabel.text = timestamp
+                dateLabel.text = timestamp.toDate
                 durationDisplay.text = "\(duration.toMinutes):\(duration.toSeconds)"
                 distanceDisplay.text = String(format: "%.1f km", distance)
                 let pace = Double(duration) / distance
@@ -206,15 +206,22 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func saveButtonDidTouch() {
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     func deleteButtonTapped() {
         let routeRef = ref.child(Constants.Route.TABLE_NAME).child(workout.routeId)
-        routeRef.removeValue()
-        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(workout.routeId)
-        workoutRef.removeValue()
-        self.dismiss(animated: true, completion: nil)
+        let workoutRef = self.ref.child(Constants.Workout.TABLE_NAME).child(workout.routeId)
+        let alertController = UIAlertController(title: "Discard Run?", message: "Are you sure you would like to discard this run?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            routeRef.removeValue()
+            workoutRef.removeValue()
+            self.dismiss(animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(yesAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {

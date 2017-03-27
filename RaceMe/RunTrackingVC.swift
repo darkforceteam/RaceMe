@@ -283,7 +283,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     func stopButtonTapped() {
-        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this activity", preferredStyle: .actionSheet)
+        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this run?", preferredStyle: .actionSheet)
         let saveAction = UIAlertAction(title: "Yes I'm Done", style: .default) { (action) in
             self.saveData()
             self.reset()

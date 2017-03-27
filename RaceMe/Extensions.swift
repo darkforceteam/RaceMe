@@ -38,12 +38,16 @@ extension Double {
     }
 }
 
-extension NSDate {
-    var toString: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .long
-        dateFormatter.timeZone = TimeZone(secondsFromGMT: 7)
-        return dateFormatter.string(from: self as Date)
+extension String {
+    var toDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        let date = formatter.date(from: self)
+        formatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"
+        if let date = date {
+            return formatter.string(from: date)
+        }
+        return ""
     }
 }
 
@@ -84,7 +88,7 @@ extension UIApplication {
     }
 }
 
-let primaryColor = UIColor(red: 47/255, green: 151/255, blue: 243/255, alpha: 1.0)
+let primaryColor = UIColor(47, 151, 243)
 let customGray = UIColor(170, 184, 194)
 let customGreen = UIColor(74, 167, 127)
 let customOrange = UIColor(255, 183, 68)

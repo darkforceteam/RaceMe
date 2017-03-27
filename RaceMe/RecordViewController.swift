@@ -62,7 +62,6 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupViews() {
-        title = "Run Tracking"
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)
