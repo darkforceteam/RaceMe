@@ -26,18 +26,7 @@ struct Location {
         self.speed = location.speed
         self.ref = nil
     }
-<<<<<<< HEAD
     
-        init(longtitude: Double, lattitude: Double, speed: Double, timestamp: String, key: String = "") {
-            self.key = key
-            self.longitude = longtitude
-            self.latitude = lattitude
-            self.timestamp = timestamp
-            self.speed = speed
-            self.ref = nil
-        }
-=======
-
     init(longtitude: Double, lattitude: Double, speed: Double, timestamp: String, key: String = "") {
         self.key = key
         self.longitude = longtitude
@@ -46,7 +35,6 @@ struct Location {
         self.speed = speed
         self.ref = nil
     }
->>>>>>> master
     
     init(snapshot: FIRDataSnapshot) {
         key = snapshot.key
