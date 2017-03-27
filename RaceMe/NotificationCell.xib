@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="70" id="KGk-i7-Jjw" customClass="NotificationCell" customModule="RaceMe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="287" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ivy-O3-vZO">
+                        <rect key="frame" x="15" y="15" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="XAh-PT-Rjh"/>
+                            <constraint firstAttribute="height" constant="40" id="eZQ-To-PeJ"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Long Vu" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AJj-pV-vSi">
+                        <rect key="frame" x="63" y="18" width="53" height="16"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="accepted your friend request." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="46Z-vi-BLo">
+                        <rect key="frame" x="63" y="37" width="179.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="1 mins ago" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CQl-fx-rxL">
+                        <rect key="frame" x="120" y="18" width="65" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ivy-O3-vZO" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="18R-aq-XQh"/>
+                    <constraint firstItem="AJj-pV-vSi" firstAttribute="top" secondItem="Ivy-O3-vZO" secondAttribute="top" constant="3" id="3yt-YN-4j0"/>
+                    <constraint firstItem="Ivy-O3-vZO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="7Iq-0T-t5l"/>
+                    <constraint firstItem="CQl-fx-rxL" firstAttribute="leading" secondItem="AJj-pV-vSi" secondAttribute="trailing" constant="4" id="Iat-VT-osZ"/>
+                    <constraint firstItem="CQl-fx-rxL" firstAttribute="centerY" secondItem="AJj-pV-vSi" secondAttribute="centerY" id="Pbm-4m-s2Q"/>
+                    <constraint firstItem="AJj-pV-vSi" firstAttribute="leading" secondItem="Ivy-O3-vZO" secondAttribute="trailing" constant="8" id="aVh-pB-xrv"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="CQl-fx-rxL" secondAttribute="trailing" constant="15" id="jJn-RK-FQc"/>
+                    <constraint firstItem="46Z-vi-BLo" firstAttribute="top" secondItem="AJj-pV-vSi" secondAttribute="bottom" constant="3" id="rrA-TO-BOS"/>
+                    <constraint firstItem="46Z-vi-BLo" firstAttribute="leading" secondItem="AJj-pV-vSi" secondAttribute="leading" id="xcL-Gr-Sgy"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="actionLabel" destination="46Z-vi-BLo" id="GRy-F9-ZPG"/>
+                <outlet property="avatarImage" destination="Ivy-O3-vZO" id="CWF-61-4W0"/>
+                <outlet property="nameLabel" destination="AJj-pV-vSi" id="oPJ-EZ-01A"/>
+                <outlet property="timeLabel" destination="CQl-fx-rxL" id="jab-7K-8lg"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="65"/>
+        </tableViewCell>
+    </objects>
+</document>

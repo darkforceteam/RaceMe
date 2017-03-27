@@ -19,11 +19,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
+        UIApplication.shared.statusBarStyle = .lightContent
+        
         FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
             if user != nil {
                 
                 // Set up the Profile View Controller
                 let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+                let profileNavVC = UINavigationController()
+                profileNavVC.addChildViewController(profileViewController)
+                
+                // Style for Navigation Bar
+                profileNavVC.navigationBar.barTintColor = primaryColor
+                profileNavVC.navigationBar.isTranslucent = false
+                profileNavVC.navigationBar.topItem?.title = "Me"
+                profileNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                profileNavVC.navigationBar.barStyle = UIBarStyle.black
+                profileNavVC.navigationBar.tintColor = .white
+                
                 profileViewController.tabBarItem.title = "Me"
                 profileViewController.tabBarItem.image = UIImage(named: "profile")
                 
@@ -49,7 +62,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 // Set up the Tab Bar Controller to have two tabs
                 let tabBarController = UITabBarController()
-                tabBarController.viewControllers = [profileViewController, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
+                tabBarController.tabBar.tintColor = primaryColor
+                tabBarController.viewControllers = [profileNavVC, findFriendsViewController, trackingViewController, groupViewController, exploreViewController]
                 tabBarController.selectedIndex = 2
                 
                 // Make the Tab Bar Controller the root view controller

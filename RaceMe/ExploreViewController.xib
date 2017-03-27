@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -11,6 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExploreViewController" customModule="RaceMe" customModuleProvider="target">
             <connections>
+                <outlet property="mapView" destination="5hs-KO-Y2z" id="o1H-et-woP"/>
+                <outlet property="selectTimeButton" destination="xKd-V8-elq" id="hut-qO-QZh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -19,17 +21,45 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eFN-mk-Uhb">
-                    <rect key="frame" x="164" y="308" width="47" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="START"/>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5hs-KO-Y2z">
+                    <rect key="frame" x="0.0" y="20" width="375" height="549"/>
                     <connections>
-                        <action selector="startRun:" destination="-1" eventType="touchUpInside" id="L6j-dn-tET"/>
+                        <outlet property="delegate" destination="-1" id="Dlc-3O-KCu"/>
                     </connections>
+                </mapView>
+                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKd-V8-elq">
+                    <rect key="frame" x="0.0" y="569" width="187.5" height="49"/>
+                    <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="49" id="7O4-M9-tDs"/>
+                    </constraints>
+                    <state key="normal" title="All Time"/>
+                    <connections>
+                        <action selector="selectTime:" destination="-1" eventType="touchUpInside" id="XM7-9O-LMG"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U0L-1M-8wZ">
+                    <rect key="frame" x="187" y="569" width="187.5" height="49"/>
+                    <state key="normal" title="Run"/>
                 </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="xKd-V8-elq" secondAttribute="bottom" constant="49" id="3fl-gu-ElD"/>
+                <constraint firstItem="xKd-V8-elq" firstAttribute="width" secondItem="U0L-1M-8wZ" secondAttribute="width" id="N58-kJ-Ws3"/>
+                <constraint firstAttribute="trailing" secondItem="5hs-KO-Y2z" secondAttribute="trailing" id="QjB-el-b2C"/>
+                <constraint firstItem="5hs-KO-Y2z" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="TqJ-ol-pvc"/>
+                <constraint firstItem="U0L-1M-8wZ" firstAttribute="height" secondItem="xKd-V8-elq" secondAttribute="height" id="Wsa-ci-4zY"/>
+                <constraint firstItem="U0L-1M-8wZ" firstAttribute="leading" secondItem="xKd-V8-elq" secondAttribute="trailing" id="af6-pj-puz"/>
+                <constraint firstAttribute="trailing" secondItem="U0L-1M-8wZ" secondAttribute="trailing" id="e8P-Nv-HuS"/>
+                <constraint firstItem="U0L-1M-8wZ" firstAttribute="top" secondItem="xKd-V8-elq" secondAttribute="top" id="kaw-1F-6gz"/>
+                <constraint firstItem="xKd-V8-elq" firstAttribute="top" secondItem="5hs-KO-Y2z" secondAttribute="bottom" id="mXT-bv-vQM"/>
+                <constraint firstItem="U0L-1M-8wZ" firstAttribute="leading" secondItem="xKd-V8-elq" secondAttribute="trailing" id="pMU-mv-CDz"/>
+                <constraint firstItem="5hs-KO-Y2z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="puq-Yg-8qQ"/>
+                <constraint firstItem="xKd-V8-elq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vYy-NH-E7b"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="26.5" y="51.5"/>
         </view>
     </objects>
 </document>

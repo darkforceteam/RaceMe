@@ -18,6 +18,10 @@
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
 		B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */; };
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
+		B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */; };
+		B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */; };
+		B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65F1AD71E82E12E009E526B /* UserStatistics.xib */; };
+		B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */; };
 		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
 		B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177A51E7EC6B800FF760F /* ExploreViewController.swift */; };
 		B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177A61E7EC6B800FF760F /* ExploreViewController.xib */; };
@@ -25,14 +29,34 @@
 		B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */; };
 		B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177AD1E7ED20200FF760F /* GroupViewController.swift */; };
 		B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177AE1E7ED20200FF760F /* GroupViewController.xib */; };
+		B6860B651E8563AD0008B06A /* TextSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6860B631E8563AD0008B06A /* TextSettingCell.swift */; };
+		B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6860B641E8563AD0008B06A /* TextSettingCell.xib */; };
+		B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6860B671E8566F70008B06A /* NotificationCell.swift */; };
+		B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6860B681E8566F70008B06A /* NotificationCell.xib */; };
+		B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6860B6B1E85776C0008B06A /* DisclosureIndicatorCell.swift */; };
+		B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */; };
 		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
 		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
 		B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2771E76DF550021EFC0 /* Assets.xcassets */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
+		B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */; };
+		B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */; };
+		B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */; };
+		B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */; };
+		B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */; };
+		B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */; };
+		B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520081E8500A90071E361 /* NotificationsViewController.swift */; };
+		B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520091E8500A90071E361 /* NotificationsViewController.xib */; };
+		D9433AC01E8521DB00F085B3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9433ABF1E8521DB00F085B3 /* Route.swift */; };
 		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
 		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
 		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
+		D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */; };
+		D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */; };
+		D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */; };
+		D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */; };
+		D9F7B20A1E8817AB00B692FF /* WorkoutObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */; };
 		F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +74,10 @@
 		B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindFriendsViewController.swift; sourceTree = "<group>"; };
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
+		B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerSettingCell.swift; sourceTree = "<group>"; };
+		B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerSettingCell.xib; sourceTree = "<group>"; };
+		B65F1AD71E82E12E009E526B /* UserStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatistics.xib; sourceTree = "<group>"; };
+		B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatisticsView.swift; sourceTree = "<group>"; };
 		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B68177A41E7E93BC00FF760F /* CICRun-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CICRun-Header.h"; sourceTree = "<group>"; };
 		B68177A51E7EC6B800FF760F /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -58,6 +86,12 @@
 		B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackingViewController.xib; sourceTree = "<group>"; };
 		B68177AD1E7ED20200FF760F /* GroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
 		B68177AE1E7ED20200FF760F /* GroupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupViewController.xib; sourceTree = "<group>"; };
+		B6860B631E8563AD0008B06A /* TextSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextSettingCell.swift; sourceTree = "<group>"; };
+		B6860B641E8563AD0008B06A /* TextSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextSettingCell.xib; sourceTree = "<group>"; };
+		B6860B671E8566F70008B06A /* NotificationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		B6860B681E8566F70008B06A /* NotificationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationCell.xib; sourceTree = "<group>"; };
+		B6860B6B1E85776C0008B06A /* DisclosureIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisclosureIndicatorCell.swift; sourceTree = "<group>"; };
+		B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclosureIndicatorCell.xib; sourceTree = "<group>"; };
 		B68D08211E7E2A9100DC971F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,9 +99,23 @@
 		B6A6C2771E76DF550021EFC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A6C27C1E76DF550021EFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightDetailCell.swift; sourceTree = "<group>"; };
+		B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightDetailCell.xib; sourceTree = "<group>"; };
+		B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerSettingCell.swift; sourceTree = "<group>"; };
+		B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerSettingCell.xib; sourceTree = "<group>"; };
+		B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
+		B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSettingsViewController.xib; sourceTree = "<group>"; };
+		B6F520081E8500A90071E361 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
+		B6F520091E8500A90071E361 /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		D9433ABF1E8521DB00F085B3 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeViewController.swift; sourceTree = "<group>"; };
+		D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTimeViewController.xib; sourceTree = "<group>"; };
+		D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOnlyTableViewCell.swift; sourceTree = "<group>"; };
+		D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextOnlyTableViewCell.xib; sourceTree = "<group>"; };
+		D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutObject.swift; sourceTree = "<group>"; };
 		E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -107,6 +155,10 @@
 				B68D08221E7E2A9100DC971F /* LoginViewController.xib */,
 				B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */,
 				B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */,
+				B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */,
+				B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */,
+				B6F520081E8500A90071E361 /* NotificationsViewController.swift */,
+				B6F520091E8500A90071E361 /* NotificationsViewController.xib */,
 				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
 				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
 				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
@@ -126,6 +178,24 @@
 		B68D081F1E7E2A3500DC971F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
+				B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */,
+				B6860B631E8563AD0008B06A /* TextSettingCell.swift */,
+				B6860B641E8563AD0008B06A /* TextSettingCell.xib */,
+				B6860B671E8566F70008B06A /* NotificationCell.swift */,
+				B6860B681E8566F70008B06A /* NotificationCell.xib */,
+				B6860B6B1E85776C0008B06A /* DisclosureIndicatorCell.swift */,
+				B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */,
+				B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */,
+				B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */,
+				B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */,
+				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
+				B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */,
+				B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */,
+				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
+				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
+				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
+				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -135,7 +205,9 @@
 			children = (
 				B22978391E83FE1E005F41B3 /* User.swift */,
 				D9D9DF171E81057C008C086C /* Location.swift */,
+				D9433ABF1E8521DB00F085B3 /* Route.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
+				D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -212,7 +284,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6GNF59KZC2;
+						DevelopmentTeam = D7RX787JDX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -248,17 +320,28 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */,
+				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
 				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
 				B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */,
+				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
 				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
+				B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */,
+				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
+				B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
+				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
+				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
+				B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */,
 				B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */,
+				B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */,
 				B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */,
+				B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,16 +403,29 @@
 				B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */,
 				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
 				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				D9433AC01E8521DB00F085B3 /* Route.swift in Sources */,
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
+				B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */,
+				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
+				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
+				B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */,
+				B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */,
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
+				B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */,
+				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B229783C1E840066005F41B3 /* Extensions.swift in Sources */,
 				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,
+				B6860B651E8563AD0008B06A /* TextSettingCell.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
+				B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */,
+				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
+				D9F7B20A1E8817AB00B692FF /* WorkoutObject.swift in Sources */,
+				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);
@@ -447,7 +543,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6GNF59KZC2;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -455,7 +551,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.run;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
@@ -466,7 +562,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6GNF59KZC2;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -474,7 +570,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.run;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 3.0;
 			};
