@@ -326,18 +326,35 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     
     
     func saveData() {
-        let routeRef = ref.child(Constants.Route.TABLE_NAME).childByAutoId()
+        let key = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
+        let routeID = Constants.Route.TABLE_NAME + "/" + key
+        let routeRef = ref.child(routeID)
+
+        if locations.count > 0 {
         for (i, loc) in locations.enumerated() {
             let locationRef = routeRef.child("\(i)")
             let location = Location(loc)
             locationRef.setValue(location.toAnyObject())
         }
+        let startLoc = locations.first
+        let endLoc = locations.last
+            
+        let geoFire = GeoFire(firebaseRef: ref.child(Constants.GEOFIRE))
+//        geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
+        geoFire?.setLocation(startLoc!, forKey: key)
+
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
         distanceRef.setValue(distance)
         
+<<<<<<< HEAD
         let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
+=======
+            
+        let workoutRef = ref.child(Constants.Workout.TABLE_NAME + "/" + key)
+>>>>>>> master
         workout = Workout(user, routeRef.key, locations, distance, duration)
         workoutRef.setValue(workout.toAnyObject())
+        }
     }
     
     func reset() {

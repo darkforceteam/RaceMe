@@ -13,22 +13,40 @@ class Route: NSObject {
     var distance: String = ""
     var locations = [CLLocationCoordinate2D]()
     var isPublic = false
+    //    var startLoc: CLLocationCoordinate2D
     init(locationsData: FIRDataSnapshot){
+        
+        var ref = locationsData.ref
         print("initializing Route")
         var locCount = 0
         for loc in locationsData.children.allObjects as! [FIRDataSnapshot] {
             
             if let oneLoc = loc.value as? NSDictionary{
-                let location = CLLocationCoordinate2D(latitude: oneLoc.value(forKey: Constants.Location.LATITUDE) as! CLLocationDegrees, longitude: oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! CLLocationDegrees)
+                if let latValue = oneLoc.value(forKey: Constants.Location.LATITUDE) as! Double? {
+                let location = CLLocationCoordinate2D(latitude: latValue as! CLLocationDegrees, longitude: oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! CLLocationDegrees)
                 locations.append(location)
                 locCount += 1
-            } else {
-                if loc.key == "DISTANCE" {
-                    distance = loc.value as! String
-                } else if loc.key == "PUBLIC" {
-                    isPublic = true
                 } else {
-                    
+                    //LONG TODO handle GeoFire Data
+                    //no need. Moved GeoFire marking to global
+                }
+            } else {
+                if let key = loc.key as String? {
+                    if key == "DISTANCE" {
+                        distance = "\(loc.value)"
+                    } else if key == "PUBLIC" {
+                        isPublic = true
+                    } else {
+                        //                        geoFire.getLocationForKey("firebase-hq", withCallback: { (startLoc, error) in
+                        //                            if (error != nil) {
+                        //                                println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
+                        //                            } else if (location != nil) {
+                        //                                println("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
+                        //                            } else {
+                        //                                println("GeoFire does not contain a location for \"firebase-hq\"")
+                        //                            }
+                        //                        })
+                    }
                 }
             }
         }

@@ -11,5 +11,5 @@
 
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
-
+#import "GeoFire.h"
 #endif /* CICRun_Header_h */
