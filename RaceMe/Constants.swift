@@ -8,6 +8,7 @@
 
 struct Constants {
     // Global variables
+    static let GEOFIRE = "GEOFIRE"
     struct UnitExchange {
         static let ONE_KM_IN_MILE = 0.621371
     }

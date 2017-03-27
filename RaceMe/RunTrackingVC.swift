@@ -202,6 +202,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.backgroundColor = stopColor
         button.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 30
+        button.clipsToBounds = true
         return button
     }()
     
@@ -212,6 +214,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.backgroundColor = pauseColor
         button.addTarget(self, action: #selector(pauseResumeButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 30
+        button.clipsToBounds = true
         return button
     }()
     
@@ -279,7 +283,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     func stopButtonTapped() {
-        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this activity", preferredStyle: .actionSheet)
+        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this run?", preferredStyle: .actionSheet)
         let saveAction = UIAlertAction(title: "Yes I'm Done", style: .default) { (action) in
             self.saveData()
             self.reset()
@@ -288,17 +292,16 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
             summaryController.workout = self.workout
             summaryController.locations = self.locations
             let summaryNav = UINavigationController(rootViewController: summaryController)
-            self.present(summaryNav, animated: true, completion: nil)
-        }
-        
-        let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
-            self.reset()
-            self.dismiss(animated: true, completion: nil)
+            
+            self.dismiss(animated: false, completion: { 
+                if let topController = UIApplication.topViewController() {
+                    topController.present(summaryNav, animated: true, completion: nil)
+                }
+            })
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController.addAction(saveAction)
-        actionController.addAction(discardAction)
         actionController.addAction(cancelAction)
         present(actionController, animated: true, completion: nil)
         locationManager.stopUpdatingLocation()
@@ -322,7 +325,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     
     
     func saveData() {
-        let routeID = Constants.Route.TABLE_NAME + "/" + ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
+        let key = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
+        let routeID = Constants.Route.TABLE_NAME + "/" + key
         let routeRef = ref.child(routeID)
 
         if locations.count > 0 {
@@ -334,15 +338,14 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let startLoc = locations.first
         let endLoc = locations.last
             
-        let geoFire = GeoFire(firebaseRef: routeRef)
+        let geoFire = GeoFire(firebaseRef: ref.child(Constants.GEOFIRE))
 //        geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
-        geoFire?.setLocation(startLoc!, forKey: Constants.Route.START_LOC)
+        geoFire?.setLocation(startLoc!, forKey: key)
 
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
         distanceRef.setValue(distance)
         
-            
-        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).childByAutoId()
+        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
         workout = Workout(user, routeRef.key, locations, distance, duration)
         workoutRef.setValue(workout.toAnyObject())
         }
@@ -381,9 +384,9 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        stopButton.anchorInCorner(.bottomLeft, xPad: 0, yPad: 0, width: view.frame.width / 2, height: 60)
-        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: view.frame.width / 2, height: 60)
-        seperatorLineView1.anchorToEdge(.bottom, padding: 60, width: view.frame.width, height: 20)
+        stopButton.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 60)
+        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 60)
+        seperatorLineView1.anchorToEdge(.bottom, padding: 80, width: view.frame.width, height: 20)
         minDisplay.align(.aboveCentered, relativeTo: seperatorLineView1, padding: 0, width: 80, height: 60)
         hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
         hourDisplay.align(.toTheLeftCentered, relativeTo: hourColon, padding: 0, width: 80, height: 60)
@@ -400,7 +403,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         distanceDisplay.align(.aboveCentered, relativeTo: distanceUnit, padding: 0, width: distanceUnit.width, height: 40)
         distanceLabel.align(.aboveCentered, relativeTo: distanceDisplay, padding: 0, width: distanceDisplay.width, height: 30)
         seperatorLineView4.align(.aboveCentered, relativeTo: seperatorLineView3, padding: 0, width: view.frame.width, height: 20)
-        mapView.align(.aboveCentered, relativeTo: seperatorLineView4, padding: 0, width: view.frame.width, height: view.frame.height - 309.5)
+        mapView.align(.aboveCentered, relativeTo: seperatorLineView4, padding: 0, width: view.frame.width, height: view.frame.height - 289.5)
     }
 }
 

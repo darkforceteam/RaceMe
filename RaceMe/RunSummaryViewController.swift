@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreLocation
 import Neon
+import Firebase
 
 class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     
@@ -17,7 +18,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     var workout: Workout! {
         didSet {
             if let distance = workout?.distanceKm, let timestamp = workout?.startTime, let duration = workout?.duration {
-                dateLabel.text = timestamp
+                dateLabel.text = timestamp.toDate
                 durationDisplay.text = "\(duration.toMinutes):\(duration.toSeconds)"
                 distanceDisplay.text = String(format: "%.1f km", distance)
                 let pace = Double(duration) / distance
@@ -25,6 +26,8 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
+    
+    let ref = FIRDatabase.database().reference()
     
     var mapOverlay: MKTileOverlay!
     
@@ -110,13 +113,18 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return lineView
     }()
     
-    private lazy var exitButton: UIButton = {
+    private lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Exit", for: .normal)
+        button.setTitle("Save", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .red
-        button.addTarget(self, action: #selector(exitButtonDidTouch), for: .touchUpInside)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 25)
+        button.backgroundColor = customOrange
+        button.addTarget(self, action: #selector(saveButtonDidTouch), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 25, weight: UIFontWeightMedium)
+        return button
+    }()
+    
+    private lazy var deleteButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
         return button
     }()
     
@@ -139,7 +147,8 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         view.addSubview(paceLabel)
         view.addSubview(seperatorLineView1)
         view.addSubview(seperatorLineView2)
-        view.addSubview(exitButton)
+        view.addSubview(saveButton)
+        navigationItem.leftBarButtonItem = deleteButton
     }
     
     func setMapRegion() -> MKCoordinateRegion {
@@ -196,8 +205,23 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         mapView.add(polyline())
     }
     
-    func exitButtonDidTouch() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+    func saveButtonDidTouch() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func deleteButtonTapped() {
+        let routeRef = ref.child(Constants.Route.TABLE_NAME).child(workout.routeId)
+        let workoutRef = self.ref.child(Constants.Workout.TABLE_NAME).child(workout.routeId)
+        let alertController = UIAlertController(title: "Discard Run?", message: "Are you sure you would like to discard this run?", preferredStyle: .alert)
+        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+            routeRef.removeValue()
+            workoutRef.removeValue()
+            self.dismiss(animated: true, completion: nil)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(yesAction)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -212,6 +236,6 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         paceLabel.align(.underCentered, relativeTo: paceDisplay, padding: 0, width: customWidth, height: 20)
         seperatorLineView1.align(.toTheRightMatchingTop, relativeTo: durationDisplay, padding: 0, width: 0.5, height: 45, offset: 10)
         seperatorLineView2.align(.toTheRightMatchingTop, relativeTo: distanceDisplay, padding: 0, width: 0.5, height: 45, offset: 10)
-        exitButton.anchorToEdge(.bottom, padding: 0, width: view.frame.width, height: 45)
+        saveButton.anchorToEdge(.bottom, padding: 0, width: view.frame.width, height: 61)
     }
 }
