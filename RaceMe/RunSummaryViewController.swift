@@ -206,7 +206,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func saveButtonDidTouch() {
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     func deleteButtonTapped() {
@@ -214,7 +214,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         routeRef.removeValue()
         let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(workout.routeId)
         workoutRef.removeValue()
-        self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {

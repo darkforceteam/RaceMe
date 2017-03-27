@@ -292,17 +292,16 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
             summaryController.workout = self.workout
             summaryController.locations = self.locations
             let summaryNav = UINavigationController(rootViewController: summaryController)
-            self.present(summaryNav, animated: true, completion: nil)
-        }
-        
-        let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
-            self.reset()
-            self.dismiss(animated: true, completion: nil)
+            
+            self.dismiss(animated: false, completion: { 
+                if let topController = UIApplication.topViewController() {
+                    topController.present(summaryNav, animated: true, completion: nil)
+                }
+            })
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController.addAction(saveAction)
-        actionController.addAction(discardAction)
         actionController.addAction(cancelAction)
         present(actionController, animated: true, completion: nil)
         locationManager.stopUpdatingLocation()

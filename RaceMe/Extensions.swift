@@ -67,6 +67,23 @@ extension UIImage {
     }
 }
 
+extension UIApplication {
+    class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(controller: navigationController.visibleViewController)
+        }
+        if let tabController = controller as? UITabBarController {
+            if let selected = tabController.selectedViewController {
+                return topViewController(controller: selected)
+            }
+        }
+        if let presented = controller?.presentedViewController {
+            return topViewController(controller: presented)
+        }
+        return controller
+    }
+}
+
 let primaryColor = UIColor(red: 47/255, green: 151/255, blue: 243/255, alpha: 1.0)
 let customGray = UIColor(170, 184, 194)
 let customGreen = UIColor(74, 167, 127)
