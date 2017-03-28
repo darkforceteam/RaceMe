@@ -3,9 +3,6 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 .DS_Store
 
-RaceMe/GeoFire
-RaceMe.xcodeproj/project.xcworkspace
-RaceMe.xcodeproj/project.pbxproj
 ## Build generated
 build/
 DerivedData/
