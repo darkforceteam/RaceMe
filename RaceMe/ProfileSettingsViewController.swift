@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseDatabase
 
 enum TableSection: Int {
     case accountInfo = 0, accountActions
@@ -23,6 +24,7 @@ class ProfileSettingsViewController: UIViewController {
 
     var items = ["Email", "Birthday", "Gender", "Height (kg)", "Weight (cm)"]
     var placeholder = ["", "mm dd, yy", "Not Specified", "0", "0"]
+    let userRef = FIRDatabase.database().reference().child("USERS/\(FIRAuth.auth()!.currentUser!.uid)")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +43,16 @@ class ProfileSettingsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "Settings"
+        
+        
+        
+//        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(ProfileSettingsViewController.saveUserProfile))
+//        navigationItem.rightBarButtonItem = saveButton
     }
+    
+//    func saveUserProfile() {
+//        _ = navigationController?.popToRootViewController(animated: true)
+//    }
 }
 
 extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -78,12 +89,19 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
             case AccountInfoRow.email:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailCell", for: indexPath) as! RightDetailCell
                 cell.titleLabel.text = "Email"
-                cell.detailLabel.text = "dk@yoarts.com"
+                cell.detailLabel.text = FIRAuth.auth()?.currentUser?.email
                 return cell
             case AccountInfoRow.birthday:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "DatePickerSettingCell", for: indexPath) as! DatePickerSettingCell
                 cell.settingLabel.text = items[indexPath.row]
                 cell.settingTextField.placeholder = placeholder[indexPath.row]
+                cell.dataRef = "USERS/\((FIRAuth.auth()?.currentUser?.uid)!)/birthday"
+                userRef.observe(.value, with: { (snapshot) in
+                    let user = User(snapshot: snapshot)
+                    if nil != user.birthday {
+                        cell.settingTextField.text = user.birthday
+                    }
+                })
                 return cell
             default:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PickerSettingCell", for: indexPath) as! PickerSettingCell
@@ -91,15 +109,36 @@ extension ProfileSettingsViewController: UITableViewDelegate, UITableViewDataSou
                 cell.settingTextField.placeholder = placeholder[indexPath.row]
                 switch AccountInfoRow(rawValue: indexPath.row)! {
                 case AccountInfoRow.height:
+                    cell.dataRef = "USERS/\((FIRAuth.auth()?.currentUser?.uid)!)/height"
                     for i in 120...220 {
                         cell.pickerData.append(("\(i)", "\(i) cm"))
                     }
+                    userRef.observe(.value, with: { (snapshot) in
+                        let user = User(snapshot: snapshot)
+                        if nil != user.gender {
+                            cell.settingTextField.text = user.height
+                        }
+                    })
                 case AccountInfoRow.weight:
+                    cell.dataRef = "USERS/\((FIRAuth.auth()?.currentUser?.uid)!)/weight"
                     for i in 20...150 {
                         cell.pickerData.append(("\(i)", "\(i) kg"))
                     }
+                    userRef.observe(.value, with: { (snapshot) in
+                        let user = User(snapshot: snapshot)
+                        if nil != user.gender {
+                            cell.settingTextField.text = user.weight
+                        }
+                    })
                 default:
+                    cell.dataRef = "USERS/\((FIRAuth.auth()?.currentUser?.uid)!)/gender"
                     cell.pickerData = [("Not Specified", "Not Specified"), ("Male", "Male"), ("Female", "Female")]
+                    userRef.observe(.value, with: { (snapshot) in
+                        let user = User(snapshot: snapshot)
+                        if nil != user.gender {
+                            cell.settingTextField.text = user.gender
+                        }
+                    })
                 }
                 return cell
             }

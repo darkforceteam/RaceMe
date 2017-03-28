@@ -13,17 +13,40 @@ class Route: NSObject {
     var distance: String = ""
     var locations = [CLLocationCoordinate2D]()
     var isPublic = false
+    var events = [Event]()
+    var todayEvents = [Event]()
+    var tomorrowEvents = [Event]()
+    var laterEvents = [Event]()
     //    var startLoc: CLLocationCoordinate2D
+    func title(displayingDate: String) -> String {
+        switch displayingDate {
+        case "0":
+            return "\(self.distance) km"
+        case "1":
+            if let runNum = self.todayEvents.first?.participants.count{
+                return "\(runNum) runners"
+            }
+            return "\(self.distance) km"
+        case "2":
+            if let runNum = self.tomorrowEvents.first?.participants.count{
+                return "\(runNum) runners"
+            }
+            return "\(self.distance) km"
+        default:
+            if let runNum = self.laterEvents.first?.participants.count{
+                return "\(runNum) runners"
+            }
+            return "\(self.distance) km"
+        }
+    }
     init(locationsData: FIRDataSnapshot){
-        
-        var ref = locationsData.ref
         print("initializing Route")
         var locCount = 0
         for loc in locationsData.children.allObjects as! [FIRDataSnapshot] {
             
             if let oneLoc = loc.value as? NSDictionary{
                 if let latValue = oneLoc.value(forKey: Constants.Location.LATITUDE) as! Double? {
-                let location = CLLocationCoordinate2D(latitude: latValue as! CLLocationDegrees, longitude: oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! CLLocationDegrees)
+                let location = CLLocationCoordinate2D(latitude: latValue , longitude: oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! CLLocationDegrees)
                 locations.append(location)
                 locCount += 1
                 } else {
@@ -33,19 +56,11 @@ class Route: NSObject {
             } else {
                 if let key = loc.key as String? {
                     if key == "DISTANCE" {
-                        distance = "\(loc.value)"
+                        distance = "\(loc.value!)"
                     } else if key == "PUBLIC" {
                         isPublic = true
                     } else {
-                        //                        geoFire.getLocationForKey("firebase-hq", withCallback: { (startLoc, error) in
-                        //                            if (error != nil) {
-                        //                                println("An error occurred getting the location for \"firebase-hq\": \(error.localizedDescription)")
-                        //                            } else if (location != nil) {
-                        //                                println("Location for \"firebase-hq\" is [\(location.coordinate.latitude), \(location.coordinate.longitude)]")
-                        //                            } else {
-                        //                                println("GeoFire does not contain a location for \"firebase-hq\"")
-                        //                            }
-                        //                        })
+
                     }
                 }
             }
