@@ -56,7 +56,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "TIME"
         label.textColor = .darkGray
-//        label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16)
         return label
@@ -65,8 +64,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var hourDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
-        //label.textColor = .white
-        //label.backgroundColor = .red
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
         return label
@@ -75,8 +72,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var minDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
-        //label.textColor = .white
-        //label.backgroundColor = .red
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
         return label
@@ -85,8 +80,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var secDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
-        //label.textColor = .white
-        //label.backgroundColor = .red
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
         return label
@@ -95,8 +88,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var hourColon: UILabel = {
         let label = UILabel()
         label.text = ":"
-        //label.textColor = .white
-        //label.backgroundColor = .green
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
         return label
@@ -105,8 +96,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var minColon: UILabel = {
         let label = UILabel()
         label.text = ":"
-        //label.textColor = .white
-        //label.backgroundColor = .red
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
         return label
@@ -128,7 +117,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "AVG PACE"
         label.textColor = .darkGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16)
         return label
@@ -137,8 +125,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var paceDisplay: UILabel = {
         let label = UILabel()
         label.text = "0:00"
-        //label.textColor = .white
-        //label.backgroundColor = .red
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 50, weight: UIFontWeightLight)
         return label
@@ -148,7 +134,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "/KM"
         label.textColor = .lightGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
@@ -158,7 +143,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "DISTANCE"
         label.textColor = .darkGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16)
         return label
@@ -167,8 +151,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     private var distanceDisplay: UILabel = {
         let label = UILabel()
         label.text = "0.0"
-        //label.textColor = .white
-        //label.backgroundColor = .red
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 50, weight: UIFontWeightLight)
         return label
@@ -178,7 +160,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "KILOMETERS"
         label.textColor = .lightGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
@@ -195,7 +176,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         lineView.backgroundColor = backgroundGray
         return lineView
     }()
-
+    
     
     private lazy var stopButton: UIButton = {
         let button = UIButton()
@@ -297,28 +278,41 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     func stopButtonTapped() {
-        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this run?", preferredStyle: .actionSheet)
-        let saveAction = UIAlertAction(title: "Yes I'm Done", style: .default) { (action) in
-            self.saveData()
-            self.reset()
+        print(locations.count)
+        if locations.count > 1 {
+            let alertController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this run?", preferredStyle: .actionSheet)
+            let saveAction = UIAlertAction(title: "Yes I'm Done", style: .default) { (action) in
+                self.saveData()
+                self.reset()
+                
+                let summaryController = RunSummaryViewController()
+                summaryController.workout = self.workout
+                summaryController.locations = self.locations
+                let summaryNav = UINavigationController(rootViewController: summaryController)
+                
+                self.dismiss(animated: false, completion: {
+                    if let topController = UIApplication.topViewController() {
+                        topController.present(summaryNav, animated: true, completion: nil)
+                    }
+                })
+            }
             
-            let summaryController = RunSummaryViewController()
-            summaryController.workout = self.workout
-            summaryController.locations = self.locations
-            let summaryNav = UINavigationController(rootViewController: summaryController)
-            
-            self.dismiss(animated: false, completion: { 
-                if let topController = UIApplication.topViewController() {
-                    topController.present(summaryNav, animated: true, completion: nil)
-                }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(saveAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
+            locationManager.stopUpdatingLocation()
+        } else {
+            let alertController = UIAlertController(title: nil, message: "Looks like you haven't run yet. Would you like to contine or discard this run?", preferredStyle: .alert)
+            let continueAction = UIAlertAction(title: "Continue", style: .default, handler: nil)
+            let discardAction = UIAlertAction(title: "Discard", style: .default, handler: { (action) in
+                self.dismiss(animated: true, completion: nil)
+                
             })
+            alertController.addAction(discardAction)
+            alertController.addAction(continueAction)
+            present(alertController, animated: true, completion: nil)
         }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        actionController.addAction(saveAction)
-        actionController.addAction(cancelAction)
-        present(actionController, animated: true, completion: nil)
-        locationManager.stopUpdatingLocation()
     }
     
     func pauseResumeButtonTapped() {
@@ -342,8 +336,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let key = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
         let routeID = Constants.Route.TABLE_NAME + "/" + key
         let routeRef = ref.child(routeID)
-
-        if locations.count > 0 {
+        
         for (i, loc) in locations.enumerated() {
             let locationRef = routeRef.child("\(i)")
             let location = Location(loc)
@@ -351,18 +344,17 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         }
         let startLoc = locations.first
         let endLoc = locations.last
-            
+        
         let geoFire = GeoFire(firebaseRef: ref.child(Constants.GEOFIRE))
-//        geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
+        //        geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
         geoFire?.setLocation(startLoc!, forKey: key)
-
+        
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
         distanceRef.setValue(distance)
         
         let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
         workout = Workout(user, routeRef.key, locations, distance, duration)
         workoutRef.setValue(workout.toAnyObject())
-        }
     }
     
     func reset() {
