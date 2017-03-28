@@ -17,7 +17,7 @@ struct Location {
     var speed: Double
     var timestamp: String
     var ref: FIRDatabaseReference?
-
+    
     init(key: String = "", _ location: CLLocation) {
         self.key = key
         self.latitude = location.coordinate.latitude
@@ -26,7 +26,7 @@ struct Location {
         self.speed = location.speed
         self.ref = nil
     }
-
+    
     init(longtitude: Double, lattitude: Double, speed: Double, timestamp: String, key: String = "") {
         self.key = key
         self.longitude = longtitude
@@ -54,7 +54,7 @@ struct Location {
             Constants.Location.SPEED: speed
         ]
     }
-
+    
     static func initArray(gpsLocs: [CLLocation]) -> [Location]{
         var locations = [Location]()
         for loc in gpsLocs {
