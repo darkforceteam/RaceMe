@@ -23,11 +23,20 @@ class Route: NSObject {
         case "0":
             return "\(self.distance) km"
         case "1":
-            return "\(self.todayEvents.first?.participants.count) runners"
+            if let runNum = self.todayEvents.first?.participants.count{
+                return "\(runNum) runners"
+            }
+            return "\(self.distance) km"
         case "2":
-            return "\(self.tomorrowEvents.first?.participants.count) runners"
+            if let runNum = self.tomorrowEvents.first?.participants.count{
+                return "\(runNum) runners"
+            }
+            return "\(self.distance) km"
         default:
-            return "\(self.laterEvents.first?.participants.count) runners"
+            if let runNum = self.laterEvents.first?.participants.count{
+                return "\(runNum) runners"
+            }
+            return "\(self.distance) km"
         }
     }
     init(locationsData: FIRDataSnapshot){
@@ -47,7 +56,7 @@ class Route: NSObject {
             } else {
                 if let key = loc.key as String? {
                     if key == "DISTANCE" {
-                        distance = "\(loc.value)"
+                        distance = "\(loc.value!)"
                     } else if key == "PUBLIC" {
                         isPublic = true
                     } else {

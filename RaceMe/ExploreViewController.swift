@@ -133,6 +133,7 @@ class ExploreViewController: UIViewController {
         routeMarker.coordinate = route.locations.first!
         routeMarker.title = route.title(displayingDate: displayingTime)
         mapView.addAnnotation(routeMarker)
+        mapView.selectAnnotation(routeMarker, animated: true)
 
     }
     
