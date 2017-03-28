@@ -48,7 +48,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Set up the Tracking View Controller
                 let recordViewController = UINavigationController(rootViewController: RecordViewController())
                 recordViewController.tabBarItem.title = "Start"
-                recordViewController.tabBarItem.image = UIImage(named: "play")
+                recordViewController.tabBarItem.image = UIImage(named: "map-pin")
                 recordViewController.topViewController?.navigationItem.title = "CICRun"
                 
                 // Set up the Explore View Controller
