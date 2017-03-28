@@ -177,7 +177,6 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return lineView
     }()
     
-    
     private lazy var stopButton: UIButton = {
         let button = UIButton()
         button.setTitle("Stop", for: .normal)
@@ -278,7 +277,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     func stopButtonTapped() {
-        print(locations.count)
+        pauseCounting()
+        
         if locations.count > 1 {
             let alertController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this run?", preferredStyle: .actionSheet)
             let saveAction = UIAlertAction(title: "Yes I'm Done", style: .default) { (action) in
@@ -297,17 +297,21 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
                 })
             }
             
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: { (action) in
+                self.continueCounting()
+            })
             alertController.addAction(saveAction)
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
-            locationManager.stopUpdatingLocation()
         } else {
-            let alertController = UIAlertController(title: nil, message: "Looks like you haven't run yet. Would you like to contine or discard this run?", preferredStyle: .alert)
-            let continueAction = UIAlertAction(title: "Continue", style: .default, handler: nil)
+            let alertController = UIAlertController(title: nil, message: "Looks like you haven't run yet. Would you like to continue or discard this run?", preferredStyle: .alert)
             let discardAction = UIAlertAction(title: "Discard", style: .default, handler: { (action) in
                 self.dismiss(animated: true, completion: nil)
                 
+            })
+            let continueAction = UIAlertAction(title: "Continue", style: .default, handler: { (action) in
+                self.setButtonTitleAndColor()
+                self.continueCounting()
             })
             alertController.addAction(discardAction)
             alertController.addAction(continueAction)
@@ -316,21 +320,27 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     func pauseResumeButtonTapped() {
-        if isRunning {
-            isRunning = false
-            timer.invalidate()
-            pauseResumeButton.setTitle("Resume", for: .normal)
-            pauseResumeButton.backgroundColor = resumeColor
-            locationManager.stopUpdatingLocation()
-        } else {
-            isRunning = true
-            locationManager.startUpdatingLocation()
-            pauseResumeButton.setTitle("Pause", for: .normal)
-            pauseResumeButton.backgroundColor = pauseColor
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
-        }
+        setButtonTitleAndColor()
+        isRunning ? pauseCounting() : continueCounting()
     }
     
+    func continueCounting() {
+        isRunning = true
+        locationManager.startUpdatingLocation()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
+    }
+    
+    func pauseCounting() {
+        isRunning = false
+        timer.invalidate()
+        locationManager.stopUpdatingLocation()
+    }
+    
+    func setButtonTitleAndColor() {
+        pauseResumeButton.backgroundColor = isRunning ? resumeColor : pauseColor
+        let buttonTitle = isRunning ? "Resume" : "Pause"
+        pauseResumeButton.setTitle(buttonTitle, for: .normal)
+    }
     
     func saveData() {
         let key = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
