@@ -11,6 +11,7 @@ import CoreLocation
 import MapKit
 import Firebase
 import Neon
+import AVFoundation
 
 class RunTrackingVC: UIViewController, MKMapViewDelegate {
     
@@ -22,6 +23,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     var user: User!
     var workout: Workout!
     var isRunning = true
+    private let speechSynthesizer = AVSpeechSynthesizer()
     
     let ref = FIRDatabase.database().reference()
     
@@ -272,6 +274,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let paceQuantity = totalTime * 1000 / distance
         paceDisplay.text = "\(paceQuantity.stringWithPaceFormat)"
         distanceDisplay.text = String(format: "%.1f", distance / 1000)
+        audioUpdate()
     }
     
     func startCounting() {
@@ -280,6 +283,17 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
+    }
+    
+    func audioUpdate() {
+        if duration % 300 == 0 {
+            let currentDistance = Int(distance)
+            let stringToSpeak = "You have run \(currentDistance) meters."
+            let speechUtterrance = AVSpeechUtterance(string: stringToSpeak)
+            speechUtterrance.rate = 0.4
+            speechUtterrance.pitchMultiplier = 1
+            speechSynthesizer.speak(speechUtterrance)
+        }
     }
     
     func stopButtonTapped() {
