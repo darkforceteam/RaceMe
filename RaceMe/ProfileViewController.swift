@@ -31,12 +31,7 @@ class ProfileViewController: UIViewController {
         return FIRStorage.storage()
     }
 
-    let userStats1 = ["title":"Kilometers", "current_period":"8.3", "last_period":"0"]
-    let userStats2 = ["title":"Average Pace (Min/Km)", "current_period":"1:15:08", "last_period":"2:33:54"]
-    let userStats3 = ["title":"Activities", "current_period":"2", "last_period":"1"]
-    let userStats4 = ["title":"Time Spent", "current_period":"31:52", "last_period":"04:50"]
     
-    var userStatisticsArray = [Dictionary<String,String>]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +72,10 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         return 1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.height - 49
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as! UserProfileCell
 
@@ -89,19 +88,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.avatarImage.setImageWith(avatarURL!)
             }
         })
-        
-        userStatisticsArray = [userStats1,userStats2,userStats3,userStats4]
-        for (index, userStatistics) in userStatisticsArray.enumerated() {
-            if let userStatisticsView = Bundle.main.loadNibNamed("UserStatistics", owner: self, options: nil)?.first as? UserStatisticsView {
-                userStatisticsView.titleLabel.text = userStatistics["title"]
-                userStatisticsView.currentPeriodCount.text = userStatistics["current_period"]
-                userStatisticsView.lastPeriodCount.text = userStatistics["last_period"]
-                cell.userStatisticsScrollView.addSubview(userStatisticsView)
-                userStatisticsView.frame.size.width = self.view.bounds.size.width
-                userStatisticsView.frame.origin.x = CGFloat(index) * UIScreen.main.bounds.width
-            }
-        }
-        
         return cell
     }
 }
