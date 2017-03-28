@@ -20,6 +20,8 @@
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
 		B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */; };
 		B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */; };
+		B643D6901E8A46C000E57C9A /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B643D68E1E8A46C000E57C9A /* UserProfileCell.swift */; };
+		B643D6911E8A46C000E57C9A /* UserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B643D68F1E8A46C000E57C9A /* UserProfileCell.xib */; };
 		B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65F1AD71E82E12E009E526B /* UserStatistics.xib */; };
 		B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */; };
 		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
@@ -81,6 +83,8 @@
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
 		B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerSettingCell.swift; sourceTree = "<group>"; };
 		B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerSettingCell.xib; sourceTree = "<group>"; };
+		B643D68E1E8A46C000E57C9A /* UserProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
+		B643D68F1E8A46C000E57C9A /* UserProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileCell.xib; sourceTree = "<group>"; };
 		B65F1AD71E82E12E009E526B /* UserStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatistics.xib; sourceTree = "<group>"; };
 		B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatisticsView.swift; sourceTree = "<group>"; };
 		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -198,8 +202,10 @@
 		B68D081F1E7E2A3500DC971F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
+				B643D68E1E8A46C000E57C9A /* UserProfileCell.swift */,
+				B643D68F1E8A46C000E57C9A /* UserProfileCell.xib */,
 				B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */,
+				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
 				B6860B631E8563AD0008B06A /* TextSettingCell.swift */,
 				B6860B641E8563AD0008B06A /* TextSettingCell.xib */,
 				B6860B671E8566F70008B06A /* NotificationCell.swift */,
@@ -343,7 +349,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6GNF59KZC2;
+						DevelopmentTeam = 566T8PK976;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -393,6 +399,7 @@
 				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
 				B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
+				B643D6911E8A46C000E57C9A /* UserProfileCell.xib in Resources */,
 				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
 				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
@@ -475,6 +482,7 @@
 				D9F7B2221E88BFF500B692FF /* GFGeoHashQuery.m in Sources */,
 				B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */,
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
+				B643D6901E8A46C000E57C9A /* UserProfileCell.swift in Sources */,
 				B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */,
 				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
@@ -607,7 +615,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6GNF59KZC2;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -615,7 +623,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.run;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -627,7 +635,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 6GNF59KZC2;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -635,7 +643,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.run;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;

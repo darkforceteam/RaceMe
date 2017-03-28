@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class PickerSettingCell: UITableViewCell {
     
     @IBOutlet weak var settingLabel: UILabel!
     @IBOutlet weak var settingTextField: UITextField!
     
+    var dataRef: String?
     var pickerData = [(value: String, title: String)]()
     var picker = UIPickerView()
 
@@ -54,6 +56,10 @@ extension PickerSettingCell: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         settingTextField.text = pickerData[row].value
+
+        if ( nil != dataRef ) {
+            FIRDatabase.database().reference().child(dataRef!).setValue(pickerData[row].value)
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
