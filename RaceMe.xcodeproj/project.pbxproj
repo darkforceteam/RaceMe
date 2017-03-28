@@ -48,6 +48,7 @@
 		B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */; };
 		B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520081E8500A90071E361 /* NotificationsViewController.swift */; };
 		B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520091E8500A90071E361 /* NotificationsViewController.xib */; };
+		D902147B1E8A6EC3000DB7DF /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */; };
 		D9433AC01E8521DB00F085B3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9433ABF1E8521DB00F085B3 /* Route.swift */; };
 		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
 		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
@@ -62,6 +63,7 @@
 		D9F7B2211E88BFF500B692FF /* GFGeoHash.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B21A1E88BFF500B692FF /* GFGeoHash.m */; };
 		D9F7B2221E88BFF500B692FF /* GFGeoHashQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B21C1E88BFF500B692FF /* GFGeoHashQuery.m */; };
 		D9F7B2231E88BFF500B692FF /* GFQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B21E1E88BFF500B692FF /* GFQuery.m */; };
+		D9F7B2261E89312A00B692FF /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2251E89312A00B692FF /* Event.swift */; };
 		F9A83EC7A4DE1D966E3007CF /* Pods_RaceMe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +114,7 @@
 		B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSettingsViewController.xib; sourceTree = "<group>"; };
 		B6F520081E8500A90071E361 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		B6F520091E8500A90071E361 /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
+		D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
 		D9433ABF1E8521DB00F085B3 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
@@ -136,6 +139,7 @@
 		D9F7B21C1E88BFF500B692FF /* GFGeoHashQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFGeoHashQuery.m; sourceTree = "<group>"; };
 		D9F7B21D1E88BFF500B692FF /* GFQuery+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GFQuery+Private.h"; sourceTree = "<group>"; };
 		D9F7B21E1E88BFF500B692FF /* GFQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GFQuery.m; sourceTree = "<group>"; };
+		D9F7B2251E89312A00B692FF /* Event.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.release.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -216,6 +220,7 @@
 				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
 				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
 				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
+				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -224,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				B22978391E83FE1E005F41B3 /* User.swift */,
+				D9F7B2251E89312A00B692FF /* Event.swift */,
 				D9D9DF171E81057C008C086C /* Location.swift */,
 				D9433ABF1E8521DB00F085B3 /* Route.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
@@ -462,11 +468,13 @@
 				B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */,
 				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
 				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				D902147B1E8A6EC3000DB7DF /* RouteAnnotation.swift in Sources */,
 				D9433AC01E8521DB00F085B3 /* Route.swift in Sources */,
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
 				B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */,
 				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
+				D9F7B2261E89312A00B692FF /* Event.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
 				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
