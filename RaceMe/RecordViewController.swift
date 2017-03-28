@@ -47,10 +47,6 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         authObserving()
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        startButton.isHidden = false
-//    }
-    
     override func viewDidAppear(_ animated: Bool) {
         centerMapOnLocation()
     }
@@ -66,7 +62,6 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     }
     
     private func setupViews() {
-        title = "Run Tracking"
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)

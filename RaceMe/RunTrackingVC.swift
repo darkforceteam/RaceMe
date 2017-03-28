@@ -11,6 +11,7 @@ import CoreLocation
 import MapKit
 import Firebase
 import Neon
+import AVFoundation
 
 class RunTrackingVC: UIViewController, MKMapViewDelegate {
     
@@ -22,6 +23,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     var user: User!
     var workout: Workout!
     var isRunning = true
+    private let speechSynthesizer = AVSpeechSynthesizer()
     
     let ref = FIRDatabase.database().reference()
     
@@ -202,6 +204,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.backgroundColor = stopColor
         button.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 30
+        button.clipsToBounds = true
         return button
     }()
     
@@ -212,6 +216,8 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.backgroundColor = pauseColor
         button.addTarget(self, action: #selector(pauseResumeButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.layer.cornerRadius = 30
+        button.clipsToBounds = true
         return button
     }()
     
@@ -268,6 +274,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let paceQuantity = totalTime * 1000 / distance
         paceDisplay.text = "\(paceQuantity.stringWithPaceFormat)"
         distanceDisplay.text = String(format: "%.1f", distance / 1000)
+        audioUpdate()
     }
     
     func startCounting() {
@@ -278,8 +285,19 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
     }
     
+    func audioUpdate() {
+        if duration % 300 == 0 {
+            let currentDistance = Int(distance)
+            let stringToSpeak = "You have run \(currentDistance) meters."
+            let speechUtterrance = AVSpeechUtterance(string: stringToSpeak)
+            speechUtterrance.rate = 0.4
+            speechUtterrance.pitchMultiplier = 1
+            speechSynthesizer.speak(speechUtterrance)
+        }
+    }
+    
     func stopButtonTapped() {
-        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this activity", preferredStyle: .actionSheet)
+        let actionController = UIAlertController(title: nil, message: "Are you sure you'd like to complete this run?", preferredStyle: .actionSheet)
         let saveAction = UIAlertAction(title: "Yes I'm Done", style: .default) { (action) in
             self.saveData()
             self.reset()
@@ -288,17 +306,16 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
             summaryController.workout = self.workout
             summaryController.locations = self.locations
             let summaryNav = UINavigationController(rootViewController: summaryController)
-            self.present(summaryNav, animated: true, completion: nil)
-        }
-        
-        let discardAction = UIAlertAction(title: "Discard", style: .destructive) { (action) in
-            self.reset()
-            self.dismiss(animated: true, completion: nil)
+            
+            self.dismiss(animated: false, completion: { 
+                if let topController = UIApplication.topViewController() {
+                    topController.present(summaryNav, animated: true, completion: nil)
+                }
+            })
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         actionController.addAction(saveAction)
-        actionController.addAction(discardAction)
         actionController.addAction(cancelAction)
         present(actionController, animated: true, completion: nil)
         locationManager.stopUpdatingLocation()
@@ -342,8 +359,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
         distanceRef.setValue(distance)
         
-            
-        let workoutRef = ref.child(Constants.Workout.TABLE_NAME + "/" + key)
+        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
         workout = Workout(user, routeRef.key, locations, distance, duration)
         workoutRef.setValue(workout.toAnyObject())
         }
@@ -382,9 +398,9 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-        stopButton.anchorInCorner(.bottomLeft, xPad: 0, yPad: 0, width: view.frame.width / 2, height: 60)
-        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 0, yPad: 0, width: view.frame.width / 2, height: 60)
-        seperatorLineView1.anchorToEdge(.bottom, padding: 60, width: view.frame.width, height: 20)
+        stopButton.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 60)
+        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 60)
+        seperatorLineView1.anchorToEdge(.bottom, padding: 80, width: view.frame.width, height: 20)
         minDisplay.align(.aboveCentered, relativeTo: seperatorLineView1, padding: 0, width: 80, height: 60)
         hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
         hourDisplay.align(.toTheLeftCentered, relativeTo: hourColon, padding: 0, width: 80, height: 60)
@@ -401,7 +417,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         distanceDisplay.align(.aboveCentered, relativeTo: distanceUnit, padding: 0, width: distanceUnit.width, height: 40)
         distanceLabel.align(.aboveCentered, relativeTo: distanceDisplay, padding: 0, width: distanceDisplay.width, height: 30)
         seperatorLineView4.align(.aboveCentered, relativeTo: seperatorLineView3, padding: 0, width: view.frame.width, height: 20)
-        mapView.align(.aboveCentered, relativeTo: seperatorLineView4, padding: 0, width: view.frame.width, height: view.frame.height - 309.5)
+        mapView.align(.aboveCentered, relativeTo: seperatorLineView4, padding: 0, width: view.frame.width, height: view.frame.height - 289.5)
     }
 }
 
