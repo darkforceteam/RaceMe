@@ -59,8 +59,6 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     
     private var durationDisplay: UILabel = {
         let label = UILabel()
-        //label.textColor = .white
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         return label
     }()
@@ -69,7 +67,6 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "DISTANCE"
         label.textColor = .darkGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16)
         return label
@@ -77,16 +74,12 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     
     private var distanceDisplay: UILabel = {
         let label = UILabel()
-        //label.textColor = .white
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         return label
     }()
     
     private var paceDisplay: UILabel = {
         let label = UILabel()
-        //label.textColor = .white
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         return label
     }()
@@ -95,7 +88,6 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         let label = UILabel()
         label.text = "AVG PACE"
         label.textColor = .darkGray
-        //label.backgroundColor = .blue
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 16)
         return label
@@ -178,16 +170,12 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.blue
-            polylineRenderer.lineWidth = 3
+            polylineRenderer.strokeColor = primaryColor
+            polylineRenderer.lineWidth = 4
             return polylineRenderer
         }
         return MKOverlayRenderer()
     }
-    
-    //    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-    //
-    //    }
     
     func polyline() -> MKPolyline {
         var coords = [CLLocationCoordinate2D]()
