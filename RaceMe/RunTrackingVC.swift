@@ -356,7 +356,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let endLoc = locations.last
         
         let geoFire = GeoFire(firebaseRef: ref.child(Constants.GEOFIRE))
-        //        geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
+        //geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
         geoFire?.setLocation(startLoc!, forKey: key)
         
         let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
