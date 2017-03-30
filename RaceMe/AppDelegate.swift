@@ -54,7 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Set up the Explore View Controller
                 let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
                 groupViewController.tabBarItem.title = "Group"
-                groupViewController.tabBarItem.image = UIImage(named: "group")
+                groupViewController.tabBarItem.image = UIImage(named: "ic_group")
                 
                 // Set up the Explore View Controller
                 let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
