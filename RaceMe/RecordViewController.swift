@@ -42,6 +42,11 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         return button
     }()
     
+    private lazy var addButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        return button
+    }()
+    
     override func viewDidLoad() {
         setupViews()
         authObserving()
@@ -66,6 +71,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         view.addSubview(mapView)
         view.addSubview(startButton)
         view.addSubview(mockupImage)
+        navigationItem.rightBarButtonItem = addButton
         mapView.delegate = self
     }
     
@@ -74,6 +80,13 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         trackingController.user = self.user
         let trackingNav = UINavigationController(rootViewController: trackingController)
         present(trackingNav, animated: true, completion: nil)
+    }
+    
+    func addButtonTapped() {
+        let manualController = ManualEntryController()
+        manualController.user = self.user
+        let manualNav = UINavigationController(rootViewController: manualController)
+        present(manualNav, animated: true, completion: nil)
     }
     
     func centerMapOnLocation() {

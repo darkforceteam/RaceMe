@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
+        // Enable offline data saving
+        FIRDatabase.database().persistenceEnabled = true
+        
         UIApplication.shared.statusBarStyle = .lightContent
         
         FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in

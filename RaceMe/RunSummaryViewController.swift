@@ -123,10 +123,12 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         setupViews()
         loadMap()
+        
+        print(locations.enumerated())
     }
     
     private func setupViews() {
-        title = "Run Summary"
+        title = "Review and Save"
         view.backgroundColor = .white
         view.addSubview(dateLabel)
         view.addSubview(mapView)
@@ -198,18 +200,20 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
     }
     
     func deleteButtonTapped() {
-        let routeRef = ref.child(Constants.Route.TABLE_NAME).child(workout.routeId)
-        let workoutRef = self.ref.child(Constants.Workout.TABLE_NAME).child(workout.routeId)
-        let alertController = UIAlertController(title: "Discard Run?", message: "Are you sure you would like to discard this run?", preferredStyle: .alert)
-        let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
-            routeRef.removeValue()
-            workoutRef.removeValue()
-            self.dismiss(animated: true, completion: nil)
+        if let routeId = workout.routeId {
+            let alertController = UIAlertController(title: "Discard Run?", message: "Are you sure you would like to discard this run?", preferredStyle: .alert)
+            let routeRef = ref.child(Constants.Route.TABLE_NAME).child(routeId)
+            let workoutRef = self.ref.child(Constants.Workout.TABLE_NAME).child(routeId)
+            let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+                routeRef.removeValue()
+                workoutRef.removeValue()
+                self.dismiss(animated: true, completion: nil)
+            }
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(yesAction)
+            alertController.addAction(cancelAction)
+            present(alertController, animated: true, completion: nil)
         }
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alertController.addAction(yesAction)
-        alertController.addAction(cancelAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     override func viewWillLayoutSubviews() {

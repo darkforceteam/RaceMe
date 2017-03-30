@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B225DB071E8CB57D00AE7A2D /* ManualEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */; };
 		B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978351E83FD85005F41B3 /* RecordViewController.swift */; };
 		B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22978361E83FD85005F41B3 /* RecordViewController.xib */; };
 		B229783A1E83FE1E005F41B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978391E83FE1E005F41B3 /* User.swift */; };
@@ -81,6 +82,7 @@
 
 /* Begin PBXFileReference section */
 		3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualEntryController.swift; sourceTree = "<group>"; };
 		B22978351E83FD85005F41B3 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
 		B22978361E83FD85005F41B3 /* RecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordViewController.xib; sourceTree = "<group>"; };
 		B22978391E83FE1E005F41B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
 				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
 				B22978361E83FD85005F41B3 /* RecordViewController.xib */,
+				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
 				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
 			);
 			name = Controllers;
