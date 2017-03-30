@@ -60,7 +60,7 @@ struct Workout {
         distanceKm = snapshotValue[Constants.Workout.DISTANCE_KM] as! Double
         distanceMi = snapshotValue[Constants.Workout.DISTANCE_MI] as! Double
         duration = snapshotValue[Constants.Workout.DURATION] as! Int
-        isPublic = snapshotValue["isPublic"] as! Bool
+        //isPublic = snapshotValue["isPublic"] as! Bool
         ref = snapshot.ref
     }
     

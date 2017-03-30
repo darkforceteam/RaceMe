@@ -538,6 +538,7 @@
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B229783C1E840066005F41B3 /* Extensions.swift in Sources */,
+				B225DB071E8CB57D00AE7A2D /* ManualEntryController.swift in Sources */,
 				B679DD291E8C00D9000744E8 /* ProfileGroupsViewController.swift in Sources */,
 				D9F7B2231E88BFF500B692FF /* GFQuery.m in Sources */,
 				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,

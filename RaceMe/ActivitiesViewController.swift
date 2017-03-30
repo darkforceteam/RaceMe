@@ -13,12 +13,12 @@ class ActivitiesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var ref: FIRDatabaseReference!
-    var items = ["Hung Dinh", "John Doe", "Thanh LuuThanh LuuThanh LuuThanh Luu", "Long Vu"]
+    var items = [Workout]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        
+        loadActivities()
         tableView.delegate = self
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
@@ -33,7 +33,7 @@ class ActivitiesViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.title = "Activities"
-        loadActivities()
+        
     }
 }
 
@@ -44,15 +44,23 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailArrowCell", for: indexPath) as! RightDetailArrowCell
-        cell.titleLabel.text = items[indexPath.row]
-        cell.detailLabel.text = items[indexPath.row]
+        cell.titleLabel.text = String(format: "%.1f km", items[indexPath.row].distanceKm)
+        cell.detailLabel.text = "\(items[indexPath.row].duration.toMinutes):\(items[indexPath.row].duration.toSeconds)"
         return cell
     }
     
     func loadActivities() {
         ref.child("WORKOUTS").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
-                print(snapshot)
+                for activityData in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    //self.items.append(activityData.value as! Workout)
+                    let oneActivity = Workout(snapshot: activityData)
+                    print(oneActivity.distanceKm)
+                    self.items.append(oneActivity)
+                }
+//                print(snapshot)
+                print(self.items)
+                self.tableView.reloadData()
             }
         })
     }
