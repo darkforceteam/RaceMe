@@ -36,7 +36,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         let button = UIButton()
         button.setTitle("Start Running", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = customRed
+        button.backgroundColor = customOrange
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .systemFont(ofSize: 25, weight: UIFontWeightMedium)
         return button
@@ -54,6 +54,11 @@ extension RecordViewController {
         let trackingController = RunTrackingVC()
         trackingController.user = self.user
         let trackingNav = UINavigationController(rootViewController: trackingController)
+        trackingNav.navigationBar.barTintColor = primaryColor
+        trackingNav.navigationBar.isTranslucent = false
+        trackingNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        trackingNav.navigationBar.barStyle = UIBarStyle.black
+        trackingNav.navigationBar.tintColor = .white
         present(trackingNav, animated: true, completion: nil)
     }
     
@@ -61,6 +66,11 @@ extension RecordViewController {
         let manualController = ManualEntryController()
         manualController.user = self.user
         let manualNav = UINavigationController(rootViewController: manualController)
+        manualNav.navigationBar.barTintColor = primaryColor
+        manualNav.navigationBar.isTranslucent = false
+        manualNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        manualNav.navigationBar.barStyle = UIBarStyle.black
+        manualNav.navigationBar.tintColor = .white
         present(manualNav, animated: true, completion: nil)
     }
     
@@ -101,41 +111,11 @@ extension RecordViewController {
         mapView.delegate = self
     }
     
-    func startButtonTapped() {
-        let trackingController = RunTrackingVC()
-        trackingController.user = self.user
-        let trackingNav = UINavigationController(rootViewController: trackingController)
-        trackingNav.navigationBar.barTintColor = primaryColor
-        trackingNav.navigationBar.isTranslucent = false
-        trackingNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        trackingNav.navigationBar.barStyle = UIBarStyle.black
-        trackingNav.navigationBar.tintColor = .white
-        present(trackingNav, animated: true, completion: nil)
-    }
-    
-    func addButtonTapped() {
-        let manualController = ManualEntryController()
-        manualController.user = self.user
-        let manualNav = UINavigationController(rootViewController: manualController)
-        manualNav.navigationBar.barTintColor = primaryColor
-        manualNav.navigationBar.isTranslucent = false
-        manualNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        manualNav.navigationBar.barStyle = UIBarStyle.black
-        manualNav.navigationBar.tintColor = .white
-        present(manualNav, animated: true, completion: nil)
-    }
-    
-    func centerMapOnLocation() {
-        let regionRadius: CLLocationDistance = 1000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
-    }
-    
     override func viewWillLayoutSubviews() {
         startButton.anchorToEdge(.bottom, padding: 49, width: view.frame.width, height: 61)
-        //mockupImage.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.width * 11/32)
-        //let mapViewHeight = view.frame.height - mockupImage.frame.height - 174
-        //mapView.align(.aboveCentered, relativeTo: mockupImage, padding: 0, width: view.frame.width, height: mapViewHeight)
+//        mockupImage.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.width * 11/32)
+//        let mapViewHeight = view.frame.height - mockupImage.frame.height - 174
+//        mapView.align(.aboveCentered, relativeTo: mockupImage, padding: 0, width: view.frame.width, height: mapViewHeight)
         
         let mapViewHeight = view.frame.height - 110
         mapView.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: mapViewHeight)
