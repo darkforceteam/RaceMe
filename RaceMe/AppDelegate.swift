@@ -50,10 +50,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // Set up the Tracking View Controller
                 let recordViewController = UINavigationController(rootViewController: RecordViewController())
+                
+                //recordViewController.topViewController?.navigationItem.title = "CICRun"
+                
+                // Style for Navigation Bar
+                recordViewController.navigationBar.barTintColor = primaryColor
+                recordViewController.navigationBar.isTranslucent = false
+                recordViewController.navigationBar.topItem?.title = "CICRun"
+                recordViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                recordViewController.navigationBar.barStyle = UIBarStyle.black
+                recordViewController.navigationBar.tintColor = .white
+                
                 recordViewController.tabBarItem.title = "Start"
                 recordViewController.tabBarItem.image = UIImage(named: "map-pin")
-                recordViewController.topViewController?.navigationItem.title = "CICRun"
-                
+
                 // Set up the Explore View Controller
                 let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
                 groupViewController.tabBarItem.title = "Group"
@@ -67,8 +77,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Set up the Tab Bar Controller to have two tabs
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
-                tabBarController.viewControllers = [profileNavVC, findFriendsViewController, recordViewController, groupViewController, exploreViewController]
-                tabBarController.selectedIndex = 2
+                tabBarController.viewControllers = [exploreViewController, recordViewController, profileNavVC]
+                tabBarController.selectedIndex = 1
                 
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController

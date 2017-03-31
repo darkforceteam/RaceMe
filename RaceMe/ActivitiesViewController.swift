@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import FirebaseAuth
 import FirebaseDatabase
 
 class ActivitiesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var ref: FIRDatabaseReference!
-    var items = [Workout]()
+    var sections = Dictionary<String, Array<Workout>>()
+    var sortedSections = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,28 +40,53 @@ class ActivitiesViewController: UIViewController {
 }
 
 extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return sections.count
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count
+        return sections[sortedSections[section]]!.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+
+        let dateString = "\(sortedSections[section])"
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-mm-dd"
+        dateFormatter.locale = Locale.init(identifier: "en_GB")
+        let dateObj = dateFormatter.date(from: dateString)
+        dateFormatter.dateFormat = "EEEE"
+        let headerTitle = "\(dateFormatter.string(from: dateObj!))"
+        return headerTitle
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailArrowCell", for: indexPath) as! RightDetailArrowCell
-        cell.titleLabel.text = String(format: "%.1f km", items[indexPath.row].distanceKm)
-        cell.detailLabel.text = "\(items[indexPath.row].duration.toMinutes):\(items[indexPath.row].duration.toSeconds)"
+        
+        let tableSection = sections[sortedSections[indexPath.section]]
+        let tableItem = tableSection![indexPath.row]
+        
+        cell.titleLabel.text = String(format: "%.1f km", tableItem.distanceKm!)
+        cell.detailLabel.text = "\((tableItem.duration?.toMinutes)!):\((tableItem.duration?.toSeconds)!)"
         return cell
     }
     
     func loadActivities() {
-        ref.child("WORKOUTS").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: FIRAuth.auth()?.currentUser?.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
                 for activityData in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                    //self.items.append(activityData.value as! Workout)
                     let oneActivity = Workout(snapshot: activityData)
-                    print(oneActivity.distanceKm)
-                    self.items.append(oneActivity)
+
+                    let date = "\(oneActivity.startTime!)"
+                    let index = date.index(date.startIndex, offsetBy: 10)
+                    let subDate = date.substring(to: index)
+                    
+                    if self.sections.index(forKey: subDate) == nil {
+                        self.sections[subDate] = [oneActivity]
+                    } else {
+                        self.sections[subDate]!.append(oneActivity)
+                    }
+                    self.sortedSections = self.sections.keys.sorted()
                 }
-//                print(snapshot)
-                print(self.items)
                 self.tableView.reloadData()
             }
         })
