@@ -675,7 +675,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.CICRun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -695,7 +695,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
+				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.CICRun;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
