@@ -67,3 +67,4 @@ fastlane/test_output
 
 ## Firebase Config
 GoogleService-Info.plist
+*GoogleService-Info.plist
