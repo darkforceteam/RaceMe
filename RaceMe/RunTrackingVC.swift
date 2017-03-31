@@ -13,21 +13,21 @@ import Firebase
 import Neon
 import AVFoundation
 
-class RunTrackingVC: UIViewController, MKMapViewDelegate {
+class RunTrackingVC: UIViewController {
     
-    private var duration = 0
-    var distance = 0.0
-    lazy var locations = [CLLocation]()
-    private lazy var timer = Timer()
-    var mapOverlay: MKTileOverlay!
+    fileprivate var duration = 0
+    fileprivate var distance = 0.0
+    fileprivate lazy var locations = [CLLocation]()
+    fileprivate lazy var timer = Timer()
+    fileprivate var mapOverlay: MKTileOverlay!
     var user: User!
-    var workout: Workout!
-    var isRunning = true
-    private let speechSynthesizer = AVSpeechSynthesizer()
+    fileprivate var workout: Workout!
+    fileprivate var isRunning = true
+    fileprivate let speechSynthesizer = AVSpeechSynthesizer()
     
-    let ref = FIRDatabase.database().reference()
+    fileprivate let ref = FIRDatabase.database().reference()
     
-    private lazy var locationManager: CLLocationManager = {
+    fileprivate lazy var locationManager: CLLocationManager = {
         var lm = CLLocationManager()
         lm.delegate = self
         lm.desiredAccuracy = kCLLocationAccuracyBest
@@ -37,7 +37,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return lm
     }()
     
-    let mapView: MKMapView = {
+    fileprivate let mapView: MKMapView = {
         let mv = MKMapView()
         mv.userTrackingMode = .follow
         mv.showsPointsOfInterest = false
@@ -46,13 +46,13 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return mv
     }()
     
-    private let mockupImage: UIImageView = {
+    fileprivate let mockupImage: UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "mockup")
         return iv
     }()
     
-    private var timeLabel: UILabel = {
+    fileprivate var timeLabel: UILabel = {
         let label = UILabel()
         label.text = "TIME"
         label.textColor = .darkGray
@@ -61,7 +61,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var hourDisplay: UILabel = {
+    fileprivate var hourDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
@@ -69,7 +69,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var minDisplay: UILabel = {
+    fileprivate var minDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
@@ -77,7 +77,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var secDisplay: UILabel = {
+    fileprivate var secDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
@@ -85,7 +85,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var hourColon: UILabel = {
+    fileprivate var hourColon: UILabel = {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
@@ -93,7 +93,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var minColon: UILabel = {
+    fileprivate var minColon: UILabel = {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
@@ -101,19 +101,19 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private let seperatorLineView1: UIView = {
+    fileprivate let seperatorLineView1: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = backgroundGray
         return lineView
     }()
     
-    private let seperatorLineView2: UIView = {
+    fileprivate let seperatorLineView2: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = customGray
         return lineView
     }()
     
-    private var paceLabel: UILabel = {
+    fileprivate var paceLabel: UILabel = {
         let label = UILabel()
         label.text = "AVG PACE"
         label.textColor = .darkGray
@@ -122,7 +122,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var paceDisplay: UILabel = {
+    fileprivate var paceDisplay: UILabel = {
         let label = UILabel()
         label.text = "0:00"
         label.textAlignment = .center
@@ -130,7 +130,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var paceUnit: UILabel = {
+    fileprivate var paceUnit: UILabel = {
         let label = UILabel()
         label.text = "/KM"
         label.textColor = .lightGray
@@ -139,7 +139,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var distanceLabel: UILabel = {
+    fileprivate var distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "DISTANCE"
         label.textColor = .darkGray
@@ -148,7 +148,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var distanceDisplay: UILabel = {
+    fileprivate var distanceDisplay: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textAlignment = .center
@@ -156,7 +156,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var distanceUnit: UILabel = {
+    fileprivate var distanceUnit: UILabel = {
         let label = UILabel()
         label.text = "KILOMETERS"
         label.textColor = .lightGray
@@ -165,19 +165,19 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private let seperatorLineView3: UIView = {
+    fileprivate let seperatorLineView3: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = customGray
         return lineView
     }()
     
-    private let seperatorLineView4: UIView = {
+    fileprivate let seperatorLineView4: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = backgroundGray
         return lineView
     }()
     
-    private lazy var stopButton: UIButton = {
+    fileprivate lazy var stopButton: UIButton = {
         let button = UIButton()
         button.setTitle("Stop", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -189,7 +189,7 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return button
     }()
     
-    private lazy var pauseResumeButton: UIButton = {
+    fileprivate lazy var pauseResumeButton: UIButton = {
         let button = UIButton()
         button.setTitle("Pause", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -200,50 +200,11 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         button.clipsToBounds = true
         return button
     }()
+}
+
+extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     
-    override func viewDidLoad() {
-        setupViews()
-        startCounting()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        locationManager.requestAlwaysAuthorization()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        centerMapOnLocation()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        timer.invalidate()
-    }
-    
-    private func setupViews() {
-        title = "Run Tracking"
-        view.backgroundColor = .white
-        view.addSubview(mapView)
-        view.addSubview(timeLabel)
-        view.addSubview(minDisplay)
-        view.addSubview(hourDisplay)
-        view.addSubview(secDisplay)
-        view.addSubview(hourColon)
-        view.addSubview(minColon)
-        view.addSubview(seperatorLineView1)
-        view.addSubview(paceLabel)
-        view.addSubview(distanceLabel)
-        view.addSubview(seperatorLineView2)
-        view.addSubview(paceDisplay)
-        view.addSubview(paceUnit)
-        view.addSubview(distanceDisplay)
-        view.addSubview(distanceUnit)
-        view.addSubview(seperatorLineView3)
-        view.addSubview(stopButton)
-        view.addSubview(pauseResumeButton)
-        view.addSubview(seperatorLineView4)
-        mapView.delegate = self
-    }
-    
-    func eachSecond(timer: Timer) {
+    @objc fileprivate func eachSecond(timer: Timer) {
         duration += 1
         
         hourDisplay.text = "\(duration.toHours)"
@@ -254,29 +215,73 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         let paceQuantity = totalTime * 1000 / distance
         paceDisplay.text = "\(paceQuantity.stringWithPaceFormat)"
         distanceDisplay.text = String(format: "%.1f", distance / 1000)
-        audioUpdate()
     }
     
-    func startCounting() {
+    fileprivate func startCounting() {
         duration = 0
         distance = 0
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
     }
     
-    func audioUpdate() {
-        if duration % 300 == 0 {
-            let currentDistance = Int(distance)
-            let stringToSpeak = "You have run \(currentDistance) meters."
-            let speechUtterrance = AVSpeechUtterance(string: stringToSpeak)
-            speechUtterrance.rate = 0.4
-            speechUtterrance.pitchMultiplier = 1
-            speechSynthesizer.speak(speechUtterrance)
+    fileprivate func saveData() {
+        let key = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
+        let routeID = Constants.Route.TABLE_NAME + "/" + key
+        let routeRef = ref.child(routeID)
+        
+        for (i, loc) in locations.enumerated() {
+            let locationRef = routeRef.child("\(i)")
+            let location = Location(loc)
+            locationRef.setValue(location.toAnyObject())
+        }
+        let startLoc = locations.first
+        let endLoc = locations.last
+        
+        let geoFire = GeoFire(firebaseRef: ref.child(Constants.GEOFIRE))
+        //geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
+        geoFire?.setLocation(startLoc!, forKey: key)
+        
+        let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
+        distanceRef.setValue(distance)
+        
+        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
+        workout = Workout(user, routeRef.key, locations, distance, duration)
+        workoutRef.setValue(workout.toAnyObject())
+    }
+    
+    @objc fileprivate func audioUpdate() {
+        let currentDistance = Int(distance)
+        let stringToSpeak = "You have run \(currentDistance) meters."
+        let speechUtterrance = AVSpeechUtterance(string: stringToSpeak)
+        speechUtterrance.rate = 0.4
+        speechUtterrance.pitchMultiplier = 1
+        speechSynthesizer.speak(speechUtterrance)
+    }
+    
+    fileprivate func reset() {
+        timer.invalidate()
+        distance = 0
+        duration = 0
+        hourDisplay.text = "00"
+        minDisplay.text = "00"
+        secDisplay.text = "00"
+        paceDisplay.text = "0:00"
+        distanceDisplay.text = "0.0"
+        
+        for overlay in mapView.overlays {
+            mapView.remove(overlay)
         }
     }
     
-    func stopButtonTapped() {
+    fileprivate func centerMapOnLocation() {
+        let regionRadius: CLLocationDistance = 1000
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    @objc fileprivate func stopButtonTapped() {
         pauseCounting()
         
         if locations.count > 1 {
@@ -319,67 +324,27 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func pauseResumeButtonTapped() {
+    @objc fileprivate func pauseResumeButtonTapped() {
         setButtonTitleAndColor()
         isRunning ? pauseCounting() : continueCounting()
     }
     
-    func continueCounting() {
+    fileprivate func continueCounting() {
         isRunning = true
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
     }
     
-    func pauseCounting() {
+    fileprivate func pauseCounting() {
         isRunning = false
         timer.invalidate()
         locationManager.stopUpdatingLocation()
     }
     
-    func setButtonTitleAndColor() {
+    fileprivate func setButtonTitleAndColor() {
         pauseResumeButton.backgroundColor = isRunning ? resumeColor : pauseColor
         let buttonTitle = isRunning ? "Resume" : "Pause"
         pauseResumeButton.setTitle(buttonTitle, for: .normal)
-    }
-    
-    func saveData() {
-        let key = ref.child(Constants.Route.TABLE_NAME).childByAutoId().key
-        let routeID = Constants.Route.TABLE_NAME + "/" + key
-        let routeRef = ref.child(routeID)
-        
-        for (i, loc) in locations.enumerated() {
-            let locationRef = routeRef.child("\(i)")
-            let location = Location(loc)
-            locationRef.setValue(location.toAnyObject())
-        }
-        let startLoc = locations.first
-        let endLoc = locations.last
-        
-        let geoFire = GeoFire(firebaseRef: ref.child(Constants.GEOFIRE))
-        //geoFire?.setLocation(startLoc, forKey: "\(routeID)/\(Constants.Route.ROUTE_DISTANCE)")
-        geoFire?.setLocation(startLoc!, forKey: key)
-        
-        let distanceRef = routeRef.child(Constants.Route.ROUTE_DISTANCE)
-        distanceRef.setValue(distance)
-        
-        let workoutRef = ref.child(Constants.Workout.TABLE_NAME).child(routeRef.key)
-        workout = Workout(user, routeRef.key, locations, distance, duration)
-        workoutRef.setValue(workout.toAnyObject())
-    }
-    
-    func reset() {
-        timer.invalidate()
-        distance = 0
-        duration = 0
-        hourDisplay.text = "00"
-        minDisplay.text = "00"
-        secDisplay.text = "00"
-        paceDisplay.text = "0:00"
-        distanceDisplay.text = "0.0"
-        
-        for overlay in mapView.overlays {
-            mapView.remove(overlay)
-        }
     }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
@@ -392,11 +357,66 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
         return MKOverlayRenderer()
     }
     
-    func centerMapOnLocation() {
-        let regionRadius: CLLocationDistance = 1000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
-        
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        for location in locations {
+            if location.horizontalAccuracy < 20 {
+                if self.locations.count > 0 {
+                    distance += location.distance(from: self.locations.last!)
+                    
+                    var coordinates = [CLLocationCoordinate2D]()
+                    coordinates.append(self.locations.last!.coordinate)
+                    coordinates.append(location.coordinate)
+                    mapView.add(MKPolyline(coordinates: coordinates, count: coordinates.count))
+                    
+                }
+                self.locations.append(location)
+            }
+        }
+    }
+}
+
+extension RunTrackingVC {
+    
+    override func viewDidLoad() {
+        setupViews()
+        startCounting()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        locationManager.requestAlwaysAuthorization()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        centerMapOnLocation()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        timer.invalidate()
+    }
+    
+    fileprivate func setupViews() {
+        title = "Run Tracking"
+        view.backgroundColor = .white
+        view.addSubview(mapView)
+        view.addSubview(timeLabel)
+        view.addSubview(minDisplay)
+        view.addSubview(hourDisplay)
+        view.addSubview(secDisplay)
+        view.addSubview(hourColon)
+        view.addSubview(minColon)
+        view.addSubview(seperatorLineView1)
+        view.addSubview(paceLabel)
+        view.addSubview(distanceLabel)
+        view.addSubview(seperatorLineView2)
+        view.addSubview(paceDisplay)
+        view.addSubview(paceUnit)
+        view.addSubview(distanceDisplay)
+        view.addSubview(distanceUnit)
+        view.addSubview(seperatorLineView3)
+        view.addSubview(stopButton)
+        view.addSubview(pauseResumeButton)
+        view.addSubview(seperatorLineView4)
+        mapView.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
@@ -423,22 +443,3 @@ class RunTrackingVC: UIViewController, MKMapViewDelegate {
     }
 }
 
-extension RunTrackingVC: CLLocationManagerDelegate {
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        for location in locations {
-            if location.horizontalAccuracy < 20 {
-                if self.locations.count > 0 {
-                    distance += location.distance(from: self.locations.last!)
-                    
-                    var coordinates = [CLLocationCoordinate2D]()
-                    coordinates.append(self.locations.last!.coordinate)
-                    coordinates.append(location.coordinate)
-                    mapView.add(MKPolyline(coordinates: coordinates, count: coordinates.count))
-                    
-                }
-                self.locations.append(location)
-            }
-        }
-    }
-}

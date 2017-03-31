@@ -14,10 +14,10 @@ import Neon
 
 class RecordViewController: UIViewController, MKMapViewDelegate {
     
-    var user: User!
-    let onlineRef = FIRDatabase.database().reference(withPath: "online")
+    fileprivate var user: User!
+    fileprivate let onlineRef = FIRDatabase.database().reference(withPath: "online")
     
-    let mapView: MKMapView = {
+    fileprivate let mapView: MKMapView = {
         let mv = MKMapView()
         mv.userTrackingMode = .follow
         mv.showsPointsOfInterest = false
@@ -26,13 +26,13 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         return mv
     }()
     
-    private let mockupImage: UIImageView = {
+    fileprivate let mockupImage: UIImageView = {
         let iv = UIImageView()
         iv.image = #imageLiteral(resourceName: "mockup")
         return iv
     }()
     
-    private lazy var startButton: UIButton = {
+    fileprivate lazy var startButton: UIButton = {
         let button = UIButton()
         button.setTitle("Start Running", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -42,10 +42,46 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         return button
     }()
     
-    private lazy var addButton: UIBarButtonItem = {
+    fileprivate lazy var addButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
         return button
     }()
+}
+
+extension RecordViewController {
+    
+    @objc fileprivate func startButtonTapped() {
+        let trackingController = RunTrackingVC()
+        trackingController.user = self.user
+        let trackingNav = UINavigationController(rootViewController: trackingController)
+        present(trackingNav, animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func addButtonTapped() {
+        let manualController = ManualEntryController()
+        manualController.user = self.user
+        let manualNav = UINavigationController(rootViewController: manualController)
+        present(manualNav, animated: true, completion: nil)
+    }
+    
+    fileprivate func centerMapOnLocation() {
+        let regionRadius: CLLocationDistance = 1000
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    fileprivate func authObserving() {
+        FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
+            guard let user = user else { return }
+            self.user = User(authData: user)
+            let currentUserRef = self.onlineRef.child(self.user.uid)
+            currentUserRef.setValue(self.user.email)
+            currentUserRef.onDisconnectRemoveValue()
+        })
+    }
+}
+
+extension RecordViewController {
     
     override func viewDidLoad() {
         setupViews()
@@ -56,43 +92,13 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         centerMapOnLocation()
     }
     
-    private func authObserving() {
-        FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
-            guard let user = user else { return }
-            self.user = User(authData: user)
-            let currentUserRef = self.onlineRef.child(self.user.uid)
-            currentUserRef.setValue(self.user.email)
-            currentUserRef.onDisconnectRemoveValue()
-        })
-    }
-    
-    private func setupViews() {
+    fileprivate func setupViews() {
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)
         view.addSubview(mockupImage)
         navigationItem.rightBarButtonItem = addButton
         mapView.delegate = self
-    }
-    
-    func startButtonTapped() {
-        let trackingController = RunTrackingVC()
-        trackingController.user = self.user
-        let trackingNav = UINavigationController(rootViewController: trackingController)
-        present(trackingNav, animated: true, completion: nil)
-    }
-    
-    func addButtonTapped() {
-        let manualController = ManualEntryController()
-        manualController.user = self.user
-        let manualNav = UINavigationController(rootViewController: manualController)
-        present(manualNav, animated: true, completion: nil)
-    }
-    
-    func centerMapOnLocation() {
-        let regionRadius: CLLocationDistance = 1000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
     }
     
     override func viewWillLayoutSubviews() {
