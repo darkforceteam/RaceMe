@@ -24,7 +24,6 @@ class RunTrackingVC: UIViewController {
     fileprivate var workout: Workout!
     fileprivate var isRunning = true
     fileprivate let speechSynthesizer = AVSpeechSynthesizer()
-    
     fileprivate let ref = FIRDatabase.database().reference()
     
     fileprivate lazy var locationManager: CLLocationManager = {

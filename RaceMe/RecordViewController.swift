@@ -16,6 +16,9 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     
     fileprivate var user: User!
     fileprivate let onlineRef = FIRDatabase.database().reference(withPath: "online")
+    fileprivate let workoutRef = FIRDatabase.database().reference(withPath: "WORKOUTS")
+    
+    fileprivate var workouts = [Workout]()
     
     fileprivate let mapView: MKMapView = {
         let mv = MKMapView()
@@ -24,12 +27,6 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         mv.showsBuildings = false
         mv.showsUserLocation = true
         return mv
-    }()
-    
-    fileprivate let mockupImage: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "mockup")
-        return iv
     }()
     
     fileprivate lazy var startButton: UIButton = {
@@ -44,6 +41,11 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     
     fileprivate lazy var addButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        return button
+    }()
+    
+    fileprivate lazy var activitiesButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Activities", style: .plain, target: self, action: #selector(showActivities))
         return button
     }()
 }
@@ -64,6 +66,13 @@ extension RecordViewController {
         present(manualNav, animated: true, completion: nil)
     }
     
+    @objc fileprivate func showActivities() {
+        let activitiesControlller = ActivitiesVC()
+        activitiesControlller.user = self.user
+        let activitiesNav = UINavigationController(rootViewController: activitiesControlller)
+        present(activitiesNav, animated: true, completion: nil)
+    }
+    
     fileprivate func centerMapOnLocation() {
         let regionRadius: CLLocationDistance = 1000
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
@@ -79,6 +88,18 @@ extension RecordViewController {
             currentUserRef.onDisconnectRemoveValue()
         })
     }
+    
+    fileprivate func loadWorkouts() {
+        
+        workoutRef.observe(.value, with: { (snapshot) in
+            
+            for item in snapshot.children {
+                let workout = Workout(snapshot: item as! FIRDataSnapshot)
+                self.workouts.append(workout)
+                
+            }
+        })
+    }
 }
 
 extension RecordViewController {
@@ -86,6 +107,7 @@ extension RecordViewController {
     override func viewDidLoad() {
         setupViews()
         authObserving()
+        loadWorkouts()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -96,15 +118,13 @@ extension RecordViewController {
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)
-        view.addSubview(mockupImage)
         navigationItem.rightBarButtonItem = addButton
+        navigationItem.leftBarButtonItem = activitiesButton
         mapView.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
         startButton.anchorToEdge(.bottom, padding: 49, width: view.frame.width, height: 61)
-        mockupImage.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.width * 11/32)
-        let mapViewHeight = view.frame.height - mockupImage.frame.height - 174
-        mapView.align(.aboveCentered, relativeTo: mockupImage, padding: 0, width: view.frame.width, height: mapViewHeight)
+        mapView.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.height - 174)
     }
 }

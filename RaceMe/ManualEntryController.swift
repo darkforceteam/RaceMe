@@ -13,32 +13,32 @@ import Font_Awesome_Swift
 
 class ManualEntryController: UIViewController {
     
-    let ref = FIRDatabase.database().reference()
+    fileprivate let ref = FIRDatabase.database().reference()
+    fileprivate var isPublic = true
     var user: User!
-    var isPublic = true
     
-    private lazy var doneButton: UIBarButtonItem = {
+    fileprivate lazy var doneButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(doneButtonTapped))
         button.FAIcon = .FACheck
         button.tintColor = .black
         return button
     }()
     
-    private lazy var cancelButton: UIBarButtonItem = {
+    fileprivate lazy var cancelButton: UIBarButtonItem = {
         let button = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(cancelButtonTapped))
         button.FAIcon = .FAClose
         button.tintColor = .black
         return button
     }()
     
-    private let distanceLabel: UILabel = {
+    fileprivate let distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "Distance"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
-    private let distanceField: UITextField = {
+    fileprivate let distanceField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "distance in meters"
         tf.textAlignment = .right
@@ -47,14 +47,14 @@ class ManualEntryController: UIViewController {
         return tf
     }()
     
-    private let durationLabel: UILabel = {
+    fileprivate let durationLabel: UILabel = {
         let label = UILabel()
         label.text = "Duration"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
-    private let durationField: UITextField = {
+    fileprivate let durationField: UITextField = {
         let tf = UITextField()
         tf.placeholder = "duration in seconds"
         tf.textAlignment = .right
@@ -63,38 +63,24 @@ class ManualEntryController: UIViewController {
         return tf
     }()
     
-    private let isPublicLabel: UILabel = {
+    fileprivate let isPublicLabel: UILabel = {
         let label = UILabel()
         label.text = "Public"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
     
-    private let publicSwitch: UISwitch = {
+    fileprivate let publicSwitch: UISwitch = {
         let sw = UISwitch()
         sw.isOn = true
         sw.addTarget(self, action: #selector(publicSwitchDidChange), for: .valueChanged)
         return sw
     }()
+}
+
+extension ManualEntryController {
     
-    override func viewDidLoad() {
-        setupViews()
-    }
-    
-    private func setupViews() {
-        title = "Manual Entry"
-        view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = doneButton
-        view.addSubview(distanceLabel)
-        view.addSubview(distanceField)
-        view.addSubview(durationLabel)
-        view.addSubview(durationField)
-        view.addSubview(isPublicLabel)
-        view.addSubview(publicSwitch)
-    }
-    
-    func doneButtonTapped() {
+    @objc fileprivate func doneButtonTapped() {
         if distanceField.text != "" && durationField.text != "" {
             if distanceField.text == "0" || durationField.text == "0" {
                 showAlert()
@@ -111,21 +97,39 @@ class ManualEntryController: UIViewController {
         }
     }
     
-    func showAlert() {
+    @objc fileprivate func cancelButtonTapped() {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @objc fileprivate func publicSwitchDidChange() {
+        isPublic = publicSwitch.isOn ? true : false
+    }
+    
+    fileprivate func showAlert() {
         let alertController = UIAlertController(title: nil, message: "Your input cannot be empty or zero!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
     }
+}
+
+extension ManualEntryController {
     
-    func cancelButtonTapped() {
-        dismiss(animated: true, completion: nil)
+    override func viewDidLoad() {
+        setupViews()
     }
     
-    func publicSwitchDidChange() {
-        isPublic = publicSwitch.isOn ? true : false
-        
-        print(isPublic)
+    fileprivate func setupViews() {
+        title = "Manual Entry"
+        view.backgroundColor = .white
+        navigationItem.leftBarButtonItem = cancelButton
+        navigationItem.rightBarButtonItem = doneButton
+        view.addSubview(distanceLabel)
+        view.addSubview(distanceField)
+        view.addSubview(durationLabel)
+        view.addSubview(durationField)
+        view.addSubview(isPublicLabel)
+        view.addSubview(publicSwitch)
     }
     
     override func viewWillLayoutSubviews() {
@@ -136,19 +140,9 @@ class ManualEntryController: UIViewController {
         isPublicLabel.align(.underMatchingLeft, relativeTo: durationLabel, padding: 10, width: 85, height: 30)
         publicSwitch.align(.underMatchingRight, relativeTo: durationField, padding: 10, width: 50, height: 30)
     }
-//    
-//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-//        textField.resignFirstResponder()
-//        if textField == distanceField {
-//            durationField.becomeFirstResponder()
-//        }
-//        
-//        return false
-//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
-    
 }
 
