@@ -20,6 +20,16 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     
     fileprivate var workouts = [Workout]()
     
+    fileprivate let notificationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Turn off your screen while running"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = UIColor(84, 106, 120)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 14)
+        return label
+    }()
+    
     fileprivate let mapView: MKMapView = {
         let mv = MKMapView()
         mv.userTrackingMode = .follow
@@ -31,16 +41,13 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     
     fileprivate lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Start Running", for: .normal)
+        button.setTitle("GO RUNNING", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = customOrange
+        button.backgroundColor = goRunning
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-        button.titleLabel?.font = .systemFont(ofSize: 25, weight: UIFontWeightMedium)
-        return button
-    }()
-    
-    fileprivate lazy var addButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addButtonTapped))
+        button.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 15)
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
         return button
     }()
     
@@ -117,13 +124,26 @@ extension RecordViewController {
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)
-        navigationItem.rightBarButtonItem = addButton
+        view.addSubview(notificationLabel)
+        setupRightButton()
         navigationItem.leftBarButtonItem = activitiesButton
         mapView.delegate = self
     }
     
+    fileprivate func setupRightButton() {
+        let addButton = UIButton()
+        addButton.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+        addButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        addButton.transform = CGAffineTransform(translationX: 10, y: 0)
+        let buttonContainer = UIView(frame: addButton.frame)
+        buttonContainer.addSubview(addButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainer)
+    }
+    
     override func viewWillLayoutSubviews() {
-        startButton.anchorToEdge(.bottom, padding: 49, width: view.frame.width, height: 61)
-        mapView.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.height - 174)
+        notificationLabel.anchorToEdge(.top, padding: 64, width: view.frame.width, height: 30)
+        startButton.anchorToEdge(.bottom, padding: 64, width: view.frame.width - 30, height: 60)
+        mapView.align(.aboveCentered, relativeTo: startButton, padding: 15, width: view.frame.width, height: view.frame.height - 233)
     }
 }

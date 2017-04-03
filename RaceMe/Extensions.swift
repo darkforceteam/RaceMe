@@ -88,14 +88,14 @@ extension UIApplication {
     }
 }
 
-let primaryColor = UIColor(47, 151, 243)
+let primaryColor = UIColor(73, 158, 217)
 let labelGray1 = UIColor(166, 175, 182)
 let labelGray2 = UIColor(84, 106, 120)
 let imageGray = UIColor(92, 112, 126)
-
+let goRunning = UIColor(136, 194, 95)
 let customGray = UIColor(204, 204, 204)
 let customGreen = UIColor(74, 167, 127)
-let customOrange = UIColor(255, 183, 68)
+let customOrange = UIColor(238, 176, 84)
 let stopColor = UIColor(239, 93, 53)
 let pauseColor = UIColor(46, 201, 214)
 let resumeColor = UIColor(135, 229, 127)
