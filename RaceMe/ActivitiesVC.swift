@@ -55,7 +55,7 @@ extension ActivitiesVC {
         cell.selectionStyle = .none
         let distanceKm = workouts[indexPath.row].distanceKm
         let duration = workouts[indexPath.row].duration
-        cell.textLabel?.text = String(format: "Distance: %.1f km", distanceKm)
+        cell.textLabel?.text = String(format: "Distance: %.1f km", distanceKm!)
         cell.detailTextLabel?.text = "Duration: \(duration)"
         return cell
     }

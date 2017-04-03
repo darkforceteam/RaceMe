@@ -86,10 +86,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 var initialViewController: UIViewController?
                 initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-                let frame = UIScreen.main.bounds
-                self.window = UIWindow(frame: frame)
-                self.window!.rootViewController = initialViewController
-                self.window!.makeKeyAndVisible()
+//                let frame = UIScreen.main.bounds
+//                self.window = UIWindow(frame: frame)
+                self.window?.rootViewController = initialViewController
+                self.window?.makeKeyAndVisible()
             }
         }
         

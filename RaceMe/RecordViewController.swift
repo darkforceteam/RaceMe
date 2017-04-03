@@ -136,11 +136,6 @@ extension RecordViewController {
     
     override func viewWillLayoutSubviews() {
         startButton.anchorToEdge(.bottom, padding: 49, width: view.frame.width, height: 61)
-//        mockupImage.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.width * 11/32)
-//        let mapViewHeight = view.frame.height - mockupImage.frame.height - 174
-//        mapView.align(.aboveCentered, relativeTo: mockupImage, padding: 0, width: view.frame.width, height: mapViewHeight)
-        
-        let mapViewHeight = view.frame.height - 110
-        mapView.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: mapViewHeight)
+        mapView.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.height - 174)
     }
 }

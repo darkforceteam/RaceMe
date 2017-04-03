@@ -32,7 +32,7 @@ class LoginViewController: UIViewController {
         fbLoginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
 
         // Add the button to the view
-        view.addSubview(fbLoginButton)
+        //view.addSubview(fbLoginButton)
     }
     
     override func didReceiveMemoryWarning() {
