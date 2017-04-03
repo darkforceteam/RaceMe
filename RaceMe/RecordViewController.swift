@@ -14,10 +14,23 @@ import Neon
 
 class RecordViewController: UIViewController, MKMapViewDelegate {
     
-    var user: User!
-    let onlineRef = FIRDatabase.database().reference(withPath: "online")
+    fileprivate var user: User!
+    fileprivate let onlineRef = FIRDatabase.database().reference(withPath: "online")
+    fileprivate let workoutRef = FIRDatabase.database().reference(withPath: "WORKOUTS")
     
-    let mapView: MKMapView = {
+    fileprivate var workouts = [Workout]()
+    
+    fileprivate let notificationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Turn off your screen while running"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.backgroundColor = UIColor(84, 106, 120)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 14)
+        return label
+    }()
+    
+    fileprivate let mapView: MKMapView = {
         let mv = MKMapView()
         mv.userTrackingMode = .follow
         mv.showsPointsOfInterest = false
@@ -26,32 +39,64 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         return mv
     }()
     
-    private let mockupImage: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "mockup")
-        return iv
-    }()
-    
-    private lazy var startButton: UIButton = {
+    fileprivate lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Start Running", for: .normal)
+        button.setTitle("GO RUNNING", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = customOrange
+        button.backgroundColor = goRunning
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-        button.titleLabel?.font = .systemFont(ofSize: 25, weight: UIFontWeightMedium)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 15)
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
         return button
     }()
     
-    override func viewDidLoad() {
-        setupViews()
-        authObserving()
+    fileprivate lazy var activitiesButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Activities", style: .plain, target: self, action: #selector(showActivities))
+        return button
+    }()
+}
+
+extension RecordViewController {
+    
+    @objc fileprivate func startButtonTapped() {
+        let trackingController = RunTrackingVC()
+        trackingController.user = self.user
+        let trackingNav = UINavigationController(rootViewController: trackingController)
+        trackingNav.navigationBar.barTintColor = primaryColor
+        trackingNav.navigationBar.isTranslucent = false
+        trackingNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        trackingNav.navigationBar.barStyle = UIBarStyle.black
+        trackingNav.navigationBar.tintColor = .white
+        present(trackingNav, animated: true, completion: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        centerMapOnLocation()
+    @objc fileprivate func addButtonTapped() {
+        let manualController = ManualEntryController()
+        manualController.user = self.user
+        let manualNav = UINavigationController(rootViewController: manualController)
+        manualNav.navigationBar.barTintColor = primaryColor
+        manualNav.navigationBar.isTranslucent = false
+        manualNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        manualNav.navigationBar.barStyle = UIBarStyle.black
+        manualNav.navigationBar.tintColor = .white
+        present(manualNav, animated: true, completion: nil)
     }
     
-    private func authObserving() {
+    @objc fileprivate func showActivities() {
+        let activitiesControlller = ActivitiesVC()
+        activitiesControlller.user = self.user
+        let activitiesNav = UINavigationController(rootViewController: activitiesControlller)
+        present(activitiesNav, animated: true, completion: nil)
+    }
+    
+    fileprivate func centerMapOnLocation() {
+        let regionRadius: CLLocationDistance = 1000
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
+        mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    fileprivate func authObserving() {
         FIRAuth.auth()?.addStateDidChangeListener({ (auth, user) in
             guard let user = user else { return }
             self.user = User(authData: user)
@@ -61,31 +106,55 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         })
     }
     
-    private func setupViews() {
+    fileprivate func loadWorkouts() {
+        
+        workoutRef.observe(.value, with: { (snapshot) in
+            
+            for item in snapshot.children {
+                let workout = Workout(snapshot: item as! FIRDataSnapshot)
+                self.workouts.append(workout)
+                
+            }
+        })
+    }
+}
+
+extension RecordViewController {
+    
+    override func viewDidLoad() {
+        setupViews()
+        authObserving()
+        loadWorkouts()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        centerMapOnLocation()
+    }
+    
+    fileprivate func setupViews() {
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)
-        view.addSubview(mockupImage)
+        view.addSubview(notificationLabel)
+        setupRightButton()
+        navigationItem.leftBarButtonItem = activitiesButton
         mapView.delegate = self
     }
     
-    func startButtonTapped() {
-        let trackingController = RunTrackingVC()
-        trackingController.user = self.user
-        let trackingNav = UINavigationController(rootViewController: trackingController)
-        present(trackingNav, animated: true, completion: nil)
-    }
-    
-    func centerMapOnLocation() {
-        let regionRadius: CLLocationDistance = 1000
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(mapView.userLocation.coordinate, regionRadius * 2, regionRadius * 2)
-        mapView.setRegion(coordinateRegion, animated: true)
+    fileprivate func setupRightButton() {
+        let addButton = UIButton()
+        addButton.setImage(#imageLiteral(resourceName: "add"), for: .normal)
+        addButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        addButton.transform = CGAffineTransform(translationX: 10, y: 0)
+        let buttonContainer = UIView(frame: addButton.frame)
+        buttonContainer.addSubview(addButton)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonContainer)
     }
     
     override func viewWillLayoutSubviews() {
-        startButton.anchorToEdge(.bottom, padding: 49, width: view.frame.width, height: 61)
-        mockupImage.align(.aboveCentered, relativeTo: startButton, padding: 0, width: view.frame.width, height: view.frame.width * 11/32)
-        let mapViewHeight = view.frame.height - mockupImage.frame.height - 174
-        mapView.align(.aboveCentered, relativeTo: mockupImage, padding: 0, width: view.frame.width, height: mapViewHeight)
+        notificationLabel.anchorToEdge(.top, padding: 64, width: view.frame.width, height: 30)
+        startButton.anchorToEdge(.bottom, padding: 64, width: view.frame.width - 30, height: 60)
+        mapView.align(.aboveCentered, relativeTo: startButton, padding: 15, width: view.frame.width, height: view.frame.height - 233)
     }
 }

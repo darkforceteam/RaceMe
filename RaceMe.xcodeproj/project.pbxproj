@@ -7,12 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B20F762B1E927D9F00BA52FE /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76211E927D9F00BA52FE /* OpenSans-Bold.ttf */; };
+		B20F762C1E927D9F00BA52FE /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76221E927D9F00BA52FE /* OpenSans-BoldItalic.ttf */; };
+		B20F762D1E927D9F00BA52FE /* OpenSans-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76231E927D9F00BA52FE /* OpenSans-ExtraBold.ttf */; };
+		B20F762E1E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76241E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf */; };
+		B20F762F1E927D9F00BA52FE /* OpenSans-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76251E927D9F00BA52FE /* OpenSans-Italic.ttf */; };
+		B20F76301E927D9F00BA52FE /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76261E927D9F00BA52FE /* OpenSans-Light.ttf */; };
+		B20F76311E927D9F00BA52FE /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76271E927D9F00BA52FE /* OpenSans-LightItalic.ttf */; };
+		B20F76321E927D9F00BA52FE /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76281E927D9F00BA52FE /* OpenSans-Regular.ttf */; };
+		B20F76331E927D9F00BA52FE /* OpenSans-Semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F76291E927D9F00BA52FE /* OpenSans-Semibold.ttf */; };
+		B20F76341E927D9F00BA52FE /* OpenSans-SemiboldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B20F762A1E927D9F00BA52FE /* OpenSans-SemiboldItalic.ttf */; };
+		B225DB071E8CB57D00AE7A2D /* ManualEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */; };
 		B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978351E83FD85005F41B3 /* RecordViewController.swift */; };
-		B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22978361E83FD85005F41B3 /* RecordViewController.xib */; };
 		B229783A1E83FE1E005F41B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978391E83FE1E005F41B3 /* User.swift */; };
 		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */; };
+		B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
 		B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */; };
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
@@ -22,6 +33,14 @@
 		B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */; };
 		B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65F1AD71E82E12E009E526B /* UserStatistics.xib */; };
 		B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */; };
+		B679DD1F1E8BF65D000744E8 /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679DD1D1E8BF65D000744E8 /* UserInfoCell.swift */; };
+		B679DD201E8BF65D000744E8 /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B679DD1E1E8BF65D000744E8 /* UserInfoCell.xib */; };
+		B679DD251E8BFFB4000744E8 /* ActivitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679DD231E8BFFB4000744E8 /* ActivitiesViewController.swift */; };
+		B679DD261E8BFFB4000744E8 /* ActivitiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B679DD241E8BFFB4000744E8 /* ActivitiesViewController.xib */; };
+		B679DD291E8C00D9000744E8 /* ProfileGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679DD271E8C00D9000744E8 /* ProfileGroupsViewController.swift */; };
+		B679DD2A1E8C00D9000744E8 /* ProfileGroupsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B679DD281E8C00D9000744E8 /* ProfileGroupsViewController.xib */; };
+		B679DD2D1E8C00EF000744E8 /* ProfileRecordsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679DD2B1E8C00EF000744E8 /* ProfileRecordsViewController.swift */; };
+		B679DD2E1E8C00EF000744E8 /* ProfileRecordsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B679DD2C1E8C00EF000744E8 /* ProfileRecordsViewController.xib */; };
 		B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */; };
 		B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68177A51E7EC6B800FF760F /* ExploreViewController.swift */; };
 		B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68177A61E7EC6B800FF760F /* ExploreViewController.xib */; };
@@ -43,6 +62,8 @@
 		B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */; };
 		B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */; };
 		B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */; };
+		B6CF33F61E8CB5860087614C /* RightDetailArrowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CF33F41E8CB5860087614C /* RightDetailArrowCell.swift */; };
+		B6CF33F71E8CB5860087614C /* RightDetailArrowCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6CF33F51E8CB5860087614C /* RightDetailArrowCell.xib */; };
 		B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */; };
 		B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */; };
 		B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520081E8500A90071E361 /* NotificationsViewController.swift */; };
@@ -78,12 +99,23 @@
 
 /* Begin PBXFileReference section */
 		3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B20F76211E927D9F00BA52FE /* OpenSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Bold.ttf"; sourceTree = "<group>"; };
+		B20F76221E927D9F00BA52FE /* OpenSans-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-BoldItalic.ttf"; sourceTree = "<group>"; };
+		B20F76231E927D9F00BA52FE /* OpenSans-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBold.ttf"; sourceTree = "<group>"; };
+		B20F76241E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
+		B20F76251E927D9F00BA52FE /* OpenSans-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Italic.ttf"; sourceTree = "<group>"; };
+		B20F76261E927D9F00BA52FE /* OpenSans-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Light.ttf"; sourceTree = "<group>"; };
+		B20F76271E927D9F00BA52FE /* OpenSans-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-LightItalic.ttf"; sourceTree = "<group>"; };
+		B20F76281E927D9F00BA52FE /* OpenSans-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Regular.ttf"; sourceTree = "<group>"; };
+		B20F76291E927D9F00BA52FE /* OpenSans-Semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-Semibold.ttf"; sourceTree = "<group>"; };
+		B20F762A1E927D9F00BA52FE /* OpenSans-SemiboldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiboldItalic.ttf"; sourceTree = "<group>"; };
+		B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualEntryController.swift; sourceTree = "<group>"; };
 		B22978351E83FD85005F41B3 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		B22978361E83FD85005F41B3 /* RecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordViewController.xib; sourceTree = "<group>"; };
 		B22978391E83FE1E005F41B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTrackingVC.swift; sourceTree = "<group>"; };
+		B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesVC.swift; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -94,6 +126,14 @@
 		B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerSettingCell.xib; sourceTree = "<group>"; };
 		B65F1AD71E82E12E009E526B /* UserStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatistics.xib; sourceTree = "<group>"; };
 		B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatisticsView.swift; sourceTree = "<group>"; };
+		B679DD1D1E8BF65D000744E8 /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
+		B679DD1E1E8BF65D000744E8 /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
+		B679DD231E8BFFB4000744E8 /* ActivitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesViewController.swift; sourceTree = "<group>"; };
+		B679DD241E8BFFB4000744E8 /* ActivitiesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivitiesViewController.xib; sourceTree = "<group>"; };
+		B679DD271E8C00D9000744E8 /* ProfileGroupsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileGroupsViewController.swift; sourceTree = "<group>"; };
+		B679DD281E8C00D9000744E8 /* ProfileGroupsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileGroupsViewController.xib; sourceTree = "<group>"; };
+		B679DD2B1E8C00EF000744E8 /* ProfileRecordsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileRecordsViewController.swift; sourceTree = "<group>"; };
+		B679DD2C1E8C00EF000744E8 /* ProfileRecordsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileRecordsViewController.xib; sourceTree = "<group>"; };
 		B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B68177A41E7E93BC00FF760F /* CICRun-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CICRun-Header.h"; sourceTree = "<group>"; };
 		B68177A51E7EC6B800FF760F /* ExploreViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +158,8 @@
 		B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightDetailCell.xib; sourceTree = "<group>"; };
 		B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerSettingCell.swift; sourceTree = "<group>"; };
 		B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PickerSettingCell.xib; sourceTree = "<group>"; };
+		B6CF33F41E8CB5860087614C /* RightDetailArrowCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightDetailArrowCell.swift; sourceTree = "<group>"; };
+		B6CF33F51E8CB5860087614C /* RightDetailArrowCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightDetailArrowCell.xib; sourceTree = "<group>"; };
 		B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSettingsViewController.swift; sourceTree = "<group>"; };
 		B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileSettingsViewController.xib; sourceTree = "<group>"; };
 		B6F520081E8500A90071E361 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
@@ -190,6 +232,23 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		B20F76201E927D8D00BA52FE /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B20F76211E927D9F00BA52FE /* OpenSans-Bold.ttf */,
+				B20F76221E927D9F00BA52FE /* OpenSans-BoldItalic.ttf */,
+				B20F76231E927D9F00BA52FE /* OpenSans-ExtraBold.ttf */,
+				B20F76241E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf */,
+				B20F76251E927D9F00BA52FE /* OpenSans-Italic.ttf */,
+				B20F76261E927D9F00BA52FE /* OpenSans-Light.ttf */,
+				B20F76271E927D9F00BA52FE /* OpenSans-LightItalic.ttf */,
+				B20F76281E927D9F00BA52FE /* OpenSans-Regular.ttf */,
+				B20F76291E927D9F00BA52FE /* OpenSans-Semibold.ttf */,
+				B20F762A1E927D9F00BA52FE /* OpenSans-SemiboldItalic.ttf */,
+			);
+			name = Fonts;
+			sourceTree = "<group>";
+		};
 		B68D081E1E7E2A1D00DC971F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -199,6 +258,12 @@
 				B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */,
 				B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */,
 				B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */,
+				B679DD271E8C00D9000744E8 /* ProfileGroupsViewController.swift */,
+				B679DD281E8C00D9000744E8 /* ProfileGroupsViewController.xib */,
+				B679DD2B1E8C00EF000744E8 /* ProfileRecordsViewController.swift */,
+				B679DD2C1E8C00EF000744E8 /* ProfileRecordsViewController.xib */,
+				B679DD231E8BFFB4000744E8 /* ActivitiesViewController.swift */,
+				B679DD241E8BFFB4000744E8 /* ActivitiesViewController.xib */,
 				B6F520081E8500A90071E361 /* NotificationsViewController.swift */,
 				B6F520091E8500A90071E361 /* NotificationsViewController.xib */,
 				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
@@ -211,10 +276,11 @@
 				B68177AE1E7ED20200FF760F /* GroupViewController.xib */,
 				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
 				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
-				B22978361E83FD85005F41B3 /* RecordViewController.xib */,
+				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
 				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
 				D9DA30C61E92395E00F10849 /* RouteDetailVC.swift */,
 				D9DA30C71E92395E00F10849 /* RouteDetailVC.xib */,
+				B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -223,11 +289,13 @@
 			isa = PBXGroup;
 			children = (
 				D9DA30B41E8AA65500F10849 /* UserProfileCell.swift */,
+				D9DA30B51E8AA65500F10849 /* UserProfileCell.xib */,
 				D9DA30C21E91F52C00F10849 /* CustomPinView.swift */,
 				D9DA30C41E91F54100F10849 /* CustomPinView.xib */,
-				D9DA30B51E8AA65500F10849 /* UserProfileCell.xib */,
-				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
+				B679DD1D1E8BF65D000744E8 /* UserInfoCell.swift */,
+				B679DD1E1E8BF65D000744E8 /* UserInfoCell.xib */,
 				B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */,
+				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
 				B6860B631E8563AD0008B06A /* TextSettingCell.swift */,
 				B6860B641E8563AD0008B06A /* TextSettingCell.xib */,
 				B6860B671E8566F70008B06A /* NotificationCell.swift */,
@@ -236,6 +304,8 @@
 				B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */,
 				B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */,
 				B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */,
+				B6CF33F41E8CB5860087614C /* RightDetailArrowCell.swift */,
+				B6CF33F51E8CB5860087614C /* RightDetailArrowCell.xib */,
 				B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */,
 				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
 				D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */,
@@ -268,6 +338,7 @@
 		B6A6C2641E76DF550021EFC0 = {
 			isa = PBXGroup;
 			children = (
+				B20F76201E927D8D00BA52FE /* Fonts */,
 				D9F7B20D1E88BFF400B692FF /* GeoFire */,
 				B6A6C26F1E76DF550021EFC0 /* RaceMe */,
 				B6A6C26E1E76DF550021EFC0 /* Products */,
@@ -354,6 +425,7 @@
 				B6A6C26B1E76DF550021EFC0 /* Resources */,
 				40745AFA9EF44EDCEDD92803 /* [CP] Embed Pods Frameworks */,
 				1D80B481310B7DDC1DCD8F2E /* [CP] Copy Pods Resources */,
+				B6A1C2871E8FCE5C00176943 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -376,7 +448,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = D7RX787JDX;
+						DevelopmentTeam = 566T8PK976;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -412,30 +484,44 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20F762F1E927D9F00BA52FE /* OpenSans-Italic.ttf in Resources */,
 				D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */,
+				B20F76301E927D9F00BA52FE /* OpenSans-Light.ttf in Resources */,
 				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
+				B679DD2A1E8C00D9000744E8 /* ProfileGroupsViewController.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
 				D9DA30BE1E91490D00F10849 /* Assets.xcassets in Resources */,
 				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
+				B679DD261E8BFFB4000744E8 /* ActivitiesViewController.xib in Resources */,
 				B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */,
+				B20F762C1E927D9F00BA52FE /* OpenSans-BoldItalic.ttf in Resources */,
+				B20F76331E927D9F00BA52FE /* OpenSans-Semibold.ttf in Resources */,
 				D9DA30C91E92395E00F10849 /* RouteDetailVC.xib in Resources */,
 				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
+				B20F76321E927D9F00BA52FE /* OpenSans-Regular.ttf in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
+				B20F762E1E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
+				B20F76341E927D9F00BA52FE /* OpenSans-SemiboldItalic.ttf in Resources */,
 				B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */,
 				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
 				B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */,
+				B20F762D1E927D9F00BA52FE /* OpenSans-ExtraBold.ttf in Resources */,
+				B20F76311E927D9F00BA52FE /* OpenSans-LightItalic.ttf in Resources */,
 				B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */,
+				B20F762B1E927D9F00BA52FE /* OpenSans-Bold.ttf in Resources */,
 				D9DA30B71E8AA65500F10849 /* UserProfileCell.xib in Resources */,
+				B6CF33F71E8CB5860087614C /* RightDetailArrowCell.xib in Resources */,
 				D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */,
 				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
+				B679DD2E1E8C00EF000744E8 /* ProfileRecordsViewController.xib in Resources */,
 				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 				B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */,
 				B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */,
+				B679DD201E8BF65D000744E8 /* UserInfoCell.xib in Resources */,
 				B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */,
-				B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */,
 				B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */,
 				D9DA30C51E91F54100F10849 /* CustomPinView.xib in Resources */,
 			);
@@ -489,6 +575,19 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		B6A1C2871E8FCE5C00176943 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -499,6 +598,7 @@
 				B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */,
 				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
 				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				B679DD1F1E8BF65D000744E8 /* UserInfoCell.swift in Sources */,
 				D902147B1E8A6EC3000DB7DF /* RouteAnnotation.swift in Sources */,
 				D9433AC01E8521DB00F085B3 /* Route.swift in Sources */,
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
@@ -506,6 +606,7 @@
 				B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */,
 				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
 				D9F7B2261E89312A00B692FF /* Event.swift in Sources */,
+				B679DD2D1E8C00EF000744E8 /* ProfileRecordsViewController.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
 				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
@@ -518,10 +619,14 @@
 				B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */,
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
 				B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */,
+				B679DD251E8BFFB4000744E8 /* ActivitiesViewController.swift in Sources */,
 				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
+				B6CF33F61E8CB5860087614C /* RightDetailArrowCell.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B229783C1E840066005F41B3 /* Extensions.swift in Sources */,
+				B225DB071E8CB57D00AE7A2D /* ManualEntryController.swift in Sources */,
+				B679DD291E8C00D9000744E8 /* ProfileGroupsViewController.swift in Sources */,
 				D9DA30C81E92395E00F10849 /* RouteDetailVC.swift in Sources */,
 				D9F7B2231E88BFF500B692FF /* GFQuery.m in Sources */,
 				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,
@@ -534,6 +639,7 @@
 				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				D9F7B2201E88BFF500B692FF /* GFBase32Utils.m in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
+				B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */,
 				D9F7B21F1E88BFF500B692FF /* GeoFire.m in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);
@@ -651,13 +757,13 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
 				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -671,13 +777,13 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
 				);
 				INFOPLIST_FILE = RaceMe/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = vn.coderschool.RaceMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";

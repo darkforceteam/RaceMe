@@ -19,6 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         FIRApp.configure()
         
+        // Enable offline data saving
+        FIRDatabase.database().persistenceEnabled = true
+        
         UIApplication.shared.statusBarStyle = .lightContent
         
         FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
@@ -47,14 +50,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // Set up the Tracking View Controller
                 let recordViewController = UINavigationController(rootViewController: RecordViewController())
-                recordViewController.tabBarItem.title = "Start"
+                recordViewController.tabBarItem.title = "Tracking"
                 recordViewController.tabBarItem.image = UIImage(named: "map-pin")
-                recordViewController.topViewController?.navigationItem.title = "CICRun"
+                recordViewController.topViewController?.navigationItem.title = "Tracking"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 20) {
+                    recordViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                }
+                recordViewController.navigationBar.barTintColor = primaryColor
+                recordViewController.navigationBar.isTranslucent = false
+                recordViewController.navigationBar.tintColor = .white
+                recordViewController.navigationBar.barStyle = UIBarStyle.black
                 
                 // Set up the Explore View Controller
                 let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
                 groupViewController.tabBarItem.title = "Group"
-                groupViewController.tabBarItem.image = UIImage(named: "group")
+                groupViewController.tabBarItem.image = UIImage(named: "ic_group")
                 
                 // Set up the Explore View Controller
                 let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
@@ -64,8 +74,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 // Set up the Tab Bar Controller to have two tabs
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
-                tabBarController.viewControllers = [profileNavVC, findFriendsViewController, recordViewController, groupViewController, exploreViewController]
-                tabBarController.selectedIndex = 2
+                tabBarController.viewControllers = [exploreViewController, recordViewController, profileNavVC]
+                tabBarController.selectedIndex = 1
                 
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController
@@ -73,10 +83,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 var initialViewController: UIViewController?
                 initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-                let frame = UIScreen.main.bounds
-                self.window = UIWindow(frame: frame)
-                self.window!.rootViewController = initialViewController
-                self.window!.makeKeyAndVisible()
+//                let frame = UIScreen.main.bounds
+//                self.window = UIWindow(frame: frame)
+                self.window?.rootViewController = initialViewController
+                self.window?.makeKeyAndVisible()
             }
         }
         

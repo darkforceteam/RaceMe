@@ -26,8 +26,8 @@ class UserProfileCell: UITableViewCell, UIScrollViewDelegate {
         
         // Config Avatar
         avatarImage.layer.cornerRadius = avatarImage.frame.width / 2
-        avatarImage.layer.borderColor = UIColor.white.cgColor
-        avatarImage.layer.borderWidth = 3
+//        avatarImage.layer.borderColor = UIColor.white.cgColor
+//        avatarImage.layer.borderWidth = 3
         avatarImage.clipsToBounds = true
         
         // Config Scroll View
