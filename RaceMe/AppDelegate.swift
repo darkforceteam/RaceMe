@@ -44,9 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 profileViewController.tabBarItem.image = UIImage(named: "profile")
                 
                 // Set up the Find Friends View Controller
-                let findFriendsViewController = FindFriendsViewController(nibName: "FindFriendsViewController", bundle: nil)
-                findFriendsViewController.tabBarItem.title = "Friends"
-                findFriendsViewController.tabBarItem.image = UIImage(named: "people-add")
+//                let findFriendsViewController = FindFriendsViewController(nibName: "FindFriendsViewController", bundle: nil)
+//                findFriendsViewController.tabBarItem.title = "Friends"
+//                findFriendsViewController.tabBarItem.image = UIImage(named: "people-add")
                 
                 // Set up the Tracking View Controller
                 let recordViewController = UINavigationController(rootViewController: RecordViewController())
@@ -62,19 +62,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 recordViewController.navigationBar.barStyle = UIBarStyle.black
                 
                 // Set up the Explore View Controller
-                let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
-                groupViewController.tabBarItem.title = "Group"
-                groupViewController.tabBarItem.image = UIImage(named: "ic_group")
+//                let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
+//                groupViewController.tabBarItem.title = "Group"
+//                groupViewController.tabBarItem.image = UIImage(named: "ic_group")
                 
                 // Set up the Explore View Controller
                 let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
+                let exploreNavVC = UINavigationController()
+                exploreNavVC.addChildViewController(exploreViewController)
+                
+                // Style for Navigation Bar
+                exploreNavVC.navigationBar.barTintColor = primaryColor
+                exploreNavVC.navigationBar.isTranslucent = false
+                exploreNavVC.navigationBar.topItem?.title = "Explore"
+                exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                exploreNavVC.navigationBar.barStyle = UIBarStyle.black
+                exploreNavVC.navigationBar.tintColor = .white
+                
                 exploreViewController.tabBarItem.title = "Explore"
                 exploreViewController.tabBarItem.image = UIImage(named: "radar")
                 
                 // Set up the Tab Bar Controller to have two tabs
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
-                tabBarController.viewControllers = [exploreViewController, recordViewController, profileNavVC]
+                tabBarController.viewControllers = [exploreNavVC, recordViewController, profileNavVC]
                 tabBarController.selectedIndex = 1
                 
                 // Make the Tab Bar Controller the root view controller
@@ -83,8 +94,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 var initialViewController: UIViewController?
                 initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-//                let frame = UIScreen.main.bounds
-//                self.window = UIWindow(frame: frame)
                 self.window?.rootViewController = initialViewController
                 self.window?.makeKeyAndVisible()
             }
