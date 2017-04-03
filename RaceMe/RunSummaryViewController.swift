@@ -106,11 +106,13 @@ class RunSummaryViewController: UIViewController {
     
     fileprivate lazy var saveButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Save", for: .normal)
+        button.setTitle("SAVE", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = customOrange
         button.addTarget(self, action: #selector(saveButtonDidTouch), for: .touchUpInside)
-        button.titleLabel?.font = .systemFont(ofSize: 25, weight: UIFontWeightMedium)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
         return button
     }()
     
@@ -234,6 +236,6 @@ extension RunSummaryViewController {
         paceLabel.align(.underCentered, relativeTo: paceDisplay, padding: 0, width: customWidth, height: 20)
         seperatorLineView1.align(.toTheRightMatchingTop, relativeTo: durationDisplay, padding: 0, width: 0.5, height: 45, offset: 10)
         seperatorLineView2.align(.toTheRightMatchingTop, relativeTo: distanceDisplay, padding: 0, width: 0.5, height: 45, offset: 10)
-        saveButton.anchorToEdge(.bottom, padding: 0, width: view.frame.width, height: 61)
+        saveButton.anchorToEdge(.bottom, padding: 15, width: view.frame.width - 30, height: 60)
     }
 }
