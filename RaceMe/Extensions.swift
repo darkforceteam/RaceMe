@@ -89,7 +89,11 @@ extension UIApplication {
 }
 
 let primaryColor = UIColor(47, 151, 243)
-let customGray = UIColor(170, 184, 194)
+let labelGray1 = UIColor(166, 175, 182)
+let labelGray2 = UIColor(84, 106, 120)
+let imageGray = UIColor(92, 112, 126)
+
+let customGray = UIColor(204, 204, 204)
 let customGreen = UIColor(74, 167, 127)
 let customOrange = UIColor(255, 183, 68)
 let stopColor = UIColor(239, 93, 53)

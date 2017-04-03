@@ -52,6 +52,7 @@ extension ActivitiesVC {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellId)
+        cell.selectionStyle = .none
         let distanceKm = workouts[indexPath.row].distanceKm
         let duration = workouts[indexPath.row].duration
         cell.textLabel?.text = String(format: "Distance: %.1f km", distanceKm)

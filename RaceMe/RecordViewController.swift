@@ -55,8 +55,7 @@ extension RecordViewController {
     @objc fileprivate func startButtonTapped() {
         let trackingController = RunTrackingVC()
         trackingController.user = self.user
-        let trackingNav = UINavigationController(rootViewController: trackingController)
-        present(trackingNav, animated: true, completion: nil)
+        present(trackingController, animated: true, completion: nil)
     }
     
     @objc fileprivate func addButtonTapped() {
