@@ -18,6 +18,7 @@ class Route: NSObject {
     var tomorrowEvents = [Event]()
     var laterEvents = [Event]()
     var displayEvent: Event?
+    var routeId: String!
     func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
         case "0":

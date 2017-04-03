@@ -21,6 +21,7 @@ class RouteAnnotation: MKAnnotationView {
     let dateFormat = "hh:mm a"
     var imageView = UIImage()
     var title: String!
+    var routeId: String!
     
     //    var startLoc: CLLocationCoordinate2D
     func setTitleEvent(scheduled: Date?){
@@ -35,6 +36,30 @@ class RouteAnnotation: MKAnnotationView {
     //    var startLoc: CLLocationCoordinate2D
     func setTitleDistance(){
         self.title = "\(self.distance) km"
+    }
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        let hitView = super.hitTest(point, with: event)
+        if (hitView != nil)
+        {
+            self.superview?.bringSubview(toFront: self)
+        }
+        return hitView
+    }
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let rect = self.bounds;
+        var isInside: Bool = rect.contains(point);
+        if(!isInside)
+        {
+            for view in self.subviews
+            {
+                isInside = view.frame.contains(point);
+                if isInside
+                {
+                    break;
+                }
+            }
+        }
+        return isInside;
     }
 }
 class RoutePoint: MKPointAnnotation{

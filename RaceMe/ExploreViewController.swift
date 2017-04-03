@@ -148,6 +148,7 @@ class ExploreViewController: UIViewController {
         mapView.add(myPolyline)
         print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
         let routeMarker = RouteAnnotation()
+        routeMarker.routeId = route.routeId
         let pin = RoutePoint()
         pin.coordinate = route.locations.first!
         
@@ -221,6 +222,7 @@ class ExploreViewController: UIViewController {
                 self.ref.child(Constants.Route.TABLE_NAME+"/"+routeid).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let route = Route(locationsData: snapshot)
+                    route.routeId = routeid
                     if route.locations.count > 0 {
                         self.visibleRoutes += 1
                         //                print("route \(self.visibleRoutes) added. Distance: \(route.distance)")
@@ -336,26 +338,18 @@ class ExploreViewController: UIViewController {
             }
         })
     }
-    @objc func callOutTapped(){
-        print("TAPPPEDD")
-        //        let point = sender as! RouteAnnotation
-        //        if point.title != "" {
-        //            print(point.title)
-        //        }
+    func openDetailsVC(sender: UIButton)
+    {
+        let view = sender.superview as! CustomPinView
+        print("open details vc for route id: \(view.routeId)")
+        let routeDetailVC = RouteDetailVC(nibName: "RouteDetailVC", bundle: nil)
+        routeDetailVC.routeId = view.routeId
+        // present the popover
+        self.present(routeDetailVC, animated: true, completion: nil)
     }
 
 }
-extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate, SelectTimeViewControllerDelegate{
-    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation){
-        //        myLoc = userLocation
-        if !foundCurrentLoc {
-            let span = MKCoordinateSpanMake(0.09, 0.09)
-            let myRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
-            mapView.setRegion(myRegion, animated: true)
-            //            queryRouteInRegion(myRegion: myRegion)
-            foundCurrentLoc = true
-        }
-    }
+extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate, SelectTimeViewControllerDelegate, MKMapViewDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         //        if let location = locations.first {
         //            myLat = location.coordinate.latitude
@@ -369,17 +363,7 @@ extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate, U
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
-    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        if foundCurrentLoc {
-            queryRouteInRegion(myRegion: mapView.region)
-        }
-    }
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
-        renderer.lineWidth = 4.0
-        return renderer
-    }
+
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         // return UIModalPresentationStyle.FullScreen
         return UIModalPresentationStyle.none
@@ -393,18 +377,78 @@ extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate, U
         let castedAnno = annotation as! RoutePoint
         let annoView = castedAnno.AnnoView as! RouteAnnotation
         annoView.tintColor = UIColor.green
+        annoView.canShowCallout = false
         if annoView.pinType == RouteAnnotation.PIN_EVENT{
             annoView.isSelected = true
         }
+        
         //        let lbl = annoView.viewWithTag(42) as! UILabel
         //        lbl.text = castedAnno.title!
-//        let tapGes = UITapGestureRecognizer(target: annoView, action: #selector(callOutTapped))
-//        annoView.addGestureRecognizer(tapGes)
+        //        let tapGes = UITapGestureRecognizer(target: annoView, action: #selector(callOutTapped))
+        //        annoView.addGestureRecognizer(tapGes)
         
         return annoView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        print("touched")
+        // 1
+        if view.annotation is MKUserLocation
+        {
+            return
+        }
+        let annoView = view as! RouteAnnotation
+        let views = Bundle.main.loadNibNamed("CustomPinView", owner: nil, options: nil)
+        let pinView = views?[0] as! CustomPinView
+        
+        pinView.titleLabel.text = annoView.title
+        let button = UIButton(frame: pinView.titleLabel.frame)
+        button.addTarget(self, action: #selector(openDetailsVC(sender:)), for: .touchUpInside)
+        pinView.addSubview(button)
+        
+        pinView.imageView.image = annoView.image
+        
+        pinView.routeId = annoView.routeId
+        // 3
+        pinView.center = CGPoint(x: view.bounds.size.width / 2, y: -pinView.bounds.size.height*0.52)
+        view.addSubview(pinView)
+        mapView.setCenter((view.annotation?.coordinate)!, animated: true)
+    }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        if view.isKind(of: RouteAnnotation.self)
+        {
+            for subview in view.subviews
+            {
+                subview.removeFromSuperview()
+            }
+        }
+    }
+    func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation){
+        //        myLoc = userLocation
+        if !foundCurrentLoc {
+            let span = MKCoordinateSpanMake(0.09, 0.09)
+            let myRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
+            mapView.setRegion(myRegion, animated: true)
+            //            queryRouteInRegion(myRegion: myRegion)
+            foundCurrentLoc = true
+        }
+    }
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        if foundCurrentLoc {
+            queryRouteInRegion(myRegion: mapView.region)
+        }
+    }
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = UIColor.red
+        renderer.lineWidth = 4.0
+        return renderer
+    }
+}
+extension Date {
+    func toString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd yyyy' at ' h:mm a."
+        return dateFormatter.string(from: self)
     }
 }
