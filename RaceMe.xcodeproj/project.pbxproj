@@ -51,6 +51,7 @@
 		D9433AC01E8521DB00F085B3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9433ABF1E8521DB00F085B3 /* Route.swift */; };
 		D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */; };
 		D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D35F001E925963008C3AB3 /* ScheduleCell.xib */; };
+		D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35F031E929E23008C3AB3 /* UserObject.swift */; };
 		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
 		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
 		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
@@ -125,6 +126,7 @@
 		D9433ABF1E8521DB00F085B3 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
 		D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		D9D35F001E925963008C3AB3 /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
+		D9D35F031E929E23008C3AB3 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
 		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -253,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				B22978391E83FE1E005F41B3 /* User.swift */,
+				D9D35F031E929E23008C3AB3 /* UserObject.swift */,
 				D9F7B2251E89312A00B692FF /* Event.swift */,
 				D9D9DF171E81057C008C086C /* Location.swift */,
 				D9433ABF1E8521DB00F085B3 /* Route.swift */,
@@ -526,6 +529,7 @@
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */,
 				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
+				D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */,
 				D9F7B20A1E8817AB00B692FF /* WorkoutObject.swift in Sources */,
 				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				D9F7B2201E88BFF500B692FF /* GFBase32Utils.m in Sources */,
