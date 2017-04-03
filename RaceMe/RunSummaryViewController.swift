@@ -12,9 +12,8 @@ import CoreLocation
 import Neon
 import Firebase
 
-class RunSummaryViewController: UIViewController, MKMapViewDelegate {
+class RunSummaryViewController: UIViewController {
     
-    var locations = [CLLocation]()
     var workout: Workout! {
         didSet {
             if let distance = workout?.distanceKm, let timestamp = workout?.startTime, let duration = workout?.duration {
@@ -27,11 +26,11 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    let ref = FIRDatabase.database().reference()
+    var locations = [CLLocation]()
+    fileprivate let ref = FIRDatabase.database().reference()
+    fileprivate var mapOverlay: MKTileOverlay!
     
-    var mapOverlay: MKTileOverlay!
-    
-    let mapView: MKMapView = {
+    fileprivate let mapView: MKMapView = {
         let mv = MKMapView()
         mv.userTrackingMode = .follow
         mv.showsPointsOfInterest = false
@@ -40,7 +39,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return mv
     }()
     
-    private var dateLabel: UILabel = {
+    fileprivate var dateLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
         label.textAlignment = .center
@@ -48,7 +47,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var durationLabel: UILabel = {
+    fileprivate var durationLabel: UILabel = {
         let label = UILabel()
         label.text = "DURATION"
         label.textColor = .darkGray
@@ -57,13 +56,13 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var durationDisplay: UILabel = {
+    fileprivate var durationDisplay: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         return label
     }()
     
-    private var distanceLabel: UILabel = {
+    fileprivate var distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "DISTANCE"
         label.textColor = .darkGray
@@ -72,19 +71,19 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private var distanceDisplay: UILabel = {
+    fileprivate var distanceDisplay: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         return label
     }()
     
-    private var paceDisplay: UILabel = {
+    fileprivate var paceDisplay: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         return label
     }()
     
-    private var paceLabel: UILabel = {
+    fileprivate var paceLabel: UILabel = {
         let label = UILabel()
         label.text = "AVG PACE"
         label.textColor = .darkGray
@@ -93,19 +92,19 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return label
     }()
     
-    private let seperatorLineView1: UIView = {
+    fileprivate let seperatorLineView1: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = customGray
         return lineView
     }()
     
-    private let seperatorLineView2: UIView = {
+    fileprivate let seperatorLineView2: UIView = {
         let lineView = UIView()
         lineView.backgroundColor = customGray
         return lineView
     }()
     
-    private lazy var saveButton: UIButton = {
+    fileprivate lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("Save", for: .normal)
         button.setTitleColor(.white, for: .normal)
@@ -115,37 +114,15 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return button
     }()
     
-    private lazy var deleteButton: UIBarButtonItem = {
+    fileprivate lazy var deleteButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
         return button
     }()
+}
+
+extension RunSummaryViewController: MKMapViewDelegate {
     
-    override func viewDidLoad() {
-        setupViews()
-        loadMap()
-        
-        print(locations.enumerated())
-    }
-    
-    private func setupViews() {
-        title = "Review and Save"
-        view.backgroundColor = .white
-        view.addSubview(dateLabel)
-        view.addSubview(mapView)
-        mapView.delegate = self
-        view.addSubview(durationLabel)
-        view.addSubview(durationDisplay)
-        view.addSubview(distanceDisplay)
-        view.addSubview(distanceLabel)
-        view.addSubview(paceDisplay)
-        view.addSubview(paceLabel)
-        view.addSubview(seperatorLineView1)
-        view.addSubview(seperatorLineView2)
-        view.addSubview(saveButton)
-        navigationItem.leftBarButtonItem = deleteButton
-    }
-    
-    func setMapRegion() -> MKCoordinateRegion {
+    fileprivate func setMapRegion() -> MKCoordinateRegion {
         let firstPointCoordinate = locations[0].coordinate
         
         var minLatitude: Double!
@@ -169,17 +146,7 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude), span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta))
     }
     
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = primaryColor
-            polylineRenderer.lineWidth = 4
-            return polylineRenderer
-        }
-        return MKOverlayRenderer()
-    }
-    
-    func polyline() -> MKPolyline {
+    fileprivate func polyline() -> MKPolyline {
         var coords = [CLLocationCoordinate2D]()
         
         for location in locations {
@@ -190,16 +157,29 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
         return MKPolyline(coordinates: coords, count: locations.count)
     }
     
-    func loadMap() {
+    fileprivate func loadMap() {
         mapView.region = setMapRegion()
         mapView.add(polyline())
     }
     
-    func saveButtonDidTouch() {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        if overlay is MKPolyline {
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            polylineRenderer.strokeColor = primaryColor
+            polylineRenderer.lineWidth = 4
+            return polylineRenderer
+        }
+        return MKOverlayRenderer()
+    }
+}
+
+extension RunSummaryViewController {
+    
+    @objc fileprivate func saveButtonDidTouch() {
         dismiss(animated: true, completion: nil)
     }
     
-    func deleteButtonTapped() {
+    @objc fileprivate func deleteButtonTapped() {
         if let routeId = workout.routeId {
             let alertController = UIAlertController(title: "Discard Run?", message: "Are you sure you would like to discard this run?", preferredStyle: .alert)
             let routeRef = ref.child(Constants.Route.TABLE_NAME).child(routeId)
@@ -214,6 +194,32 @@ class RunSummaryViewController: UIViewController, MKMapViewDelegate {
             alertController.addAction(cancelAction)
             present(alertController, animated: true, completion: nil)
         }
+    }
+}
+
+extension RunSummaryViewController {
+    
+    override func viewDidLoad() {
+        setupViews()
+        loadMap()
+    }
+    
+    fileprivate func setupViews() {
+        title = "Review and Save"
+        view.backgroundColor = .white
+        view.addSubview(dateLabel)
+        view.addSubview(mapView)
+        mapView.delegate = self
+        view.addSubview(durationLabel)
+        view.addSubview(durationDisplay)
+        view.addSubview(distanceDisplay)
+        view.addSubview(distanceLabel)
+        view.addSubview(paceDisplay)
+        view.addSubview(paceLabel)
+        view.addSubview(seperatorLineView1)
+        view.addSubview(seperatorLineView2)
+        view.addSubview(saveButton)
+        navigationItem.leftBarButtonItem = deleteButton
     }
     
     override func viewWillLayoutSubviews() {

@@ -9,11 +9,11 @@
 /* Begin PBXBuildFile section */
 		B225DB071E8CB57D00AE7A2D /* ManualEntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */; };
 		B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978351E83FD85005F41B3 /* RecordViewController.swift */; };
-		B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22978361E83FD85005F41B3 /* RecordViewController.xib */; };
 		B229783A1E83FE1E005F41B3 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22978391E83FE1E005F41B3 /* User.swift */; };
 		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */; };
+		B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
 		B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */; };
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
@@ -84,11 +84,11 @@
 		3A28C2AE7E9D86DF268ED474 /* Pods_RaceMe.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RaceMe.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManualEntryController.swift; sourceTree = "<group>"; };
 		B22978351E83FD85005F41B3 /* RecordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecordViewController.swift; sourceTree = "<group>"; };
-		B22978361E83FD85005F41B3 /* RecordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordViewController.xib; sourceTree = "<group>"; };
 		B22978391E83FE1E005F41B3 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTrackingVC.swift; sourceTree = "<group>"; };
+		B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesVC.swift; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -225,9 +225,9 @@
 				B68177AE1E7ED20200FF760F /* GroupViewController.xib */,
 				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
 				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
-				B22978361E83FD85005F41B3 /* RecordViewController.xib */,
 				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
 				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
+				B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -451,7 +451,6 @@
 				B68177A31E7E8AA500FF760F /* GoogleService-Info.plist in Resources */,
 				B679DD201E8BF65D000744E8 /* UserInfoCell.xib in Resources */,
 				B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */,
-				B22978381E83FD85005F41B3 /* RecordViewController.xib in Resources */,
 				B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -564,6 +563,7 @@
 				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				D9F7B2201E88BFF500B692FF /* GFBase32Utils.m in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
+				B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */,
 				D9F7B21F1E88BFF500B692FF /* GeoFire.m in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);

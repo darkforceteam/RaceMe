@@ -24,7 +24,6 @@ class RunTrackingVC: UIViewController {
     fileprivate var workout: Workout!
     fileprivate var isRunning = true
     fileprivate let speechSynthesizer = AVSpeechSynthesizer()
-    
     fileprivate let ref = FIRDatabase.database().reference()
     
     fileprivate lazy var locationManager: CLLocationManager = {
@@ -46,64 +45,69 @@ class RunTrackingVC: UIViewController {
         return mv
     }()
     
-    fileprivate let mockupImage: UIImageView = {
-        let iv = UIImageView()
-        iv.image = #imageLiteral(resourceName: "mockup")
-        return iv
-    }()
-    
-    fileprivate var timeLabel: UILabel = {
+    fileprivate let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "TIME"
-        label.textColor = .darkGray
+        label.textColor = labelGray1
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
-    fileprivate var hourDisplay: UILabel = {
+    fileprivate let hourDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 35, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var minDisplay: UILabel = {
+    fileprivate let minDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 35, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var secDisplay: UILabel = {
+    fileprivate let secDisplay: UILabel = {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 35, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var hourColon: UILabel = {
+    fileprivate let hourColon: UILabel = {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 35, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var minColon: UILabel = {
+    fileprivate let minColon: UILabel = {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 60, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 35, weight: UIFontWeightLight)
         return label
+    }()
+    
+    fileprivate let statusBarView: UIView = {
+        let lineView = UIView()
+        lineView.backgroundColor = UIColor(73, 158, 217)
+        return lineView
     }()
     
     fileprivate let seperatorLineView1: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = backgroundGray
+        lineView.backgroundColor = customGray
         return lineView
     }()
     
@@ -113,68 +117,71 @@ class RunTrackingVC: UIViewController {
         return lineView
     }()
     
-    fileprivate var paceLabel: UILabel = {
+    fileprivate let paceLabel: UILabel = {
         let label = UILabel()
         label.text = "AVG PACE"
-        label.textColor = .darkGray
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
+        label.textColor = labelGray1
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
-    fileprivate var paceDisplay: UILabel = {
+    fileprivate let paceDisplay: UILabel = {
         let label = UILabel()
         label.text = "0:00"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 50, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var paceUnit: UILabel = {
+    fileprivate let paceUnit: UILabel = {
         let label = UILabel()
-        label.text = "/KM"
-        label.textColor = .lightGray
+        label.text = "/km"
+        label.textColor = labelGray2
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var distanceLabel: UILabel = {
+    fileprivate let navImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "nav").withRenderingMode(.alwaysTemplate)
+        iv.tintColor = imageGray
+        return iv
+    }()
+    
+    fileprivate let runImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "run").withRenderingMode(.alwaysTemplate)
+        iv.tintColor = imageGray
+        return iv
+    }()
+    
+    fileprivate let distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "DISTANCE"
-        label.textColor = .darkGray
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
+        label.textColor = labelGray1
+        label.font = .systemFont(ofSize: 14)
         return label
     }()
     
-    fileprivate var distanceDisplay: UILabel = {
+    fileprivate let distanceDisplay: UILabel = {
         let label = UILabel()
         label.text = "0.0"
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 50, weight: UIFontWeightLight)
+        label.textColor = labelGray2
+        label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         return label
     }()
     
-    fileprivate var distanceUnit: UILabel = {
+    fileprivate let distanceUnit: UILabel = {
         let label = UILabel()
-        label.text = "KILOMETERS"
+        label.text = "km"
         label.textColor = .lightGray
         label.textAlignment = .center
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
-    }()
-    
-    fileprivate let seperatorLineView3: UIView = {
-        let lineView = UIView()
-        lineView.backgroundColor = customGray
-        return lineView
-    }()
-    
-    fileprivate let seperatorLineView4: UIView = {
-        let lineView = UIView()
-        lineView.backgroundColor = backgroundGray
-        return lineView
     }()
     
     fileprivate lazy var stopButton: UIButton = {
@@ -184,7 +191,7 @@ class RunTrackingVC: UIViewController {
         button.backgroundColor = stopColor
         button.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        button.layer.cornerRadius = 30
+        button.layer.cornerRadius = 5
         button.clipsToBounds = true
         return button
     }()
@@ -196,7 +203,7 @@ class RunTrackingVC: UIViewController {
         button.backgroundColor = pauseColor
         button.addTarget(self, action: #selector(pauseResumeButtonTapped), for: .touchUpInside)
         button.titleLabel?.font = .boldSystemFont(ofSize: 20)
-        button.layer.cornerRadius = 30
+        button.layer.cornerRadius = 5
         button.clipsToBounds = true
         return button
     }()
@@ -404,7 +411,7 @@ extension RunTrackingVC {
         view.addSubview(secDisplay)
         view.addSubview(hourColon)
         view.addSubview(minColon)
-        view.addSubview(seperatorLineView1)
+        view.addSubview(statusBarView)
         view.addSubview(paceLabel)
         view.addSubview(distanceLabel)
         view.addSubview(seperatorLineView2)
@@ -412,34 +419,43 @@ extension RunTrackingVC {
         view.addSubview(paceUnit)
         view.addSubview(distanceDisplay)
         view.addSubview(distanceUnit)
-        view.addSubview(seperatorLineView3)
         view.addSubview(stopButton)
         view.addSubview(pauseResumeButton)
-        view.addSubview(seperatorLineView4)
+        view.addSubview(seperatorLineView1)
+        view.addSubview(navImageView)
+        view.addSubview(runImageView)
         mapView.delegate = self
     }
     
     override func viewWillLayoutSubviews() {
-        stopButton.anchorInCorner(.bottomLeft, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 60)
-        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 10, yPad: 10, width: view.frame.width / 2 - 15, height: 60)
-        seperatorLineView1.anchorToEdge(.bottom, padding: 80, width: view.frame.width, height: 20)
-        minDisplay.align(.aboveCentered, relativeTo: seperatorLineView1, padding: 0, width: 80, height: 60)
-        hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
-        hourDisplay.align(.toTheLeftCentered, relativeTo: hourColon, padding: 0, width: 80, height: 60)
-        minColon.align(.toTheRightCentered, relativeTo: minDisplay, padding: 0, width: 15, height: 60)
-        secDisplay.align(.toTheRightCentered, relativeTo: minColon, padding: 0, width: 80, height: 60)
-        timeLabel.align(.aboveCentered, relativeTo: minDisplay, padding: 0, width: 200, height: 20)
-        seperatorLineView2.align(.aboveCentered, relativeTo: timeLabel, padding: 5, width: view.frame.width, height: 0.5)
-        seperatorLineView3.align(.aboveCentered, relativeTo: seperatorLineView2, padding: 0, width: 0.5, height: 100)
+        let buttonWidth = (view.frame.width - 45) / 2
+        stopButton.anchorInCorner(.bottomLeft, xPad: 15, yPad: 15, width: buttonWidth, height: 45)
+        pauseResumeButton.anchorInCorner(.bottomRight, xPad: 15, yPad: 15, width: buttonWidth, height: 45)
+        mapView.anchorToEdge(.bottom, padding: 75, width: view.frame.width, height: view.frame.height - 205)
+        timeLabel.anchorInCorner(.topLeft, xPad: 0, yPad: 45, width: view.frame.width * 0.63, height: 20)
+        minDisplay.align(.underCentered, relativeTo: timeLabel, padding: 0, width: 44, height: 40)
+        hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 10, height: 40)
+        hourDisplay.align(.toTheLeftCentered, relativeTo: hourColon, padding: 0, width: 44, height: 40)
+        minColon.align(.toTheRightCentered, relativeTo: minDisplay, padding: 0, width: 10, height: 40)
+        secDisplay.align(.toTheRightCentered, relativeTo: minColon, padding: 0, width: 44, height: 40)
+        seperatorLineView1.align(.toTheRightMatchingTop, relativeTo: timeLabel, padding: 0, width: 1, height: 110, offset: -25)
+        seperatorLineView2.alignAndFillWidth(align: .toTheRightCentered, relativeTo: seperatorLineView1, padding: 0, height: 1)
         
-        paceUnit.align(.aboveMatchingLeft, relativeTo: seperatorLineView2, padding: 0, width: seperatorLineView1.width / 2, height: 30)
-        distanceUnit.align(.aboveMatchingRight, relativeTo: seperatorLineView2, padding: 0, width: paceUnit.width, height: 30)
-        paceDisplay.align(.aboveCentered, relativeTo: paceUnit, padding: 0, width: paceUnit.width, height: 40)
-        paceLabel.align(.aboveCentered, relativeTo: paceDisplay, padding: 0, width: paceDisplay.width, height: 30)
-        distanceDisplay.align(.aboveCentered, relativeTo: distanceUnit, padding: 0, width: distanceUnit.width, height: 40)
-        distanceLabel.align(.aboveCentered, relativeTo: distanceDisplay, padding: 0, width: distanceDisplay.width, height: 30)
-        seperatorLineView4.align(.aboveCentered, relativeTo: seperatorLineView3, padding: 0, width: view.frame.width, height: 20)
-        mapView.align(.aboveCentered, relativeTo: seperatorLineView4, padding: 0, width: view.frame.width, height: view.frame.height - 289.5)
+        navImageView.align(.aboveMatchingLeft, relativeTo: seperatorLineView2, padding: 10, width: 16, height: 16, offset: 10)
+        distanceLabel.align(.aboveMatchingLeft, relativeTo: navImageView, padding: 0, width: 100, height: 25)
+        distanceDisplay.align(.toTheRightCentered, relativeTo: navImageView, padding: 0, width: 40, height: 20)
+        distanceUnit.align(.toTheRightMatchingBottom, relativeTo: distanceDisplay, padding: 0, width: 20, height: 16)
+        
+        runImageView.align(.underMatchingLeft, relativeTo: seperatorLineView2, padding: 28.5, width: 16, height: 16, offset: 10)
+        paceLabel.align(.aboveMatchingLeft, relativeTo: runImageView, padding: 0, width: 100, height: 25)
+        paceDisplay.align(.toTheRightCentered, relativeTo: runImageView, padding: 0, width: 50, height: 20)
+        paceUnit.align(.toTheRightMatchingBottom, relativeTo: paceDisplay, padding: 0, width: 30, height: 16)
+        
+        statusBarView.anchorToEdge(.top, padding: 0, width: view.frame.width, height: 20)
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 }
 
