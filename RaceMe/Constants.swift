@@ -17,6 +17,7 @@ struct Constants {
         static let ROUTE_DISTANCE = "DISTANCE"
         static let START_LOC = "START_LOC"
         static let END_LOC = "END_LOC"
+        static let IS_GLOBAL = "IS_GLOBAL"
     }
     struct Workout{
         static let TABLE_NAME = "WORKOUTS"
