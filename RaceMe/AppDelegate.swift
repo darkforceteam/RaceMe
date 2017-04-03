@@ -50,20 +50,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 // Set up the Tracking View Controller
                 let recordViewController = UINavigationController(rootViewController: RecordViewController())
-                
-                //recordViewController.topViewController?.navigationItem.title = "CICRun"
-                
-                // Style for Navigation Bar
+                recordViewController.tabBarItem.title = "Tracking"
+                recordViewController.tabBarItem.image = UIImage(named: "map-pin")
+                recordViewController.topViewController?.navigationItem.title = "Tracking"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 20) {
+                    recordViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                }
                 recordViewController.navigationBar.barTintColor = primaryColor
                 recordViewController.navigationBar.isTranslucent = false
-                recordViewController.navigationBar.topItem?.title = "CICRun"
-                recordViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-                recordViewController.navigationBar.barStyle = UIBarStyle.black
                 recordViewController.navigationBar.tintColor = .white
+                recordViewController.navigationBar.barStyle = UIBarStyle.black
                 
-                recordViewController.tabBarItem.title = "Start"
-                recordViewController.tabBarItem.image = UIImage(named: "map-pin")
-
                 // Set up the Explore View Controller
                 let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
                 groupViewController.tabBarItem.title = "Group"

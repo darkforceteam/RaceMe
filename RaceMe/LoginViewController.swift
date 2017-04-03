@@ -20,19 +20,6 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        // Add a custom login button to your app
-        let fbLoginButton = UIButton(type: .custom)
-        fbLoginButton.backgroundColor = UIColor.darkGray
-        fbLoginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40)
-        fbLoginButton.center = view.center
-        fbLoginButton.setTitle("Login With Facebook", for: .normal)
-        
-        // Handle clicks on the button
-        fbLoginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
-
-        // Add the button to the view
-        //view.addSubview(fbLoginButton)
     }
     
     override func didReceiveMemoryWarning() {
@@ -40,8 +27,7 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    // Once the button is clicked, show the login dialog
-    @objc func loginButtonClicked() {
+    @IBAction func onFbLogin(_ sender: UIButton) {
         let loginManager = LoginManager()
         loginManager.logIn([ .publicProfile, .email, .userFriends ], viewController: self) { loginResult in
             switch loginResult {
@@ -55,9 +41,9 @@ class LoginViewController: UIViewController {
                     if error != nil {
                         print(error!.localizedDescription)
                     }
-
+                    
                     let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
-                        request.start { (response, result) in
+                    request.start { (response, result) in
                         switch result {
                         case .success(let value):
                             let profile = value.dictionaryValue!

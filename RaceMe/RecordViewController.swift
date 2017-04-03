@@ -135,8 +135,8 @@ extension RecordViewController {
         view.backgroundColor = .white
         view.addSubview(mapView)
         view.addSubview(startButton)
-        //view.addSubview(mockupImage)
-        navigationItem.rightBarButtonItem = addButton
+        view.addSubview(notificationLabel)
+        setupRightButton()
         navigationItem.leftBarButtonItem = activitiesButton
         mapView.delegate = self
     }

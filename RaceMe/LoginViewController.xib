@@ -28,6 +28,9 @@
                     <state key="normal" title="Login with Facebook">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onFbLogin:" destination="-1" eventType="touchUpInside" id="Qft-nE-h5m"/>
+                    </connections>
                 </button>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-o0-kfT">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
