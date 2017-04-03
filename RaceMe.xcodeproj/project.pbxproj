@@ -38,7 +38,6 @@
 		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
 		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
-		B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2771E76DF550021EFC0 /* Assets.xcassets */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
 		B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */; };
 		B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */; };
@@ -55,6 +54,7 @@
 		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
 		D9DA30B61E8AA65500F10849 /* UserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9DA30B41E8AA65500F10849 /* UserProfileCell.swift */; };
 		D9DA30B71E8AA65500F10849 /* UserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9DA30B51E8AA65500F10849 /* UserProfileCell.xib */; };
+		D9DA30BE1E91490D00F10849 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D9DA30BD1E91490D00F10849 /* Assets.xcassets */; };
 		D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */; };
 		D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */; };
 		D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */; };
@@ -105,7 +105,6 @@
 		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B6A6C2771E76DF550021EFC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A6C27C1E76DF550021EFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightDetailCell.swift; sourceTree = "<group>"; };
@@ -123,6 +122,7 @@
 		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		D9DA30B41E8AA65500F10849 /* UserProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserProfileCell.swift; sourceTree = "<group>"; };
 		D9DA30B51E8AA65500F10849 /* UserProfileCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserProfileCell.xib; sourceTree = "<group>"; };
+		D9DA30BD1E91490D00F10849 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTimeViewController.swift; sourceTree = "<group>"; };
 		D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectTimeViewController.xib; sourceTree = "<group>"; };
 		D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextOnlyTableViewCell.swift; sourceTree = "<group>"; };
@@ -199,6 +199,7 @@
 				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
 				B22978361E83FD85005F41B3 /* RecordViewController.xib */,
 				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
+				D9DA30BD1E91490D00F10849 /* Assets.xcassets */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -274,7 +275,6 @@
 				D9D9DF1B1E810EB5008C086C /* Constants.swift */,
 				B229783B1E840066005F41B3 /* Extensions.swift */,
 				B637D2251E7E2F6600F41A07 /* Main.storyboard */,
-				B6A6C2771E76DF550021EFC0 /* Assets.xcassets */,
 				B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */,
 				B68177A21E7E8AA500FF760F /* GoogleService-Info.plist */,
 				B6A6C27C1E76DF550021EFC0 /* Info.plist */,
@@ -395,12 +395,12 @@
 				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
+				D9DA30BE1E91490D00F10849 /* Assets.xcassets in Resources */,
 				B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */,
 				B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */,
 				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
-				B6A6C2781E76DF550021EFC0 /* Assets.xcassets in Resources */,
 				B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */,
 				B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */,
 				B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */,

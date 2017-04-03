@@ -178,6 +178,7 @@ class ExploreViewController: UIViewController {
                             DispatchQueue.main.async {
                                 pin.title = routeMarker.title
                                 pin.AnnoView = routeMarker
+                                routeMarker.tintColor = UIColor.green
                                 self.mapView.addAnnotation(pin)
                             }
                         }
@@ -185,15 +186,16 @@ class ExploreViewController: UIViewController {
                     dataTask.resume()
                 } else {
                     routeMarker.setTitleDistance()
-                    routeMarker.image = UIImage(named: "radar")!
+                    routeMarker.image = UIImage(named: "run-pin")!
                     pin.title = routeMarker.title
+                    routeMarker.tintColor = UIColor.green
                     pin.AnnoView = routeMarker
                     self.mapView.addAnnotation(pin)
                 }
             })
         } else {
             routeMarker.setTitleDistance()
-            routeMarker.image = UIImage(named: "radar")!
+            routeMarker.image = UIImage(named: "run-pin")!
             pin.title = routeMarker.title
             pin.AnnoView = routeMarker
             self.mapView.addAnnotation(pin)
@@ -390,6 +392,7 @@ extension ExploreViewController: MKMapViewDelegate, CLLocationManagerDelegate, U
         }
         let castedAnno = annotation as! RoutePoint
         let annoView = castedAnno.AnnoView as! RouteAnnotation
+        annoView.tintColor = UIColor.green
         if annoView.pinType == RouteAnnotation.PIN_EVENT{
             annoView.isSelected = true
         }
