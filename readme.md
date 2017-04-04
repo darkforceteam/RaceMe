@@ -1,4 +1,4 @@
-# WeRun - Connecting Inspire Challenge
+# WeRun - Connect Inspire Challenge
 
 WeRun is a platform for sharing and exploring sport activities around one location in real time.
 
