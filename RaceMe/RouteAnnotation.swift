@@ -22,6 +22,7 @@ class RouteAnnotation: MKAnnotationView {
     var imageView = UIImage()
     var title: String!
     var routeId: String!
+    var route: Route!
     
     //    var startLoc: CLLocationCoordinate2D
     func setTitleEvent(scheduled: Date?){

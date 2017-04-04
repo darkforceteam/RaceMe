@@ -16,6 +16,8 @@ class RouteDetailVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var routeId: String!
+    var route: Route!
+    var event: Event!
     var ref: FIRDatabaseReference!
     var eventRef: FIRDatabaseReference!
     var eventList = [Event]()
@@ -23,8 +25,10 @@ class RouteDetailVC: UIViewController {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         eventRef = ref.child("EVENTS")
-        loadRoute()
-        loadSchedules()
+//        loadRoute()
+        drawRoute(route: route)
+//        loadSchedules()
+        eventList = route.events
         mapView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
@@ -110,16 +114,20 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         
         var strRunnerNum = " will run alone"
         if event.participants.count > 1{
-            strRunnerNum = " and \(event.participants.count) runners"
+            strRunnerNum = " and \(event.participants.count-1) runners"
         }
         
-        self.ref.child("USERS/"+event.participants[0]).observeSingleEvent(of: .value, with: { (snapshot) in
-            if (snapshot.value as? NSDictionary) != nil{
-                let user = User(snapshot: snapshot)
-                cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
-            }
-        })
+//        self.ref.child("USERS/"+event.participants[0]).observeSingleEvent(of: .value, with: { (snapshot) in
+//            if (snapshot.value as? NSDictionary) != nil{
+//                let user = User(snapshot: snapshot)
+//                cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
+//            }
+//        })
+
+        let user = event.firstUser!
+        cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
         
+        cell.avatarImg.image = user.avatarImg
         return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

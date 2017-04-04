@@ -149,6 +149,7 @@ class ExploreViewController: UIViewController {
         print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
         let routeMarker = RouteAnnotation()
         routeMarker.routeId = route.routeId
+        routeMarker.route = route
         let pin = RoutePoint()
         pin.coordinate = route.locations.first!
         
@@ -157,6 +158,7 @@ class ExploreViewController: UIViewController {
             let firstPersonID = firstEvent.participants[0] as String
             userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userData = snapshot.value as? NSDictionary{
+                    var firstUser = UserObject(snapshot: snapshot)
                     routeMarker.pinType = RouteAnnotation.PIN_EVENT
                     routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
                     routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
@@ -176,6 +178,8 @@ class ExploreViewController: UIViewController {
                     let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
                         if error == nil {
                             routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                            firstUser.avatarImg = routeMarker.image
+                            routeMarker.route.displayEvent?.firstUser = firstUser
                             DispatchQueue.main.async {
                                 pin.title = routeMarker.title
                                 pin.AnnoView = routeMarker
@@ -228,12 +232,13 @@ class ExploreViewController: UIViewController {
                         //                print("route \(self.visibleRoutes) added. Distance: \(route.distance)")
                         // QueryCount 3: for each Route, get events hosted at this route in the future
                         
-                        self.eventRef.queryOrdered(byChild: "route_id").queryEqual(toValue: routeid).observeSingleEvent(of: .value, with: {
+                        self.eventRef.queryOrdered(byChild: "route_id").queryEqual(toValue: routeid).observe(.value, with: {
                             //                        self.eventRef.queryEqual(toValue: routeid, childKey: "route_id").observeSingleEvent(of: .value, with: {
                             (snapshot) in
                             print(snapshot)
                             if snapshot.hasChildren(){
                                 let currentTime = NSDate().timeIntervalSince1970
+                                route.events.removeAll()
                                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                                     if let oneEvent = eventData.value as? NSDictionary{
                                         let start_time = oneEvent.value(forKey: "start_time") as! Double
@@ -245,6 +250,7 @@ class ExploreViewController: UIViewController {
                                                     event.participants.append(key as! String)
                                                 }
                                             }
+                                            event.setFirstUser()
                                             route.events.append(event)
                                             if NSCalendar.current.isDateInToday(event.start_time){
                                                 route.todayEvents.append(event)
@@ -253,12 +259,12 @@ class ExploreViewController: UIViewController {
                                             } else {
                                                 route.laterEvents.append(event)
                                             }
-                                            route.setFirstEvent()
-                                            print("found event for \(routeid)")
-                                            self.drawRoute(route: route)
                                         }
                                     }
                                 }
+                                route.setFirstEvent()
+                                print("found \(route.events.count) event for \(routeid)")
+                                self.drawRoute(route: route)
                             }
                             else{
                                 self.drawRoute(route: route)
@@ -272,6 +278,22 @@ class ExploreViewController: UIViewController {
             }
         })
     }
+    
+//    func loadUser(_ snapshot: FIRDataSnapshot) -> UserObject{
+//        var returnUser = UserObject(snapshot: snapshot)
+//        
+//        let request = NSMutableURLRequest(url: URL(string: returnUser.photoUrl!)!)
+//        request.httpMethod = "GET"
+//        
+//        let session = URLSession(configuration: URLSessionConfiguration.default)
+//        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+//            if error == nil {
+//                returnUser.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+//            }
+//        }
+//        dataTask.resume()
+//        
+//    }
     
     func queryRouteInRegion(myRegion: MKCoordinateRegion){
         nearByRouteCount = 0
@@ -344,6 +366,7 @@ class ExploreViewController: UIViewController {
         print("open details vc for route id: \(view.routeId)")
         let routeDetailVC = RouteDetailVC(nibName: "RouteDetailVC", bundle: nil)
         routeDetailVC.routeId = view.routeId
+        routeDetailVC.route = view.route
         // present the popover
         self.present(routeDetailVC, animated: true, completion: nil)
     }
@@ -399,7 +422,7 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         let annoView = view as! RouteAnnotation
         let views = Bundle.main.loadNibNamed("CustomPinView", owner: nil, options: nil)
         let pinView = views?[0] as! CustomPinView
-        
+        pinView.route = annoView.route
         pinView.titleLabel.text = annoView.title
         let button = UIButton(frame: pinView.titleLabel.frame)
         button.addTarget(self, action: #selector(openDetailsVC(sender:)), for: .touchUpInside)
