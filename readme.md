@@ -1,19 +1,20 @@
-# Ruwime - Run With Me app
+# WeRun - Connecting Inspire Challenge
 
-Ruwime is a platform for sharing and exploring sport activities around one location in real time.
+WeRun is a platform for sharing and exploring sport activities around one location in real time.
 
 ## User Stories
 
 The following **Main** functionalities is completed:
 
 A. ACCOUNT MANAGEMENT
-- [ ] User can sign in using Twitter/Google/Facebook.
-- [ ] User can sync their friend list from T/G/F to find who has already registered at Ruwime.
-- [ ] User can send invitation to join Ruwime to friends in contact list
+- [x] User can sign in using Facebook
+- [ ] User can sign in using Email, Twitter and Google
+- [ ] User can sync their friend list from Contact, Facebook, Twitter, Google to find who has already registered at WeRun.
+- [ ] User can send invitation to join WeRun to friends in contact list
 
 B. ACTIVITY LOGGING
-- [ ] User can use the app to track their running/biking/hiking (Workout) activity
-- [ ] User can manually enter record of their Workout activity
+- [x] User can use the app to track their running/biking/hiking (Workout) activity
+- [x] User can manually enter record of their Workout activity
 
 C. CREATE AND EXPLORING GROUP CHALLENGES
 - [ ] Route of Workout are automatically saved after an Workout activity is complete
@@ -40,9 +41,9 @@ E. SOLO WORK OUT - GHOST RUN
     - [ ] Music: chose a playlist to play music from iTunes
 
 F. PROFILE PAGE
-- [ ] User can set up their profile page with the following info
-    - [ ] Avatar. By default get from T/G/F
-    - [ ] Screen Name
+- [x] User can set up their profile page with the following info
+    - [x] Avatar. By default get from T/G/F
+    - [x] Screen Name
     - [ ] Favourite Workout type
     - [ ] Favourtie Location
 - [ ] User can set up their weekly working schedule with
@@ -52,7 +53,7 @@ F. PROFILE PAGE
 The following **optional** features are implemented:
 
 G. CREATE AND EXPLORING CHALLENGES
-- [ ] User can import Record from other Systems to import workout history into Ruwime.
+- [ ] User can import Record from other Systems to import workout history into WeRun.
 - [ ] User can draw routes for next CHALLENGES on Map.
 - [ ] After a CHALLENGE is created. User can chose wich friends from their friendlist to invite to this CHALLENGE.
 
