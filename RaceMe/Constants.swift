@@ -38,4 +38,10 @@ struct Constants {
         static let TIMESTAMP = "timestamp"
         static let SPEED = "speed"
     }
+    struct Event{
+        static let TABLE_NAME = "EVENTS"
+        static let PARTICIPANTS = "participants"
+        static let ROUTE_ID = "route_id"
+        static let START_LOC = "start_loc"
+    }
 }

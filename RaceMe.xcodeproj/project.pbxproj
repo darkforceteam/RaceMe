@@ -69,6 +69,10 @@
 		B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520091E8500A90071E361 /* NotificationsViewController.xib */; };
 		D902147B1E8A6EC3000DB7DF /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */; };
 		D9433AC01E8521DB00F085B3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9433ABF1E8521DB00F085B3 /* Route.swift */; };
+		D94C62CD1E93A232000E5A5E /* ScheduleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94C62CB1E93A232000E5A5E /* ScheduleVC.swift */; };
+		D94C62CE1E93A232000E5A5E /* ScheduleVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C62CC1E93A232000E5A5E /* ScheduleVC.xib */; };
+		D94C62D11E93D5CE000E5A5E /* ParticipantViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */; };
+		D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */; };
 		D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */; };
 		D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D35F001E925963008C3AB3 /* ScheduleCell.xib */; };
 		D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35F031E929E23008C3AB3 /* UserObject.swift */; };
@@ -165,6 +169,10 @@
 		B6F520091E8500A90071E361 /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
 		D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
 		D9433ABF1E8521DB00F085B3 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
+		D94C62CB1E93A232000E5A5E /* ScheduleVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleVC.swift; sourceTree = "<group>"; };
+		D94C62CC1E93A232000E5A5E /* ScheduleVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleVC.xib; sourceTree = "<group>"; };
+		D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewCell.swift; sourceTree = "<group>"; };
+		D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParticipantViewCell.xib; sourceTree = "<group>"; };
 		D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		D9D35F001E925963008C3AB3 /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
 		D9D35F031E929E23008C3AB3 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
@@ -268,8 +276,6 @@
 				B6F520091E8500A90071E361 /* NotificationsViewController.xib */,
 				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
 				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
-				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
-				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
 				B68177A91E7ED1E500FF760F /* TrackingViewController.swift */,
 				B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */,
 				B68177AD1E7ED20200FF760F /* GroupViewController.swift */,
@@ -277,10 +283,14 @@
 				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
 				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
 				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
+				B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */,
 				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
+				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
+				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
 				D9DA30C61E92395E00F10849 /* RouteDetailVC.swift */,
 				D9DA30C71E92395E00F10849 /* RouteDetailVC.xib */,
-				B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */,
+				D94C62CB1E93A232000E5A5E /* ScheduleVC.swift */,
+				D94C62CC1E93A232000E5A5E /* ScheduleVC.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -288,10 +298,9 @@
 		B68D081F1E7E2A3500DC971F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D94C62D31E93D60E000E5A5E /* Explores */,
 				D9DA30B41E8AA65500F10849 /* UserProfileCell.swift */,
 				D9DA30B51E8AA65500F10849 /* UserProfileCell.xib */,
-				D9DA30C21E91F52C00F10849 /* CustomPinView.swift */,
-				D9DA30C41E91F54100F10849 /* CustomPinView.xib */,
 				B679DD1D1E8BF65D000744E8 /* UserInfoCell.swift */,
 				B679DD1E1E8BF65D000744E8 /* UserInfoCell.xib */,
 				B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */,
@@ -308,15 +317,10 @@
 				B6CF33F51E8CB5860087614C /* RightDetailArrowCell.xib */,
 				B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */,
 				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
-				D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */,
-				D9D35F001E925963008C3AB3 /* ScheduleCell.xib */,
 				B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */,
 				B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */,
 				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
 				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
-				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
-				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
-				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -372,6 +376,22 @@
 				B6A6C27C1E76DF550021EFC0 /* Info.plist */,
 			);
 			path = RaceMe;
+			sourceTree = "<group>";
+		};
+		D94C62D31E93D60E000E5A5E /* Explores */ = {
+			isa = PBXGroup;
+			children = (
+				D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */,
+				D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */,
+				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
+				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
+				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
+				D9DA30C21E91F52C00F10849 /* CustomPinView.swift */,
+				D9DA30C41E91F54100F10849 /* CustomPinView.xib */,
+				D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */,
+				D9D35F001E925963008C3AB3 /* ScheduleCell.xib */,
+			);
+			name = Explores;
 			sourceTree = "<group>";
 		};
 		D9F7B20D1E88BFF400B692FF /* GeoFire */ = {
@@ -500,9 +520,11 @@
 				D9DA30C91E92395E00F10849 /* RouteDetailVC.xib in Resources */,
 				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
 				B20F76321E927D9F00BA52FE /* OpenSans-Regular.ttf in Resources */,
+				D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				D9D35F0C1E92ACE9008C3AB3 /* GoogleService-Info.plist in Resources */,
 				B20F762E1E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				D94C62CE1E93A232000E5A5E /* ScheduleVC.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
 				B20F76341E927D9F00BA52FE /* OpenSans-SemiboldItalic.ttf in Resources */,
 				B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */,
@@ -598,6 +620,7 @@
 				B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */,
 				B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */,
 				B637D2391E7E4DA900F41A07 /* FindFriendsViewController.swift in Sources */,
+				D94C62D11E93D5CE000E5A5E /* ParticipantViewCell.swift in Sources */,
 				B679DD1F1E8BF65D000744E8 /* UserInfoCell.swift in Sources */,
 				D902147B1E8A6EC3000DB7DF /* RouteAnnotation.swift in Sources */,
 				D9433AC01E8521DB00F085B3 /* Route.swift in Sources */,
@@ -612,6 +635,7 @@
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
 				D9DA30C31E91F52C00F10849 /* CustomPinView.swift in Sources */,
 				B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */,
+				D94C62CD1E93A232000E5A5E /* ScheduleVC.swift in Sources */,
 				D9F7B2211E88BFF500B692FF /* GFGeoHash.m in Sources */,
 				D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */,
 				D9F7B2221E88BFF500B692FF /* GFGeoHashQuery.m in Sources */,
