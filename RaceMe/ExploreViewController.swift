@@ -232,12 +232,13 @@ class ExploreViewController: UIViewController {
                         //                print("route \(self.visibleRoutes) added. Distance: \(route.distance)")
                         // QueryCount 3: for each Route, get events hosted at this route in the future
                         
-                        self.eventRef.queryOrdered(byChild: "route_id").queryEqual(toValue: routeid).observeSingleEvent(of: .value, with: {
+                        self.eventRef.queryOrdered(byChild: "route_id").queryEqual(toValue: routeid).observe(.value, with: {
                             //                        self.eventRef.queryEqual(toValue: routeid, childKey: "route_id").observeSingleEvent(of: .value, with: {
                             (snapshot) in
                             print(snapshot)
                             if snapshot.hasChildren(){
                                 let currentTime = NSDate().timeIntervalSince1970
+                                route.events.removeAll()
                                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                                     if let oneEvent = eventData.value as? NSDictionary{
                                         let start_time = oneEvent.value(forKey: "start_time") as! Double
@@ -249,6 +250,7 @@ class ExploreViewController: UIViewController {
                                                     event.participants.append(key as! String)
                                                 }
                                             }
+                                            event.setFirstUser()
                                             route.events.append(event)
                                             if NSCalendar.current.isDateInToday(event.start_time){
                                                 route.todayEvents.append(event)
@@ -257,12 +259,12 @@ class ExploreViewController: UIViewController {
                                             } else {
                                                 route.laterEvents.append(event)
                                             }
-                                            route.setFirstEvent()
-                                            print("found event for \(routeid)")
-                                            self.drawRoute(route: route)
                                         }
                                     }
                                 }
+                                route.setFirstEvent()
+                                print("found \(route.events.count) event for \(routeid)")
+                                self.drawRoute(route: route)
                             }
                             else{
                                 self.drawRoute(route: route)
@@ -276,6 +278,22 @@ class ExploreViewController: UIViewController {
             }
         })
     }
+    
+//    func loadUser(_ snapshot: FIRDataSnapshot) -> UserObject{
+//        var returnUser = UserObject(snapshot: snapshot)
+//        
+//        let request = NSMutableURLRequest(url: URL(string: returnUser.photoUrl!)!)
+//        request.httpMethod = "GET"
+//        
+//        let session = URLSession(configuration: URLSessionConfiguration.default)
+//        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+//            if error == nil {
+//                returnUser.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+//            }
+//        }
+//        dataTask.resume()
+//        
+//    }
     
     func queryRouteInRegion(myRegion: MKCoordinateRegion){
         nearByRouteCount = 0

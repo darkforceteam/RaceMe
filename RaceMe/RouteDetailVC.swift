@@ -114,7 +114,7 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         
         var strRunnerNum = " will run alone"
         if event.participants.count > 1{
-            strRunnerNum = " and \(event.participants.count) runners"
+            strRunnerNum = " and \(event.participants.count-1) runners"
         }
         
 //        self.ref.child("USERS/"+event.participants[0]).observeSingleEvent(of: .value, with: { (snapshot) in
