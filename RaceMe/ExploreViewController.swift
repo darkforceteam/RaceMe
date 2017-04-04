@@ -149,6 +149,7 @@ class ExploreViewController: UIViewController {
         print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
         let routeMarker = RouteAnnotation()
         routeMarker.routeId = route.routeId
+        routeMarker.route = route
         let pin = RoutePoint()
         pin.coordinate = route.locations.first!
         
@@ -157,6 +158,7 @@ class ExploreViewController: UIViewController {
             let firstPersonID = firstEvent.participants[0] as String
             userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userData = snapshot.value as? NSDictionary{
+                    var firstUser = UserObject(snapshot: snapshot)
                     routeMarker.pinType = RouteAnnotation.PIN_EVENT
                     routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
                     routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
@@ -176,6 +178,8 @@ class ExploreViewController: UIViewController {
                     let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
                         if error == nil {
                             routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                            firstUser.avatarImg = routeMarker.image
+                            routeMarker.route.displayEvent?.firstUser = firstUser
                             DispatchQueue.main.async {
                                 pin.title = routeMarker.title
                                 pin.AnnoView = routeMarker
@@ -344,6 +348,7 @@ class ExploreViewController: UIViewController {
         print("open details vc for route id: \(view.routeId)")
         let routeDetailVC = RouteDetailVC(nibName: "RouteDetailVC", bundle: nil)
         routeDetailVC.routeId = view.routeId
+        routeDetailVC.route = view.route
         // present the popover
         self.present(routeDetailVC, animated: true, completion: nil)
     }
@@ -399,7 +404,7 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         let annoView = view as! RouteAnnotation
         let views = Bundle.main.loadNibNamed("CustomPinView", owner: nil, options: nil)
         let pinView = views?[0] as! CustomPinView
-        
+        pinView.route = annoView.route
         pinView.titleLabel.text = annoView.title
         let button = UIButton(frame: pinView.titleLabel.frame)
         button.addTarget(self, action: #selector(openDetailsVC(sender:)), for: .touchUpInside)

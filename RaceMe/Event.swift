@@ -12,6 +12,7 @@ class Event: NSObject {
     var start_time: Date
     var route_id: String
     var participants = [String]()
+    var firstUser: UserObject?
     init(route_id: String, start_time: Date){
         self.start_time = start_time
         self.route_id = route_id
