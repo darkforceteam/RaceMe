@@ -121,7 +121,6 @@
 		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTrackingVC.swift; sourceTree = "<group>"; };
-		B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesVC.swift; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B61B85401E940BFE0008BCF3 /* SlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideView.xib; sourceTree = "<group>"; };
 		B61B85421E940C160008BCF3 /* SlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
@@ -674,7 +673,6 @@
 				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
 				D9F7B2201E88BFF500B692FF /* GFBase32Utils.m in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
-				B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */,
 				D9F7B21F1E88BFF500B692FF /* GeoFire.m in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);

@@ -17,10 +17,15 @@ class ManualEntryController: UIViewController {
     fileprivate var isPublic = true
     var user: User!
     
-    fileprivate lazy var doneButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(doneButtonTapped))
-        button.FAIcon = .FACheck
-        button.tintColor = .black
+    fileprivate lazy var saveButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("SAVE", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = customOrange
+        button.addTarget(self, action: #selector(saveButtonDidTouch), for: .touchUpInside)
+        button.titleLabel?.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
+        button.layer.cornerRadius = 5
+        button.clipsToBounds = true
         return button
     }()
     
@@ -80,7 +85,7 @@ class ManualEntryController: UIViewController {
 
 extension ManualEntryController {
     
-    @objc fileprivate func doneButtonTapped() {
+    @objc fileprivate func saveButtonDidTouch() {
         if distanceField.text != "" && durationField.text != "" {
             if distanceField.text == "0" || durationField.text == "0" {
                 showAlert()
@@ -122,23 +127,11 @@ extension ManualEntryController {
     fileprivate func setupViews() {
         title = "Manual Entry"
         view.backgroundColor = .white
-        navigationItem.leftBarButtonItem = cancelButton
-        navigationItem.rightBarButtonItem = doneButton
-        view.addSubview(distanceLabel)
-        view.addSubview(distanceField)
-        view.addSubview(durationLabel)
-        view.addSubview(durationField)
-        view.addSubview(isPublicLabel)
-        view.addSubview(publicSwitch)
+        view.addSubview(saveButton)
     }
     
     override func viewWillLayoutSubviews() {
-        distanceLabel.anchorInCorner(.topLeft, xPad: 10, yPad: 74, width: 85, height: 30)
-        distanceField.alignAndFillWidth(align: .toTheRightCentered, relativeTo: distanceLabel, padding: 10, height: 30)
-        durationLabel.align(.underMatchingLeft, relativeTo: distanceLabel, padding: 10, width: 85, height: 30)
-        durationField.alignAndFillWidth(align: .toTheRightCentered, relativeTo: durationLabel, padding: 10, height: 30)
-        isPublicLabel.align(.underMatchingLeft, relativeTo: durationLabel, padding: 10, width: 85, height: 30)
-        publicSwitch.align(.underMatchingRight, relativeTo: durationField, padding: 10, width: 50, height: 30)
+        saveButton.anchorToEdge(.bottom, padding: 15, width: view.frame.width - 30, height: 60)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

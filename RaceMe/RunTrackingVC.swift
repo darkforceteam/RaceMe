@@ -33,6 +33,7 @@ class RunTrackingVC: UIViewController {
         lm.activityType = .fitness
         lm.distanceFilter = 10.0
         lm.requestAlwaysAuthorization()
+        lm.allowsBackgroundLocationUpdates = true
         return lm
     }()
     
@@ -230,7 +231,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
-        timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
     }
     
     fileprivate func saveData() {
@@ -260,7 +261,13 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     
     @objc fileprivate func audioUpdate() {
         let currentDistance = Int(distance)
-        let stringToSpeak = "You have run \(currentDistance) meters."
+        var stringToSpeak = ""
+        if currentDistance < 1000 {
+            stringToSpeak = "You have run \(currentDistance) meters."
+        } else {
+            let string = String(format: "%.1f", distance / 1000)
+            stringToSpeak = "You have run \(string) kilometers."
+        }
         let speechUtterrance = AVSpeechUtterance(string: stringToSpeak)
         speechUtterrance.rate = 0.4
         speechUtterrance.pitchMultiplier = 1
@@ -378,6 +385,10 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
                 }
                 self.locations.append(location)
             }
+        }
+        
+        if UIApplication.shared.applicationState == .background {
+            print("App is backgrouded. New location is \(locations.last)")
         }
     }
 }
