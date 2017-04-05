@@ -17,6 +17,7 @@ class ActivitiesViewController: UIViewController {
     var items = [Workout]()
     var sections = Dictionary<String, Array<Workout>>()
     var sortedSections = [String]()
+    var workout: Workout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +73,15 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.titleLabel.text = String(format: "%.1f km", tableItem.distanceKm!)
         cell.descLabel.text = "\((tableItem.duration?.toMinutes)!):\((tableItem.duration?.toSeconds)!)"
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tableSection = sections[sortedSections[indexPath.section]]
+        let tableItem = tableSection![indexPath.row]
+        let workoutDetailVC = ActivityDetailsViewController()
+        workoutDetailVC.workout = tableItem
+        navigationController?.pushViewController(workoutDetailVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func loadActivities() {
