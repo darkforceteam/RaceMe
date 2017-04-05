@@ -39,7 +39,7 @@ class ProfileViewController: UIViewController {
         navigationItem.rightBarButtonItem = editButton
         
         let notificationsButton = UIBarButtonItem(image: UIImage(named: "notifications"), style: .plain, target: self, action: #selector(ProfileViewController.notifications))
-        navigationItem.leftBarButtonItem = notificationsButton
+        // navigationItem.leftBarButtonItem = notificationsButton
     }
     
     func editProfile() {
@@ -86,6 +86,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.avatarImage.setImageWith(avatarURL!)
                 }
             })
+            cell.selectionStyle = .none
+            cell.followButton.isHidden = true
+            cell.workoutCount.text = "\(workoutCount)"
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell

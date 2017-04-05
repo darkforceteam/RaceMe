@@ -14,6 +14,14 @@ class UserProfileCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet weak var userStatisticsScrollView: UIScrollView!
     @IBOutlet weak var userStatisticsPageControl: UIPageControl!
     @IBOutlet weak var followButton: UIButton!
+    @IBOutlet weak var workoutCount: UILabel!
+    @IBOutlet weak var followingCount: UILabel!
+    @IBOutlet weak var followerCount: UILabel!
+    
+    var distanceThisMonth = 0.0
+    var distanceLastMonth = 0.0
+    var avgPaceThisMonth = "0:0"
+    var avgPaceLastMonth = "0:0"
     
     let userStats1 = ["title":"Kilometers", "current_period":"8.3", "last_period":"0"]
     let userStats2 = ["title":"Average Pace (Min/Km)", "current_period":"1:15:08", "last_period":"2:33:54"]
