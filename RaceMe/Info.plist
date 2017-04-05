@@ -51,13 +51,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses camera</string>
+	<string>Allow $(PRODUCT_NAME) to access your camera.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>FindMy.Run wants to track your run</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>FindMy.Run wants to track your run</string>
+	<string>Your location is used to track your run distance, pace and route.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses photos</string>
+	<string>Allow $(PRODUCT_NAME) to access your photos.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>OpenSans-Bold.ttf</string>

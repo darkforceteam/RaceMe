@@ -50,11 +50,6 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         button.clipsToBounds = true
         return button
     }()
-    
-    fileprivate lazy var activitiesButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "Activities", style: .plain, target: self, action: #selector(showActivities))
-        return button
-    }()
 }
 
 extension RecordViewController {
@@ -81,13 +76,6 @@ extension RecordViewController {
         manualNav.navigationBar.barStyle = UIBarStyle.black
         manualNav.navigationBar.tintColor = .white
         present(manualNav, animated: true, completion: nil)
-    }
-    
-    @objc fileprivate func showActivities() {
-        let activitiesControlller = ActivitiesVC()
-        activitiesControlller.user = self.user
-        let activitiesNav = UINavigationController(rootViewController: activitiesControlller)
-        present(activitiesNav, animated: true, completion: nil)
     }
     
     fileprivate func centerMapOnLocation() {
@@ -137,7 +125,6 @@ extension RecordViewController {
         view.addSubview(startButton)
         view.addSubview(notificationLabel)
         setupRightButton()
-        navigationItem.leftBarButtonItem = activitiesButton
         mapView.delegate = self
     }
     
