@@ -17,12 +17,7 @@ import AFNetworking
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var userStatisticsScrollView: UIScrollView!
-    @IBOutlet weak var userStatisticsPageControl: UIPageControl!
-    
+
     var dataBaseRef: FIRDatabaseReference! {
         return FIRDatabase.database().reference()
     }
@@ -98,19 +93,22 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_history")
+            cell.iconImageView.image = UIImage(named: "ic_history")?.withRenderingMode(.alwaysTemplate)
+            cell.iconImageView.tintColor = darkColor
             cell.descLabel.text = "0 Tracked"
             cell.titleLabel.text = "Activities"
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_timeline")
+            cell.iconImageView.image = UIImage(named: "ic_timeline")?.withRenderingMode(.alwaysTemplate)
+            cell.iconImageView.tintColor = darkColor
             cell.descLabel.text = ""
             cell.titleLabel.text = "Records"
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_group")
+            cell.iconImageView.image = UIImage(named: "ic_group")?.withRenderingMode(.alwaysTemplate)
+            cell.iconImageView.tintColor = darkColor
             cell.descLabel.text = ""
             cell.titleLabel.text = "Groups"
             return cell

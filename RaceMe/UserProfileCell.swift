@@ -13,6 +13,7 @@ class UserProfileCell: UITableViewCell, UIScrollViewDelegate {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var userStatisticsScrollView: UIScrollView!
     @IBOutlet weak var userStatisticsPageControl: UIPageControl!
+    @IBOutlet weak var followButton: UIButton!
     
     let userStats1 = ["title":"Kilometers", "current_period":"8.3", "last_period":"0"]
     let userStats2 = ["title":"Average Pace (Min/Km)", "current_period":"1:15:08", "last_period":"2:33:54"]
@@ -26,9 +27,8 @@ class UserProfileCell: UITableViewCell, UIScrollViewDelegate {
         
         // Config Avatar
         avatarImage.layer.cornerRadius = avatarImage.frame.width / 2
-//        avatarImage.layer.borderColor = UIColor.white.cgColor
-//        avatarImage.layer.borderWidth = 3
         avatarImage.clipsToBounds = true
+        followButton.layer.cornerRadius = 3
         
         // Config Scroll View
         userStatisticsScrollView.isPagingEnabled = true

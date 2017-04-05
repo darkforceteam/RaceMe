@@ -24,6 +24,8 @@
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */; };
 		B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */; };
+		B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B85401E940BFE0008BCF3 /* SlideView.xib */; };
+		B61B85431E940C160008BCF3 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B85421E940C160008BCF3 /* SlideView.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
 		B637D2351E7E4D6700F41A07 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */; };
 		B637D2361E7E4D6700F41A07 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */; };
@@ -121,6 +123,8 @@
 		B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTrackingVC.swift; sourceTree = "<group>"; };
 		B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivitiesVC.swift; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
+		B61B85401E940BFE0008BCF3 /* SlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideView.xib; sourceTree = "<group>"; };
+		B61B85421E940C160008BCF3 /* SlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
 		B637D2251E7E2F6600F41A07 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
@@ -321,6 +325,11 @@
 				B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */,
 				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
 				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
+				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
+				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
+				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
+				B61B85421E940C160008BCF3 /* SlideView.swift */,
+				B61B85401E940BFE0008BCF3 /* SlideView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -468,7 +477,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = D7RX787JDX;
+						DevelopmentTeam = 566T8PK976;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -523,6 +532,7 @@
 				D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				D9D35F0C1E92ACE9008C3AB3 /* GoogleService-Info.plist in Resources */,
+				B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */,
 				B20F762E1E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				D94C62CE1E93A232000E5A5E /* ScheduleVC.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
@@ -647,6 +657,7 @@
 				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
 				B6CF33F61E8CB5860087614C /* RightDetailArrowCell.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
+				B61B85431E940C160008BCF3 /* SlideView.swift in Sources */,
 				D9D9DF1A1E810991008C086C /* Workout.swift in Sources */,
 				B229783C1E840066005F41B3 /* Extensions.swift in Sources */,
 				B225DB071E8CB57D00AE7A2D /* ManualEntryController.swift in Sources */,
@@ -781,7 +792,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -801,7 +812,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
