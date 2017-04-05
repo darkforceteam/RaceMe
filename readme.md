@@ -4,7 +4,7 @@ WeRun is a platform for sharing and exploring sport activities around one locati
 
 ## User Stories
 
-The following **Main** functionalities is completed:
+**Main** functionalities:
 
 A. ACCOUNT MANAGEMENT
 - [x] User can sign in using Facebook
@@ -50,7 +50,7 @@ F. PROFILE PAGE
     - [ ] Datetime
     - [ ] Location
 
-The following **optional** features are implemented:
+**Comming Soon** features:
 
 G. CREATE AND EXPLORING CHALLENGES
 - [ ] User can import Record from other Systems to import workout history into WeRun.
@@ -60,23 +60,11 @@ G. CREATE AND EXPLORING CHALLENGES
 H. SOLO WORK OUT - GHOST RUN
 - [ ] User can chose a workout record of other user to race again.
 
-## Survey Results
+## Video Walkthrough
 
-<img src='survey.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/EWSptFQ.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
-
-## Wireframe
-
-<img src='wireframe.png' title='Wireframe' width='' alt='Wireframe' />
-
-## Notes
-
-Describe any challenges encountered while building the app.
-
-1. Working with location tracking. How to both increase the accuracy of geolocation points and not draining battery at the same time
-2. Voice notification.
-3. Live transaction and synchronization during Group Workout
 
 ## License
 
