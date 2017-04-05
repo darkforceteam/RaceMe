@@ -62,13 +62,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses camera</string>
+	<string>Allow WeRun to access your camera.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>FindMy.Run wants to track your run</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>FindMy.Run wants to track your run</string>
+	<string>Your location is used to track your run distance, pace and route.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>$(PRODUCT_NAME) uses photos</string>
+	<string>Allow WeRun to access your photo library.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
