@@ -17,12 +17,7 @@ import AFNetworking
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var userStatisticsScrollView: UIScrollView!
-    @IBOutlet weak var userStatisticsPageControl: UIPageControl!
-    
+
     var dataBaseRef: FIRDatabaseReference! {
         return FIRDatabase.database().reference()
     }
