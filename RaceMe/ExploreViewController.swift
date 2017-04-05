@@ -91,7 +91,11 @@ class ExploreViewController: UIViewController {
             refreshDisplayRoute()
         }
     }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.removeAllObservers()
+        eventRef.removeAllObservers()
+    }
     func refreshDisplayRoute(){
         let overlays = mapView.overlays
         mapView.removeOverlays(overlays)
@@ -254,6 +258,7 @@ class ExploreViewController: UIViewController {
                                         if start_time >= currentTime {
                                             let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                             let event = Event(route_id: "", start_time: event_datetime as Date)
+                                            event.eventId = eventData.key
                                             if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
                                                 for (key, _) in participants{
                                                     event.participants.append(key as! String)

@@ -20,7 +20,6 @@ class UserObject: NSObject {
     var height: String?
     var photoUrl: String?
     var avatarImg: UIImage?
-    
     init(snapshot: FIRDataSnapshot){
         key = snapshot.key
         email = (snapshot.value! as! NSDictionary)["email"] as? String

@@ -14,6 +14,7 @@ class Event: NSObject {
     var route_id: String
     var participants = [String]()
     var firstUser: UserObject?
+    var eventId: String?
     init(route_id: String, start_time: Date){
         self.start_time = start_time
         self.route_id = route_id
@@ -34,5 +35,8 @@ class Event: NSObject {
         dataTask.resume()
         
         })
+    }
+    func setFirstUser(user: UserObject){
+        self.firstUser = user
     }
 }

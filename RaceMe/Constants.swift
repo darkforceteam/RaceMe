@@ -43,5 +43,6 @@ struct Constants {
         static let PARTICIPANTS = "participants"
         static let ROUTE_ID = "route_id"
         static let START_LOC = "start_loc"
+        static let START_TIME = "start_time"
     }
 }
