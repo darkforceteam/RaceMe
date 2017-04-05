@@ -23,7 +23,6 @@
 		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */; };
-		B2F6356E1E90ECB90043F00A /* ActivitiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */; };
 		B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B85401E940BFE0008BCF3 /* SlideView.xib */; };
 		B61B85431E940C160008BCF3 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B85421E940C160008BCF3 /* SlideView.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
@@ -33,6 +32,8 @@
 		B637D23A1E7E4DA900F41A07 /* FindFriendsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */; };
 		B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */; };
 		B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */; };
+		B6492DC31E954E0900C490F0 /* ActivityDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6492DC11E954E0900C490F0 /* ActivityDetailsViewController.swift */; };
+		B6492DC41E954E0900C490F0 /* ActivityDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6492DC21E954E0900C490F0 /* ActivityDetailsViewController.xib */; };
 		B65F1AD81E82E12E009E526B /* UserStatistics.xib in Resources */ = {isa = PBXBuildFile; fileRef = B65F1AD71E82E12E009E526B /* UserStatistics.xib */; };
 		B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */; };
 		B679DD1F1E8BF65D000744E8 /* UserInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B679DD1D1E8BF65D000744E8 /* UserInfoCell.swift */; };
@@ -131,6 +132,8 @@
 		B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FindFriendsViewController.xib; sourceTree = "<group>"; };
 		B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerSettingCell.swift; sourceTree = "<group>"; };
 		B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DatePickerSettingCell.xib; sourceTree = "<group>"; };
+		B6492DC11E954E0900C490F0 /* ActivityDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailsViewController.swift; sourceTree = "<group>"; };
+		B6492DC21E954E0900C490F0 /* ActivityDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailsViewController.xib; sourceTree = "<group>"; };
 		B65F1AD71E82E12E009E526B /* UserStatistics.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserStatistics.xib; sourceTree = "<group>"; };
 		B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserStatisticsView.swift; sourceTree = "<group>"; };
 		B679DD1D1E8BF65D000744E8 /* UserInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoCell.swift; sourceTree = "<group>"; };
@@ -286,7 +289,6 @@
 				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
 				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
 				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
-				B2F6356D1E90ECB90043F00A /* ActivitiesVC.swift */,
 				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
 				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
 				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
@@ -294,6 +296,8 @@
 				D9DA30C71E92395E00F10849 /* RouteDetailVC.xib */,
 				D94C62CB1E93A232000E5A5E /* ScheduleVC.swift */,
 				D94C62CC1E93A232000E5A5E /* ScheduleVC.xib */,
+				B6492DC11E954E0900C490F0 /* ActivityDetailsViewController.swift */,
+				B6492DC21E954E0900C490F0 /* ActivityDetailsViewController.xib */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -391,9 +395,6 @@
 			children = (
 				D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */,
 				D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */,
-				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
-				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
-				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 				D9DA30C21E91F52C00F10849 /* CustomPinView.swift */,
 				D9DA30C41E91F54100F10849 /* CustomPinView.xib */,
 				D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */,
@@ -548,6 +549,7 @@
 				D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */,
 				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
 				B679DD2E1E8C00EF000744E8 /* ProfileRecordsViewController.xib in Resources */,
+				B6492DC41E954E0900C490F0 /* ActivityDetailsViewController.xib in Resources */,
 				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 				B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */,
@@ -666,6 +668,7 @@
 				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,
 				B6860B651E8563AD0008B06A /* TextSettingCell.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
+				B6492DC31E954E0900C490F0 /* ActivityDetailsViewController.swift in Sources */,
 				B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */,
 				B65F1ADA1E82E24F009E526B /* UserStatisticsView.swift in Sources */,
 				D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */,

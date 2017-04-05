@@ -9,10 +9,7 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-//import FirebaseStorage
 import FirebaseAuth
-//import FacebookCore
-//import FacebookLogin
 import AFNetworking
 
 class ProfileViewController: UIViewController {
@@ -135,13 +132,6 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: FIRAuth.auth()?.currentUser?.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
                 self.workoutCount = Int(snapshot.childrenCount)
-                print(Int(snapshot.childrenCount))
-                
-                // for activityData in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                    //let oneActivity = Workout(snapshot: activityData)
-                    
-                    
-                //}
                 self.tableView.reloadData()
             }
         })
