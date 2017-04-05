@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ExploreViewController" customModule="RaceMe" customModuleProvider="target">
             <connections>
+                <outlet property="actIndicator" destination="XlE-1I-nRa" id="P3N-Ls-A7b"/>
                 <outlet property="mapView" destination="5hs-KO-Y2z" id="o1H-et-woP"/>
                 <outlet property="selectTimeButton" destination="xKd-V8-elq" id="hut-qO-QZh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -80,16 +81,25 @@
                         <outlet property="delegate" destination="-1" id="Dlc-3O-KCu"/>
                     </connections>
                 </mapView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XlE-1I-nRa">
+                    <rect key="frame" x="157" y="298" width="60" height="60"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="60" id="IuO-vx-IaI"/>
+                        <constraint firstAttribute="height" constant="60" id="gWe-OQ-t7s"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Yf0-MI-ZWe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="C4s-Fb-25k"/>
                 <constraint firstAttribute="bottom" secondItem="5hs-KO-Y2z" secondAttribute="bottom" constant="50" id="FZk-x2-weF"/>
+                <constraint firstItem="XlE-1I-nRa" firstAttribute="centerX" secondItem="5hs-KO-Y2z" secondAttribute="centerX" id="Fp4-VN-Se7"/>
                 <constraint firstAttribute="trailing" secondItem="Yf0-MI-ZWe" secondAttribute="trailing" id="Nt8-2M-k8G"/>
                 <constraint firstAttribute="trailing" secondItem="5hs-KO-Y2z" secondAttribute="trailing" id="QjB-el-b2C"/>
                 <constraint firstItem="Yf0-MI-ZWe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="RkV-Wu-Zmc"/>
                 <constraint firstItem="5hs-KO-Y2z" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="puq-Yg-8qQ"/>
                 <constraint firstItem="5hs-KO-Y2z" firstAttribute="top" secondItem="Yf0-MI-ZWe" secondAttribute="bottom" id="qhc-hu-VfC"/>
+                <constraint firstItem="XlE-1I-nRa" firstAttribute="centerY" secondItem="5hs-KO-Y2z" secondAttribute="centerY" id="tbf-Mx-IqI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="275.5" y="-334.5"/>

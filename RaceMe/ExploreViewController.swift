@@ -28,10 +28,12 @@ class ExploreViewController: UIViewController {
     var userRef: FIRDatabaseReference!
     var geoFire: GeoFire!
     var routesInSpanKey = [String]()
-    var visibleRoutes = 0
     //    var viewingTime = ""
     var foundCurrentLoc = false
     var routesChanged = false
+    
+    @IBOutlet weak var actIndicator: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +57,8 @@ class ExploreViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestAlwaysAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        
+        actIndicator.isHidden = true
+        actIndicator.hidesWhenStopped = true
         //        locationManager.startUpdatingLocation()
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
         //        fixManuallyImportedRoutes()
@@ -88,7 +91,11 @@ class ExploreViewController: UIViewController {
             refreshDisplayRoute()
         }
     }
-    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.removeAllObservers()
+        eventRef.removeAllObservers()
+    }
     func refreshDisplayRoute(){
         let overlays = mapView.overlays
         mapView.removeOverlays(overlays)
@@ -197,6 +204,7 @@ class ExploreViewController: UIViewController {
                     pin.AnnoView = routeMarker
                     self.mapView.addAnnotation(pin)
                 }
+                self.actIndicator.stopAnimating()
             })
         } else {
             routeMarker.setTitleDistance()
@@ -204,6 +212,7 @@ class ExploreViewController: UIViewController {
             pin.title = routeMarker.title
             pin.AnnoView = routeMarker
             self.mapView.addAnnotation(pin)
+            self.actIndicator.stopAnimating()
         }
     }
     
@@ -216,19 +225,23 @@ class ExploreViewController: UIViewController {
         refreshDisplayRoute()
     }
     var nearByRouteCount = 0
+    var publicRouteInSpan = 0
     func loadRoute(routeid: String){
         nearByRouteCount += 1
         print("\(nearByRouteCount). Route \(routeid)")
         // QueryCount 2: for each Route, check if Route is GLOBAL ROUTE
+        actIndicator.isHidden = false
+        actIndicator.startAnimating()
         ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(Constants.Route.IS_GLOBAL) {
                 print("Route \(routeid) IS GLOBAL")
+                
                 self.ref.child(Constants.Route.TABLE_NAME+"/"+routeid).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let route = Route(locationsData: snapshot)
                     route.routeId = routeid
                     if route.locations.count > 0 {
-                        self.visibleRoutes += 1
+                        self.publicRouteInSpan += 1
                         //                print("route \(self.visibleRoutes) added. Distance: \(route.distance)")
                         // QueryCount 3: for each Route, get events hosted at this route in the future
                         
@@ -245,6 +258,7 @@ class ExploreViewController: UIViewController {
                                         if start_time >= currentTime {
                                             let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                             let event = Event(route_id: "", start_time: event_datetime as Date)
+                                            event.eventId = eventData.key
                                             if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
                                                 for (key, _) in participants{
                                                     event.participants.append(key as! String)
@@ -272,9 +286,16 @@ class ExploreViewController: UIViewController {
                         })
                         self.allRoute.append(route)
                     }
+                    if self.publicRouteInSpan == 0{
+                        self.actIndicator.stopAnimating()
+                        print("NO GLOBAL ROUTE FOUND")
+                    }
                 }) { (error) in
                     print(error.localizedDescription)
                 }
+            } else {
+                self.actIndicator.stopAnimating()
+                print("NO GLOBAL ROUTE FOUND")
             }
         })
     }
@@ -297,16 +318,23 @@ class ExploreViewController: UIViewController {
     
     func queryRouteInRegion(myRegion: MKCoordinateRegion){
         nearByRouteCount = 0
-        
+        publicRouteInSpan = 0
         //get routes with start_loc in span from GEOFIRE
         let regionQuery = geoFire?.query(with: myRegion)
-        
+        actIndicator.isHidden = false
+        actIndicator.startAnimating()
         //        let center = CLLocation(latitude: myLoc.coordinate.latitude,longitude: myLoc.coordinate.longitude)
         //        var circleQuery = geoFire?.query(at: center, withRadius: 10)
         //        regionQuery?.observeReady({
         //            print("All initial data has been loaded and events have been fired!")
         //        })
         // QueryCount 1: get Routes in Displaying Region using GeoFire
+        regionQuery?.observeReady({
+            if self.nearByRouteCount == 0{
+                self.actIndicator.stopAnimating()
+            }
+        })
+
         _ = regionQuery?.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
             //            print("Key '\(key)' entered the search area and is at location '\(location)'")
             if !self.routesInSpanKey.contains(key!){
@@ -368,7 +396,8 @@ class ExploreViewController: UIViewController {
         routeDetailVC.routeId = view.routeId
         routeDetailVC.route = view.route
         // present the popover
-        self.present(routeDetailVC, animated: true, completion: nil)
+        navigationController?.pushViewController(routeDetailVC, animated: true)
+//        self.present(routeDetailVC, animated: true, completion: nil)
     }
 
 }
@@ -447,12 +476,10 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         }
     }
     func mapView(_ mapView: MKMapView, didUpdate userLocation: MKUserLocation){
-        //        myLoc = userLocation
         if !foundCurrentLoc {
             let span = MKCoordinateSpanMake(0.09, 0.09)
             let myRegion = MKCoordinateRegion(center: userLocation.coordinate, span: span)
             mapView.setRegion(myRegion, animated: true)
-            //            queryRouteInRegion(myRegion: myRegion)
             foundCurrentLoc = true
         }
     }
