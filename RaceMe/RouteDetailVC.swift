@@ -13,9 +13,13 @@ class RouteDetailVC: UIViewController {
     @IBOutlet weak var generalInfoLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var infoSegment: UISegmentedControl!
+    @IBOutlet weak var runNowBtn: UIButton!
+    @IBOutlet weak var addScheBtn: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
     var routeId: String!
+    var route: Route!
+    var event: Event!
     var ref: FIRDatabaseReference!
     var eventRef: FIRDatabaseReference!
     var eventList = [Event]()
@@ -23,29 +27,45 @@ class RouteDetailVC: UIViewController {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         eventRef = ref.child("EVENTS")
-        loadRoute()
-        loadSchedules()
+//        loadRoute()
+        drawRoute(route: route)
+//        loadSchedules()
+        eventList = route.events
         mapView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "ScheduleCell", bundle: nil), forCellReuseIdentifier: "ScheduleCell")
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-
+        runNowBtn.backgroundColor = UIColor(136, 192, 87)
+        runNowBtn.layer.cornerRadius = 5
+        addScheBtn.backgroundColor = UIColor.orange
+        addScheBtn.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func addSchedule(_ sender: UIButton) {
+        let scheduleVC = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
+        scheduleVC.route = route
+        scheduleVC.viewingType = ScheduleVC.CREATE_SCHEDULE
+        navigationController?.pushViewController(scheduleVC, animated: true)
+    }
+    @IBAction func runNow(_ sender: UIButton) {
+        //TODO: dismiss this VC and switch to RunTrackingVC with routeId chosen is this route's id
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    
-    @IBAction func goBack(_ sender: UIBarButtonItem) {
-        dismiss(animated: true) {
-        }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        ref.removeAllObservers()
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        eventList = route.events
+        self.tableView.reloadData()
+    }
     func loadRoute(){
         self.ref.child(Constants.Route.TABLE_NAME+"/"+routeId).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
         let route = Route(locationsData: snapshot)
@@ -64,6 +84,8 @@ class RouteDetailVC: UIViewController {
         mapView.setRegion(myRegion, animated: false)
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
+        //TODO: set center to the middle point of the route. HTF can I calculate that?
+        mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
         self.ref.child("EVENTS/").queryOrdered(byChild: "route_id").queryEqual(toValue: routeId).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -110,23 +132,23 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         
         var strRunnerNum = " will run alone"
         if event.participants.count > 1{
-            strRunnerNum = " and \(event.participants.count) runners"
+            strRunnerNum = " and \(event.participants.count-1) runners"
         }
+
+        let user = event.firstUser!
+        cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
         
-        self.ref.child("USERS/"+event.participants[0]).observeSingleEvent(of: .value, with: { (snapshot) in
-            if (snapshot.value as? NSDictionary) != nil{
-                let user = User(snapshot: snapshot)
-                cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
-            }
-        })
-        
+        cell.avatarImg.image = user.avatarImg
         return cell
     }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        let scheduleVC = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
+        scheduleVC.route = route
+        let event = eventList[indexPath.row]
+        scheduleVC.event = event
+        scheduleVC.viewingType = ScheduleVC.JOIN_RUN
+        navigationController?.pushViewController(scheduleVC, animated: true)
     }
 }
 extension Date {

@@ -27,54 +27,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
             if user != nil {
                 
-                // Set up the Profile View Controller
+                // Profile View Controller
                 let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
                 let profileNavVC = UINavigationController()
                 profileNavVC.addChildViewController(profileViewController)
-                
-                // Style for Navigation Bar
                 profileNavVC.navigationBar.barTintColor = primaryColor
                 profileNavVC.navigationBar.isTranslucent = false
                 profileNavVC.navigationBar.topItem?.title = "Me"
-                profileNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    profileNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                } else {
+                    profileNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                }
                 profileNavVC.navigationBar.barStyle = UIBarStyle.black
                 profileNavVC.navigationBar.tintColor = .white
-                
+                profileNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+                profileNavVC.navigationBar.shadowImage = UIImage()
                 profileViewController.tabBarItem.title = "Me"
                 profileViewController.tabBarItem.image = UIImage(named: "profile")
-                
-                // Set up the Find Friends View Controller
-                let findFriendsViewController = FindFriendsViewController(nibName: "FindFriendsViewController", bundle: nil)
-                findFriendsViewController.tabBarItem.title = "Friends"
-                findFriendsViewController.tabBarItem.image = UIImage(named: "people-add")
-                
-                // Set up the Tracking View Controller
-                let recordViewController = UINavigationController(rootViewController: RecordViewController())
-                recordViewController.tabBarItem.title = "Tracking"
-                recordViewController.tabBarItem.image = UIImage(named: "map-pin")
-                recordViewController.topViewController?.navigationItem.title = "Tracking"
-                if let font = UIFont(name: "OpenSans-Semibold", size: 20) {
-                    recordViewController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+
+                // Tracking View Controller
+                let recordNavVC = UINavigationController(rootViewController: RecordViewController())
+                recordNavVC.topViewController?.navigationItem.title = "Tracking"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                } else {
+                    recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
                 }
-                recordViewController.navigationBar.barTintColor = primaryColor
-                recordViewController.navigationBar.isTranslucent = false
-                recordViewController.navigationBar.tintColor = .white
-                recordViewController.navigationBar.barStyle = UIBarStyle.black
-                
-                // Set up the Explore View Controller
-                let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
-                groupViewController.tabBarItem.title = "Group"
-                groupViewController.tabBarItem.image = UIImage(named: "ic_group")
-                
+                recordNavVC.navigationBar.barTintColor = primaryColor
+                recordNavVC.navigationBar.isTranslucent = false
+                recordNavVC.navigationBar.tintColor = .white
+                recordNavVC.navigationBar.barStyle = UIBarStyle.black
+                recordNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+                recordNavVC.navigationBar.shadowImage = UIImage()
+                recordNavVC.tabBarItem.title = "Tracking"
+                recordNavVC.tabBarItem.image = UIImage(named: "map-pin")
+
                 // Set up the Explore View Controller
                 let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
+                let exploreNavVC = UINavigationController()
+                exploreNavVC.addChildViewController(exploreViewController)
+                exploreNavVC.navigationBar.barTintColor = primaryColor
+                exploreNavVC.navigationBar.isTranslucent = false
+                exploreNavVC.navigationBar.topItem?.title = "Explore"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                } else {
+                    exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                }
+                exploreNavVC.navigationBar.barStyle = UIBarStyle.black
+                exploreNavVC.navigationBar.tintColor = .white
+                exploreNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+                exploreNavVC.navigationBar.shadowImage = UIImage()
                 exploreViewController.tabBarItem.title = "Explore"
                 exploreViewController.tabBarItem.image = UIImage(named: "radar")
                 
-                // Set up the Tab Bar Controller to have two tabs
+                // Tab Bar Controller
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
-                tabBarController.viewControllers = [exploreViewController, recordViewController, profileNavVC]
+                tabBarController.tabBar.barTintColor = lightColor
+                tabBarController.viewControllers = [exploreNavVC, recordNavVC, profileNavVC]
                 tabBarController.selectedIndex = 1
                 
                 // Make the Tab Bar Controller the root view controller
@@ -83,8 +95,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             } else {
                 var initialViewController: UIViewController?
                 initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-//                let frame = UIScreen.main.bounds
-//                self.window = UIWindow(frame: frame)
                 self.window?.rootViewController = initialViewController
                 self.window?.makeKeyAndVisible()
             }

@@ -88,9 +88,6 @@ extension UIApplication {
     }
 }
 
-
-
-let primaryColor = UIColor(72, 160, 220)
 let labelGray1 = UIColor(166, 175, 182)
 let labelGray2 = UIColor(84, 106, 120)
 let imageGray = UIColor(92, 112, 126)
@@ -102,3 +99,12 @@ let stopColor = UIColor(239, 93, 53)
 let pauseColor = UIColor(46, 201, 214)
 let resumeColor = UIColor(135, 229, 127)
 let backgroundGray = UIColor(239, 239, 244)
+
+// Please using those colors below:
+let primaryColor = UIColor(72, 160, 220) // Blue
+let successColor = UIColor(136, 192, 87) // Green
+let warningColor = UIColor(238, 175, 75) // Orange
+let dangerColor = UIColor(237, 113, 97) // Red
+let infoColor = UIColor(151, 119, 168) // Purple
+let lightColor = UIColor(243, 243, 243) // Gray
+let darkColor = UIColor(84, 106, 121) // Dark Blue

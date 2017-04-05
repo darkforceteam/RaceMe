@@ -13,7 +13,7 @@ class CustomPinView: UIView {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     var routeId: String!
-    
+    var route: Route!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
