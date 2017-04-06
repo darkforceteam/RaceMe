@@ -19,6 +19,7 @@ class RunTrackingVC: UIViewController {
     fileprivate var distance = 0.0
     fileprivate lazy var locations = [CLLocation]()
     fileprivate lazy var timer = Timer()
+    fileprivate lazy var audioTimer = Timer()
     fileprivate var mapOverlay: MKTileOverlay!
     var user: User!
     fileprivate var workout: Workout!
@@ -231,7 +232,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
-        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
+        audioTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
     }
     
     fileprivate func saveData() {
@@ -276,6 +277,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     
     fileprivate func reset() {
         timer.invalidate()
+        audioTimer.invalidate()
         distance = 0
         duration = 0
         hourDisplay.text = "00"
@@ -347,11 +349,14 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         isRunning = true
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
+        audioTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
+        
     }
     
     fileprivate func pauseCounting() {
         isRunning = false
         timer.invalidate()
+        audioTimer.invalidate()
         locationManager.stopUpdatingLocation()
     }
     
@@ -364,7 +369,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.blue
+            polylineRenderer.strokeColor = strokeColor
             polylineRenderer.lineWidth = 3
             return polylineRenderer
         }
@@ -410,6 +415,7 @@ extension RunTrackingVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         timer.invalidate()
+        audioTimer.invalidate()
     }
     
     fileprivate func setupViews() {

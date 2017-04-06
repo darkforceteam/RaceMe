@@ -99,6 +99,7 @@ let stopColor = UIColor(239, 93, 53)
 let pauseColor = UIColor(46, 201, 214)
 let resumeColor = UIColor(135, 229, 127)
 let backgroundGray = UIColor(239, 239, 244)
+let strokeColor = UIColor(237, 112, 98)
 
 // Please using those colors below:
 let primaryColor = UIColor(72, 160, 220) // Blue
