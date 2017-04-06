@@ -46,22 +46,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 profileViewController.tabBarItem.title = "Me"
                 profileViewController.tabBarItem.image = UIImage(named: "profile")
 
-                // Tracking View Controller
+                // Tracking View Controller                
                 let recordNavVC = UINavigationController(rootViewController: RecordViewController())
+                recordNavVC.tabBarItem.title = "Tracking"
+                recordNavVC.tabBarItem.image = UIImage(named: "map-pin")
                 recordNavVC.topViewController?.navigationItem.title = "Tracking"
                 if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
                     recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
-                } else {
-                    recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
                 }
+                
                 recordNavVC.navigationBar.barTintColor = primaryColor
-                recordNavVC.navigationBar.isTranslucent = false
                 recordNavVC.navigationBar.tintColor = .white
                 recordNavVC.navigationBar.barStyle = UIBarStyle.black
-                recordNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-                recordNavVC.navigationBar.shadowImage = UIImage()
-                recordNavVC.tabBarItem.title = "Tracking"
-                recordNavVC.tabBarItem.image = UIImage(named: "map-pin")
 
                 // Set up the Explore View Controller
                 let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)

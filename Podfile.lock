@@ -65,7 +65,6 @@ PODS:
   - FirebaseStorage (1.1.0):
     - FirebaseAnalytics (~> 3.7)
     - GTMSessionFetcher/Core (~> 1.1)
-  - Font-Awesome-Swift (1.6.1)
   - GoogleToolboxForMac/DebugUtils (2.1.1):
     - GoogleToolboxForMac/Defines (= 2.1.1)
   - GoogleToolboxForMac/Defines (2.1.1)
@@ -88,7 +87,6 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
-  - Font-Awesome-Swift
   - Neon (~> 0.4.0)
 
 SPEC CHECKSUMS:
@@ -107,11 +105,10 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 05c96d7b43a7368dc91c07791adb49683e1738d1
   FirebaseInstanceID: 2d0518b1378fe9d685ef40cbdd63d2fdc1125339
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
-  Font-Awesome-Swift: 70ab020f6749d7048bb49807c3e78b702d78afca
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
   Neon: 7fb5a9327e7e57911843f608e08f4893a74deaf9
 
-PODFILE CHECKSUM: 1f04e734485886bd94e1e06b8fd16019495631e9
+PODFILE CHECKSUM: d0f83e2e5f08cf5c26db8de71f38e9ca3e0b113c
 
 COCOAPODS: 1.2.0
