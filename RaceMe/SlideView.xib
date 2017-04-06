@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SlideView" customModule="RaceMe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="544"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walkthrough-image-1" translatesAutoresizingMaskIntoConstraints="NO" id="8T1-Tz-OUI">
+                    <rect key="frame" x="42" y="125" width="290" height="419"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="290" id="1rD-Nd-VMB"/>
+                        <constraint firstAttribute="height" constant="419" id="WOA-i9-yNF"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore people, routes, challenge around you" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jyu-N7-nI6">
+                    <rect key="frame" x="20" y="78.5" width="335" height="46.5"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="0.5" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explore" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fuw-Ia-Hid">
+                    <rect key="frame" x="144" y="35.5" width="87" height="33"/>
+                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="24"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.23137254900000001" green="0.55294117649999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="Fuw-Ia-Hid" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="35.5" id="2Ak-jP-9Tg"/>
+                <constraint firstItem="Fuw-Ia-Hid" firstAttribute="centerX" secondItem="Jyu-N7-nI6" secondAttribute="centerX" id="BG8-iz-f8X"/>
+                <constraint firstItem="Jyu-N7-nI6" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="BdK-T0-LGz"/>
+                <constraint firstItem="8T1-Tz-OUI" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ui0-Fe-9nZ"/>
+                <constraint firstAttribute="trailing" secondItem="Jyu-N7-nI6" secondAttribute="trailing" constant="20" id="biT-wH-VzU"/>
+                <constraint firstItem="Jyu-N7-nI6" firstAttribute="top" secondItem="Fuw-Ia-Hid" secondAttribute="bottom" constant="10" id="cmt-aQ-hjQ"/>
+                <constraint firstItem="8T1-Tz-OUI" firstAttribute="top" secondItem="Jyu-N7-nI6" secondAttribute="bottom" id="tLl-Nf-G3V"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="descLabel" destination="Jyu-N7-nI6" id="lXi-hM-WKh"/>
+                <outlet property="slideImageView" destination="8T1-Tz-OUI" id="Vik-Wf-fbU"/>
+                <outlet property="titleLabel" destination="Fuw-Ia-Hid" id="yYD-wH-bB9"/>
+            </connections>
+            <point key="canvasLocation" x="24.5" y="113"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="walkthrough-image-1" width="290" height="419"/>
+    </resources>
+</document>

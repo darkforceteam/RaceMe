@@ -16,6 +16,10 @@ class UserInfoCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        iconImageView.image = iconImageView.image!.withRenderingMode(.alwaysTemplate)
+        iconImageView.tintColor = darkColor
+        titleLabel.textColor = darkColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

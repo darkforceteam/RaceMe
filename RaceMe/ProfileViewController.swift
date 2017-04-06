@@ -9,31 +9,19 @@
 import UIKit
 import Firebase
 import FirebaseDatabase
-import FirebaseStorage
 import FirebaseAuth
-import FacebookCore
-import FacebookLogin
 import AFNetworking
 
 class ProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var avatarImage: UIImageView!
-    @IBOutlet weak var userStatisticsScrollView: UIScrollView!
-    @IBOutlet weak var userStatisticsPageControl: UIPageControl!
-    
-    var dataBaseRef: FIRDatabaseReference! {
-        return FIRDatabase.database().reference()
-    }
-    
-    var storageRef: FIRStorage {
-        return FIRStorage.storage()
-    }
+
+    var ref: FIRDatabaseReference!
+    var workoutCount = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        ref = FIRDatabase.database().reference()
+        loadUserInfo()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
@@ -48,7 +36,7 @@ class ProfileViewController: UIViewController {
         navigationItem.rightBarButtonItem = editButton
         
         let notificationsButton = UIBarButtonItem(image: UIImage(named: "notifications"), style: .plain, target: self, action: #selector(ProfileViewController.notifications))
-        navigationItem.leftBarButtonItem = notificationsButton
+        // navigationItem.leftBarButtonItem = notificationsButton
     }
     
     func editProfile() {
@@ -86,7 +74,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as! UserProfileCell
-            let userRef = dataBaseRef.child("USERS/\(FIRAuth.auth()!.currentUser!.uid)")
+            let userRef = ref.child("USERS/\(FIRAuth.auth()!.currentUser!.uid)")
             userRef.observe(.value, with: { (snapshot) in
                 let user = User(snapshot: snapshot)
                 cell.nameLabel.text = user.displayName
@@ -95,22 +83,28 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.avatarImage.setImageWith(avatarURL!)
                 }
             })
+            cell.selectionStyle = .none
+            cell.followButton.isHidden = true
+            cell.workoutCount.text = "\(workoutCount)"
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_history")
-            cell.descLabel.text = "0 Tracked"
+            cell.iconImageView.image = UIImage(named: "ic_history")?.withRenderingMode(.alwaysTemplate)
+            cell.iconImageView.tintColor = darkColor
+            cell.descLabel.text = "\(workoutCount) Tracked"
             cell.titleLabel.text = "Activities"
             return cell
         case 2:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_timeline")
+            cell.iconImageView.image = UIImage(named: "ic_timeline")?.withRenderingMode(.alwaysTemplate)
+            cell.iconImageView.tintColor = darkColor
             cell.descLabel.text = ""
             cell.titleLabel.text = "Records"
             return cell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_group")
+            cell.iconImageView.image = UIImage(named: "ic_group")?.withRenderingMode(.alwaysTemplate)
+            cell.iconImageView.tintColor = darkColor
             cell.descLabel.text = ""
             cell.titleLabel.text = "Groups"
             return cell
@@ -132,5 +126,14 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func loadUserInfo() {
+        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: FIRAuth.auth()?.currentUser?.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChildren() {
+                self.workoutCount = Int(snapshot.childrenCount)
+                self.tableView.reloadData()
+            }
+        })
     }
 }

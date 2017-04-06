@@ -14,8 +14,10 @@ class ActivitiesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var ref: FIRDatabaseReference!
+    var items = [Workout]()
     var sections = Dictionary<String, Array<Workout>>()
     var sortedSections = [String]()
+    var workout: Workout!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +27,7 @@ class ActivitiesViewController: UIViewController {
         tableView.dataSource = self
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
         tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
-        tableView.register(UINib(nibName: "RightDetailArrowCell", bundle: nil), forCellReuseIdentifier: "RightDetailArrowCell")
+        tableView.register(UINib(nibName: "UserInfoCell", bundle: nil), forCellReuseIdentifier: "UserInfoCell")
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,26 +50,38 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
         let dateString = "\(sortedSections[section])"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-mm-dd"
-        dateFormatter.locale = Locale.init(identifier: "en_GB")
         let dateObj = dateFormatter.date(from: dateString)
-        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.dateFormat = "EEE (mm/dd)"
         let headerTitle = "\(dateFormatter.string(from: dateObj!))"
         return headerTitle
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailArrowCell", for: indexPath) as! RightDetailArrowCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
         
         let tableSection = sections[sortedSections[indexPath.section]]
         let tableItem = tableSection![indexPath.row]
-        
+        cell.iconImageView.image = UIImage(named: "ic_directions_run")?.withRenderingMode(.alwaysTemplate)
+        cell.iconImageView.tintColor = darkColor
         cell.titleLabel.text = String(format: "%.1f km", tableItem.distanceKm!)
-        cell.detailLabel.text = "\((tableItem.duration?.toMinutes)!):\((tableItem.duration?.toSeconds)!)"
+        cell.descLabel.text = "\((tableItem.duration?.toMinutes)!):\((tableItem.duration?.toSeconds)!)"
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let tableSection = sections[sortedSections[indexPath.section]]
+        let tableItem = tableSection![indexPath.row]
+        let workoutDetailVC = ActivityDetailsViewController()
+        workoutDetailVC.workout = tableItem
+        navigationController?.pushViewController(workoutDetailVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     func loadActivities() {
@@ -85,7 +99,7 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
                     } else {
                         self.sections[subDate]!.append(oneActivity)
                     }
-                    self.sortedSections = self.sections.keys.sorted()
+                    self.sortedSections = self.sections.keys.sorted().reversed()
                 }
                 self.tableView.reloadData()
             }
