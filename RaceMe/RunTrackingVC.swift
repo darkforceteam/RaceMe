@@ -52,7 +52,7 @@ class RunTrackingVC: UIViewController {
         label.text = "TIME"
         label.textColor = labelGray1
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.font = UIFont(name: "OpenSans-Light", size: 14)
         return label
     }()
     
@@ -61,7 +61,7 @@ class RunTrackingVC: UIViewController {
         label.text = "00"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 32)
         return label
     }()
     
@@ -70,7 +70,7 @@ class RunTrackingVC: UIViewController {
         label.text = "00"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 32)
         return label
     }()
     
@@ -79,7 +79,7 @@ class RunTrackingVC: UIViewController {
         label.text = "00"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 32)
         return label
     }()
     
@@ -88,7 +88,7 @@ class RunTrackingVC: UIViewController {
         label.text = ":"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 32)
         return label
     }()
     
@@ -97,7 +97,7 @@ class RunTrackingVC: UIViewController {
         label.text = ":"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 32)
         return label
     }()
     
@@ -121,9 +121,10 @@ class RunTrackingVC: UIViewController {
     
     fileprivate let paceLabel: UILabel = {
         let label = UILabel()
-        label.text = "AVG PACE"
+        label.text = "AVG PACE (min/km)"
         label.textColor = labelGray1
-        label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.font = UIFont(name: "OpenSans-Light", size: 14)
+        label.textAlignment = .center
         return label
     }()
     
@@ -132,16 +133,7 @@ class RunTrackingVC: UIViewController {
         label.text = "0:00"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
-        return label
-    }()
-    
-    fileprivate let paceUnit: UILabel = {
-        let label = UILabel()
-        label.text = "/km"
-        label.textColor = labelGray2
-        label.textAlignment = .center
-        label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 25)
         return label
     }()
     
@@ -161,9 +153,10 @@ class RunTrackingVC: UIViewController {
     
     fileprivate let distanceLabel: UILabel = {
         let label = UILabel()
-        label.text = "DISTANCE"
+        label.text = "DISTANCE (km)"
         label.textColor = labelGray1
-        label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.textAlignment = .center
+        label.font = UIFont(name: "OpenSans-Light", size: 14)
         return label
     }()
     
@@ -172,17 +165,7 @@ class RunTrackingVC: UIViewController {
         label.text = "0.0"
         label.textAlignment = .center
         label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
-        return label
-    }()
-    
-    fileprivate let distanceUnit: UILabel = {
-        let label = UILabel()
-        label.text = "km"
-        label.textColor = .lightGray
-        label.textAlignment = .center
-        label.textColor = labelGray2
-        label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
+        label.font = UIFont(name: "OpenSans-Semibold", size: 25)
         return label
     }()
     
@@ -192,7 +175,7 @@ class RunTrackingVC: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = stopColor
         button.addTarget(self, action: #selector(stopButtonTapped), for: .touchUpInside)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 20)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         return button
@@ -204,7 +187,7 @@ class RunTrackingVC: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = pauseColor
         button.addTarget(self, action: #selector(pauseResumeButtonTapped), for: .touchUpInside)
-        button.titleLabel?.font = .boldSystemFont(ofSize: 20)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Bold", size: 20)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         return button
@@ -433,13 +416,10 @@ extension RunTrackingVC {
         view.addSubview(distanceLabel)
         view.addSubview(seperatorLineView2)
         view.addSubview(paceDisplay)
-        view.addSubview(paceUnit)
         view.addSubview(distanceDisplay)
-        view.addSubview(distanceUnit)
         view.addSubview(stopButton)
         view.addSubview(pauseResumeButton)
         view.addSubview(seperatorLineView1)
-        view.addSubview(navImageView)
         view.addSubview(runImageView)
         mapView.delegate = self
     }
@@ -449,7 +429,7 @@ extension RunTrackingVC {
         stopButton.anchorInCorner(.bottomLeft, xPad: 15, yPad: 15, width: buttonWidth, height: 45)
         pauseResumeButton.anchorInCorner(.bottomRight, xPad: 15, yPad: 15, width: buttonWidth, height: 45)
         mapView.anchorToEdge(.bottom, padding: 75, width: view.frame.width, height: view.frame.height - 205)
-        timeLabel.anchorInCorner(.topLeft, xPad: 0, yPad: 45, width: view.frame.width * 0.63, height: 20)
+        timeLabel.anchorInCorner(.topLeft, xPad: 0, yPad: 45, width: view.frame.width * 0.57, height: 20)
         minDisplay.align(.underCentered, relativeTo: timeLabel, padding: 0, width: 44, height: 40)
         hourColon.align(.toTheLeftCentered, relativeTo: minDisplay, padding: 0, width: 10, height: 40)
         hourDisplay.align(.toTheLeftCentered, relativeTo: hourColon, padding: 0, width: 44, height: 40)
@@ -459,14 +439,13 @@ extension RunTrackingVC {
         seperatorLineView2.alignAndFillWidth(align: .toTheRightCentered, relativeTo: seperatorLineView1, padding: 0, height: 1)
         
         navImageView.align(.aboveMatchingLeft, relativeTo: seperatorLineView2, padding: 10, width: 16, height: 16, offset: 10)
-        distanceLabel.align(.aboveMatchingLeft, relativeTo: navImageView, padding: 0, width: 100, height: 25)
-        distanceDisplay.align(.toTheRightCentered, relativeTo: navImageView, padding: 0, width: 40, height: 20)
-        distanceUnit.align(.toTheRightMatchingBottom, relativeTo: distanceDisplay, padding: 0, width: 20, height: 16)
         
-        runImageView.align(.underMatchingLeft, relativeTo: seperatorLineView2, padding: 28.5, width: 16, height: 16, offset: 10)
-        paceLabel.align(.aboveMatchingLeft, relativeTo: runImageView, padding: 0, width: 100, height: 25)
-        paceDisplay.align(.toTheRightCentered, relativeTo: runImageView, padding: 0, width: 50, height: 20)
-        paceUnit.align(.toTheRightMatchingBottom, relativeTo: paceDisplay, padding: 0, width: 30, height: 16)
+        distanceLabel.align(.aboveCentered, relativeTo: seperatorLineView2, padding: 32, width: seperatorLineView2.width, height: 22.5)
+        
+        distanceDisplay.align(.underCentered, relativeTo: distanceLabel, padding: 0, width: distanceLabel.width , height: 32)
+        
+        paceLabel.align(.underCentered, relativeTo: seperatorLineView2, padding: 0, width: seperatorLineView2.width, height: 22.5)
+        paceDisplay.align(.underCentered, relativeTo: paceLabel, padding: 0, width: paceLabel.width, height: 32)
         
         statusBarView.anchorToEdge(.top, padding: 0, width: view.frame.width, height: 20)
     }
