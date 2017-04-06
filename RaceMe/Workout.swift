@@ -17,9 +17,9 @@ struct Workout {
     var startTime: String?
     var endTime: String?
     var routeId: String?
-    var distanceKm: Double
-    var distanceMi: Double
-    var duration: Int
+    var distanceKm: Double?
+    var distanceMi: Double?
+    var duration: Int?
     var isPublic = true
     var ref: FIRDatabaseReference?
     
@@ -29,7 +29,7 @@ struct Workout {
         self.userId = user.uid
         self.routeId = routeId
         self.distanceKm = distance / 1000
-        self.distanceMi = distanceKm * Constants.UnitExchange.ONE_KM_IN_MILE
+        self.distanceMi = distanceKm! * Constants.UnitExchange.ONE_KM_IN_MILE
         self.duration = duration
         self.ref = nil
         
@@ -44,7 +44,7 @@ struct Workout {
         self.type = type
         self.userId = user.uid
         self.distanceKm = distance / 1000
-        self.distanceMi = distanceKm * Constants.UnitExchange.ONE_KM_IN_MILE
+        self.distanceMi = distanceKm! * Constants.UnitExchange.ONE_KM_IN_MILE
         self.duration = duration
         self.isPublic = isPublic
     }
@@ -54,13 +54,13 @@ struct Workout {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         userId = snapshotValue[Constants.Workout.USER_ID] as! String
         type = snapshotValue[Constants.Workout.TYPE] as! String
-        startTime = snapshotValue[Constants.Workout.START_TIME] as? String
+        startTime = snapshotValue[Constants.Workout.START_TIME]  as? String
         routeId = snapshotValue[Constants.Workout.ROUTE_ID] as? String
         endTime = snapshotValue[Constants.Workout.END_TIME] as? String
-        distanceKm = snapshotValue[Constants.Workout.DISTANCE_KM] as! Double
-        distanceMi = snapshotValue[Constants.Workout.DISTANCE_MI] as! Double
-        duration = snapshotValue[Constants.Workout.DURATION] as! Int
-        isPublic = snapshotValue["isPublic"] as! Bool
+        distanceKm = snapshotValue[Constants.Workout.DISTANCE_KM] as? Double
+        distanceMi = snapshotValue[Constants.Workout.DISTANCE_MI] as? Double
+        duration = snapshotValue[Constants.Workout.DURATION] as? Int
+        //isPublic = snapshotValue["isPublic"] as! Bool
         ref = snapshot.ref
     }
     

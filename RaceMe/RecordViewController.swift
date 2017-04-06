@@ -57,7 +57,13 @@ extension RecordViewController {
     @objc fileprivate func startButtonTapped() {
         let trackingController = RunTrackingVC()
         trackingController.user = self.user
-        present(trackingController, animated: true, completion: nil)
+        let trackingNav = UINavigationController(rootViewController: trackingController)
+        trackingNav.navigationBar.barTintColor = primaryColor
+        trackingNav.navigationBar.isTranslucent = false
+        trackingNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+        trackingNav.navigationBar.barStyle = UIBarStyle.black
+        trackingNav.navigationBar.tintColor = .white
+        present(trackingNav, animated: true, completion: nil)
     }
     
     @objc fileprivate func addButtonTapped() {
@@ -130,8 +136,8 @@ extension RecordViewController {
     }
     
     override func viewWillLayoutSubviews() {
-        notificationLabel.anchorToEdge(.top, padding: 64, width: view.frame.width, height: 30)
+        notificationLabel.anchorToEdge(.top, padding: 0, width: view.frame.width, height: 30)
         startButton.anchorToEdge(.bottom, padding: 64, width: view.frame.width - 30, height: 60)
-        mapView.align(.aboveCentered, relativeTo: startButton, padding: 15, width: view.frame.width, height: view.frame.height - 233)
+        mapView.align(.aboveCentered, relativeTo: startButton, padding: 15, width: view.frame.width, height: view.frame.height - 169)
     }
 }

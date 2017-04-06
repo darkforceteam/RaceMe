@@ -17,28 +17,38 @@ class Route: NSObject {
     var todayEvents = [Event]()
     var tomorrowEvents = [Event]()
     var laterEvents = [Event]()
-    //    var startLoc: CLLocationCoordinate2D
-    func title(displayingDate: String) -> String {
+    var displayEvent: Event?
+    var routeId: String!
+    func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
         case "0":
-            return "\(self.distance) km"
+            return 0
         case "1":
-            if let runNum = self.todayEvents.first?.participants.count{
-                return "\(runNum) runners"
-            }
-            return "\(self.distance) km"
+            return (self.todayEvents.first?.participants.count)!
         case "2":
-            if let runNum = self.tomorrowEvents.first?.participants.count{
-                return "\(runNum) runners"
-            }
-            return "\(self.distance) km"
+            return (self.tomorrowEvents.first?.participants.count)!
+        case "3":
+            return (self.laterEvents.first?.participants.count)!
         default:
-            if let runNum = self.laterEvents.first?.participants.count{
-                return "\(runNum) runners"
-            }
-            return "\(self.distance) km"
+            return 0
         }
     }
+    func setFirstEvent(){
+        if todayEvents.count > 0 {
+            displayEvent = todayEvents[0] as Event
+            print("First Event is at \(displayEvent?.start_time)")
+        } else if tomorrowEvents.count > 0 {
+            displayEvent = tomorrowEvents[0] as Event
+            print("First Event is at \(displayEvent?.start_time)")
+        } else if laterEvents.count > 0 {
+            displayEvent = laterEvents[0] as Event
+            print("First Event is at \(displayEvent?.start_time)")
+        } else {
+            displayEvent = nil
+            print("NO EVENT FOUND")
+        }
+    }
+    
     init(locationsData: FIRDataSnapshot){
         print("initializing Route")
         var locCount = 0
@@ -46,7 +56,8 @@ class Route: NSObject {
             
             if let oneLoc = loc.value as? NSDictionary{
                 if let latValue = oneLoc.value(forKey: Constants.Location.LATITUDE) as! Double? {
-                let location = CLLocationCoordinate2D(latitude: latValue , longitude: oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! CLLocationDegrees)
+                    let longVal = oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! Double?
+                let location = CLLocationCoordinate2D(latitude: latValue , longitude: longVal!)
                 locations.append(location)
                 locCount += 1
                 } else {

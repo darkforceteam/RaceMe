@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_0" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RouteDetailVC" customModule="RaceMe" customModuleProvider="target">
+            <connections>
+                <outlet property="addScheBtn" destination="wOA-kA-7nZ" id="xFn-88-JBK"/>
+                <outlet property="generalInfoLabel" destination="wOg-MO-3h7" id="qip-1v-gRc"/>
+                <outlet property="infoSegment" destination="7fc-wQ-Jcq" id="Mng-AD-EO2"/>
+                <outlet property="mapView" destination="6bo-Qc-NuP" id="JYX-sK-rDx"/>
+                <outlet property="runNowBtn" destination="srK-kq-6IA" id="jk6-g9-sTF"/>
+                <outlet property="tableView" destination="FMR-iS-v0n" id="3qu-DM-g71"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROUTE NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOg-MO-3h7">
+                    <rect key="frame" x="8" y="0.0" width="304" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6bo-Qc-NuP">
+                    <rect key="frame" x="0.0" y="21" width="320" height="200"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="Fus-mG-jdN"/>
+                    </constraints>
+                </mapView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srK-kq-6IA">
+                    <rect key="frame" x="8" y="229" width="148" height="45"/>
+                    <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="ve3-kC-vBd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                    <state key="normal" title="RUN">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="runNow:" destination="-1" eventType="touchUpInside" id="Ps9-lq-bTW"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOA-kA-7nZ">
+                    <rect key="frame" x="164" y="229" width="148" height="45"/>
+                    <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                    <state key="normal" title="SCHEDULE">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addSchedule:" destination="-1" eventType="touchUpInside" id="bNO-eV-7vN"/>
+                    </connections>
+                </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FMR-iS-v0n">
+                    <rect key="frame" x="8" y="318" width="304" height="250"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7fc-wQ-Jcq">
+                    <rect key="frame" x="8" y="282" width="304" height="29"/>
+                    <segments>
+                        <segment title="Scheduled Workouts"/>
+                        <segment title="Leaderboard"/>
+                    </segments>
+                </segmentedControl>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="wOA-kA-7nZ" firstAttribute="height" secondItem="srK-kq-6IA" secondAttribute="height" id="6uh-FU-HQq"/>
+                <constraint firstAttribute="trailing" secondItem="FMR-iS-v0n" secondAttribute="trailing" constant="8" id="88o-Ov-pAo"/>
+                <constraint firstItem="wOA-kA-7nZ" firstAttribute="top" secondItem="srK-kq-6IA" secondAttribute="top" id="9p8-CM-1so"/>
+                <constraint firstItem="7fc-wQ-Jcq" firstAttribute="top" secondItem="srK-kq-6IA" secondAttribute="bottom" constant="8" id="BMP-20-w76"/>
+                <constraint firstItem="srK-kq-6IA" firstAttribute="top" secondItem="6bo-Qc-NuP" secondAttribute="bottom" constant="8" id="Bcn-Ef-lyy"/>
+                <constraint firstItem="FMR-iS-v0n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="DNf-3z-TB7"/>
+                <constraint firstItem="wOg-MO-3h7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DgP-cq-dIn"/>
+                <constraint firstAttribute="trailing" secondItem="wOA-kA-7nZ" secondAttribute="trailing" constant="8" id="Dot-cV-DrJ"/>
+                <constraint firstItem="6bo-Qc-NuP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H5a-0p-p6u"/>
+                <constraint firstItem="wOA-kA-7nZ" firstAttribute="leading" secondItem="srK-kq-6IA" secondAttribute="trailing" constant="8" id="Ih8-Jb-zKK"/>
+                <constraint firstAttribute="bottom" secondItem="FMR-iS-v0n" secondAttribute="bottom" id="Jf2-74-yvy"/>
+                <constraint firstAttribute="trailing" secondItem="wOg-MO-3h7" secondAttribute="trailing" constant="8" id="NOk-mr-Nm5"/>
+                <constraint firstItem="wOg-MO-3h7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="OYj-hh-G3F"/>
+                <constraint firstItem="srK-kq-6IA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="R1z-c5-vYE"/>
+                <constraint firstAttribute="trailing" secondItem="6bo-Qc-NuP" secondAttribute="trailing" id="X4l-N1-10w"/>
+                <constraint firstAttribute="trailing" secondItem="7fc-wQ-Jcq" secondAttribute="trailing" constant="8" id="eUh-aJ-XM6"/>
+                <constraint firstItem="6bo-Qc-NuP" firstAttribute="top" secondItem="wOg-MO-3h7" secondAttribute="bottom" id="fWD-g5-Dr1"/>
+                <constraint firstItem="wOA-kA-7nZ" firstAttribute="width" secondItem="srK-kq-6IA" secondAttribute="width" id="k0h-LU-Bx3"/>
+                <constraint firstItem="7fc-wQ-Jcq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="mTB-ca-pOJ"/>
+                <constraint firstItem="FMR-iS-v0n" firstAttribute="top" secondItem="7fc-wQ-Jcq" secondAttribute="bottom" constant="8" id="zsS-Pc-LEi"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

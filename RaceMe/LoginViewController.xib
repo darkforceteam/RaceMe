@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="RaceMe" customModuleProvider="target">
             <connections>
+                <outlet property="fbLoginButton" destination="yal-0v-HYn" id="tfw-RN-gfC"/>
+                <outlet property="pageControl" destination="NOE-2s-pjt" id="beI-f0-IrO"/>
+                <outlet property="scrollView" destination="OhG-o0-kfT" id="sFE-aO-cNG"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,7 +21,42 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="708"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yal-0v-HYn">
+                    <rect key="frame" x="20" y="648" width="335" height="40"/>
+                    <color key="backgroundColor" red="0.21568627450980393" green="0.3529411764705882" blue="0.60392156862745094" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="9gD-ra-gPZ"/>
+                    </constraints>
+                    <state key="normal" title="Login with Facebook">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="onFbLogin:" destination="-1" eventType="touchUpInside" id="Qft-nE-h5m"/>
+                    </connections>
+                </button>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhG-o0-kfT">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="611"/>
+                    <color key="backgroundColor" red="0.23137254900000001" green="0.55294117649999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                </scrollView>
+                <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="NOE-2s-pjt">
+                    <rect key="frame" x="176" y="611" width="23" height="37"/>
+                    <color key="pageIndicatorTintColor" red="0.8666666666666667" green="0.88235294117647056" blue="0.89411764705882346" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="currentPageIndicatorTintColor" red="0.25098039220000001" green="0.62745098040000002" blue="0.87058823529999996" alpha="1" colorSpace="calibratedRGB"/>
+                </pageControl>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="OhG-o0-kfT" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="2Cj-mL-uO8"/>
+                <constraint firstItem="OhG-o0-kfT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="4uJ-x1-Wji"/>
+                <constraint firstAttribute="trailing" secondItem="yal-0v-HYn" secondAttribute="trailing" constant="20" id="8Jg-cp-ftd"/>
+                <constraint firstAttribute="trailing" secondItem="OhG-o0-kfT" secondAttribute="trailing" id="MB4-6m-QcQ"/>
+                <constraint firstItem="NOE-2s-pjt" firstAttribute="top" secondItem="OhG-o0-kfT" secondAttribute="bottom" id="alq-gd-yQe"/>
+                <constraint firstAttribute="bottom" secondItem="yal-0v-HYn" secondAttribute="bottom" constant="20" id="igl-rG-eiX"/>
+                <constraint firstItem="NOE-2s-pjt" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="lWJ-IA-ga7"/>
+                <constraint firstItem="yal-0v-HYn" firstAttribute="top" secondItem="NOE-2s-pjt" secondAttribute="bottom" id="mbA-Kl-Spv"/>
+                <constraint firstItem="yal-0v-HYn" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="q0C-e9-fku"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="47.5" y="-5"/>
         </view>

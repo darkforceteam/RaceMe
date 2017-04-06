@@ -15,33 +15,59 @@ import FacebookLogin
 
 class LoginViewController: UIViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var fbLoginButton: UIButton!
+    
+    let slide1 = ["title":"Explore", "desc":"Explore people, routes, challenge around you", "image":"walkthrough-image-1"]
+    let slide2 = ["title":"Run Tracking", "desc":"Tracking & share your personal best with friends", "image":"walkthrough-image-2"]
+    
+    var slideArray = [Dictionary<String,String>]()
+    
     var initialViewController: UIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        // Add a custom login button to your app
-        let fbLoginButton = UIButton(type: .custom)
-        fbLoginButton.backgroundColor = UIColor.darkGray
-        fbLoginButton.frame = CGRect(x: 0, y: 0, width: 180, height: 40)
-        fbLoginButton.center = view.center
-        fbLoginButton.setTitle("Login With Facebook", for: .normal)
-        
-        // Handle clicks on the button
-        fbLoginButton.addTarget(self, action: #selector(self.loginButtonClicked), for: .touchUpInside)
-
-        // Add the button to the view
-        view.addSubview(fbLoginButton)
+        fbLoginButton.layer.cornerRadius = 3
+        // Config Scroll View
+        scrollView.isPagingEnabled = true
+        scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height - 100)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
+        loadSlides()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+}
+
+
+extension LoginViewController: UIScrollViewDelegate {
     
-    // Once the button is clicked, show the login dialog
-    @objc func loginButtonClicked() {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let page = scrollView.contentOffset.x / scrollView.frame.size.width
+        pageControl.currentPage = Int(page)
+    }
+    
+    func loadSlides() {
+        slideArray = [slide1,slide2]
+        for (index, slideInfo) in slideArray.enumerated() {
+            if let slideView = Bundle.main.loadNibNamed("SlideView", owner: self, options: nil)?.first as? SlideView {
+                slideView.titleLabel.text = slideInfo["title"]
+                slideView.descLabel.text = slideInfo["desc"]
+                slideView.slideImageView.image = UIImage(named: "\(slideInfo["image"]!)")
+                scrollView.addSubview(slideView)
+                slideView.frame.size.width = UIScreen.main.bounds.width + 55
+                slideView.frame.size.height = UIScreen.main.bounds.height + 55
+                slideView.frame.origin.x = CGFloat(index) * UIScreen.main.bounds.width
+            }
+        }
+    }
+    
+    @IBAction func onFbLogin(_ sender: UIButton) {
         let loginManager = LoginManager()
         loginManager.logIn([ .publicProfile, .email, .userFriends ], viewController: self) { loginResult in
             switch loginResult {
@@ -55,9 +81,9 @@ class LoginViewController: UIViewController {
                     if error != nil {
                         print(error!.localizedDescription)
                     }
-
+                    
                     let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
-                        request.start { (response, result) in
+                    request.start { (response, result) in
                         switch result {
                         case .success(let value):
                             let profile = value.dictionaryValue!
