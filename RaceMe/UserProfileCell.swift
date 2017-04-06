@@ -67,8 +67,6 @@ class UserProfileCell: UITableViewCell, UIScrollViewDelegate {
             
             let theCurrentDistance = String(format: "%.1f", self.currentDistance)
             self.currentAvgPace = Double(self.currentTime) / self.currentDistance
-            print(self.currentTime)
-            print(self.currentAvgPace)
             
             self.userStats1 = ["title":"Kilometers", "current_period": theCurrentDistance, "last_period": "\(self.lastDistance)"]
             self.userStats2 = ["title":"Average Pace (Min/Km)", "current_period": "\(self.currentAvgPace.stringWithPaceFormat)", "last_period": "\(self.lastAvgPace.stringWithPaceFormat)"]
