@@ -39,7 +39,7 @@ class ExploreViewController: UIViewController {
         
         ref = FIRDatabase.database().reference()
         eventRef = ref.child("EVENTS")
-        geoRef = ref.child(Constants.GEOFIRE)
+        geoRef = ref.child(Constants.PUBLIC_GEOFIRE)
         geoFire = GeoFire(firebaseRef: geoRef)
         userRef = ref.child("USERS")
         mapView.delegate = self
@@ -61,8 +61,8 @@ class ExploreViewController: UIViewController {
         actIndicator.hidesWhenStopped = true
         //        locationManager.startUpdatingLocation()
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
-        //        fixManuallyImportedRoutes()
-        
+                fixManuallyImportedRoutes()
+//        emptyPublicRoute()
     }
     
     @IBAction func selectTime(_ sender: UIButton) {
@@ -165,12 +165,12 @@ class ExploreViewController: UIViewController {
             let firstPersonID = firstEvent.participants[0] as String
             userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
                 if let userData = snapshot.value as? NSDictionary{
-                    var firstUser = UserObject(snapshot: snapshot)
+                    let firstUser = UserObject(snapshot: snapshot)
                     routeMarker.pinType = RouteAnnotation.PIN_EVENT
                     routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
                     routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
                     routeMarker.personCount = route.participant_count(displayingDate: self.displayingTime)
-                    routeMarker.setTitleEvent(scheduled: firstEvent.start_time)
+                    routeMarker.setTitleEvent(scheduled: firstEvent.start_time, firstEventDay: route.firstEventDay)
                     
                     //                    let imageUrl = NSURL(string: routeMarker.pinCustomImage)
                     //                    if let data = NSData(contentsOf: imageUrl as! URL){
@@ -190,7 +190,6 @@ class ExploreViewController: UIViewController {
                             DispatchQueue.main.async {
                                 pin.title = routeMarker.title
                                 pin.AnnoView = routeMarker
-                                routeMarker.tintColor = UIColor.green
                                 self.mapView.addAnnotation(pin)
                             }
                         }
@@ -200,7 +199,6 @@ class ExploreViewController: UIViewController {
                     routeMarker.setTitleDistance()
                     routeMarker.image = UIImage(named: "run-pin")!
                     pin.title = routeMarker.title
-                    routeMarker.tintColor = UIColor.green
                     pin.AnnoView = routeMarker
                     self.mapView.addAnnotation(pin)
                 }
@@ -232,11 +230,11 @@ class ExploreViewController: UIViewController {
         // QueryCount 2: for each Route, check if Route is GLOBAL ROUTE
         actIndicator.isHidden = false
         actIndicator.startAnimating()
-        ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChild(Constants.Route.IS_GLOBAL) {
-                print("Route \(routeid) IS GLOBAL")
-                
-                self.ref.child(Constants.Route.TABLE_NAME+"/"+routeid).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+//        ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
+//            if snapshot.hasChild(Constants.Route.IS_GLOBAL) {
+//                print("Route \(routeid) IS GLOBAL")
+            
+                self.ref.child(Constants.PublicRoute.TABLE_NAME+"/"+routeid).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
                     
                     let route = Route(locationsData: snapshot)
                     route.routeId = routeid
@@ -296,11 +294,11 @@ class ExploreViewController: UIViewController {
                 }) { (error) in
                     print(error.localizedDescription)
                 }
-            } else {
-                self.actIndicator.stopAnimating()
-                print("NO GLOBAL ROUTE FOUND")
-            }
-        })
+//            } else {
+//                self.actIndicator.stopAnimating()
+//                print("NO GLOBAL ROUTE FOUND")
+//            }
+//        })
     }
     
 //    func loadUser(_ snapshot: FIRDataSnapshot) -> UserObject{
@@ -322,10 +320,12 @@ class ExploreViewController: UIViewController {
     func queryRouteInRegion(myRegion: MKCoordinateRegion){
         nearByRouteCount = 0
         publicRouteInSpan = 0
+
         //get routes with start_loc in span from GEOFIRE
         let regionQuery = geoFire?.query(with: myRegion)
         actIndicator.isHidden = false
         actIndicator.startAnimating()
+        
         //        let center = CLLocation(latitude: myLoc.coordinate.latitude,longitude: myLoc.coordinate.longitude)
         //        var circleQuery = geoFire?.query(at: center, withRadius: 10)
         //        regionQuery?.observeReady({
@@ -367,7 +367,7 @@ class ExploreViewController: UIViewController {
         //check if needed
         
         //load routes
-        let routeref = ref.child(Constants.Route.TABLE_NAME)
+        let routeref = ref.child(Constants.PublicRoute.TABLE_NAME)
         _ = routeref.observe(.value, with: { (snapshot) in
             for child in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 //pickup each route, get route_id
@@ -388,6 +388,15 @@ class ExploreViewController: UIViewController {
                 //                    i+=1
                 //                    print("added route number: \(i)")
                 //                }
+            }
+        })
+    }
+    func emptyPublicRoute(){
+        ref.child(Constants.PublicRoute.TABLE_NAME).removeValue(completionBlock: { (error, reff) in
+            if error != nil {
+                print("ERROR: \(error)")
+            } else {
+                print("success")
             }
         })
     }
@@ -431,8 +440,14 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         }
         let castedAnno = annotation as! RoutePoint
         let annoView = castedAnno.AnnoView as! RouteAnnotation
-        annoView.tintColor = UIColor.green
+        
         annoView.canShowCallout = false
+        annoView.tintColor = UIColor.green
+//        annoView.layer.cornerRadius = annoView.frame.width / 2
+//        annoView.layer.borderColor = UIColor.green.cgColor
+//        annoView.layer.borderWidth = 1
+//        annoView.clipsToBounds = true
+        
         if annoView.pinType == RouteAnnotation.PIN_EVENT{
             annoView.isSelected = true
         }
@@ -465,6 +480,7 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         pinView.routeId = annoView.routeId
         // 3
         pinView.center = CGPoint(x: view.bounds.size.width / 2, y: -pinView.bounds.size.height*0.52)
+        
         view.addSubview(pinView)
         mapView.setCenter((view.annotation?.coordinate)!, animated: true)
     }
