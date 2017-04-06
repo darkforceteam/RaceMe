@@ -57,25 +57,15 @@ extension RecordViewController {
     @objc fileprivate func startButtonTapped() {
         let trackingController = RunTrackingVC()
         trackingController.user = self.user
-        let trackingNav = UINavigationController(rootViewController: trackingController)
-        trackingNav.navigationBar.barTintColor = primaryColor
-        trackingNav.navigationBar.isTranslucent = false
-        trackingNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        trackingNav.navigationBar.barStyle = UIBarStyle.black
-        trackingNav.navigationBar.tintColor = .white
-        present(trackingNav, animated: true, completion: nil)
+        present(trackingController, animated: true, completion: nil)
     }
     
     @objc fileprivate func addButtonTapped() {
-        let manualController = ManualEntryController()
-        manualController.user = self.user
-        let manualNav = UINavigationController(rootViewController: manualController)
-        manualNav.navigationBar.barTintColor = primaryColor
-        manualNav.navigationBar.isTranslucent = false
-        manualNav.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-        manualNav.navigationBar.barStyle = UIBarStyle.black
-        manualNav.navigationBar.tintColor = .white
-        present(manualNav, animated: true, completion: nil)
+//        let manualController = ManualEntryController()
+//        manualController.user = self.user
+//        let manualNav = UINavigationController(rootViewController: manualController)
+//        present(manualNav, animated: true, completion: nil)
+        print("Rebuilding UI")
     }
     
     fileprivate func centerMapOnLocation() {

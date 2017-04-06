@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import Neon
-import Font_Awesome_Swift
 
 class ManualEntryController: UIViewController {
     
@@ -26,13 +25,6 @@ class ManualEntryController: UIViewController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
-        return button
-    }()
-    
-    fileprivate lazy var cancelButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(cancelButtonTapped))
-        button.FAIcon = .FAClose
-        button.tintColor = .black
         return button
     }()
     

@@ -23,6 +23,7 @@
 		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */; };
+		B29EAD3F1E95F97C00396A00 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B29EAD3E1E95F97C00396A00 /* GoogleService-Info.plist */; };
 		B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B85401E940BFE0008BCF3 /* SlideView.xib */; };
 		B61B85431E940C160008BCF3 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B85421E940C160008BCF3 /* SlideView.swift */; };
 		B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B637D2251E7E2F6600F41A07 /* Main.storyboard */; };
@@ -79,7 +80,6 @@
 		D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */; };
 		D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D35F001E925963008C3AB3 /* ScheduleCell.xib */; };
 		D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35F031E929E23008C3AB3 /* UserObject.swift */; };
-		D9D35F0C1E92ACE9008C3AB3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D9D35F0B1E92ACE9008C3AB3 /* GoogleService-Info.plist */; };
 		D9D9DF181E81057C008C086C /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF171E81057C008C086C /* Location.swift */; };
 		D9D9DF1A1E810991008C086C /* Workout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF191E810991008C086C /* Workout.swift */; };
 		D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D9DF1B1E810EB5008C086C /* Constants.swift */; };
@@ -122,6 +122,7 @@
 		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTrackingVC.swift; sourceTree = "<group>"; };
+		B29EAD3E1E95F97C00396A00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B61B85401E940BFE0008BCF3 /* SlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideView.xib; sourceTree = "<group>"; };
 		B61B85421E940C160008BCF3 /* SlideView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideView.swift; sourceTree = "<group>"; };
@@ -182,7 +183,6 @@
 		D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		D9D35F001E925963008C3AB3 /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
 		D9D35F031E929E23008C3AB3 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
-		D9D35F0B1E92ACE9008C3AB3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D9D9DF171E81057C008C086C /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		D9D9DF191E810991008C086C /* Workout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Workout.swift; sourceTree = "<group>"; };
 		D9D9DF1B1E810EB5008C086C /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -382,9 +382,9 @@
 				D9DA30BD1E91490D00F10849 /* Assets.xcassets */,
 				D9D9DF1B1E810EB5008C086C /* Constants.swift */,
 				B229783B1E840066005F41B3 /* Extensions.swift */,
-				D9D35F0B1E92ACE9008C3AB3 /* GoogleService-Info.plist */,
 				B637D2251E7E2F6600F41A07 /* Main.storyboard */,
 				B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */,
+				B29EAD3E1E95F97C00396A00 /* GoogleService-Info.plist */,
 				B6A6C27C1E76DF550021EFC0 /* Info.plist */,
 			);
 			path = RaceMe;
@@ -531,7 +531,6 @@
 				B20F76321E927D9F00BA52FE /* OpenSans-Regular.ttf in Resources */,
 				D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */,
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
-				D9D35F0C1E92ACE9008C3AB3 /* GoogleService-Info.plist in Resources */,
 				B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */,
 				B20F762E1E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				D94C62CE1E93A232000E5A5E /* ScheduleVC.xib in Resources */,
@@ -555,6 +554,7 @@
 				B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */,
 				B679DD201E8BF65D000744E8 /* UserInfoCell.xib in Resources */,
 				B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */,
+				B29EAD3F1E95F97C00396A00 /* GoogleService-Info.plist in Resources */,
 				B6F520071E84FF860071E361 /* ProfileSettingsViewController.xib in Resources */,
 				D9DA30C51E91F54100F10849 /* CustomPinView.xib in Resources */,
 			);
