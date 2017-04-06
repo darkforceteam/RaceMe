@@ -16,8 +16,7 @@ class RunSummaryViewController: UIViewController {
     
     var workout: Workout! {
         didSet {
-            if let distance = workout?.distanceKm, let timestamp = workout?.startTime, let duration = workout?.duration {
-                dateLabel.text = timestamp.toDate
+            if let distance = workout?.distanceKm, let duration = workout?.duration {
                 durationDisplay.text = "\(duration.toMinutes):\(duration.toSeconds)"
                 distanceDisplay.text = String(format: "%.1f km", distance)
                 let pace = Double(duration) / distance
@@ -39,56 +38,54 @@ class RunSummaryViewController: UIViewController {
         return mv
     }()
     
-    fileprivate var dateLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .darkGray
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 20, weight: UIFontWeightLight)
-        return label
-    }()
-    
     fileprivate var durationLabel: UILabel = {
         let label = UILabel()
         label.text = "DURATION"
-        label.textColor = .darkGray
+        label.textColor = labelGray1
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
+        label.font = UIFont(name: "OpenSans-Light", size: 16)
         return label
     }()
     
     fileprivate var durationDisplay: UILabel = {
         let label = UILabel()
+        label.textColor = labelGray2
         label.textAlignment = .center
+        label.font = UIFont(name: "OpenSans", size: 18)
         return label
     }()
     
     fileprivate var distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "DISTANCE"
-        label.textColor = .darkGray
+        label.textColor = labelGray1
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
+        label.font = UIFont(name: "OpenSans-Light", size: 16)
         return label
     }()
     
     fileprivate var distanceDisplay: UILabel = {
         let label = UILabel()
+        label.textColor = labelGray2
         label.textAlignment = .center
+        label.font = UIFont(name: "OpenSans", size: 18)
         return label
     }()
     
     fileprivate var paceDisplay: UILabel = {
         let label = UILabel()
+        label.textColor = labelGray2
         label.textAlignment = .center
+        label.font = UIFont(name: "OpenSans", size: 18)
         return label
     }()
     
     fileprivate var paceLabel: UILabel = {
         let label = UILabel()
         label.text = "AVG PACE"
-        label.textColor = .darkGray
+        label.textColor = labelGray1
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 16)
+        label.font = UIFont(name: "OpenSans-Light", size: 16)
         return label
     }()
     
@@ -124,7 +121,16 @@ class RunSummaryViewController: UIViewController {
     
     fileprivate let shareSwitch: UISwitch = {
         let sw = UISwitch()
+        sw.isOn = true
         return sw
+    }()
+    
+    fileprivate var shareLabel: UILabel = {
+        let label = UILabel()
+        label.text = "SHARE THIS ROUTE?"
+        label.textColor = labelGray2
+        label.font = UIFont(name: "OpenSans-Semibold", size: 14)
+        return label
     }()
     
     fileprivate lazy var saveButton: UIButton = {
@@ -133,7 +139,7 @@ class RunSummaryViewController: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = customOrange
         button.addTarget(self, action: #selector(saveButtonDidTouch), for: .touchUpInside)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 20)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         return button
@@ -141,6 +147,28 @@ class RunSummaryViewController: UIViewController {
     
     fileprivate lazy var deleteButton: UIBarButtonItem = {
         let button = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(deleteButtonTapped))
+        return button
+    }()
+    
+    fileprivate let photoImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "insert_photo")
+        return iv
+    }()
+    
+    fileprivate var addPictureLabel: UILabel = {
+        let label = UILabel()
+        label.text = "ADD A PICTURE"
+        label.textColor = labelGray2
+        label.font = UIFont(name: "OpenSans-Semibold", size: 14)
+        return label
+    }()
+    
+    fileprivate lazy var addButton: UIButton = {
+        let button = UIButton()
+        button.setBackgroundImage(#imageLiteral(resourceName: "add_box").withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = UIColor(136, 194, 95)
+        button.addTarget(self, action: #selector(addButtonDidTouch), for: .touchUpInside)
         return button
     }()
 }
@@ -204,6 +232,10 @@ extension RunSummaryViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    @objc fileprivate func addButtonDidTouch() {
+        print(123)
+    }
+    
     @objc fileprivate func deleteButtonTapped() {
         if let routeId = workout.routeId {
             let alertController = UIAlertController(title: "Discard Run?", message: "Are you sure you would like to discard this run?", preferredStyle: .alert)
@@ -232,7 +264,6 @@ extension RunSummaryViewController {
     fileprivate func setupViews() {
         title = "Review and Save"
         view.backgroundColor = .white
-        view.addSubview(dateLabel)
         view.addSubview(mapView)
         mapView.delegate = self
         view.addSubview(durationLabel)
@@ -247,8 +278,27 @@ extension RunSummaryViewController {
         view.addSubview(seperatorLineView4)
         view.addSubview(seperatorLineView5)
         view.addSubview(shareSwitch)
+        view.addSubview(shareLabel)
         view.addSubview(saveButton)
-        navigationItem.leftBarButtonItem = deleteButton
+        view.addSubview(photoImageView)
+        view.addSubview(addPictureLabel)
+        view.addSubview(addButton)
+        
+        navigationController?.navigationBar.tintColor = .white
+        navigationController?.navigationBar.barTintColor = primaryColor
+        navigationController?.navigationBar.barStyle = .black
+        setupLeftButton()
+    }
+    
+    fileprivate func setupLeftButton() {
+        let deleteButton = UIButton()
+        deleteButton.setBackgroundImage(#imageLiteral(resourceName: "delete"), for: .normal)
+        deleteButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        deleteButton.addTarget(self, action: #selector(deleteButtonTapped), for: .touchUpInside)
+        deleteButton.transform = CGAffineTransform(translationX: -10, y: 0)
+        let buttonContainer = UIView(frame: deleteButton.frame)
+        buttonContainer.addSubview(deleteButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonContainer)
     }
     
     override func viewWillLayoutSubviews() {
@@ -260,9 +310,16 @@ extension RunSummaryViewController {
         let xPad = (view.frame.width - 2) / 3
         seperatorLineView4.anchorInCorner(.bottomLeft, xPad: xPad, yPad: 135, width: 1, height: 70)
         seperatorLineView5.anchorInCorner(.bottomRight, xPad: xPad, yPad: 135, width: 1, height: 70)
-        shareSwitch.anchorInCorner(.bottomRight, xPad: 0, yPad: 212, width: 66, height: 31)
+        shareSwitch.anchorInCorner(.bottomRight, xPad: 0, yPad: 212, width: 65, height: 31)
+        shareLabel.align(.toTheLeftCentered, relativeTo: shareSwitch, padding: 0, width: view.frame.width - 80, height: 31)
         distanceLabel.anchorToEdge(.bottom, padding: 170, width: xPad, height: 22)
+        distanceDisplay.align(.underCentered, relativeTo: distanceLabel, padding: 0, width: xPad, height: 20)
         durationLabel.anchorInCorner(.bottomLeft, xPad: 0, yPad: 170, width: xPad, height: 22)
+        durationDisplay.align(.underCentered, relativeTo: durationLabel, padding: 0, width: xPad, height: 20)
         paceLabel.anchorInCorner(.bottomRight, xPad: 0, yPad: 170, width: xPad, height: 22)
+        paceDisplay.align(.underCentered, relativeTo: paceLabel, padding: 0, width: xPad, height: 20)
+        photoImageView.anchorInCorner(.bottomLeft, xPad: 15, yPad: 105, width: 16, height: 16)
+        addPictureLabel.align(.toTheRightCentered, relativeTo: photoImageView, padding: 15, width: 150, height: 44)
+        addButton.anchorInCorner(.bottomRight, xPad: 15, yPad: 100, width: 26, height: 26)
     }
 }

@@ -45,7 +45,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = goRunning
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-        button.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 15)
+        button.titleLabel?.font = UIFont(name: "OpenSans-Semibold", size: 20)
         button.layer.cornerRadius = 5
         button.clipsToBounds = true
         return button
@@ -120,8 +120,8 @@ extension RecordViewController {
     
     fileprivate func setupRightButton() {
         let addButton = UIButton()
-        addButton.setImage(#imageLiteral(resourceName: "add"), for: .normal)
-        addButton.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
+        addButton.setBackgroundImage(#imageLiteral(resourceName: "add"), for: .normal)
+        addButton.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
         addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         addButton.transform = CGAffineTransform(translationX: 10, y: 0)
         let buttonContainer = UIView(frame: addButton.frame)
