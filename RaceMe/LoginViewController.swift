@@ -12,8 +12,15 @@ import FirebaseAuth
 import FirebaseDatabase
 import FacebookCore
 import FacebookLogin
+import Neon
 
 class LoginViewController: UIViewController {
+    
+    fileprivate let myView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .red
+        return view
+    }()
     
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -36,12 +43,16 @@ class LoginViewController: UIViewController {
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
         loadSlides()
+        
+        view.addSubview(myView)
+        
+        
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillLayoutSubviews() {
+        myView.anchorToEdge(.bottom, padding: 0, width: view.frame.width, height: 90)
     }
+
 }
 
 

@@ -23,6 +23,9 @@
 		B229783C1E840066005F41B3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783B1E840066005F41B3 /* Extensions.swift */; };
 		B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B229783F1E840127005F41B3 /* RunSummaryViewController.swift */; };
 		B22D9D7B1E861B7B00BE961E /* RunTrackingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */; };
+		B24758F91E9697A9009CF595 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24758F81E9697A9009CF595 /* LoginVC.swift */; };
+		B24758FB1E969A7B009CF595 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24758FA1E969A7B009CF595 /* CustomCell.swift */; };
+		B24758FD1E96A088009CF595 /* Slide.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24758FC1E96A088009CF595 /* Slide.swift */; };
 		B29EAD3F1E95F97C00396A00 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B29EAD3E1E95F97C00396A00 /* GoogleService-Info.plist */; };
 		B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B61B85401E940BFE0008BCF3 /* SlideView.xib */; };
 		B61B85431E940C160008BCF3 /* SlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61B85421E940C160008BCF3 /* SlideView.swift */; };
@@ -122,6 +125,9 @@
 		B229783B1E840066005F41B3 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B229783F1E840127005F41B3 /* RunSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunSummaryViewController.swift; sourceTree = "<group>"; };
 		B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunTrackingVC.swift; sourceTree = "<group>"; };
+		B24758F81E9697A9009CF595 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		B24758FA1E969A7B009CF595 /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		B24758FC1E96A088009CF595 /* Slide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slide.swift; sourceTree = "<group>"; };
 		B29EAD3E1E95F97C00396A00 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RaceMe.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RaceMe/Pods-RaceMe.debug.xcconfig"; sourceTree = "<group>"; };
 		B61B85401E940BFE0008BCF3 /* SlideView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SlideView.xib; sourceTree = "<group>"; };
@@ -266,6 +272,7 @@
 		B68D081E1E7E2A1D00DC971F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B24758F81E9697A9009CF595 /* LoginVC.swift */,
 				B68D08211E7E2A9100DC971F /* LoginViewController.swift */,
 				B68D08221E7E2A9100DC971F /* LoginViewController.xib */,
 				B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */,
@@ -333,6 +340,7 @@
 				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 				B61B85421E940C160008BCF3 /* SlideView.swift */,
 				B61B85401E940BFE0008BCF3 /* SlideView.xib */,
+				B24758FA1E969A7B009CF595 /* CustomCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -340,6 +348,7 @@
 		B68D08201E7E2A4200DC971F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B24758FC1E96A088009CF595 /* Slide.swift */,
 				B22978391E83FE1E005F41B3 /* User.swift */,
 				D9D35F031E929E23008C3AB3 /* UserObject.swift */,
 				D9F7B2251E89312A00B692FF /* Event.swift */,
@@ -642,10 +651,12 @@
 				D9F7B2261E89312A00B692FF /* Event.swift in Sources */,
 				B679DD2D1E8C00EF000744E8 /* ProfileRecordsViewController.swift in Sources */,
 				B68177AB1E7ED1E500FF760F /* TrackingViewController.swift in Sources */,
+				B24758FB1E969A7B009CF595 /* CustomCell.swift in Sources */,
 				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
 				D9DA30C31E91F52C00F10849 /* CustomPinView.swift in Sources */,
 				B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */,
+				B24758FD1E96A088009CF595 /* Slide.swift in Sources */,
 				D94C62CD1E93A232000E5A5E /* ScheduleVC.swift in Sources */,
 				D9F7B2211E88BFF500B692FF /* GFGeoHash.m in Sources */,
 				D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */,
@@ -666,6 +677,7 @@
 				D9DA30C81E92395E00F10849 /* RouteDetailVC.swift in Sources */,
 				D9F7B2231E88BFF500B692FF /* GFQuery.m in Sources */,
 				B229783A1E83FE1E005F41B3 /* User.swift in Sources */,
+				B24758F91E9697A9009CF595 /* LoginVC.swift in Sources */,
 				B6860B651E8563AD0008B06A /* TextSettingCell.swift in Sources */,
 				B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */,
 				B6492DC31E954E0900C490F0 /* ActivityDetailsViewController.swift in Sources */,

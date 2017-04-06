@@ -89,9 +89,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.window?.rootViewController = tabBarController
                 self.window?.makeKeyAndVisible()
             } else {
-                var initialViewController: UIViewController?
-                initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-                self.window?.rootViewController = initialViewController
+//                var initialViewController: UIViewController?
+//                initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
+//                self.window?.rootViewController = initialViewController
+                self.window?.rootViewController = LoginVC()
                 self.window?.makeKeyAndVisible()
             }
         }
