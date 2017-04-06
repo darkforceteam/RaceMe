@@ -19,6 +19,7 @@ class RunTrackingVC: UIViewController {
     fileprivate var distance = 0.0
     fileprivate lazy var locations = [CLLocation]()
     fileprivate lazy var timer = Timer()
+    fileprivate lazy var audioTimer = Timer()
     fileprivate var mapOverlay: MKTileOverlay!
     var user: User!
     fileprivate var workout: Workout!
@@ -49,7 +50,7 @@ class RunTrackingVC: UIViewController {
     fileprivate let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "TIME"
-        label.textColor = lightColor
+        label.textColor = labelGray1
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
@@ -59,7 +60,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -68,7 +69,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -77,7 +78,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -86,7 +87,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -95,7 +96,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -108,20 +109,20 @@ class RunTrackingVC: UIViewController {
     
     fileprivate let seperatorLineView1: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = lightColor
+        lineView.backgroundColor = customGray
         return lineView
     }()
     
     fileprivate let seperatorLineView2: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = lightColor
+        lineView.backgroundColor = customGray
         return lineView
     }()
     
     fileprivate let paceLabel: UILabel = {
         let label = UILabel()
         label.text = "AVG PACE"
-        label.textColor = lightColor
+        label.textColor = labelGray1
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
@@ -130,7 +131,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "0:00"
         label.textAlignment = .center
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         return label
     }()
@@ -138,7 +139,7 @@ class RunTrackingVC: UIViewController {
     fileprivate let paceUnit: UILabel = {
         let label = UILabel()
         label.text = "/km"
-        label.textColor = lightColor
+        label.textColor = labelGray2
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
@@ -161,7 +162,7 @@ class RunTrackingVC: UIViewController {
     fileprivate let distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "DISTANCE"
-        label.textColor = darkColor
+        label.textColor = labelGray1
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
@@ -170,7 +171,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "0.0"
         label.textAlignment = .center
-        label.textColor = darkColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         return label
     }()
@@ -180,7 +181,7 @@ class RunTrackingVC: UIViewController {
         label.text = "km"
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.textColor = darkColor
+        label.textColor = labelGray2
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
@@ -231,7 +232,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
-        timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
+        audioTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
     }
     
     fileprivate func saveData() {
@@ -276,6 +277,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     
     fileprivate func reset() {
         timer.invalidate()
+        audioTimer.invalidate()
         distance = 0
         duration = 0
         hourDisplay.text = "00"
@@ -347,11 +349,14 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         isRunning = true
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
+        audioTimer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
+        
     }
     
     fileprivate func pauseCounting() {
         isRunning = false
         timer.invalidate()
+        audioTimer.invalidate()
         locationManager.stopUpdatingLocation()
     }
     
@@ -410,6 +415,7 @@ extension RunTrackingVC {
     
     override func viewWillDisappear(_ animated: Bool) {
         timer.invalidate()
+        audioTimer.invalidate()
     }
     
     fileprivate func setupViews() {
