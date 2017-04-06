@@ -15,28 +15,37 @@ class RouteAnnotation: MKAnnotationView {
     var pinUsername: String!
     var pinCustomTitle: String!
     var pinType = PIN_DISTANCE
-    var distance = 0
     var personCount = 0
     let dateFormatter = DateFormatter()
-    let dateFormat = "hh:mm a"
+    let timeFormat = "hh:mm a"
+    let dateFormat = "E MMM dd"
     var imageView = UIImage()
     var title: String!
     var routeId: String!
     var route: Route!
     
     //    var startLoc: CLLocationCoordinate2D
-    func setTitleEvent(scheduled: Date?){
-        dateFormatter.dateFormat = dateFormat
-        let dateString = dateFormatter.string(from: scheduled!)
+    func setTitleEvent(scheduled: Date?, firstEventDay: Int){
+        dateFormatter.dateFormat = timeFormat
+        let time = dateFormatter.string(from: scheduled!)
+        var date = ""
+        if firstEventDay == 1 {
+            date = "today"
+        } else if firstEventDay == 2{
+            date = "tomorrow"
+        } else if firstEventDay == 3{
+            dateFormatter.dateFormat = dateFormat
+            date = dateFormatter.string(from: scheduled!)
+        }
         if personCount > 1 {
-            self.title = "\(pinUsername!) and \(personCount-1) person at \(dateString)"
+            self.title = "\(pinUsername!) and \(personCount-1) person at \(time) \(date)"
         } else {
-            self.title = "\(pinUsername!) will run at \(dateString)"
+            self.title = "\(pinUsername!) will run at \(time) \(date)"
         }
     }
     //    var startLoc: CLLocationCoordinate2D
     func setTitleDistance(){
-        self.title = "\(self.distance) km"
+        self.title = "\(route.name): \(route.distance.divided(by: 1000.0)) km"
     }
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitView = super.hitTest(point, with: event)
