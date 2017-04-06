@@ -10,6 +10,9 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+protocol ScheduleVCDelegate {
+    func reloadEventForRoute(scheduleVC: ScheduleVC, reload: Bool)
+}
 class ScheduleVC: UIViewController {
     static let CREATE_SCHEDULE = "0"
     static let JOIN_RUN = "1"
@@ -30,6 +33,8 @@ class ScheduleVC: UIViewController {
     var participants = [UserObject]()
     var userId: String!
     var currentUser: UserObject!
+    var delegate: ScheduleVCDelegate!
+    var routeNeedReloadEvent = false
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -116,14 +121,17 @@ class ScheduleVC: UIViewController {
     @IBAction func addSchedule(_ sender: UIButton) {
         self.view.sendSubview(toBack: addScheBtn)
         addScheBtn.isHidden = true
+        
         let eventRef = ref.child(Constants.Event.TABLE_NAME).childByAutoId()
         eventRef.child(Constants.Event.ROUTE_ID).setValue("\(route.routeId!)")
         eventRef.child(Constants.Event.START_TIME).setValue(startDatePicker.date.timeIntervalSince1970)
         eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(true)
         participants.append(currentUser)
-        let event = Event(route_id: route.routeId!, start_time: startDatePicker.date)
-        event.setFirstUser(user: currentUser)
-        route.events.append(event)
+        self.event = Event(route_id: route.routeId!, start_time: startDatePicker.date)
+        self.event?.eventId = eventRef.key
+        self.event?.setFirstUser(user: currentUser)
+        self.event?.participants.append(userId)
+        route.events.append(self.event!)
         tableView.reloadData()
         self.view.bringSubview(toFront: readyBtn)
         self.view.bringSubview(toFront: cancelBtn)
@@ -134,7 +142,7 @@ class ScheduleVC: UIViewController {
     @IBAction func joinRun(_ sender: UIButton) {
         self.view.sendSubview(toBack: joinRunBtn)
         joinRunBtn.isHidden = true
-        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event?.eventId!)/\(Constants.Event.PARTICIPANTS)")
+        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)/\(Constants.Event.PARTICIPANTS)")
         eventRef.child(userId!).setValue(true)
         self.event?.participants.append(userId)
         participants.append(currentUser)
@@ -147,26 +155,46 @@ class ScheduleVC: UIViewController {
     @IBAction func readyForRun(_ sender: UIButton) {
     }
     @IBAction func cancelRun(_ sender: UIButton) {
-        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event?.eventId!)")
-        eventRef.child("\(Constants.Event.PARTICIPANTS)/\(userId!)").removeValue()
-        self.event?.participants.remove(at: (event?.participants.index(of: userId))!)
-        let index = participants.index(of: currentUser)
-        participants.remove(at: index!)
-        
-        self.view.sendSubview(toBack: readyBtn)
-        readyBtn.isHidden = true
-        self.view.sendSubview(toBack: cancelBtn)
-        cancelBtn.isHidden = true
-        if participants.count > 0 {
-            self.view.bringSubview(toFront: joinRunBtn)
-            joinRunBtn.isHidden = false
-        } else {
-            eventRef.removeValue()
-            self.view.bringSubview(toFront: addScheBtn)
-            addScheBtn.isHidden = false
+        let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
+        print(eventPath)
+        let eventRef = ref.child(eventPath)
+        let userInEventPath = "\(Constants.Event.PARTICIPANTS)/\(userId!)"
+        print(userInEventPath)
+        let userRecord = eventRef.child(userInEventPath)
+        print(userRecord)
+        userRecord.removeValue { (error, refer) in
+            if error != nil {
+                print(error!)
+            } else {
+                let index = self.event?.participants.index(of: self.userId)!
+                self.event?.participants.remove(at: index!)
+                self.participants.remove(at: index!)
+                
+                self.tableView.reloadData()
+                
+                self.view.sendSubview(toBack: self.readyBtn)
+                self.readyBtn.isHidden = true
+                self.view.sendSubview(toBack: self.cancelBtn)
+                self.cancelBtn.isHidden = true
+                if self.participants.count > 0 {
+                    self.event?.setFirstUser()
+                    self.view.bringSubview(toFront: self.joinRunBtn)
+                    self.joinRunBtn.isHidden = false
+                } else {
+                    eventRef.removeValue()
+                    self.routeNeedReloadEvent = true
+                    self.view.bringSubview(toFront: self.addScheBtn)
+                    self.addScheBtn.isHidden = false
+                }
+            }
+        }
+
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        if routeNeedReloadEvent{
+            delegate.reloadEventForRoute(scheduleVC: self, reload: true)
         }
     }
-    
     func drawRoute(route: Route){
         let span = MKCoordinateSpanMake(0.009, 0.009)
         let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)

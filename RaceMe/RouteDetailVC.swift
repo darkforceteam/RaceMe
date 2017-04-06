@@ -23,6 +23,7 @@ class RouteDetailVC: UIViewController {
     var ref: FIRDatabaseReference!
     var eventRef: FIRDatabaseReference!
     var eventList = [Event]()
+    var needReloadEventData = false
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -48,6 +49,7 @@ class RouteDetailVC: UIViewController {
         let scheduleVC = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
         scheduleVC.route = route
         scheduleVC.viewingType = ScheduleVC.CREATE_SCHEDULE
+        scheduleVC.delegate = self
         navigationController?.pushViewController(scheduleVC, animated: true)
     }
     @IBAction func runNow(_ sender: UIButton) {
@@ -61,10 +63,16 @@ class RouteDetailVC: UIViewController {
         super.viewDidDisappear(animated)
         ref.removeAllObservers()
     }
+    override func viewWillDisappear(_ animated: Bool) {
+        needReloadEventData = false
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        eventList = route.events
-        self.tableView.reloadData()
+        if !needReloadEventData {
+            eventList.removeAll()
+            eventList = route.events
+            self.tableView.reloadData()
+        }
     }
     func loadRoute(){
         self.ref.child(Constants.Route.TABLE_NAME+"/"+routeId).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
@@ -88,9 +96,13 @@ class RouteDetailVC: UIViewController {
         mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
+        self.eventList.removeAll()
+        self.route.events.removeAll()
         self.ref.child("EVENTS/").queryOrdered(byChild: "route_id").queryEqual(toValue: routeId).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren(){
                 let currentTime = NSDate().timeIntervalSince1970
+                print("TIME is \(currentTime) now")
+                print(snapshot)
                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     if let oneEvent = eventData.value as? NSDictionary{
                         let start_time = oneEvent.value(forKey: "start_time") as! Double
@@ -100,12 +112,20 @@ class RouteDetailVC: UIViewController {
                             if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
                                 for (key, _) in participants{
                                     event.participants.append(key as! String)
+                                    event.eventId = eventData.ref.key
                                 }
                             }
+                            event.setFirstUser()
                             self.eventList.append(event)
+                        } else {
+                            print("starttime \(start_time) is smalled than current time")
                         }
                     }
                 }
+                print(self.eventList)
+                self.route.events = self.eventList
+                self.route.setFirstEvent()
+                print("start refreshing data")
                 self.tableView.reloadData()
             }
         })
@@ -115,7 +135,7 @@ class RouteDetailVC: UIViewController {
         
     }
 }
-extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource{
+extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, ScheduleVCDelegate{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.red
@@ -132,23 +152,33 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         
         var strRunnerNum = " will run alone"
         if event.participants.count > 1{
+            
             strRunnerNum = " and \(event.participants.count-1) runners"
         }
 
-        let user = event.firstUser!
-        cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
-        
-        cell.avatarImg.image = user.avatarImg
+        if let user = event.firstUser {
+            cell.runnersLabel.text = "\(user.displayName!)"+strRunnerNum
+            cell.avatarImg.image = user.avatarImg
+        }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(eventList)
+        print("selected Item: \(indexPath.row)")
         let scheduleVC = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
         scheduleVC.route = route
         let event = eventList[indexPath.row]
         scheduleVC.event = event
         scheduleVC.viewingType = ScheduleVC.JOIN_RUN
+        scheduleVC.delegate = self
         navigationController?.pushViewController(scheduleVC, animated: true)
+    }
+    func reloadEventForRoute(scheduleVC: ScheduleVC, reload: Bool) {
+        if reload {
+            loadSchedules()
+            needReloadEventData = true
+        }
     }
 }
 extension Date {
