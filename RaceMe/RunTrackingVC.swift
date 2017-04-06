@@ -369,7 +369,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = UIColor.blue
+            polylineRenderer.strokeColor = strokeColor
             polylineRenderer.lineWidth = 3
             return polylineRenderer
         }

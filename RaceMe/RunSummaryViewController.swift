@@ -190,7 +190,7 @@ extension RunSummaryViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = primaryColor
+            polylineRenderer.strokeColor = strokeColor
             polylineRenderer.lineWidth = 4
             return polylineRenderer
         }
