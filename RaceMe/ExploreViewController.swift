@@ -320,10 +320,12 @@ class ExploreViewController: UIViewController {
     func queryRouteInRegion(myRegion: MKCoordinateRegion){
         nearByRouteCount = 0
         publicRouteInSpan = 0
+
         //get routes with start_loc in span from GEOFIRE
         let regionQuery = geoFire?.query(with: myRegion)
         actIndicator.isHidden = false
         actIndicator.startAnimating()
+        
         //        let center = CLLocation(latitude: myLoc.coordinate.latitude,longitude: myLoc.coordinate.longitude)
         //        var circleQuery = geoFire?.query(at: center, withRadius: 10)
         //        regionQuery?.observeReady({
