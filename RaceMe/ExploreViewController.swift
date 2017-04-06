@@ -260,11 +260,14 @@ class ExploreViewController: UIViewController {
                                             let event = Event(route_id: "", start_time: event_datetime as Date)
                                             event.eventId = eventData.key
                                             if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
-                                                for (key, _) in participants{
-                                                    event.participants.append(key as! String)
+                                                if participants.count > 0 {
+                                                    for (key, _) in participants{
+                                                        event.participants.append(key as! String)
+                                                    }
+                                                    event.setFirstUser()
                                                 }
                                             }
-                                            event.setFirstUser()
+                                            
                                             route.events.append(event)
                                             if NSCalendar.current.isDateInToday(event.start_time){
                                                 route.todayEvents.append(event)
