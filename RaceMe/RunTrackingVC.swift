@@ -49,7 +49,7 @@ class RunTrackingVC: UIViewController {
     fileprivate let timeLabel: UILabel = {
         let label = UILabel()
         label.text = "TIME"
-        label.textColor = labelGray1
+        label.textColor = lightColor
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
@@ -59,7 +59,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -68,7 +68,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -77,7 +77,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -86,7 +86,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -95,7 +95,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = ":"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 32, weight: UIFontWeightMedium)
         return label
     }()
@@ -108,20 +108,20 @@ class RunTrackingVC: UIViewController {
     
     fileprivate let seperatorLineView1: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = customGray
+        lineView.backgroundColor = lightColor
         return lineView
     }()
     
     fileprivate let seperatorLineView2: UIView = {
         let lineView = UIView()
-        lineView.backgroundColor = customGray
+        lineView.backgroundColor = lightColor
         return lineView
     }()
     
     fileprivate let paceLabel: UILabel = {
         let label = UILabel()
         label.text = "AVG PACE"
-        label.textColor = labelGray1
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
@@ -130,7 +130,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "0:00"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         return label
     }()
@@ -138,7 +138,7 @@ class RunTrackingVC: UIViewController {
     fileprivate let paceUnit: UILabel = {
         let label = UILabel()
         label.text = "/km"
-        label.textColor = labelGray2
+        label.textColor = lightColor
         label.textAlignment = .center
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
@@ -161,7 +161,7 @@ class RunTrackingVC: UIViewController {
     fileprivate let distanceLabel: UILabel = {
         let label = UILabel()
         label.text = "DISTANCE"
-        label.textColor = labelGray1
+        label.textColor = darkColor
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
@@ -170,7 +170,7 @@ class RunTrackingVC: UIViewController {
         let label = UILabel()
         label.text = "0.0"
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = darkColor
         label.font = .systemFont(ofSize: 20, weight: UIFontWeightLight)
         return label
     }()
@@ -180,7 +180,7 @@ class RunTrackingVC: UIViewController {
         label.text = "km"
         label.textColor = .lightGray
         label.textAlignment = .center
-        label.textColor = labelGray2
+        label.textColor = darkColor
         label.font = .systemFont(ofSize: 14, weight: UIFontWeightLight)
         return label
     }()
@@ -231,7 +231,7 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         locations.removeAll(keepingCapacity: false)
         locationManager.startUpdatingLocation()
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(eachSecond), userInfo: nil, repeats: true)
-        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 300, target: self, selector: #selector(audioUpdate), userInfo: nil, repeats: true)
     }
     
     fileprivate func saveData() {

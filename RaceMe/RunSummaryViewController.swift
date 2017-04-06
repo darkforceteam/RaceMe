@@ -104,6 +104,29 @@ class RunSummaryViewController: UIViewController {
         return lineView
     }()
     
+    fileprivate let seperatorLineView3: UIView = {
+        let lineView = UIView()
+        lineView.backgroundColor = customGray
+        return lineView
+    }()
+    
+    fileprivate let seperatorLineView4: UIView = {
+        let lineView = UIView()
+        lineView.backgroundColor = customGray
+        return lineView
+    }()
+    
+    fileprivate let seperatorLineView5: UIView = {
+        let lineView = UIView()
+        lineView.backgroundColor = customGray
+        return lineView
+    }()
+    
+    fileprivate let shareSwitch: UISwitch = {
+        let sw = UISwitch()
+        return sw
+    }()
+    
     fileprivate lazy var saveButton: UIButton = {
         let button = UIButton()
         button.setTitle("SAVE", for: .normal)
@@ -220,22 +243,26 @@ extension RunSummaryViewController {
         view.addSubview(paceLabel)
         view.addSubview(seperatorLineView1)
         view.addSubview(seperatorLineView2)
+        view.addSubview(seperatorLineView3)
+        view.addSubview(seperatorLineView4)
+        view.addSubview(seperatorLineView5)
+        view.addSubview(shareSwitch)
         view.addSubview(saveButton)
         navigationItem.leftBarButtonItem = deleteButton
     }
     
     override func viewWillLayoutSubviews() {
-        let customWidth = (view.frame.width - 1) / 3
-        dateLabel.anchorToEdge(.top, padding: 64, width: view.frame.width, height: 40)
-        mapView.align(.underCentered, relativeTo: dateLabel, padding: 0, width: view.frame.width, height: view.frame.width)
-        durationDisplay.align(.underMatchingLeft, relativeTo: mapView, padding: 0, width: customWidth, height: 40)
-        durationLabel.align(.underCentered, relativeTo: durationDisplay, padding: 0, width: customWidth, height: 20)
-        distanceDisplay.align(.toTheRightCentered, relativeTo: durationDisplay, padding: 0, width: customWidth, height: 40)
-        distanceLabel.align(.underCentered, relativeTo: distanceDisplay, padding: 0, width: customWidth, height: 20)
-        paceDisplay.align(.toTheRightCentered, relativeTo: distanceDisplay, padding: 0, width: customWidth, height: 40)
-        paceLabel.align(.underCentered, relativeTo: paceDisplay, padding: 0, width: customWidth, height: 20)
-        seperatorLineView1.align(.toTheRightMatchingTop, relativeTo: durationDisplay, padding: 0, width: 0.5, height: 45, offset: 10)
-        seperatorLineView2.align(.toTheRightMatchingTop, relativeTo: distanceDisplay, padding: 0, width: 0.5, height: 45, offset: 10)
+        mapView.anchorToEdge(.top, padding: 64, width: view.frame.width, height: view.frame.height - 313)
         saveButton.anchorToEdge(.bottom, padding: 15, width: view.frame.width - 30, height: 60)
+        seperatorLineView1.anchorToEdge(.bottom, padding: 90, width: view.frame.width, height: 1)
+        seperatorLineView2.anchorToEdge(.bottom, padding: 135, width: view.frame.width, height: 1)
+        seperatorLineView3.anchorToEdge(.bottom, padding: 205, width: view.frame.width, height: 1)
+        let xPad = (view.frame.width - 2) / 3
+        seperatorLineView4.anchorInCorner(.bottomLeft, xPad: xPad, yPad: 135, width: 1, height: 70)
+        seperatorLineView5.anchorInCorner(.bottomRight, xPad: xPad, yPad: 135, width: 1, height: 70)
+        shareSwitch.anchorInCorner(.bottomRight, xPad: 0, yPad: 212, width: 66, height: 31)
+        distanceLabel.anchorToEdge(.bottom, padding: 170, width: xPad, height: 22)
+        durationLabel.anchorInCorner(.bottomLeft, xPad: 0, yPad: 170, width: xPad, height: 22)
+        paceLabel.anchorInCorner(.bottomRight, xPad: 0, yPad: 170, width: xPad, height: 22)
     }
 }

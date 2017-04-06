@@ -61,10 +61,11 @@ extension RecordViewController {
     }
     
     @objc fileprivate func addButtonTapped() {
-        let manualController = ManualEntryController()
-        manualController.user = self.user
-        let manualNav = UINavigationController(rootViewController: manualController)
-        present(manualNav, animated: true, completion: nil)
+//        let manualController = ManualEntryController()
+//        manualController.user = self.user
+//        let manualNav = UINavigationController(rootViewController: manualController)
+//        present(manualNav, animated: true, completion: nil)
+        print("Rebuilding UI")
     }
     
     fileprivate func centerMapOnLocation() {

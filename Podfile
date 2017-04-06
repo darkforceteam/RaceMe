@@ -13,6 +13,7 @@ target 'RaceMe' do
   pod 'FacebookLogin'
   pod 'AFNetworking'
   pod 'Neon', '~> 0.4.0'
-  pod 'Font-Awesome-Swift'
+  pod 'Fabric'
+  pod 'Crashlytics'
   
 end
