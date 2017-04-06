@@ -60,8 +60,8 @@ extension LoginViewController: UIScrollViewDelegate {
                 slideView.descLabel.text = slideInfo["desc"]
                 slideView.slideImageView.image = UIImage(named: "\(slideInfo["image"]!)")
                 scrollView.addSubview(slideView)
-                slideView.frame.size.width = UIScreen.main.bounds.width + 55
-                slideView.frame.size.height = UIScreen.main.bounds.height + 55
+                slideView.frame.size.width = UIScreen.main.bounds.width
+                slideView.frame.size.height = UIScreen.main.bounds.height
                 slideView.frame.origin.x = CGFloat(index) * UIScreen.main.bounds.width
             }
         }
