@@ -26,8 +26,9 @@ class ActivityDetailsViewController: UIViewController {
         ref = FIRDatabase.database().reference()
         mapView.delegate = self
         // Do any additional setup after loading the view.
-        if (workout) != nil{
-            loadRoute(routeid: workout.key)
+        if (workout) != nil {
+            loadRoute(routeid: workout.routeId!)
+            loadUser(uid: workout.userId)
         }
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
         avatarImageView.clipsToBounds = true
@@ -44,8 +45,31 @@ class ActivityDetailsViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+}
+extension ActivityDetailsViewController: MKMapViewDelegate{
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = dangerColor
+        renderer.lineWidth = 4.0
+        return renderer
+    }
+    
+    func loadUser(uid: String) {
+        if uid != "" {
+            self.ref.child("USERS/\(uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                let user = User(snapshot: snapshot)
+                self.avatarImageView.setImageWith(URL(string: user.photoUrl!)!)
+                self.displayNameLabel.text = user.displayName
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func loadRoute(routeid: String){
         if routeid != "" {
+            print(routeid)
             self.ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
                 let route = Route(locationsData: snapshot)
                 route.routeId = routeid
@@ -66,13 +90,5 @@ class ActivityDetailsViewController: UIViewController {
         mapView.add(myPolyline)
         //TODO: set center to the middle point of the route. HTF can I calculate that?
         mapView.setCenter((route.locations.first)!, animated: true)
-    }
-}
-extension ActivityDetailsViewController: MKMapViewDelegate{
-    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = dangerColor
-        renderer.lineWidth = 4.0
-        return renderer
     }
 }

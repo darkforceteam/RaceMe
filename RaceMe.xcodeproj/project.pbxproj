@@ -62,6 +62,9 @@
 		B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */; };
 		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
 		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
+		B6946A2F1E97B39700931B0F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6946A2E1E97B39700931B0F /* Group.swift */; };
+		B6946A371E97F3F500931B0F /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6946A351E97F3F500931B0F /* ChallengeViewController.swift */; };
+		B6946A381E97F3F500931B0F /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6946A361E97F3F500931B0F /* ChallengeViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
 		B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */; };
@@ -166,6 +169,9 @@
 		B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclosureIndicatorCell.xib; sourceTree = "<group>"; };
 		B68D08211E7E2A9100DC971F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		B6946A2E1E97B39700931B0F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		B6946A351E97F3F500931B0F /* ChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
+		B6946A361E97F3F500931B0F /* ChallengeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -275,36 +281,11 @@
 				B24758F81E9697A9009CF595 /* LoginVC.swift */,
 				B68D08211E7E2A9100DC971F /* LoginViewController.swift */,
 				B68D08221E7E2A9100DC971F /* LoginViewController.xib */,
-				B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */,
-				B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */,
-				B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */,
-				B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */,
-				B679DD271E8C00D9000744E8 /* ProfileGroupsViewController.swift */,
-				B679DD281E8C00D9000744E8 /* ProfileGroupsViewController.xib */,
-				B679DD2B1E8C00EF000744E8 /* ProfileRecordsViewController.swift */,
-				B679DD2C1E8C00EF000744E8 /* ProfileRecordsViewController.xib */,
-				B679DD231E8BFFB4000744E8 /* ActivitiesViewController.swift */,
-				B679DD241E8BFFB4000744E8 /* ActivitiesViewController.xib */,
-				B6F520081E8500A90071E361 /* NotificationsViewController.swift */,
-				B6F520091E8500A90071E361 /* NotificationsViewController.xib */,
-				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
-				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
-				B68177A91E7ED1E500FF760F /* TrackingViewController.swift */,
-				B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */,
-				B68177AD1E7ED20200FF760F /* GroupViewController.swift */,
-				B68177AE1E7ED20200FF760F /* GroupViewController.xib */,
-				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
-				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
-				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
-				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
-				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
-				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
-				D9DA30C61E92395E00F10849 /* RouteDetailVC.swift */,
-				D9DA30C71E92395E00F10849 /* RouteDetailVC.xib */,
-				D94C62CB1E93A232000E5A5E /* ScheduleVC.swift */,
-				D94C62CC1E93A232000E5A5E /* ScheduleVC.xib */,
-				B6492DC11E954E0900C490F0 /* ActivityDetailsViewController.swift */,
-				B6492DC21E954E0900C490F0 /* ActivityDetailsViewController.xib */,
+				B6946A331E97B70C00931B0F /* Explore */,
+				B6946A341E97F37C00931B0F /* Challenge */,
+				B6946A321E97B6E300931B0F /* Tracking */,
+				B6946A311E97B6D100931B0F /* Group */,
+				B6946A301E97B6AF00931B0F /* Profile */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -356,8 +337,76 @@
 				D9433ABF1E8521DB00F085B3 /* Route.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
 				D9F7B2091E8817AB00B692FF /* WorkoutObject.swift */,
+				B6946A2E1E97B39700931B0F /* Group.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		B6946A301E97B6AF00931B0F /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				B637D2331E7E4D6700F41A07 /* ProfileViewController.swift */,
+				B637D2341E7E4D6700F41A07 /* ProfileViewController.xib */,
+				B6F520041E84FF860071E361 /* ProfileSettingsViewController.swift */,
+				B6F520051E84FF860071E361 /* ProfileSettingsViewController.xib */,
+				B679DD271E8C00D9000744E8 /* ProfileGroupsViewController.swift */,
+				B679DD281E8C00D9000744E8 /* ProfileGroupsViewController.xib */,
+				B679DD2B1E8C00EF000744E8 /* ProfileRecordsViewController.swift */,
+				B679DD2C1E8C00EF000744E8 /* ProfileRecordsViewController.xib */,
+				B679DD231E8BFFB4000744E8 /* ActivitiesViewController.swift */,
+				B679DD241E8BFFB4000744E8 /* ActivitiesViewController.xib */,
+				B6492DC11E954E0900C490F0 /* ActivityDetailsViewController.swift */,
+				B6492DC21E954E0900C490F0 /* ActivityDetailsViewController.xib */,
+				B6F520081E8500A90071E361 /* NotificationsViewController.swift */,
+				B6F520091E8500A90071E361 /* NotificationsViewController.xib */,
+				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
+				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
+			);
+			name = Profile;
+			sourceTree = "<group>";
+		};
+		B6946A311E97B6D100931B0F /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				B68177AD1E7ED20200FF760F /* GroupViewController.swift */,
+				B68177AE1E7ED20200FF760F /* GroupViewController.xib */,
+			);
+			name = Group;
+			sourceTree = "<group>";
+		};
+		B6946A321E97B6E300931B0F /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				B68177A91E7ED1E500FF760F /* TrackingViewController.swift */,
+				B68177AA1E7ED1E500FF760F /* TrackingViewController.xib */,
+				B22978351E83FD85005F41B3 /* RecordViewController.swift */,
+				B22D9D7A1E861B7B00BE961E /* RunTrackingVC.swift */,
+				B225DB061E8CB57D00AE7A2D /* ManualEntryController.swift */,
+				B229783F1E840127005F41B3 /* RunSummaryViewController.swift */,
+			);
+			name = Tracking;
+			sourceTree = "<group>";
+		};
+		B6946A331E97B70C00931B0F /* Explore */ = {
+			isa = PBXGroup;
+			children = (
+				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
+				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
+				D9DA30C61E92395E00F10849 /* RouteDetailVC.swift */,
+				D9DA30C71E92395E00F10849 /* RouteDetailVC.xib */,
+				D94C62CB1E93A232000E5A5E /* ScheduleVC.swift */,
+				D94C62CC1E93A232000E5A5E /* ScheduleVC.xib */,
+			);
+			name = Explore;
+			sourceTree = "<group>";
+		};
+		B6946A341E97F37C00931B0F /* Challenge */ = {
+			isa = PBXGroup;
+			children = (
+				B6946A351E97F3F500931B0F /* ChallengeViewController.swift */,
+				B6946A361E97F3F500931B0F /* ChallengeViewController.xib */,
+			);
+			name = Challenge;
 			sourceTree = "<group>";
 		};
 		B6A6C2641E76DF550021EFC0 = {
@@ -526,6 +575,7 @@
 				D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */,
 				B20F76301E927D9F00BA52FE /* OpenSans-Light.ttf in Resources */,
 				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
+				B6946A381E97F3F500931B0F /* ChallengeViewController.xib in Resources */,
 				B679DD2A1E8C00D9000744E8 /* ProfileGroupsViewController.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
 				B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */,
@@ -646,7 +696,9 @@
 				D9433AC01E8521DB00F085B3 /* Route.swift in Sources */,
 				D9D9DF181E81057C008C086C /* Location.swift in Sources */,
 				B68177A71E7EC6B800FF760F /* ExploreViewController.swift in Sources */,
+				B6946A2F1E97B39700931B0F /* Group.swift in Sources */,
 				B6860B6D1E85776C0008B06A /* DisclosureIndicatorCell.swift in Sources */,
+				B6946A371E97F3F500931B0F /* ChallengeViewController.swift in Sources */,
 				B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */,
 				D9F7B2261E89312A00B692FF /* Event.swift in Sources */,
 				B679DD2D1E8C00EF000744E8 /* ProfileRecordsViewController.swift in Sources */,

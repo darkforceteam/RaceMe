@@ -197,7 +197,7 @@ class ExploreViewController: UIViewController {
                     dataTask.resume()
                 } else {
                     routeMarker.setTitleDistance()
-                    routeMarker.image = UIImage(named: "map-pin")?.withRenderingMode(.alwaysTemplate)
+                    routeMarker.image = UIImage(named: "pin-run")?.withRenderingMode(.alwaysTemplate)
                     routeMarker.tintColor = successColor
                     pin.title = routeMarker.title
                     pin.AnnoView = routeMarker
@@ -207,8 +207,7 @@ class ExploreViewController: UIViewController {
             })
         } else {
             routeMarker.setTitleDistance()
-            routeMarker.image = UIImage(named: "map-pin")?.withRenderingMode(.alwaysTemplate)
-            routeMarker.tintColor = successColor
+            routeMarker.image = UIImage(named: "pin-run")
             pin.title = routeMarker.title
             pin.AnnoView = routeMarker
             self.mapView.addAnnotation(pin)
