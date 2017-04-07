@@ -25,7 +25,11 @@ class LoginViewController: UIViewController {
     var slideArray = [Dictionary<String,String>]()
     
     var initialViewController: UIViewController?
-
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -35,6 +39,7 @@ class LoginViewController: UIViewController {
         scrollView.contentSize = CGSize(width: UIScreen.main.bounds.width * 2, height: UIScreen.main.bounds.height - 100)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
+        
         loadSlides()
     }
     
