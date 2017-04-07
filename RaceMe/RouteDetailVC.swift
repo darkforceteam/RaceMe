@@ -89,6 +89,7 @@ class RouteDetailVC: UIViewController {
     func drawRoute(route: Route){
         let span = MKCoordinateSpanMake(0.009, 0.009)
         let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
+//        let myRegion = getRegionForRoute(route: route)
         mapView.setRegion(myRegion, animated: false)
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
@@ -179,6 +180,31 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
             loadSchedules()
             needReloadEventData = true
         }
+    }
+    
+    func getRegionForRoute(route: Route) -> MKCoordinateRegion {
+        let locations = route.locations
+        let firstPointCoordinate = locations[0]
+        
+        var minLatitude: Double!
+        var minLongitude: Double!
+        var maxLatitude: Double!
+        var maxLongitude: Double!
+        
+        for location in locations {
+            let locationCoordinate = location
+            minLatitude = min(firstPointCoordinate.latitude, locationCoordinate.latitude)
+            minLongitude = min(firstPointCoordinate.longitude, locationCoordinate.longitude)
+            maxLatitude = max(firstPointCoordinate.latitude, locationCoordinate.latitude)
+            maxLongitude = max(firstPointCoordinate.longitude, locationCoordinate.longitude)
+        }
+        
+        let centerLatitude = (minLatitude + maxLatitude) / 2
+        let centerLongitude = (minLongitude + maxLongitude) / 2
+        let latDelta = (maxLatitude - minLatitude) * 2
+        let longDelta = (maxLongitude - minLongitude) * 2
+        
+        return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude), span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta))
     }
 }
 extension Date {

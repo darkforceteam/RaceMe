@@ -83,7 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 tabBarController.tabBar.tintColor = primaryColor
                 tabBarController.tabBar.barTintColor = lightColor
                 tabBarController.viewControllers = [exploreNavVC, recordNavVC, profileNavVC]
-                tabBarController.selectedIndex = 1
+                tabBarController.selectedIndex = 0
                 
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController

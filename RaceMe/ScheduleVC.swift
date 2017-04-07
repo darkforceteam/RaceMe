@@ -212,7 +212,7 @@ class ScheduleVC: UIViewController {
             userRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if (snapshot.value as? NSDictionary) != nil{
                     let user = UserObject(snapshot: snapshot)
-
+                    user.avatarImg = UIImage(named: "default-avatar")!
                     let request = NSMutableURLRequest(url: URL(string: user.photoUrl!)!)
                     request.httpMethod = "GET"
                     let session = URLSession(configuration: URLSessionConfiguration.default)
