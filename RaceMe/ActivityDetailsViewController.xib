@@ -42,13 +42,13 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Display Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gyU-To-Utf">
-                    <rect key="frame" x="55" y="17.5" width="80.5" height="16.5"/>
+                    <rect key="frame" x="55" y="17" width="80.5" height="16.5"/>
                     <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
                     <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Timestamp" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g7j-kS-odR">
-                    <rect key="frame" x="295" y="17.5" width="65" height="16.5"/>
+                    <rect key="frame" x="295" y="17" width="65" height="16.5"/>
                     <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="12"/>
                     <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -70,13 +70,13 @@
                     <rect key="frame" x="250" y="251" width="125" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="AVG PACE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TBe-kB-jo7">
-                            <rect key="frame" x="36" y="10" width="54.5" height="16.5"/>
+                            <rect key="frame" x="35.5" y="10" width="54.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5:30 / km" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hke-z9-lde">
-                            <rect key="frame" x="26" y="30.5" width="73.5" height="23.5"/>
+                            <rect key="frame" x="26.5" y="30.5" width="73.5" height="23.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -117,7 +117,7 @@
                             </constraints>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DISTANCE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CgR-MZ-ZFn">
-                            <rect key="frame" x="35.5" y="10" width="55.5" height="16.5"/>
+                            <rect key="frame" x="35" y="10" width="55.5" height="16.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -148,13 +148,13 @@
                     <rect key="frame" x="0.0" y="251" width="125" height="60"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DURATION" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cgT-bv-R34">
-                            <rect key="frame" x="32.5" y="10" width="61" height="17"/>
+                            <rect key="frame" x="33" y="10" width="60" height="16.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="12"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2BT-cN-BGi">
-                            <rect key="frame" x="41" y="30.5" width="44" height="24"/>
+                            <rect key="frame" x="41.5" y="30" width="43" height="23.5"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="17"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
