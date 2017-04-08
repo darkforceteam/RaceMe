@@ -12,6 +12,13 @@ struct Constants {
     struct UnitExchange {
         static let ONE_KM_IN_MILE = 0.621371
     }
+    static let PUBLIC_GEOFIRE = "PUBLIC_GEOFIRE"
+    struct PublicRoute{
+        static let TABLE_NAME = "PUBLIC_ROUTES"
+        static let ROUTE_DISTANCE = "DISTANCE"
+        static let START_LOC = "START_LOC"
+        static let END_LOC = "END_LOC"
+    }
     struct Route{
         static let TABLE_NAME = "ROUTES"
         static let ROUTE_DISTANCE = "DISTANCE"
@@ -44,5 +51,12 @@ struct Constants {
         static let ROUTE_ID = "route_id"
         static let START_LOC = "start_loc"
         static let START_TIME = "start_time"
+    }
+    
+    struct Group {
+        static let NAME = "name"
+        static let DESCRIPTION = "description"
+        static let CREATOR = "creator"
+        static let BANNER = "banner"
     }
 }

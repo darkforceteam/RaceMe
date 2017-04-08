@@ -27,6 +27,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRAuth.auth()!.addStateDidChangeListener { (auth, user) in
             if user != nil {
                 
+                // Explore View Controller
+                let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
+                let exploreNavVC = UINavigationController()
+                exploreNavVC.addChildViewController(exploreViewController)
+                exploreNavVC.navigationBar.barTintColor = primaryColor
+                exploreNavVC.navigationBar.isTranslucent = false
+                exploreNavVC.navigationBar.topItem?.title = "Explore"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                } else {
+                    exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                }
+                exploreNavVC.navigationBar.barStyle = UIBarStyle.black
+                exploreNavVC.navigationBar.tintColor = .white
+                exploreNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+                exploreNavVC.navigationBar.shadowImage = UIImage()
+                exploreViewController.tabBarItem.title = "Explore"
+                exploreViewController.tabBarItem.image = UIImage(named: "ic_explore")
+                
+                // Challenge View Controller
+                let challengeViewController = ChallengeViewController(nibName: "ChallengeViewController", bundle: nil)
+                let challengeNavVC = UINavigationController()
+                challengeNavVC.addChildViewController(challengeViewController)
+                challengeNavVC.navigationBar.barTintColor = primaryColor
+                challengeNavVC.navigationBar.isTranslucent = false
+                challengeNavVC.navigationBar.topItem?.title = "Challenges"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    challengeNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                } else {
+                    challengeNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                }
+                challengeNavVC.navigationBar.barStyle = UIBarStyle.black
+                challengeNavVC.navigationBar.tintColor = .white
+                challengeNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+                challengeNavVC.navigationBar.shadowImage = UIImage()
+                challengeViewController.tabBarItem.title = "Challenges"
+                challengeViewController.tabBarItem.image = UIImage(named: "ic_stars")
+
+                // Tracking View Controller                
+                let recordNavVC = UINavigationController(rootViewController: RecordViewController())
+                recordNavVC.tabBarItem.title = "Tracking"
+                recordNavVC.tabBarItem.image = UIImage(named: "ic_play_circle_filled")
+                recordNavVC.topViewController?.navigationItem.title = "Tracking"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                }
+                recordNavVC.navigationBar.barTintColor = primaryColor
+                recordNavVC.navigationBar.tintColor = .white
+                recordNavVC.navigationBar.barStyle = UIBarStyle.black
+                
+                // Group View Controller
+                let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
+                let groupNavVC = UINavigationController()
+                groupNavVC.addChildViewController(groupViewController)
+                groupNavVC.navigationBar.barTintColor = primaryColor
+                groupNavVC.navigationBar.isTranslucent = false
+                groupNavVC.navigationBar.topItem?.title = "Group"
+                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
+                    groupNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
+                } else {
+                    groupNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+                }
+                groupNavVC.navigationBar.barStyle = UIBarStyle.black
+                groupNavVC.navigationBar.tintColor = .white
+                groupNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+                groupNavVC.navigationBar.shadowImage = UIImage()
+                groupViewController.tabBarItem.title = "Group"
+                groupViewController.tabBarItem.image = UIImage(named: "ic_group_work")
+
                 // Profile View Controller
                 let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
                 let profileNavVC = UINavigationController()
@@ -44,63 +113,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 profileNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
                 profileNavVC.navigationBar.shadowImage = UIImage()
                 profileViewController.tabBarItem.title = "Me"
-                profileViewController.tabBarItem.image = UIImage(named: "profile")
-
-                // Tracking View Controller                
-                let recordNavVC = UINavigationController(rootViewController: RecordViewController())
-                recordNavVC.tabBarItem.title = "Tracking"
-                recordNavVC.tabBarItem.image = UIImage(named: "map-pin")
-                recordNavVC.topViewController?.navigationItem.title = "Tracking"
-                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
-                    recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
-                }
-                
-                recordNavVC.navigationBar.barTintColor = primaryColor
-                recordNavVC.navigationBar.tintColor = .white
-                recordNavVC.navigationBar.barStyle = UIBarStyle.black
-
-                // Set up the Explore View Controller
-                let exploreViewController = ExploreViewController(nibName: "ExploreViewController", bundle: nil)
-                let exploreNavVC = UINavigationController()
-                exploreNavVC.addChildViewController(exploreViewController)
-                exploreNavVC.navigationBar.barTintColor = primaryColor
-                exploreNavVC.navigationBar.isTranslucent = false
-                exploreNavVC.navigationBar.topItem?.title = "Explore"
-                if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
-                    exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
-                } else {
-                    exploreNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
-                }
-                exploreNavVC.navigationBar.barStyle = UIBarStyle.black
-                exploreNavVC.navigationBar.tintColor = .white
-                exploreNavVC.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
-                exploreNavVC.navigationBar.shadowImage = UIImage()
-                exploreViewController.tabBarItem.title = "Explore"
-                exploreViewController.tabBarItem.image = UIImage(named: "radar")
+                profileViewController.tabBarItem.image = UIImage(named: "ic_account_circle")
                 
                 // Tab Bar Controller
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
-                tabBarController.tabBar.barTintColor = lightColor
-                tabBarController.viewControllers = [exploreNavVC, recordNavVC, profileNavVC]
-                tabBarController.selectedIndex = 1
+                tabBarController.tabBar.barTintColor = .white
+                tabBarController.viewControllers = [exploreNavVC, challengeNavVC, recordNavVC, groupNavVC, profileNavVC]
+                tabBarController.selectedIndex = 2
                 
                 // Make the Tab Bar Controller the root view controller
                 self.window?.rootViewController = tabBarController
                 self.window?.makeKeyAndVisible()
             } else {
-                var initialViewController: UIViewController?
-                initialViewController = LoginViewController(nibName: "LoginViewController", bundle: nil)
-                self.window?.rootViewController = initialViewController
+                self.window?.rootViewController = LoginVC()
                 self.window?.makeKeyAndVisible()
             }
         }
         
         return SDKApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
     }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        return SDKApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
+
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool{
+        return SDKApplicationDelegate.shared.application(app, open: url, options: options)
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

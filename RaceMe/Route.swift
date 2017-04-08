@@ -10,19 +10,18 @@ import UIKit
 import CoreLocation
 import FirebaseDatabase
 class Route: NSObject {
-    var distance: String = ""
+    var distance = 0.0
     var locations = [CLLocationCoordinate2D]()
-    var isPublic = false
+    var name: String = ""
     var events = [Event]()
     var todayEvents = [Event]()
     var tomorrowEvents = [Event]()
     var laterEvents = [Event]()
     var displayEvent: Event?
     var routeId: String!
+    var firstEventDay = 0
     func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
-        case "0":
-            return 0
         case "1":
             return (self.todayEvents.first?.participants.count)!
         case "2":
@@ -36,12 +35,15 @@ class Route: NSObject {
     func setFirstEvent(){
         if todayEvents.count > 0 {
             displayEvent = todayEvents[0] as Event
+            firstEventDay = 1
             print("First Event is at \(displayEvent?.start_time)")
         } else if tomorrowEvents.count > 0 {
             displayEvent = tomorrowEvents[0] as Event
+            firstEventDay = 2
             print("First Event is at \(displayEvent?.start_time)")
         } else if laterEvents.count > 0 {
             displayEvent = laterEvents[0] as Event
+            firstEventDay = 3
             print("First Event is at \(displayEvent?.start_time)")
         } else {
             displayEvent = nil
@@ -67,9 +69,9 @@ class Route: NSObject {
             } else {
                 if let key = loc.key as String? {
                     if key == "DISTANCE" {
-                        distance = "\(loc.value!)"
-                    } else if key == "PUBLIC" {
-                        isPublic = true
+                        distance = loc.value! as! Double
+                    } else if key == "NAME" {
+                        name = loc.value! as! String
                     } else {
 
                     }

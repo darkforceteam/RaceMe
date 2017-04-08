@@ -75,7 +75,7 @@ class RouteDetailVC: UIViewController {
         }
     }
     func loadRoute(){
-        self.ref.child(Constants.Route.TABLE_NAME+"/"+routeId).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child(Constants.PublicRoute.TABLE_NAME+"/"+routeId).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
         let route = Route(locationsData: snapshot)
         route.routeId = self.routeId
         if route.locations.count > 0 {

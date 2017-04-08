@@ -88,7 +88,7 @@ extension UIApplication {
     }
 }
 
-let labelGray1 = UIColor(166, 175, 182)
+let labelGray1 = UIColor(109, 109, 114)
 let labelGray2 = UIColor(84, 106, 120)
 let imageGray = UIColor(92, 112, 126)
 let goRunning = UIColor(136, 192, 87)

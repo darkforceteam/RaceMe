@@ -35,7 +35,7 @@ class ProfileViewController: UIViewController {
         let editButton = UIBarButtonItem(image: UIImage(named: "pencil"), style: .plain, target: self, action: #selector(ProfileViewController.editProfile))
         navigationItem.rightBarButtonItem = editButton
         
-        let notificationsButton = UIBarButtonItem(image: UIImage(named: "notifications"), style: .plain, target: self, action: #selector(ProfileViewController.notifications))
+        // let notificationsButton = UIBarButtonItem(image: UIImage(named: "notifications"), style: .plain, target: self, action: #selector(ProfileViewController.notifications))
         // navigationItem.leftBarButtonItem = notificationsButton
     }
     
