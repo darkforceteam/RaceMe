@@ -247,7 +247,8 @@ class ExploreViewController: UIViewController {
                     dataTask.resume()
                 } else {
                     routeMarker.setTitleDistance()
-                    routeMarker.image = UIImage(named: "run-pin")!
+                    routeMarker.image = UIImage(named: "pin-run")?.withRenderingMode(.alwaysTemplate)
+                    routeMarker.tintColor = successColor
                     pin.title = routeMarker.title
                     pin.AnnoView = routeMarker
                     self.mapView.addAnnotation(pin)
@@ -256,7 +257,7 @@ class ExploreViewController: UIViewController {
             })
         } else {
             routeMarker.setTitleDistance()
-            routeMarker.image = UIImage(named: "run-pin")!
+            routeMarker.image = UIImage(named: "pin-run")
             pin.title = routeMarker.title
             pin.AnnoView = routeMarker
             self.mapView.addAnnotation(pin)
@@ -579,7 +580,7 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
     }
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
+        renderer.strokeColor = dangerColor
         renderer.lineWidth = 4.0
         return renderer
     }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddGroupViewController" customModule="RaceMe" customModuleProvider="target">
+            <connections>
+                <outlet property="descTextField" destination="0KU-uw-6ey" id="AFc-Pa-xMu"/>
+                <outlet property="nameTextField" destination="ZO1-Zw-FGZ" id="bFY-DL-1aE"/>
+                <outlet property="uploadImageButton" destination="caj-af-tis" id="z2p-ag-qKb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="565"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Group Name" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="ZO1-Zw-FGZ">
+                    <rect key="frame" x="15" y="150" width="290" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="mc7-R7-Q7i"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                </textField>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pjv-T9-ohJ">
+                    <rect key="frame" x="0.0" y="195" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="OxQ-8a-Agv"/>
+                    </constraints>
+                </view>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Group Description" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="0KU-uw-6ey">
+                    <rect key="frame" x="15" y="196" width="290" height="45"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="7H9-cW-cXJ"/>
+                    </constraints>
+                    <nil key="textColor"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="caj-af-tis">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="150"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="150" id="z02-po-3E9"/>
+                    </constraints>
+                    <state key="normal" image="image-upload-placeholder"/>
+                    <connections>
+                        <action selector="uploadImage:" destination="-1" eventType="touchUpInside" id="tlh-9G-nL0"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="caj-af-tis" secondAttribute="trailing" id="Auf-sf-czw"/>
+                <constraint firstItem="Pjv-T9-ohJ" firstAttribute="top" secondItem="ZO1-Zw-FGZ" secondAttribute="bottom" id="SFR-ar-aeT"/>
+                <constraint firstItem="0KU-uw-6ey" firstAttribute="top" secondItem="Pjv-T9-ohJ" secondAttribute="bottom" id="Sgv-Fh-LTW"/>
+                <constraint firstItem="0KU-uw-6ey" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="VQb-RG-dSj"/>
+                <constraint firstItem="Pjv-T9-ohJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Wch-xu-53C"/>
+                <constraint firstItem="caj-af-tis" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="e4b-EE-Cgy"/>
+                <constraint firstItem="caj-af-tis" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gNI-NH-0ut"/>
+                <constraint firstItem="ZO1-Zw-FGZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="k5T-EM-Uyw"/>
+                <constraint firstItem="ZO1-Zw-FGZ" firstAttribute="top" secondItem="caj-af-tis" secondAttribute="bottom" id="lqC-m5-z79"/>
+                <constraint firstAttribute="trailing" secondItem="0KU-uw-6ey" secondAttribute="trailing" constant="15" id="qbG-KD-1Kb"/>
+                <constraint firstAttribute="trailing" secondItem="Pjv-T9-ohJ" secondAttribute="trailing" id="yCP-lD-RVG"/>
+                <constraint firstAttribute="trailing" secondItem="ZO1-Zw-FGZ" secondAttribute="trailing" constant="15" id="zNx-z6-fMn"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="92" y="-45.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="image-upload-placeholder" width="320" height="150"/>
+    </resources>
+</document>

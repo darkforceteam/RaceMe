@@ -40,7 +40,7 @@
 	<key>FacebookAppID</key>
 	<string>387914321582592</string>
 	<key>FacebookDisplayName</key>
-	<string>CICRun</string>
+	<string>WeRun</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GroupViewController" customModule="RaceMe" customModuleProvider="target">
             <connections>
+                <outlet property="tableView" destination="0l0-0d-sPK" id="4gj-KH-oun"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -18,7 +19,20 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0l0-0d-sPK">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                </tableView>
+            </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="0l0-0d-sPK" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Eeb-AV-uXr"/>
+                <constraint firstAttribute="trailing" secondItem="0l0-0d-sPK" secondAttribute="trailing" id="Ta6-FO-zue"/>
+                <constraint firstAttribute="bottom" secondItem="0l0-0d-sPK" secondAttribute="bottom" id="u98-kp-E8Z"/>
+                <constraint firstItem="0l0-0d-sPK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uNM-OX-6VY"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
         </view>
     </objects>

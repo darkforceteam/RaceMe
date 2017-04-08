@@ -52,4 +52,11 @@ struct Constants {
         static let START_LOC = "start_loc"
         static let START_TIME = "start_time"
     }
+    
+    struct Group {
+        static let NAME = "name"
+        static let DESCRIPTION = "description"
+        static let CREATOR = "creator"
+        static let BANNER = "banner"
+    }
 }

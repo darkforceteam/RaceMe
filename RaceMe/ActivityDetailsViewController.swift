@@ -7,9 +7,9 @@
 //
 
 import UIKit
-
+import FirebaseDatabase
 class ActivityDetailsViewController: UIViewController {
-    
+    var ref: FIRDatabaseReference!
     var workout: Workout!
     var locations = [CLLocation]()
     
@@ -23,8 +23,13 @@ class ActivityDetailsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        ref = FIRDatabase.database().reference()
+        mapView.delegate = self
         // Do any additional setup after loading the view.
+        if (workout) != nil {
+            loadRoute(routeid: workout.routeId!)
+            loadUser(uid: workout.userId)
+        }
         avatarImageView.layer.cornerRadius = avatarImageView.frame.width / 2
         avatarImageView.clipsToBounds = true
         
@@ -38,5 +43,52 @@ class ActivityDetailsViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+}
+extension ActivityDetailsViewController: MKMapViewDelegate{
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = dangerColor
+        renderer.lineWidth = 4.0
+        return renderer
+    }
+    
+    func loadUser(uid: String) {
+        if uid != "" {
+            self.ref.child("USERS/\(uid)").observeSingleEvent(of: .value, with: { (snapshot) in
+                let user = User(snapshot: snapshot)
+                self.avatarImageView.setImageWith(URL(string: user.photoUrl!)!)
+                self.displayNameLabel.text = user.displayName
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func loadRoute(routeid: String){
+        if routeid != "" {
+            print(routeid)
+            self.ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
+                let route = Route(locationsData: snapshot)
+                route.routeId = routeid
+                if route.locations.count > 0 {
+                    self.drawRoute(route: route)
+                }
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    func drawRoute(route: Route){
+        //TODO: move span value to a global constant so that all mapview show the same zoom level
+        let span = MKCoordinateSpanMake(0.009, 0.009)
+        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
+        mapView.setRegion(myRegion, animated: false)
+        let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
+        mapView.add(myPolyline)
+        //TODO: set center to the middle point of the route. HTF can I calculate that?
+        mapView.setCenter((route.locations.first)!, animated: true)
     }
 }
