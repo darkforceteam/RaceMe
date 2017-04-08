@@ -16,7 +16,6 @@ struct Group {
     var name: String!
     var creator: String!
     var description: String?
-    var avatar: String?
     var banner: String?
     
     init(snapshot: FIRDataSnapshot){
@@ -25,7 +24,22 @@ struct Group {
         name = (snapshot.value! as! NSDictionary)["name"] as! String
         creator = (snapshot.value! as! NSDictionary)["creator"] as! String
         description = (snapshot.value! as! NSDictionary)["description"] as? String
-        avatar = (snapshot.value! as! NSDictionary)["avatar"] as? String
         banner = (snapshot.value! as! NSDictionary)["banner"] as? String
+    }
+    
+    init(name: String, description: String, banner: String) {
+        self.name = name
+        self.description = description
+        self.banner = banner
+        self.creator = FIRAuth.auth()!.currentUser?.uid
+    }
+    
+    func toAnyObject() -> Any {
+        return [
+            Constants.Group.NAME: name,
+            Constants.Group.DESCRIPTION: description,
+            Constants.Group.CREATOR: creator,
+            Constants.Group.BANNER: banner,
+        ]
     }
 }

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GroupDetailViewController" customModule="RaceMe" customModuleProvider="target">
+            <connections>
+                <outlet property="groupBannerImageview" destination="GKt-Xo-PDZ" id="l9k-cN-qaX"/>
+                <outlet property="groupDescriptionLabel" destination="OXQ-2n-wuK" id="NbR-rZ-TwM"/>
+                <outlet property="groupNameLabel" destination="8fI-19-SHf" id="XRo-6o-cu4"/>
+                <outlet property="joinButton" destination="t5B-sq-6XA" id="yG6-Ok-Qal"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GKt-Xo-PDZ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="140" id="Ezg-Hb-meN"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Name" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8fI-19-SHf">
+                    <rect key="frame" x="30" y="155" width="260" height="23.5"/>
+                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
+                    <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Group Description" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OXQ-2n-wuK">
+                    <rect key="frame" x="15" y="188.5" width="290" height="18"/>
+                    <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                    <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t5B-sq-6XA">
+                    <rect key="frame" x="110" y="221.5" width="100" height="30"/>
+                    <color key="backgroundColor" red="0.47450980390000003" green="0.71764705880000002" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="cbd-1H-14o"/>
+                        <constraint firstAttribute="width" constant="100" id="dDN-Ys-Lrm"/>
+                    </constraints>
+                    <state key="normal" title="Join">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="GKt-Xo-PDZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1SH-Zc-9he"/>
+                <constraint firstItem="t5B-sq-6XA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="CUI-sC-8sT"/>
+                <constraint firstItem="t5B-sq-6XA" firstAttribute="top" secondItem="OXQ-2n-wuK" secondAttribute="bottom" constant="15" id="DeZ-ke-tfG"/>
+                <constraint firstAttribute="trailing" secondItem="8fI-19-SHf" secondAttribute="trailing" constant="30" id="Hot-dd-gkq"/>
+                <constraint firstItem="GKt-Xo-PDZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MCE-EL-0Mc"/>
+                <constraint firstItem="8fI-19-SHf" firstAttribute="top" secondItem="GKt-Xo-PDZ" secondAttribute="bottom" constant="15" id="TjV-29-BfL"/>
+                <constraint firstItem="OXQ-2n-wuK" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="cWy-2w-KbY"/>
+                <constraint firstAttribute="trailing" secondItem="OXQ-2n-wuK" secondAttribute="trailing" constant="15" id="mQT-1X-a95"/>
+                <constraint firstItem="8fI-19-SHf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="n8j-xG-lU5"/>
+                <constraint firstItem="OXQ-2n-wuK" firstAttribute="top" secondItem="8fI-19-SHf" secondAttribute="bottom" constant="10" id="oVZ-xa-DR5"/>
+                <constraint firstAttribute="trailing" secondItem="GKt-Xo-PDZ" secondAttribute="trailing" id="ouz-wR-o93"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-13" y="18"/>
+        </view>
+    </objects>
+</document>
