@@ -50,7 +50,15 @@ class Route: NSObject {
             print("NO EVENT FOUND")
         }
     }
-    
+    func removeEvent(eventId: String){
+        for i in 0..<events.count{
+            let event = events[i] as Event!
+            if event?.eventId == eventId{
+                events.remove(at: i)
+                break
+            }
+        }
+    }
     init(locationsData: FIRDataSnapshot){
         print("initializing Route")
         var locCount = 0

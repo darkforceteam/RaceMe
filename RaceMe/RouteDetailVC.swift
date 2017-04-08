@@ -59,20 +59,21 @@ class RouteDetailVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        ref.removeAllObservers()
-    }
     override func viewWillDisappear(_ animated: Bool) {
         needReloadEventData = false
+        if ref != nil{
+            ref.removeAllObservers()
+            eventRef.removeAllObservers()
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !needReloadEventData {
-            eventList.removeAll()
-            eventList = route.events
-            self.tableView.reloadData()
-        }
+//        if !needReloadEventData {
+//            eventList.removeAll()
+        loadSchedules()
+//            eventList = route.events
+//            self.tableView.reloadData()
+//        }
     }
     func loadRoute(){
         self.ref.child(Constants.PublicRoute.TABLE_NAME+"/"+routeId).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
@@ -97,36 +98,41 @@ class RouteDetailVC: UIViewController {
         mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
-        self.eventList.removeAll()
-        self.route.events.removeAll()
-        self.ref.child("EVENTS/").queryOrdered(byChild: "route_id").queryEqual(toValue: routeId).observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child("EVENTS/").queryOrdered(byChild: "route_id").queryEqual(toValue: routeId).observe(.value, with: { (snapshot) in
             if snapshot.hasChildren(){
+                self.eventList.removeAll()
+                self.route.events.removeAll()
                 let currentTime = NSDate().timeIntervalSince1970
-                print("TIME is \(currentTime) now")
-                print(snapshot)
+//                print("TIME is \(currentTime) now")
+                var eventCount = 0
                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     if let oneEvent = eventData.value as? NSDictionary{
                         let start_time = oneEvent.value(forKey: "start_time") as! Double
                         if start_time >= currentTime {
+                            eventCount += 1
                             let event_datetime = NSDate(timeIntervalSince1970: start_time )
                             let event = Event(route_id: "", start_time: event_datetime as Date)
+                            event.eventId = eventData.ref.key
+                            var runList = ""
                             if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
                                 for (key, _) in participants{
                                     event.participants.append(key as! String)
-                                    event.eventId = eventData.ref.key
+                                    runList.append("\(key) ")
                                 }
                             }
+                            
                             event.setFirstUser()
                             self.eventList.append(event)
+                            print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(event.firstUser?.displayName)")
                         } else {
-                            print("starttime \(start_time) is smalled than current time")
+//                            print("starttime \(start_time) is smalled than current time")
                         }
                     }
                 }
-                print(self.eventList)
+//                print(self.eventList)
                 self.route.events = self.eventList
                 self.route.setFirstEvent()
-                print("start refreshing data")
+//                print("start refreshing data")
                 self.tableView.reloadData()
             }
         })
@@ -149,6 +155,7 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleCell", for: indexPath) as! ScheduleCell
         let event = eventList[indexPath.row]
+        
         cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
         
         var strRunnerNum = " will run alone"
@@ -165,8 +172,8 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(eventList)
-        print("selected Item: \(indexPath.row)")
+//        print(eventList)
+//        print("selected Item: \(indexPath.row)")
         let scheduleVC = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
         scheduleVC.route = route
         let event = eventList[indexPath.row]

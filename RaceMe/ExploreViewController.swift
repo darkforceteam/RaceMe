@@ -37,6 +37,7 @@ class ExploreViewController: UIViewController {
     var tomorrowRoute = [Route]()
     var laterRoute = [Route]()
     var displayingTime = "0"
+    var newFilterDay = ""
     //    var myLoc = MKUserLocation()
     //    var myRegion = MKCoordinateRegion()
     var ref: FIRDatabaseReference!
@@ -97,7 +98,7 @@ class ExploreViewController: UIViewController {
         selectTimeVC.popoverPresentationController?.delegate = self
         selectTimeVC.popoverPresentationController?.sourceView = sender
         selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
-        selectTimeVC.preferredContentSize.height = 200
+        selectTimeVC.preferredContentSize.height = 160
         
         selectTimeVC.delegate = self
         // present the popover
@@ -114,9 +115,9 @@ class ExploreViewController: UIViewController {
     }
     func filterDataByTime(){
         do {
-            if displayingTime != "" {
-                selectTimeButton.titleLabel?.text = displayingTime
-                try filterRoutesData(newTime: displayingTime)
+            if newFilterDay != "" {
+                selectTimeButton.titleLabel?.text = newFilterDay
+                try filterRoutesData(newTime: newFilterDay)
                 try refreshDisplayRoute()
             }
         } catch {
@@ -267,6 +268,7 @@ class ExploreViewController: UIViewController {
 //        selectTimeButton.titleLabel?.text = selectedTime
 //        filterRoutesData(newTime: selectedTime)
 //        refreshDisplayRoute()
+        newFilterDay = selectedTime
         filterDataByTime()
     }
 
@@ -490,9 +492,9 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         }
         let castedAnno = annotation as! RoutePoint
         let annoView = castedAnno.AnnoView as! RouteAnnotation
-        
+
         annoView.canShowCallout = false
-        annoView.tintColor = UIColor.green
+//        annoView.tintColor = UIColor.green
 //        annoView.layer.cornerRadius = annoView.frame.width / 2
 //        annoView.layer.borderColor = UIColor.green.cgColor
 //        annoView.layer.borderWidth = 1
@@ -502,10 +504,28 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
             annoView.isSelected = true
         }
         
-        //        let lbl = annoView.viewWithTag(42) as! UILabel
-        //        lbl.text = castedAnno.title!
-        //        let tapGes = UITapGestureRecognizer(target: annoView, action: #selector(callOutTapped))
-        //        annoView.addGestureRecognizer(tapGes)
+//        let views = Bundle.main.loadNibNamed("CustomPinView", owner: nil, options: nil)
+//        let pinView = views?[0] as! CustomPinView
+//        pinView.titleLabel.text = annoView.title
+//        pinView.imageView.image = annoView.image
+//        annoView.addSubview(pinView)
+//        // Set size
+//        let widthConstraint = NSLayoutConstraint(item: pinView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80)
+//        let heightConstraint = NSLayoutConstraint(item: pinView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 20)
+//        var constraints = NSLayoutConstraint.constraints(
+//            withVisualFormat: "V:[superview]-(<=1)-[label]",
+//            options: NSLayoutFormatOptions.alignAllCenterX,
+//            metrics: nil,
+//            views: ["superview":annoView, "label":pinView])
+//        annoView.addConstraints(constraints)
+//        // Center vertically
+//        constraints = NSLayoutConstraint.constraints(
+//            withVisualFormat: "H:[superview]-(<=1)-[label]",
+//            options: NSLayoutFormatOptions.alignAllTop,
+//            metrics: nil,
+//            views: ["superview":annoView, "label":pinView])
+//        annoView.addConstraints(constraints)
+//        annoView.addConstraints([ widthConstraint, heightConstraint])
         
         return annoView
     }
