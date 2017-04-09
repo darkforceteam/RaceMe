@@ -45,7 +45,7 @@ class RouteDetailVC: UIViewController {
         addScheBtn.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
         generalInfoLabel.text = route.name
-        distanceLabel.text =  "\(route.distance.divided(by: 1000.0)) km"
+        distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
         
     }
     
@@ -117,7 +117,9 @@ class RouteDetailVC: UIViewController {
                             let event_datetime = NSDate(timeIntervalSince1970: start_time )
                             let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
                             event.eventId = eventData.ref.key
-                            event.targetDistance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT) as! Int
+                            if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT){
+                                event.targetDistance = distance as! Int
+                            }
                             var runList = ""
                             if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
                                 for (key, _) in participants{

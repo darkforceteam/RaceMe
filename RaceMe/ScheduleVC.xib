@@ -13,12 +13,14 @@
             <connections>
                 <outlet property="addScheBtn" destination="zdU-DT-dzH" id="fpe-5P-W3h"/>
                 <outlet property="cancelBtn" destination="aWf-0W-ijJ" id="SA9-3T-hJS"/>
+                <outlet property="coundownLabel" destination="ZiM-XH-aBB" id="22j-YQ-wSq"/>
                 <outlet property="dateTextField" destination="UrB-7I-7q0" id="OLP-tz-bXG"/>
                 <outlet property="generalInfoLabel" destination="Rh4-CM-JX0" id="TcW-Lf-kf0"/>
                 <outlet property="joinRunBtn" destination="Kyv-Yy-q7e" id="kbS-OA-yIv"/>
                 <outlet property="mapView" destination="jxm-Qt-wOy" id="aYB-bp-34o"/>
                 <outlet property="readyBtn" destination="6oj-A6-sqm" id="P73-bA-uEP"/>
                 <outlet property="startPosWarnLabel" destination="4A6-zT-owQ" id="T24-pR-a6W"/>
+                <outlet property="startTimeLabel" destination="QFI-VV-Urk" id="z2n-2k-0vs"/>
                 <outlet property="tableView" destination="BJx-M8-LAv" id="R2p-7A-j9y"/>
                 <outlet property="targetDistTextField" destination="fwI-2J-eCM" id="a0F-TU-37a"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -147,6 +149,12 @@
                         <action selector="joinRun:" destination="-1" eventType="touchUpInside" id="seT-qQ-s25"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZiM-XH-aBB">
+                    <rect key="frame" x="8" y="185" width="304" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -163,11 +171,13 @@
                 <constraint firstItem="jxm-Qt-wOy" firstAttribute="top" secondItem="Rh4-CM-JX0" secondAttribute="bottom" id="Bda-q5-YRi"/>
                 <constraint firstItem="fwI-2J-eCM" firstAttribute="leading" secondItem="UrB-7I-7q0" secondAttribute="leading" id="DM5-Yv-fj2"/>
                 <constraint firstItem="BJx-M8-LAv" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="DXd-ZI-DlT"/>
+                <constraint firstItem="ZiM-XH-aBB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="E95-dQ-uU9"/>
                 <constraint firstAttribute="trailing" secondItem="jxm-Qt-wOy" secondAttribute="trailing" id="FRz-td-jLT"/>
                 <constraint firstItem="GlM-yn-ExM" firstAttribute="top" secondItem="nvC-M1-r2Z" secondAttribute="bottom" constant="12" id="Hmp-Dg-gxS"/>
                 <constraint firstItem="Rh4-CM-JX0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Hqw-GH-jyH"/>
                 <constraint firstItem="aWf-0W-ijJ" firstAttribute="leading" secondItem="6oj-A6-sqm" secondAttribute="trailing" constant="8" id="JNb-Mc-rJw"/>
                 <constraint firstAttribute="trailing" secondItem="Kyv-Yy-q7e" secondAttribute="trailing" constant="8" id="Lmg-7r-MDT"/>
+                <constraint firstItem="ZiM-XH-aBB" firstAttribute="top" secondItem="jxm-Qt-wOy" secondAttribute="bottom" constant="4" id="NOm-OJ-yhk"/>
                 <constraint firstItem="fwI-2J-eCM" firstAttribute="top" secondItem="UrB-7I-7q0" secondAttribute="bottom" constant="8" id="Pxn-TM-0Mk"/>
                 <constraint firstItem="aWf-0W-ijJ" firstAttribute="centerY" secondItem="6oj-A6-sqm" secondAttribute="centerY" id="Qrl-yW-Sxg"/>
                 <constraint firstItem="aWf-0W-ijJ" firstAttribute="width" secondItem="6oj-A6-sqm" secondAttribute="width" id="WPA-K4-JyD"/>
@@ -175,6 +185,7 @@
                 <constraint firstItem="6oj-A6-sqm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="aG3-27-asO"/>
                 <constraint firstAttribute="bottom" secondItem="Kyv-Yy-q7e" secondAttribute="bottom" constant="51" id="asq-G5-MBz"/>
                 <constraint firstItem="6oj-A6-sqm" firstAttribute="top" secondItem="BJx-M8-LAv" secondAttribute="bottom" constant="8" id="cZx-eu-mq8"/>
+                <constraint firstItem="fwI-2J-eCM" firstAttribute="top" secondItem="ZiM-XH-aBB" secondAttribute="bottom" constant="8" id="fLC-kv-wqD"/>
                 <constraint firstItem="Rh4-CM-JX0" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="fMf-bM-Bvp"/>
                 <constraint firstAttribute="bottom" secondItem="aWf-0W-ijJ" secondAttribute="bottom" constant="51" id="fQK-MA-jTH"/>
                 <constraint firstItem="nvC-M1-r2Z" firstAttribute="centerY" secondItem="fwI-2J-eCM" secondAttribute="centerY" id="fyp-B3-aDq"/>
@@ -182,6 +193,7 @@
                 <constraint firstItem="cZF-NC-1oH" firstAttribute="leading" secondItem="fwI-2J-eCM" secondAttribute="trailing" constant="8" id="j8u-Ta-wHv"/>
                 <constraint firstItem="aWf-0W-ijJ" firstAttribute="height" secondItem="6oj-A6-sqm" secondAttribute="height" id="lnc-8A-A6P"/>
                 <constraint firstAttribute="trailing" secondItem="Rh4-CM-JX0" secondAttribute="trailing" constant="8" id="mPs-db-C2k"/>
+                <constraint firstAttribute="trailing" secondItem="ZiM-XH-aBB" secondAttribute="trailing" constant="8" id="nA4-WO-xYa"/>
                 <constraint firstItem="jxm-Qt-wOy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="nCm-Dj-Sv8"/>
                 <constraint firstAttribute="bottom" secondItem="zdU-DT-dzH" secondAttribute="bottom" constant="51" id="oLM-nE-B9o"/>
                 <constraint firstItem="BJx-M8-LAv" firstAttribute="top" secondItem="GlM-yn-ExM" secondAttribute="bottom" constant="8" id="oVR-1d-yEk"/>

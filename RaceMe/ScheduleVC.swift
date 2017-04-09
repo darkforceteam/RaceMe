@@ -27,6 +27,8 @@ class ScheduleVC: UIViewController {
     @IBOutlet weak var startPosWarnLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var coundownLabel: UILabel!
     @IBOutlet weak var targetDistTextField: UITextField!
     @IBOutlet weak var addScheBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
@@ -40,7 +42,7 @@ class ScheduleVC: UIViewController {
     var startDate: Date!
     var targetDistance: Int?
     var creatorId: String?
-    
+    var timer: Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -48,14 +50,25 @@ class ScheduleVC: UIViewController {
             let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
             eventRef = ref.child(eventPath)
             targetDistTextField.isEnabled = false
-            dateTextField.isEnabled = false
             if event?.targetDistance != nil {
-                targetDistTextField.text = "\(event!.targetDistance!)"
+                startTimeLabel.isHidden = false
+                dateTextField.isHidden = false
+                let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: Double((event?.targetDistance)!)))
                 
+                targetDistTextField.text = distStr
+            } else {
+                let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
+                targetDistTextField.text = distStr
             }
             if event?.start_time != nil {
-                //hide dateTextField, show CountDown
+                dateTextField.isHidden = true
+                startTimeLabel.isHidden = true
+                startCountDown()
             }
+        } else {
+            coundownLabel.isHidden = true
+            let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
+            targetDistTextField.text = distStr
         }
         
         mapView.delegate = self
@@ -159,7 +172,23 @@ class ScheduleVC: UIViewController {
     func cancelPicker() {
         dateTextField.resignFirstResponder()
     }
-    
+    func startCountDown(){
+        timer = Timer()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
+    func updateCounter(){
+        let now = Date()
+        let calendar = Calendar.current
+        let diff = calendar.dateComponents([.day, .hour, .minute, .second], from: now, to: (event?.start_time)!)
+//        print(diff)
+        if now < (event?.start_time)!
+        {
+            coundownLabel.text = "\(diff)"
+        } else {
+            //RACE TIME!
+            coundownLabel.text = "The run starts now!!!"
+        }
+    }
     func loadCurrentUser(){
         _ = ref.child("USERS/\(userId!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.value as? NSDictionary) != nil{
@@ -205,12 +234,17 @@ class ScheduleVC: UIViewController {
         {
             self.event?.targetDistance = Int(targetDistTextField.text!)
         }
+        startCountDown()
         route.events.append(self.event!)
         tableView.reloadData()
         self.view.bringSubview(toFront: readyBtn)
         self.view.bringSubview(toFront: cancelBtn)
         readyBtn.isHidden = false
         cancelBtn.isHidden = false
+        targetDistTextField.isEnabled = false
+        coundownLabel.isHidden = false
+        dateTextField.isHidden = true
+        startTimeLabel.isHidden = true
     }
     
     @IBAction func joinRun(_ sender: UIButton) {
@@ -255,6 +289,10 @@ class ScheduleVC: UIViewController {
                     self.view.bringSubview(toFront: self.joinRunBtn)
                     self.joinRunBtn.isHidden = false
                 } else {
+                    self.targetDistTextField.isEnabled = true
+                    self.dateTextField.isHidden = false
+                    self.startTimeLabel.isHidden = false
+                    self.coundownLabel.isHidden = true
                     self.view.bringSubview(toFront: self.addScheBtn)
                     self.addScheBtn.isHidden = false
                 }

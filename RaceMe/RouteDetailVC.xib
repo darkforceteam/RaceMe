@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina3_5" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -23,7 +23,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROUTE NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOg-MO-3h7">
@@ -39,15 +39,16 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="6bo-Qc-NuP">
-                    <rect key="frame" x="0.0" y="21" width="320" height="200"/>
+                    <rect key="frame" x="0.0" y="21" width="320" height="160"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="200" id="Fus-mG-jdN"/>
+                        <constraint firstAttribute="height" constant="160" id="Fus-mG-jdN"/>
                     </constraints>
                 </mapView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="srK-kq-6IA">
-                    <rect key="frame" x="8" y="229" width="148" height="45"/>
+                    <rect key="frame" x="8" y="472" width="148" height="45"/>
                     <color key="backgroundColor" red="0.50196081400000003" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="AkW-2H-60U"/>
                         <constraint firstAttribute="height" constant="45" id="ve3-kC-vBd"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
@@ -58,9 +59,24 @@
                         <action selector="runNow:" destination="-1" eventType="touchUpInside" id="Ps9-lq-bTW"/>
                     </connections>
                 </button>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FMR-iS-v0n">
+                    <rect key="frame" x="8" y="225" width="304" height="239"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </tableView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7fc-wQ-Jcq">
+                    <rect key="frame" x="8" y="189" width="304" height="29"/>
+                    <segments>
+                        <segment title="Scheduled Workouts"/>
+                        <segment title="Leaderboard"/>
+                        <segment title="Your records"/>
+                    </segments>
+                </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wOA-kA-7nZ">
-                    <rect key="frame" x="164" y="229" width="148" height="45"/>
+                    <rect key="frame" x="164" y="472" width="148" height="45"/>
                     <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="45" id="cV3-56-FIB"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="26"/>
                     <state key="normal" title="SCHEDULE">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -69,42 +85,30 @@
                         <action selector="addSchedule:" destination="-1" eventType="touchUpInside" id="bNO-eV-7vN"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FMR-iS-v0n">
-                    <rect key="frame" x="8" y="318" width="304" height="162"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                </tableView>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="7fc-wQ-Jcq">
-                    <rect key="frame" x="8" y="282" width="304" height="29"/>
-                    <segments>
-                        <segment title="Scheduled Workouts"/>
-                        <segment title="Leaderboard"/>
-                        <segment title="Your records"/>
-                    </segments>
-                </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="wOA-kA-7nZ" firstAttribute="height" secondItem="srK-kq-6IA" secondAttribute="height" id="6uh-FU-HQq"/>
+                <constraint firstItem="srK-kq-6IA" firstAttribute="top" secondItem="FMR-iS-v0n" secondAttribute="bottom" constant="8" id="0os-nb-99D"/>
                 <constraint firstAttribute="trailing" secondItem="FMR-iS-v0n" secondAttribute="trailing" constant="8" id="88o-Ov-pAo"/>
-                <constraint firstItem="wOA-kA-7nZ" firstAttribute="top" secondItem="srK-kq-6IA" secondAttribute="top" id="9p8-CM-1so"/>
-                <constraint firstItem="7fc-wQ-Jcq" firstAttribute="top" secondItem="srK-kq-6IA" secondAttribute="bottom" constant="8" id="BMP-20-w76"/>
-                <constraint firstItem="srK-kq-6IA" firstAttribute="top" secondItem="6bo-Qc-NuP" secondAttribute="bottom" constant="8" id="Bcn-Ef-lyy"/>
+                <constraint firstAttribute="bottom" secondItem="srK-kq-6IA" secondAttribute="bottom" constant="51" id="8zq-5h-MvZ"/>
+                <constraint firstItem="srK-kq-6IA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="ARo-id-tvH"/>
                 <constraint firstItem="FMR-iS-v0n" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="DNf-3z-TB7"/>
                 <constraint firstItem="wOg-MO-3h7" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="DgP-cq-dIn"/>
-                <constraint firstAttribute="trailing" secondItem="wOA-kA-7nZ" secondAttribute="trailing" constant="8" id="Dot-cV-DrJ"/>
+                <constraint firstItem="7fc-wQ-Jcq" firstAttribute="top" secondItem="6bo-Qc-NuP" secondAttribute="bottom" constant="8" id="Fzv-5P-Rtf"/>
                 <constraint firstItem="6bo-Qc-NuP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H5a-0p-p6u"/>
-                <constraint firstItem="wOA-kA-7nZ" firstAttribute="leading" secondItem="srK-kq-6IA" secondAttribute="trailing" constant="8" id="Ih8-Jb-zKK"/>
-                <constraint firstAttribute="bottom" secondItem="FMR-iS-v0n" secondAttribute="bottom" id="Jf2-74-yvy"/>
+                <constraint firstItem="wOA-kA-7nZ" firstAttribute="top" secondItem="srK-kq-6IA" secondAttribute="top" id="KR5-M1-C58"/>
                 <constraint firstItem="wOg-MO-3h7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="OYj-hh-G3F"/>
                 <constraint firstItem="Yaj-eX-Mnh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QZI-cr-Egy"/>
-                <constraint firstItem="srK-kq-6IA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="R1z-c5-vYE"/>
+                <constraint firstItem="wOA-kA-7nZ" firstAttribute="leading" secondItem="srK-kq-6IA" secondAttribute="trailing" constant="8" id="Tjf-9N-Sve"/>
                 <constraint firstAttribute="trailing" secondItem="6bo-Qc-NuP" secondAttribute="trailing" id="X4l-N1-10w"/>
+                <constraint firstAttribute="trailing" secondItem="wOA-kA-7nZ" secondAttribute="trailing" constant="8" id="XSk-FC-yXv"/>
                 <constraint firstAttribute="trailing" secondItem="Yaj-eX-Mnh" secondAttribute="trailing" constant="8" id="YVl-ae-iEW"/>
                 <constraint firstItem="Yaj-eX-Mnh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wOg-MO-3h7" secondAttribute="trailing" constant="4" id="cAN-Wo-p6g"/>
                 <constraint firstAttribute="trailing" secondItem="7fc-wQ-Jcq" secondAttribute="trailing" constant="8" id="eUh-aJ-XM6"/>
                 <constraint firstItem="6bo-Qc-NuP" firstAttribute="top" secondItem="wOg-MO-3h7" secondAttribute="bottom" id="fWD-g5-Dr1"/>
-                <constraint firstItem="wOA-kA-7nZ" firstAttribute="width" secondItem="srK-kq-6IA" secondAttribute="width" id="k0h-LU-Bx3"/>
+                <constraint firstItem="srK-kq-6IA" firstAttribute="width" secondItem="wOA-kA-7nZ" secondAttribute="width" id="g9N-X9-4I9"/>
                 <constraint firstItem="7fc-wQ-Jcq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="mTB-ca-pOJ"/>
+                <constraint firstAttribute="bottom" secondItem="wOA-kA-7nZ" secondAttribute="bottom" constant="51" id="t36-IQ-eFv"/>
                 <constraint firstItem="6bo-Qc-NuP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Yaj-eX-Mnh" secondAttribute="bottom" id="zYI-u7-brE"/>
                 <constraint firstItem="FMR-iS-v0n" firstAttribute="top" secondItem="7fc-wQ-Jcq" secondAttribute="bottom" constant="8" id="zsS-Pc-LEi"/>
             </constraints>

@@ -45,11 +45,13 @@ class RouteAnnotation: MKAnnotationView {
     }
     //    var startLoc: CLLocationCoordinate2D
     func setTitleDistance(){
-        self.title = "\(route.name): \(route.distance.divided(by: 1000.0)) km"
+        let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
+        self.title = "\(route.name): \(distStr) km"
     }
     
     func getNameDistance() -> String{
-        return "\(route.name): \(route.distance.divided(by: 1000.0)) km"
+        let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
+        return "\(route.name): \(distStr) km"
     }
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitView = super.hitTest(point, with: event)

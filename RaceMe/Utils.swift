@@ -28,4 +28,10 @@ class Utils: NSObject {
             }
         }
     }
+    static func distanceInKm(distanceInMeter: Double) -> Double{
+        return distanceInMeter/1000
+    }
+    static func distanceInMiles(distanceInMeter: Double) -> Double{
+        return distanceInMeter/1609.34
+    }
 }
