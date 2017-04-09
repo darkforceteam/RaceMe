@@ -23,11 +23,23 @@ class Route: NSObject {
     func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
         case "1":
-            return (self.todayEvents.first?.participants.count)!
+            if self.todayEvents.first != nil{
+                return (self.todayEvents.first?.participants.count)!
+            } else {
+                return 0
+            }
         case "2":
-            return (self.tomorrowEvents.first?.participants.count)!
+            if self.tomorrowEvents.first != nil {
+                return (self.tomorrowEvents.first?.participants.count)!
+            } else {
+                return 0
+            }
         case "3":
-            return (self.laterEvents.first?.participants.count)!
+            if self.laterEvents.first != nil {
+                return (self.laterEvents.first?.participants.count)!
+            } else {
+                return 0
+            }
         default:
             return 0
         }
@@ -50,6 +62,16 @@ class Route: NSObject {
             print("NO EVENT FOUND")
         }
     }
+    func removeEvent(eventId: String) {
+        for i in 0..<events.count{
+            let event = events[i] as Event!
+            if event?.eventId == eventId{
+                events.remove(at: i)
+                break
+            }
+        }
+    }
+
     
     init(locationsData: FIRDataSnapshot){
         print("initializing Route")

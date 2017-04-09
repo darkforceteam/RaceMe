@@ -54,6 +54,8 @@
 	<string>Allow $(PRODUCT_NAME) to access your camera.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your location is used to track your run distance, pace and route.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>WeRun need your location to track your run and display nearby route, people, challenges to you</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow WeRun to access your photo library.</string>
 	<key>UIAppFonts</key>

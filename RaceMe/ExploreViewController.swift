@@ -13,13 +13,31 @@ import MapKit
 import FirebaseAuth
 import FirebaseDatabase
 class ExploreViewController: UIViewController {
-    let locationManager = CLLocationManager()
+//    let locationManager = CLLocationManager()
+    fileprivate lazy var locationManager: CLLocationManager = {
+        var lm = CLLocationManager()
+        lm.delegate = self
+        lm.desiredAccuracy = kCLLocationAccuracyBest
+        lm.activityType = .fitness
+        lm.distanceFilter = 10.0
+        lm.requestAlwaysAuthorization()
+        lm.allowsBackgroundLocationUpdates = true
+        return lm
+    }()
+    let loadUrlImgSession: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 5
+        configuration.timeoutIntervalForResource = 5
+        return URLSession(configuration: configuration, delegate: nil, delegateQueue: nil)
+    }()
+    
     var allRoute = [Route]()
     var displayRoute = [Route]()
     var todayRoute = [Route]()
     var tomorrowRoute = [Route]()
     var laterRoute = [Route]()
     var displayingTime = "0"
+    var newFilterDay = ""
     //    var myLoc = MKUserLocation()
     //    var myRegion = MKCoordinateRegion()
     var ref: FIRDatabaseReference!
@@ -31,8 +49,13 @@ class ExploreViewController: UIViewController {
     //    var viewingTime = ""
     var foundCurrentLoc = false
     var routesChanged = false
+    var oldVersion = false
+    var nearByRouteCount = 0
+    var publicRouteInSpan = 0
     
     @IBOutlet weak var actIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var selectTimeButton: UIButton!
+    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,27 +65,28 @@ class ExploreViewController: UIViewController {
         geoRef = ref.child(Constants.PUBLIC_GEOFIRE)
         geoFire = GeoFire(firebaseRef: geoRef)
         userRef = ref.child("USERS")
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestAlwaysAuthorization()
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        if #available(iOS 9.0, *) {
+            locationManager.requestLocation()
+        } else {
+            oldVersion = true
+            locationManager.startUpdatingLocation()
+        }
         mapView.delegate = self
         mapView.showsUserLocation = true
-        locationManager.delegate = self
         mapView.isZoomEnabled = true;
         mapView.isScrollEnabled = true;
         mapView.isUserInteractionEnabled = true;
         mapView.setUserTrackingMode(.none, animated: true)
-        if #available(iOS 9.0, *) {
-            locationManager.requestLocation()
-        } else {
-            // Fallback on earlier versions
-        }
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestAlwaysAuthorization()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         actIndicator.isHidden = true
         actIndicator.hidesWhenStopped = true
         //        locationManager.startUpdatingLocation()
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
-                fixManuallyImportedRoutes()
-//        emptyPublicRoute()
+        fixManuallyImportedRoutes()
+        //        emptyPublicRoute()
     }
     
     @IBAction func selectTime(_ sender: UIButton) {
@@ -74,39 +98,59 @@ class ExploreViewController: UIViewController {
         selectTimeVC.popoverPresentationController?.delegate = self
         selectTimeVC.popoverPresentationController?.sourceView = sender
         selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
-        selectTimeVC.preferredContentSize.height = 200
+        selectTimeVC.preferredContentSize.height = 160
         
         selectTimeVC.delegate = self
         // present the popover
         self.present(selectTimeVC, animated: true, completion: nil)
     }
     
-    @IBOutlet weak var selectTimeButton: UIButton!
-    @IBOutlet weak var mapView: MKMapView!
-    
     override func viewWillAppear(_ animated: Bool){
-        if displayingTime != "" {
-            selectTimeButton.titleLabel?.text = displayingTime
-            filterRoutesData(newTime: displayingTime)
-            refreshDisplayRoute()
+        filterDataByTime()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        if mapView == nil {
+            print("mapview is null")
         }
     }
+    func filterDataByTime(){
+        do {
+            if newFilterDay != "" {
+                selectTimeButton.titleLabel?.text = newFilterDay
+                try filterRoutesData(newTime: newFilterDay)
+                try refreshDisplayRoute()
+            }
+        } catch {
+            print("ERROR!!!!!!: \(error)")
+        }
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        ref.removeAllObservers()
-        eventRef.removeAllObservers()
+        if ref != nil {
+            ref.removeAllObservers()
+            eventRef.removeAllObservers()
+        }
     }
-    func refreshDisplayRoute(){
-        let overlays = mapView.overlays
-        mapView.removeOverlays(overlays)
-        mapView.removeAnnotations(mapView.annotations)
+
+    func refreshDisplayRoute() throws {
+        if mapView.overlays.count > 0 {
+            mapView.removeOverlays(mapView.overlays)
+        }
+        if mapView.annotations.count > 0 {
+            mapView.removeAnnotations(mapView.annotations)
+        }
         
         for route in displayRoute {
-            drawRoute(route: route)
+            do {
+                try drawRoute(route: route)
+            } catch {
+                print("Error drawing route: \(error)")
+            }
         }
     }
     
-    func filterRoutesData(newTime: String){
+    func filterRoutesData(newTime: String) throws {
         displayRoute.removeAll()
         if newTime != displayingTime{
             switch newTime {
@@ -150,7 +194,7 @@ class ExploreViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func drawRoute(route: Route){
+    func drawRoute(route: Route) throws {
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
         print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
@@ -177,12 +221,15 @@ class ExploreViewController: UIViewController {
                     //                        routeMarker.imageView = UIImage(data: data as Data)!
                     //                    }
                     //                    self.loadAnnoImage(imageURL: routeMarker.pinCustomImage, anno: routeMarker)
+                    routeMarker.image = UIImage(named: "default-avatar")!
+                    firstUser.avatarImg = routeMarker.image
+                    routeMarker.route.displayEvent?.firstUser = firstUser
                     
                     let request = NSMutableURLRequest(url: URL(string: routeMarker.pinCustomImage)!)
                     request.httpMethod = "GET"
                     
-                    let session = URLSession(configuration: URLSessionConfiguration.default)
-                    let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+//                    let session = URLSession(configuration: URLSessionConfiguration.default)
+                    let dataTask = self.loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
                         if error == nil {
                             routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
                             firstUser.avatarImg = routeMarker.image
@@ -192,6 +239,9 @@ class ExploreViewController: UIViewController {
                                 pin.AnnoView = routeMarker
                                 self.mapView.addAnnotation(pin)
                             }
+                        } else {
+                            print("ERROR: \(error)")
+                            self.alert(message: "\(error)",title: "Error loading user avatar")
                         }
                     }
                     dataTask.resume()
@@ -216,15 +266,13 @@ class ExploreViewController: UIViewController {
     }
     
     func changeTime(selectTimeVC: SelectTimeViewController, selectedTime: String){
-        print("Selected value: \(selectedTime)")
-        //        displayingTime = selectedTime
-        //        viewingTime = selectedTime
-        selectTimeButton.titleLabel?.text = selectedTime
-        filterRoutesData(newTime: selectedTime)
-        refreshDisplayRoute()
+//        selectTimeButton.titleLabel?.text = selectedTime
+//        filterRoutesData(newTime: selectedTime)
+//        refreshDisplayRoute()
+        newFilterDay = selectedTime
+        filterDataByTime()
     }
-    var nearByRouteCount = 0
-    var publicRouteInSpan = 0
+
     func loadRoute(routeid: String){
         nearByRouteCount += 1
         print("\(nearByRouteCount). Route \(routeid)")
@@ -247,7 +295,6 @@ class ExploreViewController: UIViewController {
                         self.eventRef.queryOrdered(byChild: "route_id").queryEqual(toValue: routeid).observe(.value, with: {
                             //                        self.eventRef.queryEqual(toValue: routeid, childKey: "route_id").observeSingleEvent(of: .value, with: {
                             (snapshot) in
-                            print(snapshot)
                             if snapshot.hasChildren(){
                                 let currentTime = NSDate().timeIntervalSince1970
                                 route.events.removeAll()
@@ -279,11 +326,13 @@ class ExploreViewController: UIViewController {
                                     }
                                 }
                                 route.setFirstEvent()
-                                print("found \(route.events.count) event for \(routeid)")
-                                self.drawRoute(route: route)
+//                                print("found \(route.events.count) event for \(routeid)")
+                                
                             }
-                            else{
-                                self.drawRoute(route: route)
+                            do {
+                                try self.drawRoute(route: route)
+                            } catch {
+                                print("Error drawing route")
                             }
                         })
                         self.allRoute.append(route)
@@ -321,39 +370,40 @@ class ExploreViewController: UIViewController {
     func queryRouteInRegion(myRegion: MKCoordinateRegion){
         nearByRouteCount = 0
         publicRouteInSpan = 0
-
-        //get routes with start_loc in span from GEOFIRE
-        let regionQuery = geoFire?.query(with: myRegion)
-        actIndicator.isHidden = false
-        actIndicator.startAnimating()
-        
-        //        let center = CLLocation(latitude: myLoc.coordinate.latitude,longitude: myLoc.coordinate.longitude)
-        //        var circleQuery = geoFire?.query(at: center, withRadius: 10)
-        //        regionQuery?.observeReady({
-        //            print("All initial data has been loaded and events have been fired!")
-        //        })
-        // QueryCount 1: get Routes in Displaying Region using GeoFire
-        regionQuery?.observeReady({
-            if self.nearByRouteCount == 0{
-                self.actIndicator.stopAnimating()
-            }
-        })
-
-        _ = regionQuery?.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
-            //            print("Key '\(key)' entered the search area and is at location '\(location)'")
-            if !self.routesInSpanKey.contains(key!){
-                self.routesInSpanKey.append(key!)
-                self.loadRoute(routeid: key!)
-            }
-        })
-        routesChanged = true
+        if (myRegion.span.latitudeDelta > 0) && (myRegion.span.latitudeDelta < 120)
+            && (myRegion.span.longitudeDelta > 0) && (myRegion.span.longitudeDelta < 120){
+            //get routes with start_loc in span from GEOFIRE
+            let regionQuery = geoFire?.query(with: myRegion)
+            actIndicator.isHidden = false
+            actIndicator.startAnimating()
+            
+            //        let center = CLLocation(latitude: myLoc.coordinate.latitude,longitude: myLoc.coordinate.longitude)
+            //        var circleQuery = geoFire?.query(at: center, withRadius: 10)
+            //        regionQuery?.observeReady({
+            //            print("All initial data has been loaded and events have been fired!")
+            //        })
+            // QueryCount 1: get Routes in Displaying Region using GeoFire
+            regionQuery?.observeReady({
+                if self.nearByRouteCount == 0{
+                    self.actIndicator.stopAnimating()
+                }
+            })
+            
+            _ = regionQuery?.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
+                //            print("Key '\(key)' entered the search area and is at location '\(location)'")
+                if !self.routesInSpanKey.contains(key!){
+                    self.routesInSpanKey.append(key!)
+                    self.loadRoute(routeid: key!)
+                }
+            })
+            routesChanged = true
+        }
     }
     func loadAnnoImage(imageURL: String, anno: MKAnnotationView) {
         let request = NSMutableURLRequest(url: URL(string: imageURL)!)
         request.httpMethod = "GET"
-        
-        let session = URLSession(configuration: URLSessionConfiguration.default)
-        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+//        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let dataTask = loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
             if error == nil {
                 anno.image = UIImage(data: data!, scale: UIScreen.main.scale)
                 //                DispatchQueue.main.async {
@@ -416,14 +466,16 @@ class ExploreViewController: UIViewController {
 }
 extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate, SelectTimeViewControllerDelegate, MKMapViewDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //        if let location = locations.first {
-        //            myLat = location.coordinate.latitude
-        //            myLong = location.coordinate.longitude
-        //            let span = MKCoordinateSpanMake(0.18, 0.18)
-        //            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: myLat, longitude: myLong), span: span)
-        //            mapView.setRegion(region, animated: true)
-        //            locationManager.stopUpdatingLocation()
-        //        }
+        if oldVersion {
+                if let location = locations.first {
+                    let myLat = location.coordinate.latitude
+                    let myLong = location.coordinate.longitude
+                    let span = MKCoordinateSpanMake(0.18, 0.18)
+                    let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: myLat, longitude: myLong), span: span)
+                    mapView.setRegion(region, animated: true)
+                    locationManager.stopUpdatingLocation()
+                }
+        }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
@@ -441,9 +493,9 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         }
         let castedAnno = annotation as! RoutePoint
         let annoView = castedAnno.AnnoView as! RouteAnnotation
-        
+
         annoView.canShowCallout = false
-        annoView.tintColor = UIColor.green
+//        annoView.tintColor = UIColor.green
 //        annoView.layer.cornerRadius = annoView.frame.width / 2
 //        annoView.layer.borderColor = UIColor.green.cgColor
 //        annoView.layer.borderWidth = 1
@@ -453,10 +505,28 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
             annoView.isSelected = true
         }
         
-        //        let lbl = annoView.viewWithTag(42) as! UILabel
-        //        lbl.text = castedAnno.title!
-        //        let tapGes = UITapGestureRecognizer(target: annoView, action: #selector(callOutTapped))
-        //        annoView.addGestureRecognizer(tapGes)
+//        let views = Bundle.main.loadNibNamed("CustomPinView", owner: nil, options: nil)
+//        let pinView = views?[0] as! CustomPinView
+//        pinView.titleLabel.text = annoView.getNameDistance()
+//        pinView.imageView.image = annoView.image
+//        annoView.addSubview(pinView)
+//        // Set size
+//        let widthConstraint = NSLayoutConstraint(item: pinView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 80)
+//        let heightConstraint = NSLayoutConstraint(item: pinView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 20)
+//        var constraints = NSLayoutConstraint.constraints(
+//            withVisualFormat: "V:[superview]-(<=1)-[label]",
+//            options: NSLayoutFormatOptions.alignAllCenterX,
+//            metrics: nil,
+//            views: ["superview":annoView, "label":pinView])
+//        annoView.addConstraints(constraints)
+//        // Center vertically
+//        constraints = NSLayoutConstraint.constraints(
+//            withVisualFormat: "H:[superview]-(<=1)-[label]",
+//            options: NSLayoutFormatOptions.alignAllTop,
+//            metrics: nil,
+//            views: ["superview":annoView, "label":pinView])
+//        annoView.addConstraints(constraints)
+//        annoView.addConstraints([ widthConstraint, heightConstraint])
         
         return annoView
     }
@@ -521,4 +591,14 @@ extension Date {
         dateFormatter.dateFormat = "MMMM dd yyyy' at ' h:mm a."
         return dateFormatter.string(from: self)
     }
+}
+extension UIViewController {
+    
+    func alert(message: String, title: String = "") {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
 }
