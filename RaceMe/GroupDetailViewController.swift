@@ -19,7 +19,7 @@ class GroupDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        // getMembers(group_key: group.key!)
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
@@ -33,10 +33,6 @@ class GroupDetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        getMembers(group_key: group.key!)
     }
 }
 
@@ -92,10 +88,12 @@ extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource 
                 FIRDatabase.database().reference().child("USERS/\(memberData.key)").observeSingleEvent(of: .value, with: { (userSnapshot) in
                     let user = User(snapshot: userSnapshot)
                     self.members.append(user)
+                    print(self.members.count)
+                    self.tableView.reloadData()
                 })
             }
+            //self.tableView.reloadData()
         })
-        self.tableView.reloadData()
     }
 }
 
