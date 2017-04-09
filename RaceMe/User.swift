@@ -39,8 +39,17 @@ struct User {
         email = authData.email!
     }
     
-    init(uid: String, email: String) {
+    init(uid: String) {
         self.uid = uid
-        self.email = email
+    }
+    
+    func joinGroup(group_id: String) {
+        ref?.child("groups/\(group_id)").setValue(NSDate().timeIntervalSince1970 * 1000)
+        FIRDatabase.database().reference().child("\(group_id)/members/\(uid!)").setValue(NSDate().timeIntervalSince1970 * 1000)
+    }
+    
+    func leaveGroup(group_id: String) {
+        ref?.child("groups/\(group_id)").removeValue()
+        FIRDatabase.database().reference().child("\(group_id)/members/\(uid!)").removeValue()
     }
 }

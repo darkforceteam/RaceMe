@@ -18,6 +18,7 @@ class ActivitiesViewController: UIViewController {
     var sections = Dictionary<String, Array<Workout>>()
     var sortedSections = [String]()
     var workout: Workout!
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,9 @@ class ActivitiesViewController: UIViewController {
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
         tableView.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
         tableView.register(UINib(nibName: "UserInfoCell", bundle: nil), forCellReuseIdentifier: "UserInfoCell")
+        
+        refreshControl.addTarget(self, action: #selector(ActivitiesViewController.loadActivities), for: UIControlEvents.valueChanged)
+        tableView.addSubview(refreshControl)
     }
     
     override func didReceiveMemoryWarning() {
@@ -85,6 +89,7 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func loadActivities() {
+        sections = Dictionary<String, Array<Workout>>()
         ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: FIRAuth.auth()?.currentUser?.uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
                 for activityData in snapshot.children.allObjects as! [FIRDataSnapshot] {
@@ -102,6 +107,7 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
                     self.sortedSections = self.sections.keys.sorted().reversed()
                 }
                 self.tableView.reloadData()
+                self.refreshControl.endRefreshing()
             }
         })
     }

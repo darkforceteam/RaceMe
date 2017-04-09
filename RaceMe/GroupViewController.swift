@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import Firebase
+import FirebaseDatabase
 import MBProgressHUD
 
 class GroupViewController: UIViewController {
@@ -15,6 +15,7 @@ class GroupViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var groups = [Group]()
+    let ref = FIRDatabase.database().reference()
     let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
@@ -56,6 +57,9 @@ extension GroupViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "GroupCell", for: indexPath) as! GroupCell
         cell.nameLabel.text = groups[indexPath.row].name
+        groups[indexPath.row].memberCount { (count) in
+            cell.memberCountLabel.text = "\(count) Runners"
+        }
         cell.bannerImageView.setImageWith(URL(string: groups[indexPath.row].banner!)!)
         cell.selectionStyle = .none
         return cell
@@ -74,7 +78,7 @@ extension GroupViewController: UITableViewDelegate, UITableViewDataSource {
     
     func loadGroups() {
         groups = [Group]()
-        FIRDatabase.database().reference().child("GROUPS").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("GROUPS").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
                 for groupData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     let oneGroup = Group(snapshot: groupData)

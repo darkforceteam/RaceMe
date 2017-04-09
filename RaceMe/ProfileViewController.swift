@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import Firebase
 import FirebaseDatabase
 import FirebaseAuth
+
 import AFNetworking
 
 class ProfileViewController: UIViewController {
@@ -17,11 +17,12 @@ class ProfileViewController: UIViewController {
 
     var ref: FIRDatabaseReference!
     var workoutCount = 0
+    var uid: String = FIRAuth.auth()!.currentUser!.uid
 
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        loadUserInfo()
+        loadUserInfo(uid: uid)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
@@ -34,9 +35,6 @@ class ProfileViewController: UIViewController {
 
         let editButton = UIBarButtonItem(image: UIImage(named: "pencil"), style: .plain, target: self, action: #selector(ProfileViewController.editProfile))
         navigationItem.rightBarButtonItem = editButton
-        
-        // let notificationsButton = UIBarButtonItem(image: UIImage(named: "notifications"), style: .plain, target: self, action: #selector(ProfileViewController.notifications))
-        // navigationItem.leftBarButtonItem = notificationsButton
     }
     
     func editProfile() {
@@ -74,7 +72,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserProfileCell", for: indexPath) as! UserProfileCell
-            let userRef = ref.child("USERS/\(FIRAuth.auth()!.currentUser!.uid)")
+            let userRef = ref.child("USERS/\(uid)")
             userRef.observe(.value, with: { (snapshot) in
                 let user = User(snapshot: snapshot)
                 cell.nameLabel.text = user.displayName
@@ -128,12 +126,13 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func loadUserInfo() {
-        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: FIRAuth.auth()?.currentUser?.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+    func loadUserInfo( uid: String ) {
+        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
                 self.workoutCount = Int(snapshot.childrenCount)
                 self.tableView.reloadData()
             }
         })
+        
     }
 }
