@@ -12,7 +12,6 @@ target 'RaceMe' do
   pod 'Firebase/Storage'
   pod 'FacebookLogin'
   pod 'AFNetworking'
-  pod 'MBProgressHUD'
   pod 'Neon', '~> 0.4.0'
   pod 'WDImagePicker', :git => 'https://github.com/darkforceteam/WDImagePicker.git'
   
