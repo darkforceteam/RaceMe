@@ -350,7 +350,6 @@
 				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
 				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
 				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
-				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 				B61B85421E940C160008BCF3 /* SlideView.swift */,
 				B61B85401E940BFE0008BCF3 /* SlideView.xib */,
 				B24758FA1E969A7B009CF595 /* CustomCell.swift */,
@@ -488,6 +487,7 @@
 		D94C62D31E93D60E000E5A5E /* Explores */ = {
 			isa = PBXGroup;
 			children = (
+				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 				D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */,
 				D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */,
 				D9DA30C21E91F52C00F10849 /* CustomPinView.swift */,

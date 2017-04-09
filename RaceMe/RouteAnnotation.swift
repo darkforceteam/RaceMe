@@ -47,6 +47,10 @@ class RouteAnnotation: MKAnnotationView {
     func setTitleDistance(){
         self.title = "\(route.name): \(route.distance.divided(by: 1000.0)) km"
     }
+    
+    func getNameDistance() -> String{
+        return "\(route.name): \(route.distance.divided(by: 1000.0)) km"
+    }
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hitView = super.hitTest(point, with: event)
         if (hitView != nil)

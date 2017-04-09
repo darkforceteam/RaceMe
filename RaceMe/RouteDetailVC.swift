@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 class RouteDetailVC: UIViewController {
+    @IBOutlet weak var distanceLabel: UILabel!
     
     @IBOutlet weak var generalInfoLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -43,6 +44,9 @@ class RouteDetailVC: UIViewController {
         addScheBtn.backgroundColor = UIColor.orange
         addScheBtn.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
+        generalInfoLabel.text = route.name
+        distanceLabel.text =  "\(route.distance.divided(by: 1000.0)) km"
+        
     }
     
     @IBAction func addSchedule(_ sender: UIButton) {

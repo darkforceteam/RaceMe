@@ -12,6 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RouteDetailVC" customModule="RaceMe" customModuleProvider="target">
             <connections>
                 <outlet property="addScheBtn" destination="wOA-kA-7nZ" id="xFn-88-JBK"/>
+                <outlet property="distanceLabel" destination="Yaj-eX-Mnh" id="K2Y-cK-jrB"/>
                 <outlet property="generalInfoLabel" destination="wOg-MO-3h7" id="qip-1v-gRc"/>
                 <outlet property="infoSegment" destination="7fc-wQ-Jcq" id="Mng-AD-EO2"/>
                 <outlet property="mapView" destination="6bo-Qc-NuP" id="JYX-sK-rDx"/>
@@ -26,7 +27,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ROUTE NAME" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wOg-MO-3h7">
-                    <rect key="frame" x="8" y="0.0" width="304" height="21"/>
+                    <rect key="frame" x="8" y="0.0" width="108" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yaj-eX-Mnh">
+                    <rect key="frame" x="245" y="0.0" width="67" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -88,16 +95,20 @@
                 <constraint firstItem="6bo-Qc-NuP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H5a-0p-p6u"/>
                 <constraint firstItem="wOA-kA-7nZ" firstAttribute="leading" secondItem="srK-kq-6IA" secondAttribute="trailing" constant="8" id="Ih8-Jb-zKK"/>
                 <constraint firstAttribute="bottom" secondItem="FMR-iS-v0n" secondAttribute="bottom" id="Jf2-74-yvy"/>
-                <constraint firstAttribute="trailing" secondItem="wOg-MO-3h7" secondAttribute="trailing" constant="8" id="NOk-mr-Nm5"/>
                 <constraint firstItem="wOg-MO-3h7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="OYj-hh-G3F"/>
+                <constraint firstItem="Yaj-eX-Mnh" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="QZI-cr-Egy"/>
                 <constraint firstItem="srK-kq-6IA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="R1z-c5-vYE"/>
                 <constraint firstAttribute="trailing" secondItem="6bo-Qc-NuP" secondAttribute="trailing" id="X4l-N1-10w"/>
+                <constraint firstAttribute="trailing" secondItem="Yaj-eX-Mnh" secondAttribute="trailing" constant="8" id="YVl-ae-iEW"/>
+                <constraint firstItem="Yaj-eX-Mnh" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="wOg-MO-3h7" secondAttribute="trailing" constant="4" id="cAN-Wo-p6g"/>
                 <constraint firstAttribute="trailing" secondItem="7fc-wQ-Jcq" secondAttribute="trailing" constant="8" id="eUh-aJ-XM6"/>
                 <constraint firstItem="6bo-Qc-NuP" firstAttribute="top" secondItem="wOg-MO-3h7" secondAttribute="bottom" id="fWD-g5-Dr1"/>
                 <constraint firstItem="wOA-kA-7nZ" firstAttribute="width" secondItem="srK-kq-6IA" secondAttribute="width" id="k0h-LU-Bx3"/>
                 <constraint firstItem="7fc-wQ-Jcq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="mTB-ca-pOJ"/>
+                <constraint firstItem="6bo-Qc-NuP" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Yaj-eX-Mnh" secondAttribute="bottom" id="zYI-u7-brE"/>
                 <constraint firstItem="FMR-iS-v0n" firstAttribute="top" secondItem="7fc-wQ-Jcq" secondAttribute="bottom" constant="8" id="zsS-Pc-LEi"/>
             </constraints>
+            <point key="canvasLocation" x="28" y="43"/>
         </view>
     </objects>
 </document>

@@ -507,7 +507,7 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
         
 //        let views = Bundle.main.loadNibNamed("CustomPinView", owner: nil, options: nil)
 //        let pinView = views?[0] as! CustomPinView
-//        pinView.titleLabel.text = annoView.title
+//        pinView.titleLabel.text = annoView.getNameDistance()
 //        pinView.imageView.image = annoView.image
 //        annoView.addSubview(pinView)
 //        // Set size
