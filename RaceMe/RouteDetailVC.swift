@@ -120,10 +120,34 @@ class RouteDetailVC: UIViewController {
                                     runList.append("\(key) ")
                                 }
                             }
-                            
-                            event.setFirstUser()
-                            self.eventList.append(event)
-                            print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(event.firstUser?.displayName)")
+                            //.setFirstUser DOESN'T WORK, PERHAPS IT TAKES TO LONG TO LOAD USER PHOTO
+//                            event.setFirstUser()
+                            FIRDatabase.database().reference().child("USERS/\(event.participants[0])").observeSingleEvent(of: .value, with: { (snapshot) in
+                                event.firstUser = UserObject(snapshot: snapshot)
+                                
+                                let request = NSMutableURLRequest(url: URL(string: (event.firstUser?.photoUrl!)!)!)
+                                request.httpMethod = "GET"
+                                
+                                let session = URLSession(configuration: URLSessionConfiguration.default)
+                                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                    if error == nil {
+                                        DispatchQueue.main.async {
+                                            event.firstUser?.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                            self.eventList.append(event)
+                                            var strFirstName = "NIL"
+                                            if let user = event.firstUser as UserObject?{
+                                                strFirstName = user.displayName!
+                                            }
+                                            print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(strFirstName)")
+                                            self.route.events.append(event)
+                                            self.route.setFirstEvent()
+                                            self.tableView.reloadData()
+                                        }
+                                    }
+                                }
+                                dataTask.resume()
+                                
+                            })
                         } else {
 //                            print("starttime \(start_time) is smalled than current time")
                         }
@@ -155,7 +179,11 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleCell", for: indexPath) as! ScheduleCell
         let event = eventList[indexPath.row]
-        
+        var strFirstName = "NIL"
+        if let user = event.firstUser as UserObject?{
+            strFirstName = user.displayName!
+        }
+        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
         cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
         
         var strRunnerNum = " will run alone"

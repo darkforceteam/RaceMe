@@ -71,6 +71,7 @@
                     <segments>
                         <segment title="Scheduled Workouts"/>
                         <segment title="Leaderboard"/>
+                        <segment title="Your records"/>
                     </segments>
                 </segmentedControl>
             </subviews>
