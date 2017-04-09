@@ -39,9 +39,8 @@ struct User {
         email = authData.email!
     }
     
-    init(uid: String, email: String) {
+    init(uid: String) {
         self.uid = uid
-        self.email = email
     }
     
     func joinGroup(group_id: String) {

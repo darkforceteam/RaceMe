@@ -64,4 +64,12 @@ struct Group {
         ref?.child("members/\(uid)").removeValue()
         FIRDatabase.database().reference().child("USERS/\(uid)/groups/\(key!)").removeValue()
     }
+    
+    func memberCount(completion: @escaping (UInt) -> ()) {
+        var count = UInt()
+        ref?.child("members").observeSingleEvent(of: .value, with: { (snapshot) in
+            count = snapshot.childrenCount
+            completion(count)
+        })
+    }
 }

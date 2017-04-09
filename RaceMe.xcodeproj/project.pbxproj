@@ -71,6 +71,10 @@
 		B6946A381E97F3F500931B0F /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6946A361E97F3F500931B0F /* ChallengeViewController.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
+		B6B068B71E9A4B8B0095875D /* GroupInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B068B51E9A4B8B0095875D /* GroupInfoCell.swift */; };
+		B6B068B81E9A4B8B0095875D /* GroupInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6B068B61E9A4B8B0095875D /* GroupInfoCell.xib */; };
+		B6B068BB1E9A750C0095875D /* MemberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B068B91E9A750C0095875D /* MemberCell.swift */; };
+		B6B068BC1E9A750C0095875D /* MemberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6B068BA1E9A750C0095875D /* MemberCell.xib */; };
 		B6BB4BF51E86C7EF0054C965 /* RightDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */; };
 		B6BB4BF61E86C7EF0054C965 /* RightDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */; };
 		B6BB4BF91E86CE610054C965 /* PickerSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */; };
@@ -186,6 +190,10 @@
 		B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B6A6C27C1E76DF550021EFC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B6B068B51E9A4B8B0095875D /* GroupInfoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GroupInfoCell.swift; sourceTree = "<group>"; };
+		B6B068B61E9A4B8B0095875D /* GroupInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GroupInfoCell.xib; sourceTree = "<group>"; };
+		B6B068B91E9A750C0095875D /* MemberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCell.swift; sourceTree = "<group>"; };
+		B6B068BA1E9A750C0095875D /* MemberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberCell.xib; sourceTree = "<group>"; };
 		B6BB4BF31E86C7EF0054C965 /* RightDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RightDetailCell.swift; sourceTree = "<group>"; };
 		B6BB4BF41E86C7EF0054C965 /* RightDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RightDetailCell.xib; sourceTree = "<group>"; };
 		B6BB4BF71E86CE610054C965 /* PickerSettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerSettingCell.swift; sourceTree = "<group>"; };
@@ -292,6 +300,10 @@
 			children = (
 				B671E7271E988FC80035600F /* GroupCell.swift */,
 				B671E7281E988FC80035600F /* GroupCell.xib */,
+				B6B068B51E9A4B8B0095875D /* GroupInfoCell.swift */,
+				B6B068B61E9A4B8B0095875D /* GroupInfoCell.xib */,
+				B6B068B91E9A750C0095875D /* MemberCell.swift */,
+				B6B068BA1E9A750C0095875D /* MemberCell.xib */,
 			);
 			name = Group;
 			sourceTree = "<group>";
@@ -622,6 +634,7 @@
 				B20F762C1E927D9F00BA52FE /* OpenSans-BoldItalic.ttf in Resources */,
 				B20F76331E927D9F00BA52FE /* OpenSans-Semibold.ttf in Resources */,
 				D9DA30C91E92395E00F10849 /* RouteDetailVC.xib in Resources */,
+				B6B068BC1E9A750C0095875D /* MemberCell.xib in Resources */,
 				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
 				B20F76321E927D9F00BA52FE /* OpenSans-Regular.ttf in Resources */,
 				D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */,
@@ -645,6 +658,7 @@
 				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
 				B679DD2E1E8C00EF000744E8 /* ProfileRecordsViewController.xib in Resources */,
 				B6492DC41E954E0900C490F0 /* ActivityDetailsViewController.xib in Resources */,
+				B6B068B81E9A4B8B0095875D /* GroupInfoCell.xib in Resources */,
 				B6860B661E8563AD0008B06A /* TextSettingCell.xib in Resources */,
 				B637D2261E7E2F6600F41A07 /* Main.storyboard in Resources */,
 				B6860B6A1E8566F70008B06A /* NotificationCell.xib in Resources */,
@@ -777,7 +791,9 @@
 				D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */,
 				B6C69ABD1E99058F003541C5 /* GroupDetailViewController.swift in Sources */,
 				D9F7B20A1E8817AB00B692FF /* WorkoutObject.swift in Sources */,
+				B6B068B71E9A4B8B0095875D /* GroupInfoCell.swift in Sources */,
 				D9F7B2071E88119600B692FF /* TextOnlyTableViewCell.swift in Sources */,
+				B6B068BB1E9A750C0095875D /* MemberCell.swift in Sources */,
 				D9F7B2201E88BFF500B692FF /* GFBase32Utils.m in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				D9F7B21F1E88BFF500B692FF /* GeoFire.m in Sources */,
