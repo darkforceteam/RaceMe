@@ -14,7 +14,7 @@ class Utils: NSObject {
         var upperIndex = inputArr.count - 1
         
         while (true) {
-            var currentIndex = (lowerIndex + upperIndex)/2
+            let currentIndex = (lowerIndex + upperIndex)/2
             if(inputArr[currentIndex] == searchItem) {
                 return currentIndex
             } else if (lowerIndex > upperIndex) {

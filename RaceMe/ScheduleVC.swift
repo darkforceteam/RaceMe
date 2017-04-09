@@ -19,13 +19,15 @@ class ScheduleVC: UIViewController {
     var ref: FIRDatabaseReference!
     var eventRef: FIRDatabaseReference!
     @IBOutlet weak var cancelBtn: UIButton!
-    
+    @IBOutlet weak var dateTextField: UITextField!
+    var datePicker = UIDatePicker()
     @IBOutlet weak var readyBtn: UIButton!
     @IBOutlet weak var joinRunBtn: UIButton!
     @IBOutlet weak var generalInfoLabel: UILabel!
     @IBOutlet weak var startPosWarnLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var startDatePicker: UIDatePicker!
+
+    @IBOutlet weak var targetDistTextField: UITextField!
     @IBOutlet weak var addScheBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var route: Route!
@@ -35,12 +37,25 @@ class ScheduleVC: UIViewController {
     var userId: String!
     var currentUser: UserObject!
     var delegate: ScheduleVCDelegate!
+    var startDate: Date!
+    var targetDistance: Int?
+    var creatorId: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         if event != nil{
             let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
             eventRef = ref.child(eventPath)
+            targetDistTextField.isEnabled = false
+            dateTextField.isEnabled = false
+            if event?.targetDistance != nil {
+                targetDistTextField.text = "\(event!.targetDistance!)"
+                
+            }
+            if event?.start_time != nil {
+                //hide dateTextField, show CountDown
+            }
         }
         
         mapView.delegate = self
@@ -58,6 +73,8 @@ class ScheduleVC: UIViewController {
         readyBtn.layer.cornerRadius = 5
         cancelBtn.backgroundColor = UIColor.red
         cancelBtn.layer.cornerRadius = 5
+        
+        setupDatePicker()
         //        if FIRAuth.auth()?.currentUser != nil {
         //            self.view.sendSubview(toBack: readyBtn)
         //            self.view.sendSubview(toBack: cancelBtn)
@@ -97,7 +114,52 @@ class ScheduleVC: UIViewController {
         drawRoute(route: route)
         // Do any additional setup after loading the view.
     }
-
+    func setupDatePicker(){
+        var components = DateComponents()
+        components.minute = 30
+        let minDate = Calendar.current.date(byAdding: components, to: Date())
+        
+        components.day = 365
+        let maxDate = Calendar.current.date(byAdding: components, to: Date())
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
+        datePicker.datePickerMode = .dateAndTime
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = primaryColor
+        toolBar.sizeToFit()
+        
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(DatePickerSettingCell.cancelPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(DatePickerSettingCell.donePicker))
+        toolBar.setItems([cancelButton,spaceButton,doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        dateTextField.inputView = datePicker
+        dateTextField.inputAccessoryView = toolBar
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        components.day = 1
+        let nextRunDate = Calendar.current.date(byAdding: components, to: Date())
+        dateTextField.placeholder = "\(dateFormatter.string(from: nextRunDate!))"
+    }
+    func donePicker() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateTextField.text = "\(dateFormatter.string(from: datePicker.date))"
+        startDate = datePicker.date
+        dateTextField.resignFirstResponder()
+    }
+    func cancelPicker() {
+        dateTextField.resignFirstResponder()
+    }
+    
     func loadCurrentUser(){
         _ = ref.child("USERS/\(userId!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.value as? NSDictionary) != nil{
@@ -127,13 +189,22 @@ class ScheduleVC: UIViewController {
         
         eventRef = ref.child(Constants.Event.TABLE_NAME).childByAutoId()
         eventRef.child(Constants.Event.ROUTE_ID).setValue("\(route.routeId!)")
-        eventRef.child(Constants.Event.START_TIME).setValue(startDatePicker.date.timeIntervalSince1970)
+        eventRef.child(Constants.Event.START_TIME).setValue(startDate.timeIntervalSince1970)
         eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(true)
+        eventRef.child(Constants.Event.CREATED_BY).setValue(userId)
+        if targetDistTextField.text != "" {
+            eventRef.child(Constants.Event.TARGET_DISTANT).setValue(Int(targetDistTextField.text!))
+        }
         participants.append(currentUser)
-        self.event = Event(route_id: route.routeId!, start_time: startDatePicker.date)
+        self.event = Event(route_id: route.routeId!, start_time: startDate)
         self.event?.eventId = eventRef.key
         self.event?.setFirstUser(user: currentUser)
         self.event?.participants.append(userId)
+        self.event?.createdBy = userId
+        if targetDistTextField.text != ""
+        {
+            self.event?.targetDistance = Int(targetDistTextField.text!)
+        }
         route.events.append(self.event!)
         tableView.reloadData()
         self.view.bringSubview(toFront: readyBtn)
@@ -207,7 +278,10 @@ class ScheduleVC: UIViewController {
     override func viewDidDisappear(_ animated: Bool) {
         if ref != nil{
             ref.removeAllObservers()
-            eventRef.removeAllObservers()
+            if eventRef != nil
+            {
+                eventRef.removeAllObservers()
+            }
         }
     }
     func drawRoute(route: Route){

@@ -102,7 +102,7 @@ class RouteDetailVC: UIViewController {
         mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
-        self.ref.child("EVENTS/").queryOrdered(byChild: "route_id").queryEqual(toValue: routeId).observe(.value, with: { (snapshot) in
+        self.ref.child(Constants.Event.TABLE_NAME).queryOrdered(byChild: Constants.Event.ROUTE_ID).queryEqual(toValue: routeId).observe(.value, with: { (snapshot) in
             if snapshot.hasChildren(){
                 self.eventList.removeAll()
                 self.route.events.removeAll()
@@ -111,14 +111,15 @@ class RouteDetailVC: UIViewController {
                 var eventCount = 0
                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     if let oneEvent = eventData.value as? NSDictionary{
-                        let start_time = oneEvent.value(forKey: "start_time") as! Double
+                        let start_time = oneEvent.value(forKey: Constants.Event.START_TIME) as! Double
                         if start_time >= currentTime {
                             eventCount += 1
                             let event_datetime = NSDate(timeIntervalSince1970: start_time )
-                            let event = Event(route_id: "", start_time: event_datetime as Date)
+                            let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
                             event.eventId = eventData.ref.key
+                            event.targetDistance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT) as! Int
                             var runList = ""
-                            if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
+                            if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
                                 for (key, _) in participants{
                                     event.participants.append(key as! String)
                                     runList.append("\(key) ")
