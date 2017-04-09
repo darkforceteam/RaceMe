@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 class RouteDetailVC: UIViewController {
+    @IBOutlet weak var distanceLabel: UILabel!
     
     @IBOutlet weak var generalInfoLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -43,6 +44,9 @@ class RouteDetailVC: UIViewController {
         addScheBtn.backgroundColor = UIColor.orange
         addScheBtn.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
+        generalInfoLabel.text = route.name
+        distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
+        
     }
     
     @IBAction func addSchedule(_ sender: UIButton) {
@@ -59,20 +63,21 @@ class RouteDetailVC: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        ref.removeAllObservers()
-    }
     override func viewWillDisappear(_ animated: Bool) {
         needReloadEventData = false
+        if ref != nil{
+            ref.removeAllObservers()
+            eventRef.removeAllObservers()
+        }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if !needReloadEventData {
-            eventList.removeAll()
-            eventList = route.events
-            self.tableView.reloadData()
-        }
+//        if !needReloadEventData {
+//            eventList.removeAll()
+        loadSchedules()
+//            eventList = route.events
+//            self.tableView.reloadData()
+//        }
     }
     func loadRoute(){
         self.ref.child(Constants.PublicRoute.TABLE_NAME+"/"+routeId).queryOrderedByKey().observeSingleEvent(of: .value, with: { (snapshot) in
@@ -89,6 +94,7 @@ class RouteDetailVC: UIViewController {
     func drawRoute(route: Route){
         let span = MKCoordinateSpanMake(0.009, 0.009)
         let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
+//        let myRegion = getRegionForRoute(route: route)
         mapView.setRegion(myRegion, animated: false)
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
@@ -96,36 +102,68 @@ class RouteDetailVC: UIViewController {
         mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
-        self.eventList.removeAll()
-        self.route.events.removeAll()
-        self.ref.child("EVENTS/").queryOrdered(byChild: "route_id").queryEqual(toValue: routeId).observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child(Constants.Event.TABLE_NAME).queryOrdered(byChild: Constants.Event.ROUTE_ID).queryEqual(toValue: routeId).observe(.value, with: { (snapshot) in
             if snapshot.hasChildren(){
+                self.eventList.removeAll()
+                self.route.events.removeAll()
                 let currentTime = NSDate().timeIntervalSince1970
-                print("TIME is \(currentTime) now")
-                print(snapshot)
+//                print("TIME is \(currentTime) now")
+                var eventCount = 0
                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     if let oneEvent = eventData.value as? NSDictionary{
-                        let start_time = oneEvent.value(forKey: "start_time") as! Double
+                        let start_time = oneEvent.value(forKey: Constants.Event.START_TIME) as! Double
                         if start_time >= currentTime {
+                            eventCount += 1
                             let event_datetime = NSDate(timeIntervalSince1970: start_time )
-                            let event = Event(route_id: "", start_time: event_datetime as Date)
-                            if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
+                            let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
+                            event.eventId = eventData.ref.key
+                            if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT){
+                                event.targetDistance = distance as! Int
+                            }
+                            var runList = ""
+                            if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
                                 for (key, _) in participants{
                                     event.participants.append(key as! String)
-                                    event.eventId = eventData.ref.key
+                                    runList.append("\(key) ")
                                 }
                             }
-                            event.setFirstUser()
-                            self.eventList.append(event)
+                            //.setFirstUser DOESN'T WORK, PERHAPS IT TAKES TO LONG TO LOAD USER PHOTO
+//                            event.setFirstUser()
+                            FIRDatabase.database().reference().child("USERS/\(event.participants[0])").observeSingleEvent(of: .value, with: { (snapshot) in
+                                event.firstUser = UserObject(snapshot: snapshot)
+                                
+                                let request = NSMutableURLRequest(url: URL(string: (event.firstUser?.photoUrl!)!)!)
+                                request.httpMethod = "GET"
+                                
+                                let session = URLSession(configuration: URLSessionConfiguration.default)
+                                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                    if error == nil {
+                                        DispatchQueue.main.async {
+                                            event.firstUser?.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                            self.eventList.append(event)
+                                            var strFirstName = "NIL"
+                                            if let user = event.firstUser as UserObject?{
+                                                strFirstName = user.displayName!
+                                            }
+                                            print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(strFirstName)")
+                                            self.route.events.append(event)
+                                            self.route.setFirstEvent()
+                                            self.tableView.reloadData()
+                                        }
+                                    }
+                                }
+                                dataTask.resume()
+                                
+                            })
                         } else {
-                            print("starttime \(start_time) is smalled than current time")
+//                            print("starttime \(start_time) is smalled than current time")
                         }
                     }
                 }
-                print(self.eventList)
+//                print(self.eventList)
                 self.route.events = self.eventList
                 self.route.setFirstEvent()
-                print("start refreshing data")
+//                print("start refreshing data")
                 self.tableView.reloadData()
             }
         })
@@ -148,6 +186,11 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScheduleCell", for: indexPath) as! ScheduleCell
         let event = eventList[indexPath.row]
+        var strFirstName = "NIL"
+        if let user = event.firstUser as UserObject?{
+            strFirstName = user.displayName!
+        }
+        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
         cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
         
         var strRunnerNum = " will run alone"
@@ -164,8 +207,8 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(eventList)
-        print("selected Item: \(indexPath.row)")
+//        print(eventList)
+//        print("selected Item: \(indexPath.row)")
         let scheduleVC = ScheduleVC(nibName: "ScheduleVC", bundle: nil)
         scheduleVC.route = route
         let event = eventList[indexPath.row]
@@ -179,6 +222,31 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
             loadSchedules()
             needReloadEventData = true
         }
+    }
+    
+    func getRegionForRoute(route: Route) -> MKCoordinateRegion {
+        let locations = route.locations
+        let firstPointCoordinate = locations[0]
+        
+        var minLatitude: Double!
+        var minLongitude: Double!
+        var maxLatitude: Double!
+        var maxLongitude: Double!
+        
+        for location in locations {
+            let locationCoordinate = location
+            minLatitude = min(firstPointCoordinate.latitude, locationCoordinate.latitude)
+            minLongitude = min(firstPointCoordinate.longitude, locationCoordinate.longitude)
+            maxLatitude = max(firstPointCoordinate.latitude, locationCoordinate.latitude)
+            maxLongitude = max(firstPointCoordinate.longitude, locationCoordinate.longitude)
+        }
+        
+        let centerLatitude = (minLatitude + maxLatitude) / 2
+        let centerLongitude = (minLongitude + maxLongitude) / 2
+        let latDelta = (maxLatitude - minLatitude) * 2
+        let longDelta = (maxLongitude - minLongitude) * 2
+        
+        return MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: centerLatitude, longitude: centerLongitude), span: MKCoordinateSpan(latitudeDelta: latDelta, longitudeDelta: longDelta))
     }
 }
 extension Date {

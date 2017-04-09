@@ -28,8 +28,8 @@ struct Workout {
         self.type = type
         self.userId = user.uid
         self.routeId = routeId
-        self.distanceKm = distance / 1000
-        self.distanceMi = distanceKm! * Constants.UnitExchange.ONE_KM_IN_MILE
+        self.distanceKm = Utils.distanceInKm(distanceInMeter: distance)
+        self.distanceMi = Utils.distanceInMiles(distanceInMeter: distance)
         self.duration = duration
         self.ref = nil
         
@@ -43,8 +43,8 @@ struct Workout {
         self.key = key
         self.type = type
         self.userId = user.uid
-        self.distanceKm = distance / 1000
-        self.distanceMi = distanceKm! * Constants.UnitExchange.ONE_KM_IN_MILE
+        self.distanceKm = Utils.distanceInKm(distanceInMeter: distance)
+        self.distanceMi = Utils.distanceInMiles(distanceInMeter: distance)
         self.duration = duration
         self.isPublic = isPublic
     }

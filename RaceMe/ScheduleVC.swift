@@ -17,14 +17,19 @@ class ScheduleVC: UIViewController {
     static let CREATE_SCHEDULE = "0"
     static let JOIN_RUN = "1"
     var ref: FIRDatabaseReference!
+    var eventRef: FIRDatabaseReference!
     @IBOutlet weak var cancelBtn: UIButton!
-    
+    @IBOutlet weak var dateTextField: UITextField!
+    var datePicker = UIDatePicker()
     @IBOutlet weak var readyBtn: UIButton!
     @IBOutlet weak var joinRunBtn: UIButton!
     @IBOutlet weak var generalInfoLabel: UILabel!
     @IBOutlet weak var startPosWarnLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var startDatePicker: UIDatePicker!
+
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var coundownLabel: UILabel!
+    @IBOutlet weak var targetDistTextField: UITextField!
     @IBOutlet weak var addScheBtn: UIButton!
     @IBOutlet weak var tableView: UITableView!
     var route: Route!
@@ -34,10 +39,37 @@ class ScheduleVC: UIViewController {
     var userId: String!
     var currentUser: UserObject!
     var delegate: ScheduleVCDelegate!
-    var routeNeedReloadEvent = false
+    var startDate: Date!
+    var targetDistance: Int?
+    var creatorId: String?
+    var timer: Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
+        if event != nil{
+            let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
+            eventRef = ref.child(eventPath)
+            targetDistTextField.isEnabled = false
+            if event?.targetDistance != nil {
+                startTimeLabel.isHidden = false
+                dateTextField.isHidden = false
+                let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: Double((event?.targetDistance)!)))
+                
+                targetDistTextField.text = distStr
+            } else {
+                let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
+                targetDistTextField.text = distStr
+            }
+            if event?.start_time != nil {
+                dateTextField.isHidden = true
+                startTimeLabel.isHidden = true
+                startCountDown()
+            }
+        } else {
+            coundownLabel.isHidden = true
+            let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
+            targetDistTextField.text = distStr
+        }
         
         mapView.delegate = self
         tableView.dataSource = self
@@ -54,6 +86,8 @@ class ScheduleVC: UIViewController {
         readyBtn.layer.cornerRadius = 5
         cancelBtn.backgroundColor = UIColor.red
         cancelBtn.layer.cornerRadius = 5
+        
+        setupDatePicker()
         //        if FIRAuth.auth()?.currentUser != nil {
         //            self.view.sendSubview(toBack: readyBtn)
         //            self.view.sendSubview(toBack: cancelBtn)
@@ -93,9 +127,69 @@ class ScheduleVC: UIViewController {
         drawRoute(route: route)
         // Do any additional setup after loading the view.
     }
-
+    func setupDatePicker(){
+        var components = DateComponents()
+        components.minute = 30
+        let minDate = Calendar.current.date(byAdding: components, to: Date())
+        
+        components.day = 365
+        let maxDate = Calendar.current.date(byAdding: components, to: Date())
+        
+        datePicker.minimumDate = minDate
+        datePicker.maximumDate = maxDate
+        datePicker.datePickerMode = .dateAndTime
+        
+        let toolBar = UIToolbar()
+        toolBar.barStyle = UIBarStyle.default
+        toolBar.isTranslucent = true
+        toolBar.tintColor = primaryColor
+        toolBar.sizeToFit()
+        
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: UIBarButtonItemStyle.plain, target: self, action: #selector(DatePickerSettingCell.cancelPicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.plain, target: self, action: #selector(DatePickerSettingCell.donePicker))
+        toolBar.setItems([cancelButton,spaceButton,doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        dateTextField.inputView = datePicker
+        dateTextField.inputAccessoryView = toolBar
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        components.day = 1
+        let nextRunDate = Calendar.current.date(byAdding: components, to: Date())
+        dateTextField.placeholder = "\(dateFormatter.string(from: nextRunDate!))"
+    }
+    func donePicker() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        dateFormatter.timeStyle = .short
+        dateTextField.text = "\(dateFormatter.string(from: datePicker.date))"
+        startDate = datePicker.date
+        dateTextField.resignFirstResponder()
+    }
+    func cancelPicker() {
+        dateTextField.resignFirstResponder()
+    }
+    func startCountDown(){
+        timer = Timer()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateCounter), userInfo: nil, repeats: true)
+    }
+    func updateCounter(){
+        let now = Date()
+        let calendar = Calendar.current
+        let diff = calendar.dateComponents([.day, .hour, .minute, .second], from: now, to: (event?.start_time)!)
+//        print(diff)
+        if now < (event?.start_time)!
+        {
+            coundownLabel.text = "\(diff)"
+        } else {
+            //RACE TIME!
+            coundownLabel.text = "The run starts now!!!"
+        }
+    }
     func loadCurrentUser(){
-        print("current user id: \(userId)")
         _ = ref.child("USERS/\(userId!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.value as? NSDictionary) != nil{
             self.currentUser = UserObject(snapshot: snapshot)
@@ -122,28 +216,43 @@ class ScheduleVC: UIViewController {
         self.view.sendSubview(toBack: addScheBtn)
         addScheBtn.isHidden = true
         
-        let eventRef = ref.child(Constants.Event.TABLE_NAME).childByAutoId()
+        eventRef = ref.child(Constants.Event.TABLE_NAME).childByAutoId()
         eventRef.child(Constants.Event.ROUTE_ID).setValue("\(route.routeId!)")
-        eventRef.child(Constants.Event.START_TIME).setValue(startDatePicker.date.timeIntervalSince1970)
+        eventRef.child(Constants.Event.START_TIME).setValue(startDate.timeIntervalSince1970)
         eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(true)
+        eventRef.child(Constants.Event.CREATED_BY).setValue(userId)
+        if targetDistTextField.text != "" {
+            eventRef.child(Constants.Event.TARGET_DISTANT).setValue(Int(targetDistTextField.text!))
+        }
         participants.append(currentUser)
-        self.event = Event(route_id: route.routeId!, start_time: startDatePicker.date)
+        self.event = Event(route_id: route.routeId!, start_time: startDate)
         self.event?.eventId = eventRef.key
         self.event?.setFirstUser(user: currentUser)
         self.event?.participants.append(userId)
+        self.event?.createdBy = userId
+        if targetDistTextField.text != ""
+        {
+            self.event?.targetDistance = Int(targetDistTextField.text!)
+        }
+        startCountDown()
         route.events.append(self.event!)
         tableView.reloadData()
         self.view.bringSubview(toFront: readyBtn)
         self.view.bringSubview(toFront: cancelBtn)
         readyBtn.isHidden = false
         cancelBtn.isHidden = false
+        targetDistTextField.isEnabled = false
+        coundownLabel.isHidden = false
+        dateTextField.isHidden = true
+        startTimeLabel.isHidden = true
     }
     
     @IBAction func joinRun(_ sender: UIButton) {
         self.view.sendSubview(toBack: joinRunBtn)
         joinRunBtn.isHidden = true
-        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)/\(Constants.Event.PARTICIPANTS)")
-        eventRef.child(userId!).setValue(true)
+//        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)/\(Constants.Event.PARTICIPANTS)")
+//        eventRef.child(userId!).setValue(true)
+        eventRef.child("\(Constants.Event.PARTICIPANTS)/\(userId!)").setValue(true)
         self.event?.participants.append(userId)
         participants.append(currentUser)
         tableView.reloadData()
@@ -155,13 +264,13 @@ class ScheduleVC: UIViewController {
     @IBAction func readyForRun(_ sender: UIButton) {
     }
     @IBAction func cancelRun(_ sender: UIButton) {
-        let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
-        print(eventPath)
-        let eventRef = ref.child(eventPath)
+//        let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
+////        print(eventPath)
+//        let eventRef = ref.child(eventPath)
         let userInEventPath = "\(Constants.Event.PARTICIPANTS)/\(userId!)"
-        print(userInEventPath)
+//        print(userInEventPath)
         let userRecord = eventRef.child(userInEventPath)
-        print(userRecord)
+//        print(userRecord)
         userRecord.removeValue { (error, refer) in
             if error != nil {
                 print(error!)
@@ -177,12 +286,13 @@ class ScheduleVC: UIViewController {
                 self.view.sendSubview(toBack: self.cancelBtn)
                 self.cancelBtn.isHidden = true
                 if self.participants.count > 0 {
-                    self.event?.setFirstUser()
                     self.view.bringSubview(toFront: self.joinRunBtn)
                     self.joinRunBtn.isHidden = false
                 } else {
-                    eventRef.removeValue()
-                    self.routeNeedReloadEvent = true
+                    self.targetDistTextField.isEnabled = true
+                    self.dateTextField.isHidden = false
+                    self.startTimeLabel.isHidden = false
+                    self.coundownLabel.isHidden = true
                     self.view.bringSubview(toFront: self.addScheBtn)
                     self.addScheBtn.isHidden = false
                 }
@@ -191,8 +301,25 @@ class ScheduleVC: UIViewController {
 
     }
     override func viewWillDisappear(_ animated: Bool) {
-        if routeNeedReloadEvent{
-            delegate.reloadEventForRoute(scheduleVC: self, reload: true)
+        if self.participants.count > 0 {
+            self.event?.setFirstUser()
+        } else {
+            if eventRef != nil{
+                eventRef.removeValue()
+                route.removeEvent(eventId: (event?.eventId)!)
+            }
+        }
+//        if routeNeedReloadEvent{
+//            delegate.reloadEventForRoute(scheduleVC: self, reload: true)
+//        }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        if ref != nil{
+            ref.removeAllObservers()
+            if eventRef != nil
+            {
+                eventRef.removeAllObservers()
+            }
         }
     }
     func drawRoute(route: Route){
@@ -212,7 +339,7 @@ class ScheduleVC: UIViewController {
             userRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
                 if (snapshot.value as? NSDictionary) != nil{
                     let user = UserObject(snapshot: snapshot)
-
+                    user.avatarImg = UIImage(named: "default-avatar")!
                     let request = NSMutableURLRequest(url: URL(string: user.photoUrl!)!)
                     request.httpMethod = "GET"
                     let session = URLSession(configuration: URLSessionConfiguration.default)
