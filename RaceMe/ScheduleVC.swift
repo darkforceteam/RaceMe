@@ -303,6 +303,7 @@ class ScheduleVC: UIViewController {
                     self.view.bringSubview(toFront: self.joinRunBtn)
                     self.joinRunBtn.isHidden = false
                 } else {
+                    self.deleteEvent()
                     self.targetDistTextField.isEnabled = true
                     self.dateTextField.isHidden = false
                     self.startTimeLabel.isHidden = false
@@ -315,14 +316,6 @@ class ScheduleVC: UIViewController {
 
     }
     override func viewWillDisappear(_ animated: Bool) {
-        if self.participants.count > 0 {
-            self.event?.setFirstUser()
-        } else {
-            if eventRef != nil{
-                eventRef.removeValue()
-                route.removeEvent(eventId: (event?.eventId)!)
-            }
-        }
 //        if routeNeedReloadEvent{
 //            delegate.reloadEventForRoute(scheduleVC: self, reload: true)
 //        }
@@ -333,6 +326,21 @@ class ScheduleVC: UIViewController {
             if eventRef != nil
             {
                 eventRef.removeAllObservers()
+            }
+        }
+    }
+    func deleteEvent() {
+        if self.participants.count > 0 {
+            self.event?.setFirstUser()
+        } else {
+            if eventRef != nil{
+                eventRef.removeValue(){ (error, refer) in
+                    if error != nil {
+                        print(error!)
+                    } else {
+                        self.route.removeEvent(eventId: (self.event?.eventId)!)
+                    }
+                }
             }
         }
     }
