@@ -207,68 +207,72 @@ class ExploreViewController: UIViewController {
         routeMarker.route = route
         let pin = RoutePoint()
         pin.coordinate = route.locations.first!
-        
+        var foundUser = false
         
         if let firstEvent = route.displayEvent {
-            let firstPersonID = firstEvent.participants[0] as String
-            userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let userData = snapshot.value as? NSDictionary{
-                    let firstUser = UserObject(snapshot: snapshot)
-                    routeMarker.pinType = RouteAnnotation.PIN_EVENT
-                    routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
-                    routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
-                    routeMarker.personCount = route.participant_count(displayingDate: self.displayingTime)
-                    routeMarker.setTitleEvent(scheduled: firstEvent.start_time, firstEventDay: route.firstEventDay)
-                    
-                    //                    let imageUrl = NSURL(string: routeMarker.pinCustomImage)
-                    //                    if let data = NSData(contentsOf: imageUrl as! URL){
-                    //                        routeMarker.imageView = UIImage(data: data as Data)!
-                    //                    }
-                    //                    self.loadAnnoImage(imageURL: routeMarker.pinCustomImage, anno: routeMarker)
-                    routeMarker.image = UIImage(named: "default-avatar")!
-                    firstUser.avatarImg = routeMarker.image
-                    routeMarker.route.displayEvent?.firstUser = firstUser
-                    
-                    let request = NSMutableURLRequest(url: URL(string: routeMarker.pinCustomImage)!)
-                    request.httpMethod = "GET"
-                    
-//                    let session = URLSession(configuration: URLSessionConfiguration.default)
-                    let dataTask = self.loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
-                        if error == nil {
-                            routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
-                            firstUser.avatarImg = routeMarker.image
-                            routeMarker.route.displayEvent?.firstUser = firstUser
-                            DispatchQueue.main.async {
-                                pin.title = routeMarker.title
-                                pin.AnnoView = routeMarker
-                                self.mapView.addAnnotation(pin)
+            if  firstEvent.participants.count > 0 {
+                let firstPersonID = firstEvent.participants[0] as String
+                userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    if let userData = snapshot.value as? NSDictionary{
+                        let firstUser = UserObject(snapshot: snapshot)
+                        routeMarker.pinType = RouteAnnotation.PIN_EVENT
+                        routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
+                        routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
+                        routeMarker.personCount = route.participant_count(displayingDate: self.displayingTime)
+                        routeMarker.setTitleEvent(scheduled: firstEvent.start_time, firstEventDay: route.firstEventDay)
+                        
+                        //                    let imageUrl = NSURL(string: routeMarker.pinCustomImage)
+                        //                    if let data = NSData(contentsOf: imageUrl as! URL){
+                        //                        routeMarker.imageView = UIImage(data: data as Data)!
+                        //                    }
+                        //                    self.loadAnnoImage(imageURL: routeMarker.pinCustomImage, anno: routeMarker)
+                        routeMarker.image = UIImage(named: "default-avatar")!
+                        firstUser.avatarImg = routeMarker.image
+                        routeMarker.route.displayEvent?.firstUser = firstUser
+                        
+                        let request = NSMutableURLRequest(url: URL(string: routeMarker.pinCustomImage)!)
+                        request.httpMethod = "GET"
+                        
+                        //                    let session = URLSession(configuration: URLSessionConfiguration.default)
+                        let dataTask = self.loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
+                            if error == nil {
+                                routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                                firstUser.avatarImg = routeMarker.image
+                                routeMarker.route.displayEvent?.firstUser = firstUser
+                                foundUser = true
+                                DispatchQueue.main.async {
+                                    pin.title = routeMarker.title
+                                    pin.AnnoView = routeMarker
+                                    self.mapView.addAnnotation(pin)
+                                }
+                            } else {
+                                print("ERROR: \(error)")
+                                self.alert(message: "\(error)",title: "Error loading user avatar")
                             }
-                        } else {
-                            print("ERROR: \(error)")
-                            self.alert(message: "\(error)",title: "Error loading user avatar")
                         }
+                        dataTask.resume()
+                    } else {
+                        self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
                     }
-                    dataTask.resume()
-                } else {
-                    routeMarker.setTitleDistance()
-                    routeMarker.image = UIImage(named: "pin-run")?.withRenderingMode(.alwaysTemplate)
-                    routeMarker.tintColor = successColor
-                    pin.title = routeMarker.title
-                    pin.AnnoView = routeMarker
-                    self.mapView.addAnnotation(pin)
-                }
-                self.actIndicator.stopAnimating()
-            })
+                })
+            } else {
+                self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
+            }
         } else {
+            self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
+        }
+    }
+    func setDefaultPinImg(routeMarker: RouteAnnotation, pin: RoutePoint, sportType: String?){
+        if (sportType == "") || (sportType == "RUN") {
             routeMarker.setTitleDistance()
-            routeMarker.image = UIImage(named: "pin-run")
+            routeMarker.image = UIImage(named: "pin-run")?.withRenderingMode(.alwaysTemplate)
+            routeMarker.tintColor = successColor
             pin.title = routeMarker.title
             pin.AnnoView = routeMarker
             self.mapView.addAnnotation(pin)
             self.actIndicator.stopAnimating()
         }
     }
-    
     func changeTime(selectTimeVC: SelectTimeViewController, selectedTime: String){
 //        selectTimeButton.titleLabel?.text = selectedTime
 //        filterRoutesData(newTime: selectedTime)
@@ -317,14 +321,15 @@ class ExploreViewController: UIViewController {
                                                         event.setFirstUser()
                                                     }
                                                 }
-                                                
-                                                route.events.append(event)
-                                                if NSCalendar.current.isDateInToday(event.start_time){
-                                                    route.todayEvents.append(event)
-                                                } else if NSCalendar.current.isDateInTomorrow(event.start_time){
-                                                    route.tomorrowEvents.append(event)
-                                                } else {
-                                                    route.laterEvents.append(event)
+                                                if event.participants.count > 0 {
+                                                    route.events.append(event)
+                                                    if NSCalendar.current.isDateInToday(event.start_time){
+                                                        route.todayEvents.append(event)
+                                                    } else if NSCalendar.current.isDateInTomorrow(event.start_time){
+                                                        route.tomorrowEvents.append(event)
+                                                    } else {
+                                                        route.laterEvents.append(event)
+                                                    }
                                                 }
                                             }
                                         }

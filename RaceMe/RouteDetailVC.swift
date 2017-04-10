@@ -129,32 +129,34 @@ class RouteDetailVC: UIViewController {
                                 }
                                 //.setFirstUser DOESN'T WORK, PERHAPS IT TAKES TO LONG TO LOAD USER PHOTO
                                 //                            event.setFirstUser()
-                                FIRDatabase.database().reference().child("USERS/\(event.participants[0])").observeSingleEvent(of: .value, with: { (snapshot) in
-                                    event.firstUser = UserObject(snapshot: snapshot)
-                                    
-                                    let request = NSMutableURLRequest(url: URL(string: (event.firstUser?.photoUrl!)!)!)
-                                    request.httpMethod = "GET"
-                                    
-                                    let session = URLSession(configuration: URLSessionConfiguration.default)
-                                    let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                                        if error == nil {
-                                            DispatchQueue.main.async {
-                                                event.firstUser?.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
-                                                self.eventList.append(event)
-                                                var strFirstName = "NIL"
-                                                if let user = event.firstUser as UserObject?{
-                                                    strFirstName = user.displayName!
+                                if event.participants.count > 0 {
+                                    FIRDatabase.database().reference().child("USERS/\(event.participants[0])").observeSingleEvent(of: .value, with: { (snapshot) in
+                                        event.firstUser = UserObject(snapshot: snapshot)
+                                        
+                                        let request = NSMutableURLRequest(url: URL(string: (event.firstUser?.photoUrl!)!)!)
+                                        request.httpMethod = "GET"
+                                        
+                                        let session = URLSession(configuration: URLSessionConfiguration.default)
+                                        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                            if error == nil {
+                                                DispatchQueue.main.async {
+                                                    event.firstUser?.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                                    self.eventList.append(event)
+                                                    var strFirstName = "NIL"
+                                                    if let user = event.firstUser as UserObject?{
+                                                        strFirstName = user.displayName!
+                                                    }
+                                                    print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(strFirstName)")
+                                                    self.route.events.append(event)
+                                                    self.route.setFirstEvent()
+                                                    self.tableView.reloadData()
                                                 }
-                                                print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(strFirstName)")
-                                                self.route.events.append(event)
-                                                self.route.setFirstEvent()
-                                                self.tableView.reloadData()
                                             }
                                         }
-                                    }
-                                    dataTask.resume()
-                                    
-                                })
+                                        dataTask.resume()
+                                        
+                                    })
+                                }
                             } else {
                                 //                            print("starttime \(start_time) is smalled than current time")
                             }
