@@ -53,8 +53,25 @@ struct User {
         FIRDatabase.database().reference().child("\(group_id)/members/\(uid!)").removeValue()
     }
     
+    func followed(uid: String, completion: @escaping (_ success: Bool) -> ()) {
+        var joined = Bool()
+        ref?.child("following").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(uid) {
+                joined = true
+            } else {
+                joined = false
+            }
+            completion(joined)
+        })
+    }
+    
     func follow(uid: String) {
         ref?.child("following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
         FIRDatabase.database().reference().child("USERS/\(uid)/followers/\(key!)").setValue(NSDate().timeIntervalSince1970 * 1000)
+    }
+    
+    func unfollow(uid: String) {
+        ref?.child("following/\(uid)").removeValue()
+        FIRDatabase.database().reference().child("USERS/\(uid)/followers/\(key!)").removeValue()
     }
 }
