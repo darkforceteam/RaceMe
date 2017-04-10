@@ -111,52 +111,53 @@ class RouteDetailVC: UIViewController {
                 var eventCount = 0
                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     if let oneEvent = eventData.value as? NSDictionary{
-                        let start_time = oneEvent.value(forKey: Constants.Event.START_TIME) as! Double
-                        if start_time >= currentTime {
-                            eventCount += 1
-                            let event_datetime = NSDate(timeIntervalSince1970: start_time )
-                            let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
-                            event.eventId = eventData.ref.key
-                            if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT){
-                                event.targetDistance = distance as! Int
-                            }
-                            var runList = ""
-                            if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
-                                for (key, _) in participants{
-                                    event.participants.append(key as! String)
-                                    runList.append("\(key) ")
+                        if let start_time = oneEvent.value(forKey: Constants.Event.START_TIME) as? Double {
+                            if start_time >= currentTime {
+                                eventCount += 1
+                                let event_datetime = NSDate(timeIntervalSince1970: start_time )
+                                let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
+                                event.eventId = eventData.ref.key
+                                if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT){
+                                    event.targetDistance = distance as! Int
                                 }
-                            }
-                            //.setFirstUser DOESN'T WORK, PERHAPS IT TAKES TO LONG TO LOAD USER PHOTO
-//                            event.setFirstUser()
-                            FIRDatabase.database().reference().child("USERS/\(event.participants[0])").observeSingleEvent(of: .value, with: { (snapshot) in
-                                event.firstUser = UserObject(snapshot: snapshot)
-                                
-                                let request = NSMutableURLRequest(url: URL(string: (event.firstUser?.photoUrl!)!)!)
-                                request.httpMethod = "GET"
-                                
-                                let session = URLSession(configuration: URLSessionConfiguration.default)
-                                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                                    if error == nil {
-                                        DispatchQueue.main.async {
-                                            event.firstUser?.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
-                                            self.eventList.append(event)
-                                            var strFirstName = "NIL"
-                                            if let user = event.firstUser as UserObject?{
-                                                strFirstName = user.displayName!
-                                            }
-                                            print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(strFirstName)")
-                                            self.route.events.append(event)
-                                            self.route.setFirstEvent()
-                                            self.tableView.reloadData()
-                                        }
+                                var runList = ""
+                                if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
+                                    for (key, _) in participants{
+                                        event.participants.append(key as! String)
+                                        runList.append("\(key) ")
                                     }
                                 }
-                                dataTask.resume()
-                                
-                            })
-                        } else {
-//                            print("starttime \(start_time) is smalled than current time")
+                                //.setFirstUser DOESN'T WORK, PERHAPS IT TAKES TO LONG TO LOAD USER PHOTO
+                                //                            event.setFirstUser()
+                                FIRDatabase.database().reference().child("USERS/\(event.participants[0])").observeSingleEvent(of: .value, with: { (snapshot) in
+                                    event.firstUser = UserObject(snapshot: snapshot)
+                                    
+                                    let request = NSMutableURLRequest(url: URL(string: (event.firstUser?.photoUrl!)!)!)
+                                    request.httpMethod = "GET"
+                                    
+                                    let session = URLSession(configuration: URLSessionConfiguration.default)
+                                    let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                        if error == nil {
+                                            DispatchQueue.main.async {
+                                                event.firstUser?.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                                self.eventList.append(event)
+                                                var strFirstName = "NIL"
+                                                if let user = event.firstUser as UserObject?{
+                                                    strFirstName = user.displayName!
+                                                }
+                                                print("Event \(eventCount): Runners: "+runList+". FIRST RUNNER: \(strFirstName)")
+                                                self.route.events.append(event)
+                                                self.route.setFirstEvent()
+                                                self.tableView.reloadData()
+                                            }
+                                        }
+                                    }
+                                    dataTask.resume()
+                                    
+                                })
+                            } else {
+                                //                            print("starttime \(start_time) is smalled than current time")
+                            }
                         }
                     }
                 }

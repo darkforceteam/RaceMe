@@ -73,7 +73,6 @@ PODS:
     - GoogleToolboxForMac/NSString+URLArguments (= 2.1.1)
   - GoogleToolboxForMac/NSString+URLArguments (2.1.1)
   - GTMSessionFetcher/Core (1.1.9)
-  - MBProgressHUD (1.0.0)
   - Neon (0.4.0)
   - WDImagePicker (0.2.2)
 
@@ -84,7 +83,6 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Storage
-  - MBProgressHUD
   - Neon (~> 0.4.0)
   - WDImagePicker (from `https://github.com/darkforceteam/WDImagePicker.git`)
 
@@ -113,10 +111,9 @@ SPEC CHECKSUMS:
   FirebaseStorage: a5c55b23741a49a72af8f30f95b3bb5ddbeda12d
   GoogleToolboxForMac: 8e329f1b599f2512c6b10676d45736bcc2cbbeb0
   GTMSessionFetcher: 5c046c76a1f859bc9c187e918f18e4fc7bb57b5e
-  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   Neon: 7fb5a9327e7e57911843f608e08f4893a74deaf9
   WDImagePicker: 0014e231d67a63db9a97db74332a8a16723809bc
 
-PODFILE CHECKSUM: a196b82dde9718681bb965a227535f1b9af7edc7
+PODFILE CHECKSUM: f9e6b524b26b355e50ace84756b31f4a8c55d3d9
 
 COCOAPODS: 1.2.0
