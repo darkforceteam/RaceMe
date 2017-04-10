@@ -88,6 +88,7 @@ class ScheduleVC: UIViewController {
         cancelBtn.layer.cornerRadius = 5
         
         setupDatePicker()
+        setupInputComponents()
         //        if FIRAuth.auth()?.currentUser != nil {
         //            self.view.sendSubview(toBack: readyBtn)
         //            self.view.sendSubview(toBack: cancelBtn)
@@ -127,6 +128,19 @@ class ScheduleVC: UIViewController {
         drawRoute(route: route)
         // Do any additional setup after loading the view.
     }
+    func setupInputComponents(){
+        //Add done button to numeric pad keyboard
+        let toolbarDone = UIToolbar.init()
+        toolbarDone.sizeToFit()
+        let barBtnDone = UIBarButtonItem.init(barButtonSystemItem: UIBarButtonSystemItem.done,
+                                              target: self, action: #selector(distantEntered))
+        
+        toolbarDone.items = [barBtnDone] // You can even add cancel button too
+        targetDistTextField.inputAccessoryView = toolbarDone
+    }
+    func distantEntered() {
+        targetDistTextField.resignFirstResponder()
+    }
     func setupDatePicker(){
         var components = DateComponents()
         components.minute = 30
@@ -158,8 +172,8 @@ class ScheduleVC: UIViewController {
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .short
         components.day = 1
-        let nextRunDate = Calendar.current.date(byAdding: components, to: Date())
-        dateTextField.placeholder = "\(dateFormatter.string(from: nextRunDate!))"
+        startDate = Calendar.current.date(byAdding: components, to: Date())
+        dateTextField.text = "\(dateFormatter.string(from: startDate!))"
     }
     func donePicker() {
         let dateFormatter = DateFormatter()

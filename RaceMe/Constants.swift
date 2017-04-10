@@ -61,4 +61,16 @@ struct Constants {
         static let CREATOR = "creator"
         static let BANNER = "banner"
     }
+
+    struct FilterDay {
+        static let ALL_TIME_DISPLAY = "All time"
+        static let TODAY_DISPLAY = "Today"
+        static let TOMORROW_DISPLAY = "Tomorrow"
+        static let LATER_DISPLAY = "Later"
+        static let ALL_TIME_VALUE = "0"
+        static let TODAY_VALUE = "1"
+        static let TOMORROW_VALUE = "2"
+        static let LATER_VALUE = "3"
+    }
+    static let timeData: Dictionary = ["0":"All time","1":"Today","2":"Tomorrow","3":"Later"]
 }

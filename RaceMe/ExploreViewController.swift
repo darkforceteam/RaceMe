@@ -37,7 +37,7 @@ class ExploreViewController: UIViewController {
     var tomorrowRoute = [Route]()
     var laterRoute = [Route]()
     var displayingTime = "0"
-    var newFilterDay = ""
+    var newFilterDay = "0"
     //    var myLoc = MKUserLocation()
     //    var myRegion = MKCoordinateRegion()
     var ref: FIRDatabaseReference!
@@ -85,7 +85,7 @@ class ExploreViewController: UIViewController {
         actIndicator.hidesWhenStopped = true
         //        locationManager.startUpdatingLocation()
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
-        fixManuallyImportedRoutes()
+//        fixManuallyImportedRoutes()
         //        emptyPublicRoute()
     }
     
@@ -103,10 +103,14 @@ class ExploreViewController: UIViewController {
         selectTimeVC.delegate = self
         // present the popover
         self.present(selectTimeVC, animated: true, completion: nil)
+        selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
     }
     
     override func viewWillAppear(_ animated: Bool){
-        filterDataByTime()
+        if foundCurrentLoc {
+            queryRouteInRegion(myRegion: mapView.region)
+            filterDataByTime()
+        }
     }
     override func viewDidAppear(_ animated: Bool) {
         if mapView == nil {
@@ -116,7 +120,7 @@ class ExploreViewController: UIViewController {
     func filterDataByTime(){
         do {
             if newFilterDay != "" {
-                selectTimeButton.titleLabel?.text = newFilterDay
+                selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
                 try filterRoutesData(newTime: newFilterDay)
                 try refreshDisplayRoute()
             }
@@ -300,27 +304,28 @@ class ExploreViewController: UIViewController {
                                 route.events.removeAll()
                                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                                     if let oneEvent = eventData.value as? NSDictionary{
-                                        let start_time = oneEvent.value(forKey: "start_time") as! Double
-                                        if start_time >= currentTime {
-                                            let event_datetime = NSDate(timeIntervalSince1970: start_time )
-                                            let event = Event(route_id: "", start_time: event_datetime as Date)
-                                            event.eventId = eventData.key
-                                            if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
-                                                if participants.count > 0 {
-                                                    for (key, _) in participants{
-                                                        event.participants.append(key as! String)
+                                        if let start_time = oneEvent.value(forKey: "start_time") as? Double{
+                                            if start_time >= currentTime {
+                                                let event_datetime = NSDate(timeIntervalSince1970: start_time )
+                                                let event = Event(route_id: "", start_time: event_datetime as Date)
+                                                event.eventId = eventData.key
+                                                if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
+                                                    if participants.count > 0 {
+                                                        for (key, _) in participants{
+                                                            event.participants.append(key as! String)
+                                                        }
+                                                        event.setFirstUser()
                                                     }
-                                                    event.setFirstUser()
                                                 }
-                                            }
-                                            
-                                            route.events.append(event)
-                                            if NSCalendar.current.isDateInToday(event.start_time){
-                                                route.todayEvents.append(event)
-                                            } else if NSCalendar.current.isDateInTomorrow(event.start_time){
-                                                route.tomorrowEvents.append(event)
-                                            } else {
-                                                route.laterEvents.append(event)
+                                                
+                                                route.events.append(event)
+                                                if NSCalendar.current.isDateInToday(event.start_time){
+                                                    route.todayEvents.append(event)
+                                                } else if NSCalendar.current.isDateInTomorrow(event.start_time){
+                                                    route.tomorrowEvents.append(event)
+                                                } else {
+                                                    route.laterEvents.append(event)
+                                                }
                                             }
                                         }
                                     }
@@ -329,10 +334,13 @@ class ExploreViewController: UIViewController {
 //                                print("found \(route.events.count) event for \(routeid)")
                                 
                             }
-                            do {
-                                try self.drawRoute(route: route)
-                            } catch {
-                                print("Error drawing route")
+                            //FILTER HERE TOO!!
+                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_VALUE) || ((self.displayingTime != Constants.FilterDay.TODAY_VALUE) && (route.todayEvents.count > 0 )) || ((self.displayingTime != Constants.FilterDay.TOMORROW_VALUE) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime != Constants.FilterDay.LATER_VALUE) && (route.laterEvents.count > 0 )) {
+                                do {
+                                    try self.drawRoute(route: route)
+                                } catch {
+                                    print("Error drawing route")
+                                }
                             }
                         })
                         self.allRoute.append(route)
@@ -376,7 +384,7 @@ class ExploreViewController: UIViewController {
             let regionQuery = geoFire?.query(with: myRegion)
             actIndicator.isHidden = false
             actIndicator.startAnimating()
-            
+            allRoute.removeAll()
             //        let center = CLLocation(latitude: myLoc.coordinate.latitude,longitude: myLoc.coordinate.longitude)
             //        var circleQuery = geoFire?.query(at: center, withRadius: 10)
             //        regionQuery?.observeReady({
@@ -391,10 +399,13 @@ class ExploreViewController: UIViewController {
             
             _ = regionQuery?.observe(.keyEntered, with: { (key: String?, location: CLLocation?) in
                 //            print("Key '\(key)' entered the search area and is at location '\(location)'")
-                if !self.routesInSpanKey.contains(key!){
-                    self.routesInSpanKey.append(key!)
-                    self.loadRoute(routeid: key!)
-                }
+                // this was mean to check and return from memorry the route that is already available, no need to reload from DB
+                // now we load from DB anytime this VC is show so that we have latest data
+//                if !self.routesInSpanKey.contains(key!){
+//                    self.routesInSpanKey.append(key!)
+//                    self.loadRoute(routeid: key!)
+//                }
+                self.loadRoute(routeid: key!)
             })
             routesChanged = true
         }

@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseDatabase
-import MBProgressHUD
 
 class GroupViewController: UIViewController {
     
