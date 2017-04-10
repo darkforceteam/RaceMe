@@ -335,12 +335,14 @@ class ExploreViewController: UIViewController {
                                 
                             }
                             //FILTER HERE TOO!!
-                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_VALUE) || ((self.displayingTime != Constants.FilterDay.TODAY_VALUE) && (route.todayEvents.count > 0 )) || ((self.displayingTime != Constants.FilterDay.TOMORROW_VALUE) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime != Constants.FilterDay.LATER_VALUE) && (route.laterEvents.count > 0 )) {
+                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_VALUE) || ((self.displayingTime == Constants.FilterDay.TODAY_VALUE) && (route.todayEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.TOMORROW_VALUE) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.LATER_VALUE) && (route.laterEvents.count > 0 )) {
                                 do {
                                     try self.drawRoute(route: route)
                                 } catch {
                                     print("Error drawing route")
                                 }
+                            } else {
+                                self.actIndicator.stopAnimating()
                             }
                         })
                         self.allRoute.append(route)
