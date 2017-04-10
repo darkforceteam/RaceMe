@@ -25,6 +25,8 @@ class ChallengeViewCell: UITableViewCell {
     @IBOutlet weak var weeklyDistLabel: UILabel!
     @IBOutlet weak var miWODistLabel: UILabel!
     
+    @IBOutlet weak var longRunDistLabel: UILabel!
+    @IBOutlet weak var longRunNoLabel: UILabel!
     @IBOutlet weak var minWOPaceLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()

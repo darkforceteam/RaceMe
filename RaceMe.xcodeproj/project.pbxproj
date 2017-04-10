@@ -96,6 +96,7 @@
 		D94C62D11E93D5CE000E5A5E /* ParticipantViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */; };
 		D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */; };
 		D96BFB521E99CEBD002719A9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96BFB511E99CEBD002719A9 /* Utils.swift */; };
+		D9A4F8821E9BD96D00558860 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4F8811E9BD96D00558860 /* Challenge.swift */; };
 		D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */; };
 		D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D35F001E925963008C3AB3 /* ScheduleCell.xib */; };
 		D9D35F041E929E23008C3AB3 /* UserObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35F031E929E23008C3AB3 /* UserObject.swift */; };
@@ -218,6 +219,7 @@
 		D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewCell.swift; sourceTree = "<group>"; };
 		D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParticipantViewCell.xib; sourceTree = "<group>"; };
 		D96BFB511E99CEBD002719A9 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D9A4F8811E9BD96D00558860 /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		D9D35F001E925963008C3AB3 /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
 		D9D35F031E929E23008C3AB3 /* UserObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserObject.swift; sourceTree = "<group>"; };
@@ -380,6 +382,7 @@
 				B22978391E83FE1E005F41B3 /* User.swift */,
 				D9D35F031E929E23008C3AB3 /* UserObject.swift */,
 				D9F7B2251E89312A00B692FF /* Event.swift */,
+				D9A4F8811E9BD96D00558860 /* Challenge.swift */,
 				D9D9DF171E81057C008C086C /* Location.swift */,
 				D9433ABF1E8521DB00F085B3 /* Route.swift */,
 				D9D9DF191E810991008C086C /* Workout.swift */,
@@ -776,6 +779,7 @@
 				D9F7B2211E88BFF500B692FF /* GFGeoHash.m in Sources */,
 				D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */,
 				D9F7B2221E88BFF500B692FF /* GFGeoHashQuery.m in Sources */,
+				D9A4F8821E9BD96D00558860 /* Challenge.swift in Sources */,
 				D9DA30B61E8AA65500F10849 /* UserProfileCell.swift in Sources */,
 				B6860B691E8566F70008B06A /* NotificationCell.swift in Sources */,
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
