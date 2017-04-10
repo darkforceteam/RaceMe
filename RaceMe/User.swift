@@ -52,4 +52,9 @@ struct User {
         ref?.child("groups/\(group_id)").removeValue()
         FIRDatabase.database().reference().child("\(group_id)/members/\(uid!)").removeValue()
     }
+    
+    func follow(uid: String) {
+        ref?.child("following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
+        FIRDatabase.database().reference().child("USERS/\(uid)/followers/\(key!)").setValue(NSDate().timeIntervalSince1970 * 1000)
+    }
 }

@@ -66,6 +66,8 @@
 		B6860B6E1E85776C0008B06A /* DisclosureIndicatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */; };
 		B68D08231E7E2A9100DC971F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B68D08211E7E2A9100DC971F /* LoginViewController.swift */; };
 		B68D08241E7E2A9100DC971F /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68D08221E7E2A9100DC971F /* LoginViewController.xib */; };
+		B692F6231E9BC55B0004E339 /* MemberListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B692F6211E9BC55B0004E339 /* MemberListViewController.swift */; };
+		B692F6241E9BC55B0004E339 /* MemberListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B692F6221E9BC55B0004E339 /* MemberListViewController.xib */; };
 		B6946A2F1E97B39700931B0F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6946A2E1E97B39700931B0F /* Group.swift */; };
 		B6946A371E97F3F500931B0F /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6946A351E97F3F500931B0F /* ChallengeViewController.swift */; };
 		B6946A381E97F3F500931B0F /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6946A361E97F3F500931B0F /* ChallengeViewController.xib */; };
@@ -184,6 +186,8 @@
 		B6860B6C1E85776C0008B06A /* DisclosureIndicatorCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DisclosureIndicatorCell.xib; sourceTree = "<group>"; };
 		B68D08211E7E2A9100DC971F /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		B68D08221E7E2A9100DC971F /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		B692F6211E9BC55B0004E339 /* MemberListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberListViewController.swift; sourceTree = "<group>"; };
+		B692F6221E9BC55B0004E339 /* MemberListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemberListViewController.xib; sourceTree = "<group>"; };
 		B6946A2E1E97B39700931B0F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		B6946A351E97F3F500931B0F /* ChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		B6946A361E97F3F500931B0F /* ChallengeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
@@ -404,6 +408,8 @@
 				B6F520091E8500A90071E361 /* NotificationsViewController.xib */,
 				B637D2371E7E4DA900F41A07 /* FindFriendsViewController.swift */,
 				B637D2381E7E4DA900F41A07 /* FindFriendsViewController.xib */,
+				B692F6211E9BC55B0004E339 /* MemberListViewController.swift */,
+				B692F6221E9BC55B0004E339 /* MemberListViewController.xib */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -624,6 +630,7 @@
 				D9F7B2081E88119600B692FF /* TextOnlyTableViewCell.xib in Resources */,
 				B20F76301E927D9F00BA52FE /* OpenSans-Light.ttf in Resources */,
 				B63974471E87B0CA00C3BE9C /* DatePickerSettingCell.xib in Resources */,
+				B692F6241E9BC55B0004E339 /* MemberListViewController.xib in Resources */,
 				B6946A381E97F3F500931B0F /* ChallengeViewController.xib in Resources */,
 				B679DD2A1E8C00D9000744E8 /* ProfileGroupsViewController.xib in Resources */,
 				B68177A81E7EC6B800FF760F /* ExploreViewController.xib in Resources */,
@@ -773,6 +780,7 @@
 				B22978401E840127005F41B3 /* RunSummaryViewController.swift in Sources */,
 				D96BFB521E99CEBD002719A9 /* Utils.swift in Sources */,
 				B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */,
+				B692F6231E9BC55B0004E339 /* MemberListViewController.swift in Sources */,
 				B679DD251E8BFFB4000744E8 /* ActivitiesViewController.swift in Sources */,
 				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
 				B6CF33F61E8CB5860087614C /* RightDetailArrowCell.swift in Sources */,

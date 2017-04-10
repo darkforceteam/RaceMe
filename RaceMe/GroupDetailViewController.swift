@@ -19,12 +19,12 @@ class GroupDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // getMembers(group_key: group.key!)
+        getMembers(group_key: group.key!)
         // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "GroupInfoCell", bundle: nil), forCellReuseIdentifier: "GroupInfoCell")
-        tableView.register(UINib(nibName: "MemberCell", bundle: nil), forCellReuseIdentifier: "MemberCell")
+        tableView.register(UINib(nibName: "DisclosureIndicatorCell", bundle: nil), forCellReuseIdentifier: "DisclosureIndicatorCell")
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 45
     }
@@ -38,8 +38,7 @@ class GroupDetailViewController: UIViewController {
 
 extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let count = members.count + 1
-        return count
+        return 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,12 +58,24 @@ extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource 
                     cell.groupJoinButton.backgroundColor = darkColor
                 }
             }
+            cell.selectionStyle = .none
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MemberCell", for: indexPath) as! MemberCell
-            cell.displayNameLabel.text = members[indexPath.row].displayName
-            cell.avatarImageView.setImageWith(URL(string: (members[indexPath.row].photoUrl)!)!)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DisclosureIndicatorCell", for: indexPath) as! DisclosureIndicatorCell
+            cell.titleLabel.text = "Members"
             return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 1 :
+            let memberListViewController = MemberListViewController(nibName: "MemberListViewController", bundle: nil)
+            memberListViewController.members = members
+            navigationController?.pushViewController(memberListViewController, animated: true)
+            tableView.deselectRow(at: indexPath, animated: true)
+        default:
+            break
         }
     }
     
@@ -88,11 +99,11 @@ extension GroupDetailViewController: UITableViewDelegate, UITableViewDataSource 
                 FIRDatabase.database().reference().child("USERS/\(memberData.key)").observeSingleEvent(of: .value, with: { (userSnapshot) in
                     let user = User(snapshot: userSnapshot)
                     self.members.append(user)
-                    print(self.members.count)
-                    self.tableView.reloadData()
+                    //print(self.members.count)
+                    //self.tableView.reloadData()
                 })
             }
-            //self.tableView.reloadData()
+            self.tableView.reloadData()
         })
     }
 }
