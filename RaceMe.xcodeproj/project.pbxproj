@@ -455,9 +455,9 @@
 			isa = PBXGroup;
 			children = (
 				B6946A351E97F3F500931B0F /* ChallengeViewController.swift */,
+				B6946A361E97F3F500931B0F /* ChallengeViewController.xib */,
 				D938E2741E9B9C1B0058CBCD /* ChallengeViewCell.swift */,
 				D938E2751E9B9C1B0058CBCD /* ChallengeViewCell.xib */,
-				B6946A361E97F3F500931B0F /* ChallengeViewController.xib */,
 			);
 			name = Challenge;
 			sourceTree = "<group>";
