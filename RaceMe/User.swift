@@ -53,15 +53,31 @@ struct User {
         FIRDatabase.database().reference().child("\(group_id)/members/\(uid!)").removeValue()
     }
     
-    func followed(uid: String, completion: @escaping (_ success: Bool) -> ()) {
-        var joined = Bool()
-        ref?.child("following").observeSingleEvent(of: .value, with: { (snapshot) in
+    func hasFollower(uid: String, completion: @escaping (_ success: Bool) -> ()) {
+        var follower = Bool()
+        ref?.child("followers").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild(uid) {
-                joined = true
+                follower = true
             } else {
-                joined = false
+                follower = false
             }
-            completion(joined)
+            completion(follower)
+        })
+    }
+    
+    func followingCount(completion: @escaping (UInt) -> ()) {
+        var count = UInt()
+        ref?.child("following").observeSingleEvent(of: .value, with: { (snapshot) in
+            count = snapshot.childrenCount
+            completion(count)
+        })
+    }
+    
+    func followersCount(completion: @escaping (UInt) -> ()) {
+        var count = UInt()
+        ref?.child("followers").observeSingleEvent(of: .value, with: { (snapshot) in
+            count = snapshot.childrenCount
+            completion(count)
         })
     }
     

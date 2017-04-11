@@ -14,6 +14,7 @@ class ActivitiesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     var ref: FIRDatabaseReference!
+    var uid: String = FIRAuth.auth()!.currentUser!.uid
     var items = [Workout]()
     var sections = Dictionary<String, Array<Workout>>()
     var sortedSections = [String]()
@@ -90,7 +91,7 @@ extension ActivitiesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func loadActivities() {
         sections = Dictionary<String, Array<Workout>>()
-        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: FIRAuth.auth()?.currentUser?.uid).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren() {
                 for activityData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     let oneActivity = Workout(snapshot: activityData)

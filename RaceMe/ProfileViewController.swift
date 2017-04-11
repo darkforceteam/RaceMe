@@ -18,6 +18,7 @@ class ProfileViewController: UIViewController {
     var ref: FIRDatabaseReference!
     var workoutCount = 0
     var uid: String = FIRAuth.auth()!.currentUser!.uid
+    let current_uid = FIRAuth.auth()!.currentUser!.uid
     
     var currentDistance = 0.0
     var lastDistance = 0.0
@@ -89,28 +90,30 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     cell.avatarImage.setImageWith(avatarURL!)
                 }
                 
-                if ( FIRAuth.auth()!.currentUser!.uid == self.uid ) {
+                if ( self.current_uid == self.uid ) {
                     cell.followButton.isHidden = true
                 } else {
-                    user.followed(uid: self.uid) { (status) in
-                        // TODO: Impliment Follow function
+                    user.hasFollower(uid: self.current_uid) { (status) in
                         if ( false == status ) {
-//                            if (cell.followButton.isTouchInside) {
-//                                user.follow(uid: self.uid)
-//                            }
-                            cell.followButton.setTitle("Follow", for: .normal)
+                            cell.followButton.tag = 2
+                            cell.followButton.setTitle("FOLLOW", for: .normal)
                             cell.followButton.backgroundColor = successColor
                         } else {
-//                            if (cell.followButton.isTouchInside) {
-//                                user.unfollow(uid: self.uid)
-//                            }
-                            cell.followButton.setTitle("Unfollow", for: .normal)
+                            cell.followButton.tag = 1
+                            cell.followButton.setTitle("UNFOLLOW", for: .normal)
                             cell.followButton.backgroundColor = darkColor
                         }
+                        cell.followButton.addTarget(self, action: #selector(ProfileViewController.follow), for: .touchUpInside)
                     }
-                    
-                    
                 }
+                
+                user.followersCount(completion: { (count) in
+                    cell.followerCount.text = "\(count)"
+                })
+                
+                user.followingCount(completion: { (count) in
+                    cell.followingCount.text = "\(count)"
+                })
             })
             
             ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -180,6 +183,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 1:
             let activitiesViewController = ActivitiesViewController(nibName: "ActivitiesViewController", bundle: nil)
+            activitiesViewController.uid = uid
             navigationController?.pushViewController(activitiesViewController, animated: true)
         case 2:
             let profileRecordsViewController = ProfileRecordsViewController(nibName: "ProfileRecordsViewController", bundle: nil)
@@ -193,22 +197,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-//    @objc func followButton(sender: UIButton, user: User, uid: String) {
-//        user.followed(uid: uid) { (status) in
-//            if ( true == status ) {
-//                user.follow(uid: uid)
-//                sender.setTitle("Join", for: .normal)
-//                sender.backgroundColor = successColor
-//            } else {
-//                self.group?.join(uid: self.uid)
-//                sender.setTitle("Leave", for: .normal)
-//                sender.backgroundColor = darkColor
-//            }
-//        }
-//    }
-    
-    func follow(follower: String, uid: String) {
-        FIRDatabase.database().reference().child("USERS/\(follower)/following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
-        FIRDatabase.database().reference().child("USERS/\(uid)/followers/\(follower)").setValue(NSDate().timeIntervalSince1970 * 1000)
+    func follow(sender: UIButton) {
+        if ( sender.tag == 1 ) {
+            ref.child("USERS/\(current_uid)/following/\(uid)").removeValue()
+            ref.child("USERS/\(uid)/followers/\(current_uid)").removeValue()
+            print("Unfollowed")
+        } else {
+            print("Followed")
+            ref.child("USERS/\(current_uid)/following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
+            ref.child("USERS/\(uid)/followers/\(current_uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
+        }
     }
 }
