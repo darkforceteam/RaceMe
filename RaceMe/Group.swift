@@ -72,4 +72,14 @@ struct Group {
             completion(count)
         })
     }
+    
+    func memberIDs(completion: @escaping ([String]) -> ()) {
+        var memberIDs = [String]()
+        ref?.child("members").observeSingleEvent(of: .value, with: { (snapshot) in
+            for memberData in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                memberIDs.append(memberData.key)
+            }
+            completion(memberIDs)
+        })
+    }
 }

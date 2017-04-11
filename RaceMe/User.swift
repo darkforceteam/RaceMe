@@ -52,4 +52,42 @@ struct User {
         ref?.child("groups/\(group_id)").removeValue()
         FIRDatabase.database().reference().child("\(group_id)/members/\(uid!)").removeValue()
     }
+    
+    func hasFollower(uid: String, completion: @escaping (_ success: Bool) -> ()) {
+        var follower = Bool()
+        ref?.child("followers").observeSingleEvent(of: .value, with: { (snapshot) in
+            if snapshot.hasChild(uid) {
+                follower = true
+            } else {
+                follower = false
+            }
+            completion(follower)
+        })
+    }
+    
+    func followingCount(completion: @escaping (UInt) -> ()) {
+        var count = UInt()
+        ref?.child("following").observeSingleEvent(of: .value, with: { (snapshot) in
+            count = snapshot.childrenCount
+            completion(count)
+        })
+    }
+    
+    func followersCount(completion: @escaping (UInt) -> ()) {
+        var count = UInt()
+        ref?.child("followers").observeSingleEvent(of: .value, with: { (snapshot) in
+            count = snapshot.childrenCount
+            completion(count)
+        })
+    }
+    
+    func follow(uid: String) {
+        ref?.child("following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
+        FIRDatabase.database().reference().child("USERS/\(uid)/followers/\(key!)").setValue(NSDate().timeIntervalSince1970 * 1000)
+    }
+    
+    func unfollow(uid: String) {
+        ref?.child("following/\(uid)").removeValue()
+        FIRDatabase.database().reference().child("USERS/\(uid)/followers/\(key!)").removeValue()
+    }
 }

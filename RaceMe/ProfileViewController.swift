@@ -18,11 +18,20 @@ class ProfileViewController: UIViewController {
     var ref: FIRDatabaseReference!
     var workoutCount = 0
     var uid: String = FIRAuth.auth()!.currentUser!.uid
+    let current_uid = FIRAuth.auth()!.currentUser!.uid
+    
+    var currentDistance = 0.0
+    var lastDistance = 0.0
+    var currentAvgPace = 0.0
+    var lastAvgPace = 0.0
+    var currentActivity = 0
+    var lastActivity = 0
+    var currentTime = 0
+    var lastTime = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
-        loadUserInfo(uid: uid)
         tableView.dataSource = self
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
@@ -80,16 +89,77 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                     let avatarURL = URL(string: user.photoUrl!)
                     cell.avatarImage.setImageWith(avatarURL!)
                 }
+                
+                if ( self.current_uid == self.uid ) {
+                    cell.followButton.isHidden = true
+                } else {
+                    user.hasFollower(uid: self.current_uid) { (status) in
+                        if ( false == status ) {
+                            cell.followButton.tag = 2
+                            cell.followButton.setTitle("FOLLOW", for: .normal)
+                            cell.followButton.backgroundColor = successColor
+                        } else {
+                            cell.followButton.tag = 1
+                            cell.followButton.setTitle("UNFOLLOW", for: .normal)
+                            cell.followButton.backgroundColor = darkColor
+                        }
+                        cell.followButton.addTarget(self, action: #selector(ProfileViewController.follow), for: .touchUpInside)
+                    }
+                }
+                
+                user.followersCount(completion: { (count) in
+                    cell.followerCount.text = "\(count)"
+                })
+                
+                user.followingCount(completion: { (count) in
+                    cell.followingCount.text = "\(count)"
+                })
+            })
+            
+            ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.hasChildren() {
+                    cell.workoutCount.text = "\(Int(snapshot.childrenCount))"
+                    for activityData in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                        let oneActivity = Workout(snapshot: activityData)
+                        self.currentDistance = self.currentDistance + oneActivity.distanceKm!
+                        self.currentActivity = self.currentActivity + 1
+                        self.currentTime = self.currentTime + oneActivity.duration!
+                    }
+                }
+                
+                let theCurrentDistance = String(format: "%.1f", self.currentDistance)
+                if 0 < self.currentDistance {
+                    self.currentAvgPace = Double(self.currentTime) / self.currentDistance
+                }
+                
+                let userStats1 = ["title":"Kilometers", "current_period": theCurrentDistance, "last_period": "\(self.lastDistance)"]
+                let userStats2 = ["title":"Average Pace (Min/Km)", "current_period": "\(self.currentAvgPace.stringWithPaceFormat)", "last_period": "\(self.lastAvgPace.stringWithPaceFormat)"]
+                let userStats3 = ["title":"Activities", "current_period": "\(self.currentActivity)", "last_period": "\(self.lastActivity)"]
+                let userStats4 = ["title":"Time Spent", "current_period": "\(self.currentTime.toMinutes):\(self.currentTime.toSeconds)", "last_period": "\(self.lastTime.toMinutes):\(self.lastTime.toSeconds)"]
+                
+                let userStatisticsArray = [userStats1,userStats2,userStats3,userStats4]
+                for (index, userStatistics) in userStatisticsArray.enumerated() {
+                    if let userStatisticsView = Bundle.main.loadNibNamed("UserStatistics", owner: self, options: nil)?.first as? UserStatisticsView {
+                        userStatisticsView.titleLabel.text = userStatistics["title"]
+                        userStatisticsView.currentPeriodCount.text = userStatistics["current_period"]
+                        userStatisticsView.lastPeriodCount.text = userStatistics["last_period"]
+                        cell.userStatisticsScrollView.addSubview(userStatisticsView)
+                        userStatisticsView.frame.size.width = cell.frame.width
+                        userStatisticsView.frame.origin.x = CGFloat(index) * cell.frame.width
+                    }
+                }
             })
             cell.selectionStyle = .none
-            cell.followButton.isHidden = true
-            cell.workoutCount.text = "\(workoutCount)"
             return cell
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
             cell.iconImageView.image = UIImage(named: "ic_history")?.withRenderingMode(.alwaysTemplate)
             cell.iconImageView.tintColor = darkColor
-            cell.descLabel.text = "\(workoutCount) Tracked"
+            ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                if snapshot.hasChildren() {
+                    cell.descLabel.text = "\(Int(snapshot.childrenCount)) Tracked"
+                }
+            })
             cell.titleLabel.text = "Activities"
             return cell
         case 2:
@@ -113,6 +183,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.row {
         case 1:
             let activitiesViewController = ActivitiesViewController(nibName: "ActivitiesViewController", bundle: nil)
+            activitiesViewController.uid = uid
             navigationController?.pushViewController(activitiesViewController, animated: true)
         case 2:
             let profileRecordsViewController = ProfileRecordsViewController(nibName: "ProfileRecordsViewController", bundle: nil)
@@ -126,13 +197,15 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func loadUserInfo( uid: String ) {
-        ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            if snapshot.hasChildren() {
-                self.workoutCount = Int(snapshot.childrenCount)
-                self.tableView.reloadData()
-            }
-        })
-        
+    func follow(sender: UIButton) {
+        if ( sender.tag == 1 ) {
+            ref.child("USERS/\(current_uid)/following/\(uid)").removeValue()
+            ref.child("USERS/\(uid)/followers/\(current_uid)").removeValue()
+            print("Unfollowed")
+        } else {
+            print("Followed")
+            ref.child("USERS/\(current_uid)/following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
+            ref.child("USERS/\(uid)/followers/\(current_uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
+        }
     }
 }
