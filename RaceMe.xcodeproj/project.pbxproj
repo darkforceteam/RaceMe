@@ -88,6 +88,8 @@
 		B6F5200A1E8500A90071E361 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6F520081E8500A90071E361 /* NotificationsViewController.swift */; };
 		B6F5200B1E8500A90071E361 /* NotificationsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6F520091E8500A90071E361 /* NotificationsViewController.xib */; };
 		D902147B1E8A6EC3000DB7DF /* RouteAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */; };
+		D93253361E9C917400C59630 /* AddChallengeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D93253341E9C917400C59630 /* AddChallengeVC.swift */; };
+		D93253371E9C917400C59630 /* AddChallengeVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D93253351E9C917400C59630 /* AddChallengeVC.xib */; };
 		D938E2761E9B9C1B0058CBCD /* ChallengeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D938E2741E9B9C1B0058CBCD /* ChallengeViewCell.swift */; };
 		D938E2771E9B9C1B0058CBCD /* ChallengeViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D938E2751E9B9C1B0058CBCD /* ChallengeViewCell.xib */; };
 		D9433AC01E8521DB00F085B3 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9433ABF1E8521DB00F085B3 /* Route.swift */; };
@@ -211,6 +213,8 @@
 		B6F520081E8500A90071E361 /* NotificationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		B6F520091E8500A90071E361 /* NotificationsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotificationsViewController.xib; sourceTree = "<group>"; };
 		D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouteAnnotation.swift; sourceTree = "<group>"; };
+		D93253341E9C917400C59630 /* AddChallengeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddChallengeVC.swift; sourceTree = "<group>"; };
+		D93253351E9C917400C59630 /* AddChallengeVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddChallengeVC.xib; sourceTree = "<group>"; };
 		D938E2741E9B9C1B0058CBCD /* ChallengeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeViewCell.swift; sourceTree = "<group>"; };
 		D938E2751E9B9C1B0058CBCD /* ChallengeViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeViewCell.xib; sourceTree = "<group>"; };
 		D9433ABF1E8521DB00F085B3 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Route.swift; sourceTree = "<group>"; };
@@ -459,6 +463,8 @@
 			children = (
 				B6946A351E97F3F500931B0F /* ChallengeViewController.swift */,
 				B6946A361E97F3F500931B0F /* ChallengeViewController.xib */,
+				D93253341E9C917400C59630 /* AddChallengeVC.swift */,
+				D93253351E9C917400C59630 /* AddChallengeVC.xib */,
 				D938E2741E9B9C1B0058CBCD /* ChallengeViewCell.swift */,
 				D938E2751E9B9C1B0058CBCD /* ChallengeViewCell.xib */,
 			);
@@ -653,6 +659,7 @@
 				B68177B01E7ED20200FF760F /* GroupViewController.xib in Resources */,
 				B61B85411E940BFE0008BCF3 /* SlideView.xib in Resources */,
 				B20F762E1E927D9F00BA52FE /* OpenSans-ExtraBoldItalic.ttf in Resources */,
+				D93253371E9C917400C59630 /* AddChallengeVC.xib in Resources */,
 				D94C62CE1E93A232000E5A5E /* ScheduleVC.xib in Resources */,
 				B671E7221E988B4B0035600F /* AddGroupViewController.xib in Resources */,
 				B68177AC1E7ED1E500FF760F /* TrackingViewController.xib in Resources */,
@@ -771,6 +778,7 @@
 				B24758FB1E969A7B009CF595 /* CustomCell.swift in Sources */,
 				B63974461E87B0CA00C3BE9C /* DatePickerSettingCell.swift in Sources */,
 				B22978371E83FD85005F41B3 /* RecordViewController.swift in Sources */,
+				D93253361E9C917400C59630 /* AddChallengeVC.swift in Sources */,
 				D9DA30C31E91F52C00F10849 /* CustomPinView.swift in Sources */,
 				B6F520061E84FF860071E361 /* ProfileSettingsViewController.swift in Sources */,
 				B671E7291E988FC80035600F /* GroupCell.swift in Sources */,

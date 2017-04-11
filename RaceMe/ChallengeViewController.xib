@@ -11,7 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeViewController" customModule="RaceMe" customModuleProvider="target">
             <connections>
                 <outlet property="chalTypeSegment" destination="5Ua-j4-xCu" id="yhQ-RO-s8D"/>
-                <outlet property="createBtn" destination="mgm-fB-jWE" id="kiF-tK-wm8"/>
+                <outlet property="createBtn" destination="mgm-fB-jWE" id="wFl-dy-bpi"/>
                 <outlet property="tableView" destination="Med-Mb-0xX" id="uPA-dA-Jwm"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Med-Mb-0xX">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="511"/>
+                    <rect key="frame" x="0.0" y="44" width="375" height="519"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgm-fB-jWE">
@@ -35,9 +35,12 @@
                     <state key="normal" title="CREATE">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="createChallenge:" destination="-1" eventType="touchUpInside" id="KGC-7M-6fz"/>
+                    </connections>
                 </button>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5Ua-j4-xCu">
-                    <rect key="frame" x="16" y="527" width="343" height="29"/>
+                    <rect key="frame" x="16" y="8" width="343" height="29"/>
                     <segments>
                         <segment title="All"/>
                         <segment title="Near by"/>
@@ -47,16 +50,16 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="mgm-fB-jWE" firstAttribute="top" secondItem="5Ua-j4-xCu" secondAttribute="bottom" constant="16" id="7zm-Ex-wFW"/>
                 <constraint firstAttribute="trailing" secondItem="mgm-fB-jWE" secondAttribute="trailing" constant="16" id="BvO-Zd-msE"/>
                 <constraint firstItem="5Ua-j4-xCu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Oz1-pm-SWd"/>
-                <constraint firstItem="5Ua-j4-xCu" firstAttribute="top" secondItem="Med-Mb-0xX" secondAttribute="bottom" constant="16" id="Xqg-Qt-ZmX"/>
-                <constraint firstItem="Med-Mb-0xX" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="bms-eu-fEG"/>
                 <constraint firstAttribute="bottom" secondItem="mgm-fB-jWE" secondAttribute="bottom" constant="51" id="chE-lF-DMl"/>
+                <constraint firstItem="mgm-fB-jWE" firstAttribute="top" secondItem="Med-Mb-0xX" secondAttribute="bottom" constant="8" id="ebf-Iq-bBo"/>
                 <constraint firstAttribute="trailing" secondItem="5Ua-j4-xCu" secondAttribute="trailing" constant="16" id="lEP-PB-EuA"/>
                 <constraint firstItem="Med-Mb-0xX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="m3C-A8-dCJ"/>
                 <constraint firstItem="mgm-fB-jWE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="t5G-Lq-uUF"/>
                 <constraint firstAttribute="trailing" secondItem="Med-Mb-0xX" secondAttribute="trailing" id="vHt-B2-bEX"/>
+                <constraint firstItem="5Ua-j4-xCu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="vUy-dW-LU6"/>
+                <constraint firstItem="Med-Mb-0xX" firstAttribute="top" secondItem="5Ua-j4-xCu" secondAttribute="bottom" constant="8" id="zDM-qL-o7L"/>
             </constraints>
             <point key="canvasLocation" x="26.5" y="52.5"/>
         </view>

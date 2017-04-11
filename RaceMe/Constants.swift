@@ -56,6 +56,7 @@ struct Constants {
     }
     
     struct Group {
+        static let TABLE_NAME = "GROUPS"
         static let NAME = "name"
         static let DESCRIPTION = "description"
         static let CREATOR = "creator"
@@ -72,9 +73,13 @@ struct Constants {
         static let TOMORROW_VALUE = "2"
         static let LATER_VALUE = "3"
     }
-    
+    struct USERS{
+        static let table_name = "USERS"
+        static let display_name = "displayName"
+    }
     struct Challenge{
         static let table_name = "challenges"
+        static let challenge_name = "name"
         static let created_by = "created_by"
         static let for_group = "for_group"
         static let start_date = "start_date"
@@ -85,8 +90,10 @@ struct Constants {
         static let week_distant = "week_distant"
         static let min_wo_dist = "min_wo_dist"
         static let min_wo_pace = "min_wo_pace"
-        static let long_wo_no = "long_wo_no"
-        static let long_wo_dist = "long_wo_dist"
+        static let total_long_wo_no = "total_long_wo_no"
+        static let total_long_wo_dist = "total_long_wo_dist"
+        static let week_long_wo_no = "week_long_wo_no"
+        static let week_long_wo_dist = "week_long_wo_dist"
         struct participants {
             static let participants = "participants"
             static let status = "status"
