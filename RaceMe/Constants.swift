@@ -80,6 +80,7 @@ struct Constants {
     struct Challenge{
         static let table_name = "challenges"
         static let challenge_name = "name"
+        static let chal_photo = "photo"
         static let created_by = "created_by"
         static let for_group = "for_group"
         static let start_date = "start_date"
@@ -116,5 +117,9 @@ struct Constants {
             }
         }
     }
+    struct STORAGE {
+        static let CHALLENGE = "CHALLENGES"
+    }
+    static let localImageChallenge = "resources/images/challenges"
     static let timeData: Dictionary = ["0":"All time","1":"Today","2":"Tomorrow","3":"Later"]
 }

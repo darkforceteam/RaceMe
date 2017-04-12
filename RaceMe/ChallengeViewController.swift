@@ -8,6 +8,8 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
+
 class ChallengeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var chalTypeSegment: UISegmentedControl!
@@ -16,10 +18,15 @@ class ChallengeViewController: UIViewController {
     var challenges = [Challenge]()
     var ref: FIRDatabaseReference!
     var userRef: FIRDatabaseReference!
+    var storageRef: FIRStorageReference!
+    var chalStorageRef: FIRStorageReference!
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         userRef = ref.child(Constants.USERS.table_name)
+        let storage = FIRStorage.storage()
+        storageRef = storage.reference()
+        chalStorageRef = storageRef.child(Constants.STORAGE.CHALLENGE)
         createBtn.backgroundColor = UIColor(136, 192, 87)
         createBtn.layer.cornerRadius = 5
         
@@ -28,7 +35,6 @@ class ChallengeViewController: UIViewController {
         tableView.register(UINib(nibName: "ChallengeViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeViewCell")
         tableView.estimatedRowHeight = 400
         tableView.rowHeight = UITableViewAutomaticDimension
-        loadChallenges()
         // Do any additional setup after loading the view.
     }
 
@@ -40,9 +46,18 @@ class ChallengeViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        loadChallenges()
+    }
+    deinit {
+        if ref != nil {
+            ref.removeAllObservers()
+            userRef.removeAllObservers()
+        }
+    }
     func loadChallenges() {
-        self.ref.child(Constants.Challenge.table_name).observe(.value, with: { (snapshot) in
+        self.challenges.removeAll()
+        self.ref.child(Constants.Challenge.table_name).observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChildren(){
                 for challengeData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     let challenge = Challenge(snapshot: challengeData)
@@ -50,11 +65,27 @@ class ChallengeViewController: UIViewController {
                         self.userRef.child("\(challenge.created_by!)").observeSingleEvent(of: .value, with: { (snapshot) in
                             if let oneChal = snapshot.value as? NSDictionary{
                                 challenge.creator_name = oneChal.value(forKey: Constants.USERS.display_name) as? String
-                                
                             }
                         })
                     }
-                    self.challenges.append(challenge)
+                    if challenge.chal_photo != nil {
+                        let request = NSMutableURLRequest(url: URL(string: (challenge.chal_photo!))!)
+                        request.httpMethod = "GET"
+                        
+                        let session = URLSession(configuration: URLSessionConfiguration.default)
+                        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                            if error == nil {
+                                DispatchQueue.main.async {
+                                    challenge.chalImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                    self.challenges.append(challenge)
+                                    self.tableView.reloadData()
+                                }
+                            }
+                        }
+                        dataTask.resume()
+                    } else {
+                        self.challenges.append(challenge)
+                    }
                 }
                 self.tableView.reloadData()
             }
@@ -86,6 +117,9 @@ extension ChallengeViewController: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeViewCell", for: indexPath) as! ChallengeViewCell
         let chal = challenges[indexPath.row]
+        if chal.chalImg != nil {
+            cell.chalImage.image = chal.chalImg
+        }
         if chal.creator_name != nil {
             cell.creatorLabel.text = chal.creator_name!
         }

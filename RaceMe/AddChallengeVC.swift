@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 class AddChallengeVC: UIViewController {
 
     @IBOutlet weak var nameTextField: UITextField!
@@ -34,16 +35,27 @@ class AddChallengeVC: UIViewController {
     let dataPicker = UIPickerView()
     var groups = [Group]()
     var ref: FIRDatabaseReference!
+    var storageRef: FIRStorageReference!
+    var chalStorageRef: FIRStorageReference!
+    var uploadTask: FIRStorageUploadTask!
     var selectedGroupId: String?
     let fixedData = ["Public","Friends"]
     var startDate: Date?
     var endDate: Date?
     var challenge: Challenge?
     var userId: String?
+    let imagePicker = UIImagePickerController()
+    @IBOutlet weak var chalImage: UIImageView!
+    @IBOutlet weak var uploadImgProgress: UIProgressView!
+    var photoIsUploading = false
     override func viewDidLoad() {
         super.viewDidLoad()
         userId = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
+        let storage = FIRStorage.storage()
+        storageRef = storage.reference()
+        chalStorageRef = storageRef.child(Constants.STORAGE.CHALLENGE)
+        uploadImgProgress.isHidden = true
         loadGroup()
         if challenge == nil{
             deleteBtn.isHidden = true
@@ -54,6 +66,7 @@ class AddChallengeVC: UIViewController {
         }
         createBtn.backgroundColor = UIColor(136, 192, 87)
         createBtn.layer.cornerRadius = 5
+        imagePicker.delegate = self
         dataPicker.delegate = self
         groupPick.inputView = dataPicker
         hideKeyboardWhenTappedAround()
@@ -65,7 +78,7 @@ class AddChallengeVC: UIViewController {
         chalTotWOPick.addTarget(self, action: #selector(self.textFieldDidChange), for: UIControlEvents.editingChanged)
     }
     func textFieldDidChange(textField: UITextField) {
-        if nameTextField.text == "" || startDatePick.text == "" || endDatePick.text == "" || chalTotWOPick.text == "" {
+        if nameTextField.text == "" || startDatePick.text == "" || endDatePick.text == "" || chalTotWOPick.text == "" || photoIsUploading{
             //Disable button
             createBtn.isEnabled = false
         } else {
@@ -98,7 +111,19 @@ class AddChallengeVC: UIViewController {
         endDate = Calendar.current.date(byAdding: components, to: startDate)
         endDatePick.text = "\(dateFormatter.string(from: endDate!))"
     }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        if photoIsUploading && uploadTask != nil{
+            uploadTask!.cancel()
+        }
+        if self.challenge == nil && self.savedImgId != nil && self.savedImgId != ""{
+            self.deletePhoto()
+        }
+    }
+    deinit {
+        if ref != nil {
+            ref.removeAllObservers()
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -120,9 +145,14 @@ class AddChallengeVC: UIViewController {
     
     @IBAction func createChallenge(_ sender: UIButton) {
         let chalRef = ref.child(Constants.Challenge.table_name).childByAutoId()
-        chalRef.child(Constants.Challenge.created_by).setValue(userId)
+        if userId != nil && userId != "" {
+            chalRef.child(Constants.Challenge.created_by).setValue(userId)
+        }
         if nameTextField.text != "" {
             chalRef.child(Constants.Challenge.challenge_name).setValue("\(nameTextField.text!)")
+        }
+        if savedImgId != nil && savedImgId != "" {
+            chalRef.child(Constants.Challenge.chal_photo).setValue("\(savedImgId!)")
         }
         if groupPick.text != "" {
             chalRef.child(Constants.Challenge.for_group).setValue("\(groupPick.text!)")
@@ -167,6 +197,7 @@ class AddChallengeVC: UIViewController {
             if (snapshot.value as? NSDictionary) != nil{
                 self.challenge = Challenge(snapshot: snapshot)
                 self.createBtn.isHidden = true
+                self.deleteBtn.isHidden = false
             }
         })
     }
@@ -183,6 +214,12 @@ class AddChallengeVC: UIViewController {
         })
     }
 
+    @IBAction func selectImage(_ sender: UIButton) {
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(imagePicker, animated: true, completion: nil)
+    }
     @IBAction func deleteChallenge(_ sender: UIButton) {
         let challengePath = "\(Constants.Challenge.table_name)/\(self.challenge!.id)"
         
@@ -211,8 +248,55 @@ class AddChallengeVC: UIViewController {
         woMinDistPick.text = ""
         woMinPacePick.text = ""
     }
+    var selectedImgFilename: String?
+    var savedImgId: String?
+    func uploadPhoto(){
+        savedImgId = ""
+        if let data: Data = UIImagePNGRepresentation(chalImage.image!){
+            uploadImgProgress.isHidden = false
+            uploadImgProgress.setProgress(0.0, animated: true)
+            let randomId = UUID().uuidString
+            selectedImgFilename = randomId.appending(selectedImgFilename!)
+            let chalImgRef = chalStorageRef.child(selectedImgFilename!)
+            photoIsUploading = true
+            createBtn.isEnabled = false
+            
+            uploadTask = chalImgRef.put(data, metadata: nil) { (metadata, error) in
+                guard let metadata = metadata else {
+                    // Uh-oh, an error occurred!
+                    return
+                }
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                self.selectedImgFilename = "\(metadata.downloadURL()!)"
+                self.savedImgId = self.selectedImgFilename
+                self.uploadImgProgress.isHidden = true
+                self.photoIsUploading = false
+                self.createBtn.isEnabled = true
+            }
+            
+            uploadTask.observe(.progress) { snapshot in
+                // Upload reported progress
+                let percentComplete = 100.0 * Double(snapshot.progress!.completedUnitCount)
+                    / Double(snapshot.progress!.totalUnitCount)
+                self.uploadImgProgress.setProgress(Float(percentComplete.divided(by: 100.0)), animated: true)
+            }
+        }
+    }
+    func deletePhoto(){
+        // Create a reference to the file to delete
+        let currentImgRef = chalStorageRef.child(savedImgId!)
+        
+        // Delete the file
+        currentImgRef.delete { error in
+            if let error = error {
+                print(error)
+            } else {
+                self.savedImgId = ""
+            }
+        }
+    }
 }
-extension AddChallengeVC: UIPickerViewDelegate, UIPickerViewDataSource {
+extension AddChallengeVC: UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -247,6 +331,20 @@ extension AddChallengeVC: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     func closePicker() {
         groupPick.resignFirstResponder()
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let url = info[UIImagePickerControllerReferenceURL] as! NSURL
+        selectedImgFilename = url.lastPathComponent
+        chalImage.contentMode = .scaleAspectFit
+        chalImage.image = chosenImage
+        uploadPhoto()
+        dismiss(animated:true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        dismiss(animated: true, completion: nil)
     }
 }
 extension UIViewController {

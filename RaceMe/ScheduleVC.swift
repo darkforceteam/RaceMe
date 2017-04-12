@@ -320,7 +320,7 @@ class ScheduleVC: UIViewController {
 //            delegate.reloadEventForRoute(scheduleVC: self, reload: true)
 //        }
     }
-    override func viewDidDisappear(_ animated: Bool) {
+    deinit {
         if ref != nil{
             ref.removeAllObservers()
             if eventRef != nil
