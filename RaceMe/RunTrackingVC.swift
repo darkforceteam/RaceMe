@@ -224,8 +224,9 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         let routeRef = ref.child(routeID)
         
         for (i, loc) in locations.enumerated() {
+            let firstTimestamp = locations[0].timestamp
             let locationRef = routeRef.child("\(i)")
-            let location = Location(loc)
+            let location = Location(loc, firstTimestamp, loc.timestamp)
             locationRef.setValue(location.toAnyObject())
         }
         let startLoc = locations.first
@@ -373,10 +374,6 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
                 }
                 self.locations.append(location)
             }
-        }
-        
-        if UIApplication.shared.applicationState == .background {
-            print("App is backgrouded. New location is \(locations.last)")
         }
     }
 }

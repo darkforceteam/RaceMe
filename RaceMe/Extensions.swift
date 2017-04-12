@@ -88,6 +88,13 @@ extension UIApplication {
     }
 }
 
+extension Date {
+    
+    func seconds(from date: Date) -> Int {
+        return Calendar.current.dateComponents([.second], from: date, to: self).second ?? 0
+    }
+}
+
 let labelGray1 = UIColor(109, 109, 114)
 let labelGray2 = UIColor(84, 106, 120)
 let imageGray = UIColor(92, 112, 126)
