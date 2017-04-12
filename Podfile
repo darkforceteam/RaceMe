@@ -10,6 +10,7 @@ target 'RaceMe' do
   pod 'Firebase/Auth'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'FirebaseUI/Storage'
   pod 'FacebookLogin'
   pod 'AFNetworking'
   pod 'Neon', '~> 0.4.0'

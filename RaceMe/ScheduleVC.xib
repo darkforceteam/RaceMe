@@ -104,7 +104,7 @@
                     </constraints>
                     <nil key="textColor"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" keyboardType="numbersAndPunctuation"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" keyboardType="decimalPad"/>
                 </textField>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nvC-M1-r2Z">
                     <rect key="frame" x="8" y="248" width="67" height="21"/>

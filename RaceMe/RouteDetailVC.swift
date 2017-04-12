@@ -65,6 +65,8 @@ class RouteDetailVC: UIViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         needReloadEventData = false
+    }
+    deinit {
         if ref != nil{
             ref.removeAllObservers()
             eventRef.removeAllObservers()

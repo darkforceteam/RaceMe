@@ -150,8 +150,7 @@ class ExploreViewController: UIViewController {
         }
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    deinit{
         if ref != nil {
             ref.removeAllObservers()
             eventRef.removeAllObservers()

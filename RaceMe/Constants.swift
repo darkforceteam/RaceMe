@@ -56,6 +56,7 @@ struct Constants {
     }
     
     struct Group {
+        static let TABLE_NAME = "GROUPS"
         static let NAME = "name"
         static let DESCRIPTION = "description"
         static let CREATOR = "creator"
@@ -72,5 +73,53 @@ struct Constants {
         static let TOMORROW_VALUE = "2"
         static let LATER_VALUE = "3"
     }
+    struct USERS{
+        static let table_name = "USERS"
+        static let display_name = "displayName"
+    }
+    struct Challenge{
+        static let table_name = "challenges"
+        static let challenge_name = "name"
+        static let chal_photo = "photo"
+        static let created_by = "created_by"
+        static let for_group = "for_group"
+        static let start_date = "start_date"
+        static let end_date = "end_date"
+        static let total_wo_no = "total_wo_no"
+        static let total_distant = "total_distant"
+        static let week_wo_no = "week_wo_no"
+        static let week_distant = "week_distant"
+        static let min_wo_dist = "min_wo_dist"
+        static let min_wo_pace = "min_wo_pace"
+        static let total_long_wo_no = "total_long_wo_no"
+        static let total_long_wo_dist = "total_long_wo_dist"
+        static let week_long_wo_no = "week_long_wo_no"
+        static let week_long_wo_dist = "week_long_wo_dist"
+        struct participants {
+            static let participants = "participants"
+            static let status = "status"
+            static let qualified_wo = "qualified_wo"
+            struct qualified_week {
+                static let qualified_week = "qualified_week"
+                static let week_status = "week_status"
+                static let week_start = "start_date"
+                static let week_end = "end_date"
+                static let week_wo_no = "total_wo"
+                static let week_dist = "total_distant"
+                static let long_wo_no = "long_wo_no"
+                static let long_wo_dist = "long_wo_dist"
+            }
+            struct chal_status {
+                static let result = "chal_result"
+                static let total_dist = "total_distant"
+                static let total_wo = "total_wo"
+                static let total_qualified_week = "total_qualified_week"
+            }
+        }
+    }
+    struct STORAGE {
+        static let CHALLENGE = "CHALLENGES"
+    }
+    static let localImageChallenge = "resources/images/challenges"
     static let timeData: Dictionary = ["0":"All time","1":"Today","2":"Tomorrow","3":"Later"]
 }
