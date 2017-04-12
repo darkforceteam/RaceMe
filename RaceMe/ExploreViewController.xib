@@ -12,7 +12,9 @@
             <connections>
                 <outlet property="actIndicator" destination="XlE-1I-nRa" id="P3N-Ls-A7b"/>
                 <outlet property="mapView" destination="5hs-KO-Y2z" id="o1H-et-woP"/>
+                <outlet property="selectGroupButton" destination="Zwb-q5-Ihh" id="BSc-ca-doL"/>
                 <outlet property="selectTimeButton" destination="xKd-V8-elq" id="hut-qO-QZh"/>
+                <outlet property="selectTypeButton" destination="Fit-rr-Jor" id="Ahj-xd-skA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,70 +24,67 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yf0-MI-ZWe">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="35"/>
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xKd-V8-elq">
-                            <rect key="frame" x="8" y="0.0" width="101.5" height="34"/>
-                            <state key="normal" title="All time"/>
+                            <rect key="frame" x="10" y="0.0" width="111.5" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="u6d-BU-ocH"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Time" image="arrow-down">
+                                <color key="titleColor" red="0.23137254900000001" green="0.55294117649999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                             <connections>
                                 <action selector="selectTime:" destination="-1" eventType="touchUpInside" id="XM7-9O-LMG"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fit-rr-Jor">
-                            <rect key="frame" x="117.5" y="0.0" width="102" height="34"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="Run">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwb-q5-Ihh">
-                            <rect key="frame" x="227.5" y="0.0" width="101.5" height="34"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                            <state key="normal" title="Group">
-                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJF-oP-jP8">
-                            <rect key="frame" x="337" y="0.0" width="30" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zwb-q5-Ihh">
+                            <rect key="frame" x="253.5" y="0.0" width="111.5" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="30" id="aXa-n2-Uch"/>
-                                <constraint firstAttribute="width" constant="30" id="pGM-vd-g30"/>
+                                <constraint firstAttribute="height" constant="30" id="9Q4-Mv-D6x"/>
                             </constraints>
-                            <state key="normal" image="ic_search_white">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Group" image="arrow-down">
+                                <color key="titleColor" red="0.23137254900000001" green="0.55294117649999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
-                            <connections>
-                                <action selector="selectTime:" destination="-1" eventType="touchUpInside" id="sae-jW-d1S"/>
-                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fit-rr-Jor">
+                            <rect key="frame" x="131.5" y="0.0" width="112" height="30"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="Zxa-60-LKK"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <state key="normal" title="Type" image="arrow-down">
+                                <color key="titleColor" red="0.23137254900000001" green="0.55294117649999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="0.23137254900000001" green="0.55294117649999996" blue="0.83921568629999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="xKd-V8-elq" firstAttribute="top" secondItem="Yf0-MI-ZWe" secondAttribute="top" id="16Q-Hq-M0T"/>
-                        <constraint firstItem="xKd-V8-elq" firstAttribute="leading" secondItem="Yf0-MI-ZWe" secondAttribute="leading" constant="8" id="1vU-f8-9x3"/>
-                        <constraint firstItem="Fit-rr-Jor" firstAttribute="width" secondItem="xKd-V8-elq" secondAttribute="width" id="675-V8-D8D"/>
-                        <constraint firstItem="Zwb-q5-Ihh" firstAttribute="leading" secondItem="Fit-rr-Jor" secondAttribute="trailing" constant="8" id="CIM-qq-3Pt"/>
-                        <constraint firstItem="FJF-oP-jP8" firstAttribute="top" secondItem="Zwb-q5-Ihh" secondAttribute="top" id="DDv-Qs-V5G"/>
-                        <constraint firstItem="Zwb-q5-Ihh" firstAttribute="top" secondItem="Fit-rr-Jor" secondAttribute="top" id="KeG-dG-KCR"/>
-                        <constraint firstItem="Zwb-q5-Ihh" firstAttribute="width" secondItem="Fit-rr-Jor" secondAttribute="width" id="ZY6-v1-7B1"/>
-                        <constraint firstItem="Fit-rr-Jor" firstAttribute="top" secondItem="xKd-V8-elq" secondAttribute="top" id="bBP-Zc-AAp"/>
-                        <constraint firstItem="Zwb-q5-Ihh" firstAttribute="height" secondItem="Fit-rr-Jor" secondAttribute="height" id="brr-Xm-afj"/>
-                        <constraint firstAttribute="bottom" secondItem="xKd-V8-elq" secondAttribute="bottom" constant="1" id="eOB-SG-Uq1"/>
-                        <constraint firstItem="FJF-oP-jP8" firstAttribute="leading" secondItem="Zwb-q5-Ihh" secondAttribute="trailing" constant="8" id="hcp-Jg-Oz9"/>
-                        <constraint firstAttribute="height" constant="35" id="hgC-Ot-mcu"/>
-                        <constraint firstItem="Fit-rr-Jor" firstAttribute="leading" secondItem="xKd-V8-elq" secondAttribute="trailing" constant="8" id="ixH-LQ-yRZ"/>
-                        <constraint firstItem="Fit-rr-Jor" firstAttribute="height" secondItem="xKd-V8-elq" secondAttribute="height" id="tCU-hR-khf"/>
-                        <constraint firstAttribute="trailing" secondItem="FJF-oP-jP8" secondAttribute="trailing" constant="8" id="uQ9-v0-iKr"/>
+                        <constraint firstItem="Fit-rr-Jor" firstAttribute="leading" secondItem="xKd-V8-elq" secondAttribute="trailing" constant="10" id="D3S-jk-yRk"/>
+                        <constraint firstAttribute="trailing" secondItem="Zwb-q5-Ihh" secondAttribute="trailing" constant="10" id="J8q-fK-Hwl"/>
+                        <constraint firstItem="Fit-rr-Jor" firstAttribute="width" secondItem="xKd-V8-elq" secondAttribute="width" id="S7A-Na-5Bu"/>
+                        <constraint firstItem="xKd-V8-elq" firstAttribute="leading" secondItem="Yf0-MI-ZWe" secondAttribute="leading" constant="10" id="ary-sy-fsx"/>
+                        <constraint firstAttribute="bottom" secondItem="xKd-V8-elq" secondAttribute="bottom" constant="10" id="cdR-ud-PtW"/>
+                        <constraint firstItem="Zwb-q5-Ihh" firstAttribute="leading" secondItem="Fit-rr-Jor" secondAttribute="trailing" constant="10" id="coO-e7-yme"/>
+                        <constraint firstItem="Zwb-q5-Ihh" firstAttribute="width" secondItem="xKd-V8-elq" secondAttribute="width" id="g8U-vJ-xMA"/>
+                        <constraint firstAttribute="height" constant="40" id="hgC-Ot-mcu"/>
+                        <constraint firstAttribute="bottom" secondItem="Zwb-q5-Ihh" secondAttribute="bottom" constant="10" id="jy3-F8-qmo"/>
+                        <constraint firstAttribute="bottom" secondItem="Fit-rr-Jor" secondAttribute="bottom" constant="10" id="nOU-Gy-2WP"/>
                     </constraints>
                 </view>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="5hs-KO-Y2z">
-                    <rect key="frame" x="0.0" y="35" width="375" height="581"/>
+                    <rect key="frame" x="0.0" y="40" width="375" height="577"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="Dlc-3O-KCu"/>
                     </connections>
                 </mapView>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XlE-1I-nRa">
-                    <rect key="frame" x="157" y="295" width="60" height="60"/>
+                    <rect key="frame" x="157" y="298" width="60" height="60"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="IuO-vx-IaI"/>
                         <constraint firstAttribute="height" constant="60" id="gWe-OQ-t7s"/>
@@ -95,7 +94,7 @@
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="Yf0-MI-ZWe" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="C4s-Fb-25k"/>
-                <constraint firstAttribute="bottom" secondItem="5hs-KO-Y2z" secondAttribute="bottom" constant="51" id="FZk-x2-weF"/>
+                <constraint firstAttribute="bottom" secondItem="5hs-KO-Y2z" secondAttribute="bottom" constant="50" id="FZk-x2-weF"/>
                 <constraint firstItem="XlE-1I-nRa" firstAttribute="centerX" secondItem="5hs-KO-Y2z" secondAttribute="centerX" id="Fp4-VN-Se7"/>
                 <constraint firstAttribute="trailing" secondItem="Yf0-MI-ZWe" secondAttribute="trailing" id="Nt8-2M-k8G"/>
                 <constraint firstAttribute="trailing" secondItem="5hs-KO-Y2z" secondAttribute="trailing" id="QjB-el-b2C"/>
@@ -105,10 +104,10 @@
                 <constraint firstItem="XlE-1I-nRa" firstAttribute="centerY" secondItem="5hs-KO-Y2z" secondAttribute="centerY" id="tbf-Mx-IqI"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="291" y="-332"/>
+            <point key="canvasLocation" x="225" y="-333"/>
         </view>
     </objects>
     <resources>
-        <image name="ic_search_white" width="24" height="24"/>
+        <image name="arrow-down" width="16" height="16"/>
     </resources>
 </document>

@@ -40,9 +40,9 @@ class RouteDetailVC: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         runNowBtn.backgroundColor = UIColor(136, 192, 87)
-        runNowBtn.layer.cornerRadius = 5
+        runNowBtn.layer.cornerRadius = 3
         addScheBtn.backgroundColor = UIColor.orange
-        addScheBtn.layer.cornerRadius = 5
+        addScheBtn.layer.cornerRadius = 3
         // Do any additional setup after loading the view.
         generalInfoLabel.text = route.name
         distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
@@ -181,7 +181,7 @@ class RouteDetailVC: UIViewController {
 extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource, ScheduleVCDelegate{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
+        renderer.strokeColor = dangerColor
         renderer.lineWidth = 4.0
         return renderer
     }
@@ -257,7 +257,7 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
 extension Date {
     func toStringWithoutSecond() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd yyyy' at ' h:mm a."
+        dateFormatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"
         return dateFormatter.string(from: self)
     }
 }

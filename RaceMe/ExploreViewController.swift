@@ -55,6 +55,8 @@ class ExploreViewController: UIViewController {
     
     @IBOutlet weak var actIndicator: UIActivityIndicatorView!
     @IBOutlet weak var selectTimeButton: UIButton!
+    @IBOutlet weak var selectTypeButton: UIButton!
+    @IBOutlet weak var selectGroupButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
@@ -87,6 +89,25 @@ class ExploreViewController: UIViewController {
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
 //        fixManuallyImportedRoutes()
         //        emptyPublicRoute()
+        
+        selectTimeButton.layer.cornerRadius = 3
+        selectTimeButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectTimeButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectTimeButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectTimeButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
+        
+        selectTypeButton.layer.cornerRadius = 3
+        
+        selectTypeButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectTypeButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectTypeButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectTypeButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
+        
+        selectGroupButton.layer.cornerRadius = 3
+        selectGroupButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectGroupButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectGroupButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+        selectGroupButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
     }
     
     @IBAction func selectTime(_ sender: UIButton) {
@@ -98,12 +119,12 @@ class ExploreViewController: UIViewController {
         selectTimeVC.popoverPresentationController?.delegate = self
         selectTimeVC.popoverPresentationController?.sourceView = sender
         selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
-        selectTimeVC.preferredContentSize.height = 160
+        selectTimeVC.preferredContentSize.height = 180
         
         selectTimeVC.delegate = self
         // present the popover
         self.present(selectTimeVC, animated: true, completion: nil)
-        selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
+        //selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
     }
     
     override func viewWillAppear(_ animated: Bool){
@@ -120,7 +141,7 @@ class ExploreViewController: UIViewController {
     func filterDataByTime(){
         do {
             if newFilterDay != "" {
-                selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
+                //selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
                 try filterRoutesData(newTime: newFilterDay)
                 try refreshDisplayRoute()
             }
@@ -264,8 +285,7 @@ class ExploreViewController: UIViewController {
     func setDefaultPinImg(routeMarker: RouteAnnotation, pin: RoutePoint, sportType: String?){
         if (sportType == "") || (sportType == "RUN") {
             routeMarker.setTitleDistance()
-            routeMarker.image = UIImage(named: "pin-run")?.withRenderingMode(.alwaysTemplate)
-            routeMarker.tintColor = successColor
+            routeMarker.image = UIImage(named: "avatar-run")
             pin.title = routeMarker.title
             pin.AnnoView = routeMarker
             self.mapView.addAnnotation(pin)
@@ -605,7 +625,7 @@ extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentatio
 extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMMM dd yyyy' at ' h:mm a."
+        dateFormatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"
         return dateFormatter.string(from: self)
     }
 }
