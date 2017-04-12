@@ -20,8 +20,10 @@ class UserObject: NSObject {
     var height: String?
     var photoUrl: String?
     var avatarImg: UIImage?
+    var isReady = false
     init(snapshot: FIRDataSnapshot){
-        key = snapshot.key
+        key = snapshot.ref.key
+        uid = key
         email = (snapshot.value! as! NSDictionary)["email"] as? String
         displayName = (snapshot.value! as! NSDictionary)["displayName"] as? String
         gender = (snapshot.value! as! NSDictionary)["gender"] as? String
