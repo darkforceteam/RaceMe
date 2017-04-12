@@ -16,7 +16,8 @@ class Event: NSObject {
     var firstUser: UserObject?
     var eventId: String?
     var createdBy: String?
-    var targetDistance: Int?
+    var targetDistance: Double?
+    var startLoc: CLLocationCoordinate2D?
     init(route_id: String, start_time: Date){
         self.start_time = start_time
         self.route_id = route_id
