@@ -78,5 +78,6 @@ extension SelectTimeViewController: UITableViewDelegate, UITableViewDataSource {
                 
             }
         }
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }

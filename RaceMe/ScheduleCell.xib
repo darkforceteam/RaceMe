@@ -4,51 +4,58 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans</string>
+        </array>
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleCell" rowHeight="87" id="KGk-i7-Jjw" customClass="ScheduleCell" customModule="RaceMe" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ScheduleCell" rowHeight="72" id="KGk-i7-Jjw" customClass="ScheduleCell" customModule="RaceMe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="72"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="87"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="71"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3EU-JL-dod">
-                        <rect key="frame" x="12" y="12" width="48" height="48"/>
+                        <rect key="frame" x="0.0" y="12" width="48" height="48"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="48" id="cdw-Lx-vjV"/>
                             <constraint firstAttribute="width" constant="48" id="jTV-9V-Obe"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14G-b6-9uz">
-                        <rect key="frame" x="64" y="12" width="244" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="April 12, 2017 at 00:05" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14G-b6-9uz">
+                        <rect key="frame" x="58" y="12" width="244" height="24"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
+                        <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJq-ue-BLc">
-                        <rect key="frame" x="64" y="37" width="244" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vu Long and 2 runners" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kJq-ue-BLc">
+                        <rect key="frame" x="58" y="39.5" width="244" height="18"/>
+                        <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
+                        <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="14G-b6-9uz" firstAttribute="leading" secondItem="3EU-JL-dod" secondAttribute="trailing" constant="4" id="1DG-Q1-WNo"/>
+                    <constraint firstItem="14G-b6-9uz" firstAttribute="leading" secondItem="3EU-JL-dod" secondAttribute="trailing" constant="10" id="1DG-Q1-WNo"/>
                     <constraint firstItem="kJq-ue-BLc" firstAttribute="top" secondItem="14G-b6-9uz" secondAttribute="bottom" constant="4" id="2kH-qB-z4O"/>
                     <constraint firstItem="3EU-JL-dod" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="FlF-Ow-F5t"/>
-                    <constraint firstItem="3EU-JL-dod" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="QZT-F0-ynV"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="kJq-ue-BLc" secondAttribute="bottom" constant="4" id="Quc-cZ-hh9"/>
+                    <constraint firstItem="3EU-JL-dod" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="V1H-Va-ebn"/>
                     <constraint firstItem="14G-b6-9uz" firstAttribute="top" secondItem="3EU-JL-dod" secondAttribute="top" id="bOb-5q-vcj"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="14G-b6-9uz" secondAttribute="trailing" constant="4" id="bkt-qw-xpx"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="14G-b6-9uz" secondAttribute="trailing" constant="10" id="bkt-qw-xpx"/>
                     <constraint firstItem="kJq-ue-BLc" firstAttribute="leading" secondItem="14G-b6-9uz" secondAttribute="leading" id="iDb-X3-mm6"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="kJq-ue-BLc" secondAttribute="trailing" constant="4" id="lj0-la-qJT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="kJq-ue-BLc" secondAttribute="trailing" constant="10" id="lj0-la-qJT"/>
                     <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="3EU-JL-dod" secondAttribute="bottom" constant="4" id="tb5-6n-9ch"/>
                 </constraints>
             </tableViewCellContentView>
@@ -57,7 +64,7 @@
                 <outlet property="dateLabel" destination="14G-b6-9uz" id="7Up-4b-czu"/>
                 <outlet property="runnersLabel" destination="kJq-ue-BLc" id="Qbj-xs-P7A"/>
             </connections>
-            <point key="canvasLocation" x="32" y="93.5"/>
+            <point key="canvasLocation" x="32" y="86"/>
         </tableViewCell>
     </objects>
 </document>

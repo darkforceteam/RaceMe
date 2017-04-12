@@ -41,9 +41,11 @@ class ProfileViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
-        let editButton = UIBarButtonItem(image: UIImage(named: "pencil"), style: .plain, target: self, action: #selector(ProfileViewController.editProfile))
-        navigationItem.rightBarButtonItem = editButton
+        
+        if ( current_uid == uid ) {
+            let editButton = UIBarButtonItem(image: UIImage(named: "pencil"), style: .plain, target: self, action: #selector(ProfileViewController.editProfile))
+            navigationItem.rightBarButtonItem = editButton
+        }
     }
     
     func editProfile() {
