@@ -123,8 +123,15 @@ class RouteDetailVC: UIViewController {
                                 let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                 let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
                                 event.eventId = eventData.ref.key
-                                if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT){
-                                    event.targetDistance = distance as! Int
+                                if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT) as? Double{
+                                    event.targetDistance = distance
+                                }
+                                if let startLoc = oneEvent.value(forKey: Constants.Event.START_LOC) as? NSDictionary{
+                                    let lat = startLoc.value(forKey: Constants.Location.LATITUDE) as? Double
+                                    let lng = startLoc.value(forKey: Constants.Location.LONGTITUDE) as? Double
+                                    if lat != nil && lng != nil {
+                                        event.startLoc = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
+                                    }
                                 }
                                 var runList = ""
                                 if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
@@ -202,7 +209,7 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         if let user = event.firstUser as UserObject?{
             strFirstName = user.displayName!
         }
-        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
+//        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
         cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
         
         var strRunnerNum = " will run alone"

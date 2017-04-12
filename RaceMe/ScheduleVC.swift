@@ -44,10 +44,19 @@ class ScheduleVC: UIViewController {
     var creatorId: String?
     var timer: Timer?
     var startLocSet = false
+    var startLoc: CLLocationCoordinate2D?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         if event != nil{
+            mapView.isScrollEnabled = false
+            mapView.isZoomEnabled = false
+            mapView.isPitchEnabled = false
+            mapView.isRotateEnabled = false
+            mapView.isUserInteractionEnabled = false
+            startPosWarnLabel.isHidden = true
+            
             let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
             eventRef = ref.child(eventPath)
             targetDistTextField.isEnabled = false
@@ -65,6 +74,11 @@ class ScheduleVC: UIViewController {
                 dateTextField.isHidden = true
                 startTimeLabel.isHidden = true
                 startCountDown()
+            }
+            if event?.startLoc != nil {
+                setStartLoc(coordinate: (event?.startLoc)!)
+            } else if route.locations.count > 0 {
+                setStartLoc(coordinate: route.locations.first!)
             }
         } else {
             coundownLabel.isHidden = true
@@ -127,6 +141,7 @@ class ScheduleVC: UIViewController {
         //            self.view.sendSubview(toBack: cancelBtn)
         //        }
         drawRoute(route: route)
+
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -135,6 +150,7 @@ class ScheduleVC: UIViewController {
         mapView.addGestureRecognizer(gestureRecognizer)
     }
     func mapTapped(gestureRecognizer: UIGestureRecognizer){
+        startPosWarnLabel.isHidden = true
         if !startLocSet {
             let touchPoint = gestureRecognizer.location(in: mapView)
             let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
@@ -142,12 +158,12 @@ class ScheduleVC: UIViewController {
         }
     }
     func setStartLoc(coordinate: CLLocationCoordinate2D){
+        startLoc = coordinate
         let annotation = MKPointAnnotation()
         annotation.title = "Start location"
         annotation.coordinate = coordinate
         self.mapView.addAnnotation(annotation)
         startLocSet = true
-        startPosWarnLabel.isHidden = true
     }
     func setupInputComponents(){
         //Add done button to numeric pad keyboard
@@ -254,11 +270,13 @@ class ScheduleVC: UIViewController {
         eventRef = ref.child(Constants.Event.TABLE_NAME).childByAutoId()
         eventRef.child(Constants.Event.ROUTE_ID).setValue("\(route.routeId!)")
         eventRef.child(Constants.Event.START_TIME).setValue(startDate.timeIntervalSince1970)
-        eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(true)
+        eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(false)
         eventRef.child(Constants.Event.CREATED_BY).setValue(userId)
         if targetDistTextField.text != "" {
             eventRef.child(Constants.Event.TARGET_DISTANT).setValue(Int(targetDistTextField.text!))
         }
+        eventRef.child(Constants.Event.START_LOC).child(Constants.Location.LATITUDE).setValue(startLoc?.latitude)
+        eventRef.child(Constants.Event.START_LOC).child(Constants.Location.LONGTITUDE).setValue(startLoc?.longitude)
         participants.append(currentUser)
         self.event = Event(route_id: route.routeId!, start_time: startDate)
         self.event?.eventId = eventRef.key
@@ -267,8 +285,9 @@ class ScheduleVC: UIViewController {
         self.event?.createdBy = userId
         if targetDistTextField.text != ""
         {
-            self.event?.targetDistance = Int(targetDistTextField.text!)
+            self.event?.targetDistance = Double(targetDistTextField.text!)
         }
+        self.event?.startLoc = startLoc
         startCountDown()
         route.events.append(self.event!)
         tableView.reloadData()
@@ -287,7 +306,7 @@ class ScheduleVC: UIViewController {
         joinRunBtn.isHidden = true
 //        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)/\(Constants.Event.PARTICIPANTS)")
 //        eventRef.child(userId!).setValue(true)
-        eventRef.child("\(Constants.Event.PARTICIPANTS)/\(userId!)").setValue(true)
+        eventRef.child("\(Constants.Event.PARTICIPANTS)/\(userId!)").setValue(false)
         self.event?.participants.append(userId)
         participants.append(currentUser)
         tableView.reloadData()
@@ -424,7 +443,7 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
     }
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
         if (newState == MKAnnotationViewDragState.ending) {
-            print(view.annotation?.coordinate)
+            startLoc = view.annotation?.coordinate
         }
     }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
