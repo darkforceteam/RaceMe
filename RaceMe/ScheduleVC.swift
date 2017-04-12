@@ -43,6 +43,7 @@ class ScheduleVC: UIViewController {
     var targetDistance: Int?
     var creatorId: String?
     var timer: Timer?
+    var startLocSet = false
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -127,6 +128,26 @@ class ScheduleVC: UIViewController {
         //        }
         drawRoute(route: route)
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
+        gestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(gestureRecognizer)
+    }
+    func mapTapped(gestureRecognizer: UIGestureRecognizer){
+        if !startLocSet {
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            setStartLoc(coordinate: newCoordinate)
+        }
+    }
+    func setStartLoc(coordinate: CLLocationCoordinate2D){
+        let annotation = MKPointAnnotation()
+        annotation.title = "Start location"
+        annotation.coordinate = coordinate
+        self.mapView.addAnnotation(annotation)
+        startLocSet = true
+        startPosWarnLabel.isHidden = true
     }
     func setupInputComponents(){
         //Add done button to numeric pad keyboard
@@ -390,6 +411,22 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
         mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
         return renderer
     }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKPointAnnotation {
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "startPin")
+            pinAnnotationView.pinTintColor = .purple
+            pinAnnotationView.isDraggable = true
+            pinAnnotationView.canShowCallout = true
+            pinAnnotationView.animatesDrop = true
+            return pinAnnotationView
+        }
+        return nil
+    }
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if (newState == MKAnnotationViewDragState.ending) {
+            print(view.annotation?.coordinate)
+        }
+    }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
             return participants.count
     }
@@ -406,4 +443,7 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
         //        let participant = event?.participants[indexPath.row]
         //        cell.statusLabel.text = participant
     }
+}
+extension ScheduleVC: UIGestureRecognizerDelegate{
+    
 }
