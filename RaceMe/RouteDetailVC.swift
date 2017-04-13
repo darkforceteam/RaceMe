@@ -33,6 +33,11 @@ class RouteDetailVC: UIViewController {
         drawRoute(route: route)
 //        loadSchedules()
         eventList = route.events
+        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = false
+        mapView.isPitchEnabled = false
+        mapView.isRotateEnabled = false
+        
         mapView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
@@ -94,14 +99,13 @@ class RouteDetailVC: UIViewController {
     }
     
     func drawRoute(route: Route){
-        let span = MKCoordinateSpanMake(0.009, 0.009)
-        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
-//        let myRegion = getRegionForRoute(route: route)
-        mapView.setRegion(myRegion, animated: false)
+//        let span = MKCoordinateSpanMake(0.009, 0.009)
+//        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
+//        mapView.setRegion(myRegion, animated: false)
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
         //TODO: set center to the middle point of the route. HTF can I calculate that?
-        mapView.setCenter((route.locations.first)!, animated: true)
+//        mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
         self.ref.child(Constants.Event.TABLE_NAME).queryOrdered(byChild: Constants.Event.ROUTE_ID).queryEqual(toValue: routeId).observe(.value, with: { (snapshot) in
@@ -119,8 +123,15 @@ class RouteDetailVC: UIViewController {
                                 let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                 let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
                                 event.eventId = eventData.ref.key
-                                if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT){
-                                    event.targetDistance = distance as! Int
+                                if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT) as? Double{
+                                    event.targetDistance = distance
+                                }
+                                if let startLoc = oneEvent.value(forKey: Constants.Event.START_LOC) as? NSDictionary{
+                                    let lat = startLoc.value(forKey: Constants.Location.LATITUDE) as? Double
+                                    let lng = startLoc.value(forKey: Constants.Location.LONGTITUDE) as? Double
+                                    if lat != nil && lng != nil {
+                                        event.startLoc = CLLocationCoordinate2D(latitude: lat!,longitude: lng!)
+                                    }
                                 }
                                 var runList = ""
                                 if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
@@ -183,6 +194,9 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = dangerColor
         renderer.lineWidth = 4.0
+        
+        let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+        mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
         return renderer
     }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
@@ -195,7 +209,7 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         if let user = event.firstUser as UserObject?{
             strFirstName = user.displayName!
         }
-        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
+//        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
         cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
         
         var strRunnerNum = " will run alone"

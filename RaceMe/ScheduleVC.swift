@@ -43,10 +43,20 @@ class ScheduleVC: UIViewController {
     var targetDistance: Int?
     var creatorId: String?
     var timer: Timer?
+    var startLocSet = false
+    var startLoc: CLLocationCoordinate2D?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
         if event != nil{
+            mapView.isScrollEnabled = false
+            mapView.isZoomEnabled = false
+            mapView.isPitchEnabled = false
+            mapView.isRotateEnabled = false
+            mapView.isUserInteractionEnabled = false
+            startPosWarnLabel.isHidden = true
+            
             let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
             eventRef = ref.child(eventPath)
             targetDistTextField.isEnabled = false
@@ -64,6 +74,11 @@ class ScheduleVC: UIViewController {
                 dateTextField.isHidden = true
                 startTimeLabel.isHidden = true
                 startCountDown()
+            }
+            if event?.startLoc != nil {
+                setStartLoc(coordinate: (event?.startLoc)!)
+            } else if route.locations.count > 0 {
+                setStartLoc(coordinate: route.locations.first!)
             }
         } else {
             coundownLabel.isHidden = true
@@ -126,7 +141,29 @@ class ScheduleVC: UIViewController {
         //            self.view.sendSubview(toBack: cancelBtn)
         //        }
         drawRoute(route: route)
+
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(mapTapped))
+        gestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(gestureRecognizer)
+    }
+    func mapTapped(gestureRecognizer: UIGestureRecognizer){
+        startPosWarnLabel.isHidden = true
+        if !startLocSet {
+            let touchPoint = gestureRecognizer.location(in: mapView)
+            let newCoordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
+            setStartLoc(coordinate: newCoordinate)
+        }
+    }
+    func setStartLoc(coordinate: CLLocationCoordinate2D){
+        startLoc = coordinate
+        let annotation = MKPointAnnotation()
+        annotation.title = "Start location"
+        annotation.coordinate = coordinate
+        self.mapView.addAnnotation(annotation)
+        startLocSet = true
     }
     func setupInputComponents(){
         //Add done button to numeric pad keyboard
@@ -233,11 +270,13 @@ class ScheduleVC: UIViewController {
         eventRef = ref.child(Constants.Event.TABLE_NAME).childByAutoId()
         eventRef.child(Constants.Event.ROUTE_ID).setValue("\(route.routeId!)")
         eventRef.child(Constants.Event.START_TIME).setValue(startDate.timeIntervalSince1970)
-        eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(true)
+        eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(false)
         eventRef.child(Constants.Event.CREATED_BY).setValue(userId)
         if targetDistTextField.text != "" {
             eventRef.child(Constants.Event.TARGET_DISTANT).setValue(Int(targetDistTextField.text!))
         }
+        eventRef.child(Constants.Event.START_LOC).child(Constants.Location.LATITUDE).setValue(startLoc?.latitude)
+        eventRef.child(Constants.Event.START_LOC).child(Constants.Location.LONGTITUDE).setValue(startLoc?.longitude)
         participants.append(currentUser)
         self.event = Event(route_id: route.routeId!, start_time: startDate)
         self.event?.eventId = eventRef.key
@@ -246,8 +285,9 @@ class ScheduleVC: UIViewController {
         self.event?.createdBy = userId
         if targetDistTextField.text != ""
         {
-            self.event?.targetDistance = Int(targetDistTextField.text!)
+            self.event?.targetDistance = Double(targetDistTextField.text!)
         }
+        self.event?.startLoc = startLoc
         startCountDown()
         route.events.append(self.event!)
         tableView.reloadData()
@@ -266,7 +306,7 @@ class ScheduleVC: UIViewController {
         joinRunBtn.isHidden = true
 //        let eventRef = ref.child("\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)/\(Constants.Event.PARTICIPANTS)")
 //        eventRef.child(userId!).setValue(true)
-        eventRef.child("\(Constants.Event.PARTICIPANTS)/\(userId!)").setValue(true)
+        eventRef.child("\(Constants.Event.PARTICIPANTS)/\(userId!)").setValue(false)
         self.event?.participants.append(userId)
         participants.append(currentUser)
         tableView.reloadData()
@@ -276,6 +316,9 @@ class ScheduleVC: UIViewController {
         cancelBtn.isHidden = false
     }
     @IBAction func readyForRun(_ sender: UIButton) {
+        let participantRef = ref.child(Constants.Event.TABLE_NAME).child((event?.eventId)!).child(Constants.Event.PARTICIPANTS).child(userId!)
+        participantRef.setValue(true)
+        readyBtn.isHidden = true
     }
     @IBAction func cancelRun(_ sender: UIButton) {
 //        let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
@@ -289,11 +332,13 @@ class ScheduleVC: UIViewController {
             if error != nil {
                 print(error!)
             } else {
-                let index = self.event?.participants.index(of: self.userId)!
-                self.event?.participants.remove(at: index!)
-                self.participants.remove(at: index!)
-                
-                self.tableView.reloadData()
+//                let index = self.event?.participants.index(of: self.userId)!
+//                self.event?.participants.remove(at: index!)
+//                print(self.event?.participants)
+//                self.participants.remove(at: index!)
+//                print("///////////")
+//                print(self.participants)
+//                self.tableView.reloadData()
                 
                 self.view.sendSubview(toBack: self.readyBtn)
                 self.readyBtn.isHidden = true
@@ -345,39 +390,49 @@ class ScheduleVC: UIViewController {
         }
     }
     func drawRoute(route: Route){
-        let span = MKCoordinateSpanMake(0.009, 0.009)
-        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
-        mapView.setRegion(myRegion, animated: false)
+//        let span = MKCoordinateSpanMake(0.009, 0.009)
+//        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
+//        mapView.setRegion(myRegion, animated: false)
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
         //TODO: set center to the middle point of the route. HTF can I calculate that?
-        mapView.setCenter((route.locations.first)!, animated: true)
+//        mapView.setCenter((route.locations.first)!, animated: true)
     }
     
     func loadParticipants(){
-        
-        let userRef = ref.child("USERS")
-        for userId in (event?.participants)! {
-            userRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                if (snapshot.value as? NSDictionary) != nil{
-                    let user = UserObject(snapshot: snapshot)
-                    user.avatarImg = UIImage(named: "default-avatar")!
-                    let request = NSMutableURLRequest(url: URL(string: user.photoUrl!)!)
-                    request.httpMethod = "GET"
-                    let session = URLSession(configuration: URLSessionConfiguration.default)
-                    let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                        if error == nil {
-                            user.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
-                            DispatchQueue.main.async {
-                                self.participants.append(user)
-                                self.tableView.reloadData()
+        let userRef = ref.child(Constants.USERS.table_name)
+        let eventPartRef = ref.child(Constants.Event.TABLE_NAME).child((event?.eventId)!)
+        eventPartRef.observe(.value, with:  { (snapshot) in
+            if let data = snapshot.value as? NSDictionary{
+                self.participants.removeAll()
+                self.event?.participants.removeAll()
+                if let participants = data.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
+                    for (key, value) in participants{
+                        userRef.child(key as! String).observeSingleEvent(of: .value, with: { (snapshot) in
+                            if (snapshot.value as? NSDictionary) != nil{
+                                let user = UserObject(snapshot: snapshot)
+                                user.isReady = value as! Bool
+                                //                    user.avatarImg = UIImage(named: "default-avatar")!
+                                let request = NSMutableURLRequest(url: URL(string: user.photoUrl!)!)
+                                request.httpMethod = "GET"
+                                let session = URLSession(configuration: URLSessionConfiguration.default)
+                                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                    if error == nil {
+                                        user.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                        DispatchQueue.main.async {
+                                            self.participants.append(user)
+                                            self.event?.participants.append(user.uid)
+                                            self.tableView.reloadData()
+                                        }
+                                    }
+                                }
+                                dataTask.resume()
                             }
-                        }
+                        })
                     }
-                    dataTask.resume()
                 }
-            })
-        }
+            }
+        })
     }
 }
 extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource{
@@ -385,7 +440,26 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = UIColor.red
         renderer.lineWidth = 4.0
+        
+        let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+        mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
         return renderer
+    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKPointAnnotation {
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "startPin")
+            pinAnnotationView.pinTintColor = .purple
+            pinAnnotationView.isDraggable = true
+            pinAnnotationView.canShowCallout = true
+            pinAnnotationView.animatesDrop = true
+            return pinAnnotationView
+        }
+        return nil
+    }
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, didChange newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        if (newState == MKAnnotationViewDragState.ending) {
+            startLoc = view.annotation?.coordinate
+        }
     }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
             return participants.count
@@ -398,9 +472,15 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
             if let avatarImg = participant.avatarImg{
                 cell.avatarImg.image = avatarImg
             }
+            if participant.isReady == true {
+                cell.statusImg.image = UIImage(named: "ready")!
+            }
         }
         return cell
         //        let participant = event?.participants[indexPath.row]
         //        cell.statusLabel.text = participant
     }
+}
+extension ScheduleVC: UIGestureRecognizerDelegate{
+    
 }
