@@ -63,6 +63,9 @@ class RouteDetailVC: UIViewController {
     }
     @IBAction func runNow(_ sender: UIButton) {
         //TODO: dismiss this VC and switch to RunTrackingVC with routeId chosen is this route's id
+        let recordNavVC = RecordViewController()
+        recordNavVC.selectedRoute = route
+        navigationController?.pushViewController(recordNavVC, animated: true)
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
