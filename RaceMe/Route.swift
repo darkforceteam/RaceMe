@@ -20,6 +20,7 @@ class Route: NSObject {
     var displayEvent: Event?
     var routeId: String!
     var firstEventDay = 0
+    var type = ""
     func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
         case "1":
@@ -94,6 +95,8 @@ class Route: NSObject {
                         distance = loc.value! as! Double
                     } else if key == "NAME" {
                         name = loc.value! as! String
+                    } else if key == "TYPE" {
+                        type = loc.value! as! String
                     } else {
 
                     }
