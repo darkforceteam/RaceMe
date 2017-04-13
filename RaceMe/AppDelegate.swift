@@ -119,7 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let tabBarController = UITabBarController()
                 tabBarController.tabBar.tintColor = primaryColor
                 tabBarController.tabBar.barTintColor = .white
-                tabBarController.viewControllers = [exploreNavVC, recordNavVC, groupNavVC, profileNavVC]
+                tabBarController.viewControllers = [exploreNavVC, challengeNavVC, recordNavVC, groupNavVC, profileNavVC]
                 tabBarController.selectedIndex = 2
                 
                 // Make the Tab Bar Controller the root view controller

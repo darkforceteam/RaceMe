@@ -36,13 +36,16 @@ class ProfileViewController: UIViewController {
         tableView.delegate = self
         tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: Int(self.tableView.frame.size.width), height: 1))
         tableView.register(UINib(nibName: "UserProfileCell", bundle: nil), forCellReuseIdentifier: "UserProfileCell")
-        tableView.register(UINib(nibName: "UserInfoCell", bundle: nil), forCellReuseIdentifier: "UserInfoCell")
+        tableView.register(UINib(nibName: "RightDetailArrowCell", bundle: nil), forCellReuseIdentifier: "RightDetailArrowCell")
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         if ( current_uid == uid ) {
+            let findFriendButton = UIBarButtonItem(image: UIImage(named: "ic_person_add"), style: .plain, target: self, action: #selector(ProfileViewController.findFriend))
+            navigationItem.leftBarButtonItem = findFriendButton
+            
             let editButton = UIBarButtonItem(image: UIImage(named: "pencil"), style: .plain, target: self, action: #selector(ProfileViewController.editProfile))
             navigationItem.rightBarButtonItem = editButton
         }
@@ -51,6 +54,11 @@ class ProfileViewController: UIViewController {
     func editProfile() {
         let profileSettingsViewController = ProfileSettingsViewController(nibName: "ProfileSettingsViewController", bundle: nil)
         navigationController?.pushViewController(profileSettingsViewController, animated: true)
+    }
+    
+    func findFriend() {
+        let findFriendsViewController = FindFriendsViewController(nibName: "FindFriendsViewController", bundle: nil)
+        navigationController?.pushViewController(findFriendsViewController, animated: true)
     }
     
     func notifications() {
@@ -154,28 +162,22 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_history")?.withRenderingMode(.alwaysTemplate)
-            cell.iconImageView.tintColor = darkColor
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailArrowCell", for: indexPath) as! RightDetailArrowCell
             ref.child("WORKOUTS").queryOrdered(byChild: "user_id").queryEqual(toValue: uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 if snapshot.hasChildren() {
-                    cell.descLabel.text = "\(Int(snapshot.childrenCount)) Tracked"
+                    cell.detailLabel.text = "\(Int(snapshot.childrenCount)) Tracked"
                 }
             })
             cell.titleLabel.text = "Activities"
             return cell
         case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_timeline")?.withRenderingMode(.alwaysTemplate)
-            cell.iconImageView.tintColor = darkColor
-            cell.descLabel.text = ""
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailArrowCell", for: indexPath) as! RightDetailArrowCell
+            cell.detailLabel.text = ""
             cell.titleLabel.text = "Records"
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UserInfoCell", for: indexPath) as! UserInfoCell
-            cell.iconImageView.image = UIImage(named: "ic_group")?.withRenderingMode(.alwaysTemplate)
-            cell.iconImageView.tintColor = darkColor
-            cell.descLabel.text = ""
+            let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailArrowCell", for: indexPath) as! RightDetailArrowCell
+            cell.detailLabel.text = ""
             cell.titleLabel.text = "Groups"
             return cell
         }

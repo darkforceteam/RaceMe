@@ -71,6 +71,8 @@
 		B6946A2F1E97B39700931B0F /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6946A2E1E97B39700931B0F /* Group.swift */; };
 		B6946A371E97F3F500931B0F /* ChallengeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6946A351E97F3F500931B0F /* ChallengeViewController.swift */; };
 		B6946A381E97F3F500931B0F /* ChallengeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6946A361E97F3F500931B0F /* ChallengeViewController.xib */; };
+		B696AB711E9F7DDD0042DE57 /* UserButtonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B696AB6F1E9F7DDD0042DE57 /* UserButtonCell.swift */; };
+		B696AB721E9F7DDD0042DE57 /* UserButtonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B696AB701E9F7DDD0042DE57 /* UserButtonCell.xib */; };
 		B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */; };
 		B6A6C27B1E76DF550021EFC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A6C2791E76DF550021EFC0 /* LaunchScreen.storyboard */; };
 		B6B068B71E9A4B8B0095875D /* GroupInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B068B51E9A4B8B0095875D /* GroupInfoCell.swift */; };
@@ -196,6 +198,8 @@
 		B6946A2E1E97B39700931B0F /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		B6946A351E97F3F500931B0F /* ChallengeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeViewController.swift; sourceTree = "<group>"; };
 		B6946A361E97F3F500931B0F /* ChallengeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeViewController.xib; sourceTree = "<group>"; };
+		B696AB6F1E9F7DDD0042DE57 /* UserButtonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserButtonCell.swift; sourceTree = "<group>"; };
+		B696AB701E9F7DDD0042DE57 /* UserButtonCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserButtonCell.xib; sourceTree = "<group>"; };
 		B6A6C26D1E76DF550021EFC0 /* RaceMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6A6C2701E76DF550021EFC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B6A6C27A1E76DF550021EFC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -335,6 +339,8 @@
 				B679DD1E1E8BF65D000744E8 /* UserInfoCell.xib */,
 				B65F1AD91E82E24F009E526B /* UserStatisticsView.swift */,
 				B65F1AD71E82E12E009E526B /* UserStatistics.xib */,
+				B696AB6F1E9F7DDD0042DE57 /* UserButtonCell.swift */,
+				B696AB701E9F7DDD0042DE57 /* UserButtonCell.xib */,
 			);
 			name = Profile;
 			sourceTree = "<group>";
@@ -659,6 +665,7 @@
 				B20F762C1E927D9F00BA52FE /* OpenSans-BoldItalic.ttf in Resources */,
 				B20F76331E927D9F00BA52FE /* OpenSans-Semibold.ttf in Resources */,
 				D9DA30C91E92395E00F10849 /* RouteDetailVC.xib in Resources */,
+				B696AB721E9F7DDD0042DE57 /* UserButtonCell.xib in Resources */,
 				B6B068BC1E9A750C0095875D /* MemberCell.xib in Resources */,
 				B6BB4BFA1E86CE610054C965 /* PickerSettingCell.xib in Resources */,
 				B20F76321E927D9F00BA52FE /* OpenSans-Regular.ttf in Resources */,
@@ -829,6 +836,7 @@
 				D9F7B2201E88BFF500B692FF /* GFBase32Utils.m in Sources */,
 				B6A6C2711E76DF550021EFC0 /* AppDelegate.swift in Sources */,
 				D9F7B21F1E88BFF500B692FF /* GeoFire.m in Sources */,
+				B696AB711E9F7DDD0042DE57 /* UserButtonCell.swift in Sources */,
 				B68177AF1E7ED20200FF760F /* GroupViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
