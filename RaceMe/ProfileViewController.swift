@@ -191,8 +191,8 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             let profileRecordsViewController = ProfileRecordsViewController(nibName: "ProfileRecordsViewController", bundle: nil)
             navigationController?.pushViewController(profileRecordsViewController, animated: true)
         case 3:
-            let profileGroupsViewController = ProfileGroupsViewController(nibName: "ProfileGroupsViewController", bundle: nil)
-            navigationController?.pushViewController(profileGroupsViewController, animated: true)
+            let groupViewController = GroupViewController(nibName: "GroupViewController", bundle: nil)
+            navigationController?.pushViewController(groupViewController, animated: true)
         default:
             break
         }
