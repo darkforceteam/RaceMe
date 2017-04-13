@@ -122,4 +122,9 @@ struct Constants {
     }
     static let localImageChallenge = "resources/images/challenges"
     static let timeData: Dictionary = ["0":"All time","1":"Today","2":"Tomorrow","3":"Later"]
+    struct SPORT_TYPE {
+        static let RUN = "run"
+        static let SWIM = "swim"
+        static let YOGA = "yoga"
+    }
 }
