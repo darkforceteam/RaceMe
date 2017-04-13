@@ -19,7 +19,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     fileprivate let workoutRef = FIRDatabase.database().reference(withPath: "WORKOUTS")
     
     fileprivate var workouts = [Workout]()
-    
+    var selectedRoute: Route?
     fileprivate let notificationLabel: UILabel = {
         let label = UILabel()
         label.text = "Turn off your screen while running"
@@ -50,6 +50,16 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
         button.clipsToBounds = true
         return button
     }()
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = dangerColor
+        renderer.lineWidth = 4.0
+        
+        let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+        mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
+        return renderer
+    }
 }
 
 extension RecordViewController {
@@ -57,6 +67,7 @@ extension RecordViewController {
     @objc fileprivate func startButtonTapped() {
         let trackingController = RunTrackingVC()
         trackingController.user = self.user
+        trackingController.selectedRoute = self.selectedRoute
         present(trackingController, animated: true, completion: nil)
     }
     
@@ -98,11 +109,19 @@ extension RecordViewController {
 }
 
 extension RecordViewController {
+    func drawRoute(route: Route){
+        let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
+        mapView.add(myPolyline)
+    }
     
     override func viewDidLoad() {
         setupViews()
         authObserving()
         loadWorkouts()
+        
+        if self.selectedRoute != nil {
+            drawRoute(route: selectedRoute!)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

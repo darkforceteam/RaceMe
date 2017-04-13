@@ -26,6 +26,9 @@ class RunTrackingVC: UIViewController {
     fileprivate var isRunning = true
     fileprivate let speechSynthesizer = AVSpeechSynthesizer()
     fileprivate let ref = FIRDatabase.database().reference()
+    var selectedRoute: Route?
+    var currentColor: UIColor?
+    var startedRunning = false
     
     fileprivate lazy var locationManager: CLLocationManager = {
         var lm = CLLocationManager()
@@ -192,6 +195,11 @@ class RunTrackingVC: UIViewController {
         button.clipsToBounds = true
         return button
     }()
+    
+    func drawRoute(route: Route){
+        let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
+        mapView.add(myPolyline)
+    }
 }
 
 extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
@@ -349,21 +357,23 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
         let buttonTitle = isRunning ? "Resume" : "Pause"
         pauseResumeButton.setTitle(buttonTitle, for: .normal)
     }
-    
+
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            polylineRenderer.strokeColor = strokeColor
-            polylineRenderer.lineWidth = 3
-            return polylineRenderer
+        let renderer = MKPolylineRenderer(overlay: overlay)
+        renderer.strokeColor = currentColor
+        renderer.lineWidth = 4.0
+        if startedRunning != true {
+            let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+            mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
         }
-        return MKOverlayRenderer()
+        return renderer
     }
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         for location in locations {
             if location.horizontalAccuracy < 20 {
                 if self.locations.count > 0 {
+                    currentColor = strokeColor
+                    isRunning = true
                     distance += location.distance(from: self.locations.last!)
                     
                     var coordinates = [CLLocationCoordinate2D]()
@@ -381,8 +391,12 @@ extension RunTrackingVC: CLLocationManagerDelegate, MKMapViewDelegate {
 extension RunTrackingVC {
     
     override func viewDidLoad() {
+        currentColor = dangerColor
         setupViews()
         startCounting()
+        if self.selectedRoute != nil{
+            drawRoute(route: self.selectedRoute!)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
