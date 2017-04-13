@@ -18,6 +18,10 @@ struct Constants {
         static let ROUTE_DISTANCE = "DISTANCE"
         static let START_LOC = "START_LOC"
         static let END_LOC = "END_LOC"
+        static let NAME = "NAME"
+        static let TYPE = "TYPE"
+        static let ADDR = "ADDR"
+        static let BANNER = "BANNER"
     }
     struct Route{
         static let TABLE_NAME = "ROUTES"
@@ -123,6 +127,7 @@ struct Constants {
     static let localImageChallenge = "resources/images/challenges"
     static let timeData: Dictionary = ["0":"All time","1":"Today","2":"Tomorrow","3":"Later"]
     struct SPORT_TYPE {
+        static let ALL = "All sport"
         static let RUN = "run"
         static let SWIM = "swim"
         static let YOGA = "yoga"

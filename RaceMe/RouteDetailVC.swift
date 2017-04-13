@@ -50,7 +50,12 @@ class RouteDetailVC: UIViewController {
         addScheBtn.layer.cornerRadius = 3
         // Do any additional setup after loading the view.
         generalInfoLabel.text = route.name
-        distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
+        if self.route.type == "" || self.route.type == Constants.SPORT_TYPE.RUN {
+            distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
+        } else {
+            distanceLabel.text =  "\(route.type)"
+            setStartLoc(coordinate: route.locations.first!)
+        }
         
     }
     
@@ -102,13 +107,14 @@ class RouteDetailVC: UIViewController {
     }
     
     func drawRoute(route: Route){
-//        let span = MKCoordinateSpanMake(0.009, 0.009)
-//        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
-//        mapView.setRegion(myRegion, animated: false)
+        if self.route.type != "" && self.route.type != Constants.SPORT_TYPE.RUN {
+            let span = MKCoordinateSpanMake(0.009, 0.009)
+            let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
+            mapView.setRegion(myRegion, animated: false)
+            mapView.setCenter((route.locations.first)!, animated: true)
+        }
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
-        //TODO: set center to the middle point of the route. HTF can I calculate that?
-//        mapView.setCenter((route.locations.first)!, animated: true)
     }
     func loadSchedules(){
         self.ref.child(Constants.Event.TABLE_NAME).queryOrdered(byChild: Constants.Event.ROUTE_ID).queryEqual(toValue: routeId).observe(.value, with: { (snapshot) in
@@ -187,7 +193,16 @@ class RouteDetailVC: UIViewController {
             }
         })
     }
-    
+    func setStartLoc(coordinate: CLLocationCoordinate2D){
+        let annotation = MKPointAnnotation()
+        if route.address == "" {
+            annotation.title = "Class location"
+        } else {
+            annotation.title = route.address
+        }
+        annotation.coordinate = coordinate
+        self.mapView.addAnnotation(annotation)
+    }
     func loadLeaderboard(){
         
     }
@@ -197,10 +212,23 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = dangerColor
         renderer.lineWidth = 4.0
-        
-        let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
-        mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
+
+        if self.route.type == "" || self.route.type == Constants.SPORT_TYPE.RUN {
+            let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+            mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0,left: 20.0,bottom: 20.0,right: 20.0), animated: false)
+        }
         return renderer
+    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKPointAnnotation {
+            let pinAnnotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "startPin")
+            pinAnnotationView.pinTintColor = .purple
+            pinAnnotationView.isDraggable = true
+            pinAnnotationView.canShowCallout = true
+            pinAnnotationView.animatesDrop = true
+            return pinAnnotationView
+        }
+        return nil
     }
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
         return eventList.count
@@ -213,12 +241,13 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
             strFirstName = user.displayName!
         }
 //        print("\(indexPath.row) has \(event.participants.count) users. First is: \(strFirstName)")
-        cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
+//        cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
+        cell.dateLabel.text = "\(event.start_time.friendlyDate())"
         
         var strRunnerNum = " will run alone"
         if event.participants.count > 1{
             
-            strRunnerNum = " and \(event.participants.count-1) runners"
+            strRunnerNum = " and \(event.participants.count-1) person"
         }
 
         if let user = event.firstUser {
@@ -276,5 +305,23 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"
         return dateFormatter.string(from: self)
+    }
+    func friendlyDate() -> String {
+        if NSCalendar.current.isDateInToday(self){
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            return "Today at " + dateFormatter.string(from: self)
+
+        } else if NSCalendar.current.isDateInTomorrow(self){
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "h:mm a"
+            return "Tomorrow at" + dateFormatter.string(from: self)
+
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"
+            return dateFormatter.string(from: self)
+
+        }
     }
 }

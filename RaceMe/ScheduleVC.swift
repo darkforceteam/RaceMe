@@ -38,6 +38,7 @@ class ScheduleVC: UIViewController {
     var participants = [UserObject]()
     var userId: String!
     var currentUser: UserObject!
+    var creator: UserObject!
     var delegate: ScheduleVCDelegate!
     var startDate: Date!
     var targetDistance: Int?
@@ -46,6 +47,11 @@ class ScheduleVC: UIViewController {
     var startLocSet = false
     var startLoc: CLLocationCoordinate2D?
     
+    @IBOutlet weak var creatorImgView: UIImageView!
+    @IBOutlet weak var classDescripLabel: UILabel!
+    @IBOutlet weak var classNameLabel: UILabel!
+    @IBOutlet weak var creatorInfoView: UIView!
+    @IBOutlet weak var coverImgView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -80,12 +86,31 @@ class ScheduleVC: UIViewController {
             } else if route.locations.count > 0 {
                 setStartLoc(coordinate: route.locations.first!)
             }
+            
+            if self.route.type == "" || self.route.type == Constants.SPORT_TYPE.RUN {
+                creatorInfoView.isHidden = true
+            } else {
+                if event?.createdBy != nil {
+                    loadCreator(creatorId: event!.createdBy!)
+                }
+                if route.bannerUrl != "" {
+                    let request = NSMutableURLRequest(url: URL(string: route.bannerUrl)!)
+                    request.httpMethod = "GET"
+                    let session = URLSession(configuration: URLSessionConfiguration.default)
+                    let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                        if error == nil {
+                            self.coverImgView.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                        }
+                    }
+                    dataTask.resume()
+                }
+            }
         } else {
             coundownLabel.isHidden = true
             let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
             targetDistTextField.text = distStr
         }
-        
+
         mapView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
@@ -254,6 +279,24 @@ class ScheduleVC: UIViewController {
                 }
             }
             dataTask.resume()
+            }
+        })
+    }
+    func loadCreator(creatorId: String){
+        _ = ref.child("USERS/\(creatorId)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if (snapshot.value as? NSDictionary) != nil{
+                self.creator = UserObject(snapshot: snapshot)
+                
+                let request = NSMutableURLRequest(url: URL(string: self.creator.photoUrl!)!)
+                request.httpMethod = "GET"
+                let session = URLSession(configuration: URLSessionConfiguration.default)
+                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                    if error == nil {
+                        self.creator.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                        self.creatorImgView.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                    }
+                }
+                dataTask.resume()
             }
         })
     }
