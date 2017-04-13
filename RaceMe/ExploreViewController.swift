@@ -36,8 +36,8 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var todayRoute = [Route]()
     var tomorrowRoute = [Route]()
     var laterRoute = [Route]()
-    var displayingTime = "0"
-    var newFilterDay = "0"
+    var displayingTime = Constants.FilterDay.ALL_TIME_DISPLAY
+    var newFilterDay = Constants.FilterDay.ALL_TIME_DISPLAY
     //    var myLoc = MKUserLocation()
     //    var myRegion = MKCoordinateRegion()
     var ref: FIRDatabaseReference!
@@ -66,6 +66,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var mapView: MKMapView!
     var typeOptions = [Constants.SPORT_TYPE.RUN,Constants.SPORT_TYPE.YOGA,Constants.SPORT_TYPE.SWIM]//FIXED FOR NOW. TODO: change to DB load
     var groupOptions = ["Public", "Friends"]//FIXED FOR NOW. TODO: change to DB load
+    var timeOptions = [Constants.FilterDay.ALL_TIME_DISPLAY,Constants.FilterDay.TODAY_DISPLAY,Constants.FilterDay.TOMORROW_DISPLAY,Constants.FilterDay.LATER_DISPLAY]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -125,23 +126,24 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         typePicker.isHidden = true
         groupPicker.delegate = self
         groupPicker.isHidden = true
+        timePicker.delegate = self
+        timePicker.isHidden = true
     }
     
     @IBAction func selectTime(_ sender: UIButton) {
         buildDisplayRoute()
-        
-        let selectTimeVC = SelectTimeViewController(nibName: "SelectTimeViewController", bundle: nil)
-        selectTimeVC.modalPresentationStyle = UIModalPresentationStyle.popover
-        
-        selectTimeVC.popoverPresentationController?.delegate = self
-        selectTimeVC.popoverPresentationController?.sourceView = sender
-        selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
-        selectTimeVC.preferredContentSize.height = 180
-        
-        selectTimeVC.delegate = self
-        // present the popover
-        self.present(selectTimeVC, animated: true, completion: nil)
-        //selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
+        timePicker.isHidden = false
+//        let selectTimeVC = SelectTimeViewController(nibName: "SelectTimeViewController", bundle: nil)
+//        selectTimeVC.modalPresentationStyle = UIModalPresentationStyle.popover
+//        
+//        selectTimeVC.popoverPresentationController?.delegate = self
+//        selectTimeVC.popoverPresentationController?.sourceView = sender
+//        selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
+//        selectTimeVC.preferredContentSize.height = 180
+//        
+//        selectTimeVC.delegate = self
+//        // present the popover
+//        self.present(selectTimeVC, animated: true, completion: nil)
     }
     
     @IBAction func selectGroup(_ sender: UIButton) {
@@ -200,14 +202,13 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     func filterRoutesData(newTime: String) throws {
         displayRoute.removeAll()
         if newTime != displayingTime{
-            switch newTime {
-            case "0"://All time
+            if newTime == Constants.FilterDay.ALL_TIME_DISPLAY {
                 displayRoute = allRoute
-            case "1"://Today
+            } else if newTime == Constants.FilterDay.TODAY_DISPLAY {
                 displayRoute = todayRoute
-            case "2"://Tomorrow
+            } else if newTime == Constants.FilterDay.TOMORROW_DISPLAY {
                 displayRoute = tomorrowRoute
-            default://Later
+            } else {
                 displayRoute = laterRoute
             }
         } else {
@@ -282,6 +283,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                                         pin.title = routeMarker.title
                                         pin.AnnoView = routeMarker
                                         self.mapView.addAnnotation(pin)
+                                        self.actIndicator.stopAnimating()
                                     }
                                 } else {
                                     print("ERROR: \(error)")
@@ -320,7 +322,6 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     func changeTime(selectTimeVC: SelectTimeViewController, selectedTime: String){
 //        selectTimeButton.titleLabel?.text = selectedTime
-//        filterRoutesData(newTime: selectedTime)
 //        refreshDisplayRoute()
         newFilterDay = selectedTime
         filterDataByTime()
@@ -331,7 +332,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         print("\(nearByRouteCount). Route \(routeid)")
         // QueryCount 2: for each Route, check if Route is GLOBAL ROUTE
         actIndicator.isHidden = false
-        actIndicator.startAnimating()
+//        actIndicator.startAnimating()
 //        ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
 //            if snapshot.hasChild(Constants.Route.IS_GLOBAL) {
 //                print("Route \(routeid) IS GLOBAL")
@@ -385,7 +386,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                                 
                             }
                             //FILTER HERE TOO!!
-                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_VALUE) || ((self.displayingTime == Constants.FilterDay.TODAY_VALUE) && (route.todayEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.TOMORROW_VALUE) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.LATER_VALUE) && (route.laterEvents.count > 0 )) {
+                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_DISPLAY) || ((self.displayingTime == Constants.FilterDay.TODAY_DISPLAY) && (route.todayEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.TOMORROW_DISPLAY) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.LATER_DISPLAY) && (route.laterEvents.count > 0 )) {
                                 do {
                                     try self.drawRoute(route: route)
                                 } catch {
@@ -535,7 +536,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         } else if pickerView == groupPicker {
             return groupOptions.count
         } else {
-            return 1
+            return timeOptions.count
         }
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
@@ -544,7 +545,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         } else if pickerView == groupPicker {
             return groupOptions[row]
         } else {
-            return ""
+            return timeOptions[row]
         }
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
@@ -560,6 +561,11 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         } else if pickerView == groupPicker {
             selectGroupButton.titleLabel?.text = groupOptions[row]
             groupPicker.isHidden = true
+        } else {
+            selectTimeButton.titleLabel?.text = timeOptions[row]
+            newFilterDay = timeOptions[row]
+            filterDataByTime()
+            timePicker.isHidden = true
         }
     }
 }

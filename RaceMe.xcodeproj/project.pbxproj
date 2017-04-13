@@ -372,8 +372,6 @@
 				B6BB4BF81E86CE610054C965 /* PickerSettingCell.xib */,
 				B63974441E87B0CA00C3BE9C /* DatePickerSettingCell.swift */,
 				B63974451E87B0CA00C3BE9C /* DatePickerSettingCell.xib */,
-				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
-				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
 				D9F7B2031E88119600B692FF /* TextOnlyTableViewCell.swift */,
 				D9F7B2041E88119600B692FF /* TextOnlyTableViewCell.xib */,
 				B61B85421E940C160008BCF3 /* SlideView.swift */,
@@ -454,6 +452,8 @@
 		B6946A331E97B70C00931B0F /* Explore */ = {
 			isa = PBXGroup;
 			children = (
+				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
+				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
 				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
 				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
 				D9DA30C61E92395E00F10849 /* RouteDetailVC.swift */,
