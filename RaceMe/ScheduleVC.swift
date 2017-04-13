@@ -316,6 +316,9 @@ class ScheduleVC: UIViewController {
         cancelBtn.isHidden = false
     }
     @IBAction func readyForRun(_ sender: UIButton) {
+        let participantRef = ref.child(Constants.Event.TABLE_NAME).child((event?.eventId)!).child(Constants.Event.PARTICIPANTS).child(userId!)
+        participantRef.setValue(true)
+        readyBtn.isHidden = true
     }
     @IBAction func cancelRun(_ sender: UIButton) {
 //        let eventPath = "\(Constants.Event.TABLE_NAME)/\(self.event!.eventId!)"
@@ -329,11 +332,13 @@ class ScheduleVC: UIViewController {
             if error != nil {
                 print(error!)
             } else {
-                let index = self.event?.participants.index(of: self.userId)!
-                self.event?.participants.remove(at: index!)
-                self.participants.remove(at: index!)
-                
-                self.tableView.reloadData()
+//                let index = self.event?.participants.index(of: self.userId)!
+//                self.event?.participants.remove(at: index!)
+//                print(self.event?.participants)
+//                self.participants.remove(at: index!)
+//                print("///////////")
+//                print(self.participants)
+//                self.tableView.reloadData()
                 
                 self.view.sendSubview(toBack: self.readyBtn)
                 self.readyBtn.isHidden = true
@@ -395,29 +400,39 @@ class ScheduleVC: UIViewController {
     }
     
     func loadParticipants(){
-        
-        let userRef = ref.child("USERS")
-        for userId in (event?.participants)! {
-            userRef.child(userId).observeSingleEvent(of: .value, with: { (snapshot) in
-                if (snapshot.value as? NSDictionary) != nil{
-                    let user = UserObject(snapshot: snapshot)
-                    user.avatarImg = UIImage(named: "default-avatar")!
-                    let request = NSMutableURLRequest(url: URL(string: user.photoUrl!)!)
-                    request.httpMethod = "GET"
-                    let session = URLSession(configuration: URLSessionConfiguration.default)
-                    let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                        if error == nil {
-                            user.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
-                            DispatchQueue.main.async {
-                                self.participants.append(user)
-                                self.tableView.reloadData()
+        let userRef = ref.child(Constants.USERS.table_name)
+        let eventPartRef = ref.child(Constants.Event.TABLE_NAME).child((event?.eventId)!)
+        eventPartRef.observe(.value, with:  { (snapshot) in
+            if let data = snapshot.value as? NSDictionary{
+                self.participants.removeAll()
+                self.event?.participants.removeAll()
+                if let participants = data.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
+                    for (key, value) in participants{
+                        userRef.child(key as! String).observeSingleEvent(of: .value, with: { (snapshot) in
+                            if (snapshot.value as? NSDictionary) != nil{
+                                let user = UserObject(snapshot: snapshot)
+                                user.isReady = value as! Bool
+                                //                    user.avatarImg = UIImage(named: "default-avatar")!
+                                let request = NSMutableURLRequest(url: URL(string: user.photoUrl!)!)
+                                request.httpMethod = "GET"
+                                let session = URLSession(configuration: URLSessionConfiguration.default)
+                                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                    if error == nil {
+                                        user.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                                        DispatchQueue.main.async {
+                                            self.participants.append(user)
+                                            self.event?.participants.append(user.uid)
+                                            self.tableView.reloadData()
+                                        }
+                                    }
+                                }
+                                dataTask.resume()
                             }
-                        }
+                        })
                     }
-                    dataTask.resume()
                 }
-            })
-        }
+            }
+        })
     }
 }
 extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource{
@@ -456,6 +471,9 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
             cell.statusLabel.text = participant.displayName
             if let avatarImg = participant.avatarImg{
                 cell.avatarImg.image = avatarImg
+            }
+            if participant.isReady == true {
+                cell.statusImg.image = UIImage(named: "ready")!
             }
         }
         return cell
