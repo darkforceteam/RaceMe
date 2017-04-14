@@ -67,9 +67,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
                 // Tracking View Controller                
                 let recordNavVC = UINavigationController(rootViewController: RecordViewController())
-                recordNavVC.tabBarItem.title = "Tracking"
+                recordNavVC.tabBarItem.title = "Start"
                 recordNavVC.tabBarItem.image = UIImage(named: "ic_play_circle_filled")
-                recordNavVC.topViewController?.navigationItem.title = "Tracking"
+                recordNavVC.topViewController?.navigationItem.title = "Start"
                 if let font = UIFont(name: "OpenSans-Semibold", size: 17) {
                     recordNavVC.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: font]
                 }

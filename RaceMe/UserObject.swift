@@ -40,8 +40,8 @@ class UserObject: NSObject {
         email = authData.email!
     }
     
-    init(uid: String, email: String) {
+    init(uid: String, name: String) {
         self.uid = uid
-        self.email = email
+        self.displayName = name
     }
 }

@@ -52,6 +52,8 @@ extension ActivityDetailsViewController: MKMapViewDelegate{
         let renderer = MKPolylineRenderer(overlay: overlay)
         renderer.strokeColor = dangerColor
         renderer.lineWidth = 4.0
+        let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)
+        mapView.setVisibleMapRect(mapRect.boundingMapRect, edgePadding: UIEdgeInsets(top: 20.0, left: 20.0, bottom: 20.0, right: 20.0), animated: false)
         return renderer
     }
     
@@ -82,13 +84,7 @@ extension ActivityDetailsViewController: MKMapViewDelegate{
         }
     }
     func drawRoute(route: Route){
-        //TODO: move span value to a global constant so that all mapview show the same zoom level
-        let span = MKCoordinateSpanMake(0.009, 0.009)
-        let myRegion = MKCoordinateRegion(center: route.locations.first!, span: span)
-        mapView.setRegion(myRegion, animated: false)
         let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
         mapView.add(myPolyline)
-        //TODO: set center to the middle point of the route. HTF can I calculate that?
-        mapView.setCenter((route.locations.first)!, animated: true)
     }
 }

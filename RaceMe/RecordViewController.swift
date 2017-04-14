@@ -41,7 +41,7 @@ class RecordViewController: UIViewController, MKMapViewDelegate {
     
     fileprivate lazy var startButton: UIButton = {
         let button = UIButton()
-        button.setTitle("GO RUNNING", for: .normal)
+        button.setTitle("START NOW", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = goRunning
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
@@ -133,7 +133,7 @@ extension RecordViewController {
         view.addSubview(mapView)
         view.addSubview(startButton)
         view.addSubview(notificationLabel)
-        setupRightButton()
+        //setupRightButton()
         mapView.delegate = self
     }
     
