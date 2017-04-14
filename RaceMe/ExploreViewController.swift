@@ -12,7 +12,7 @@ import HealthKit
 import MapKit
 import FirebaseAuth
 import FirebaseDatabase
-class ExploreViewController: UIViewController {
+class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 //    let locationManager = CLLocationManager()
     fileprivate lazy var locationManager: CLLocationManager = {
         var lm = CLLocationManager()
@@ -36,8 +36,8 @@ class ExploreViewController: UIViewController {
     var todayRoute = [Route]()
     var tomorrowRoute = [Route]()
     var laterRoute = [Route]()
-    var displayingTime = "0"
-    var newFilterDay = "0"
+    var displayingTime = Constants.FilterDay.ALL_TIME_DISPLAY
+    var newFilterDay = Constants.FilterDay.ALL_TIME_DISPLAY
     //    var myLoc = MKUserLocation()
     //    var myRegion = MKCoordinateRegion()
     var ref: FIRDatabaseReference!
@@ -52,13 +52,21 @@ class ExploreViewController: UIViewController {
     var oldVersion = false
     var nearByRouteCount = 0
     var publicRouteInSpan = 0
+    var displayingType = Constants.SPORT_TYPE.ALL
+
+    @IBOutlet weak var typePicker: UIPickerView!
+    @IBOutlet weak var groupPicker: UIPickerView!
+    @IBOutlet weak var timePicker: UIPickerView!
+
     
     @IBOutlet weak var actIndicator: UIActivityIndicatorView!
     @IBOutlet weak var selectTimeButton: UIButton!
     @IBOutlet weak var selectTypeButton: UIButton!
     @IBOutlet weak var selectGroupButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-    
+    var typeOptions = [Constants.SPORT_TYPE.ALL,Constants.SPORT_TYPE.RUN,Constants.SPORT_TYPE.YOGA,Constants.SPORT_TYPE.SWIM]//FIXED FOR NOW. TODO: change to DB load
+    var groupOptions = ["Public", "Friends"]//FIXED FOR NOW. TODO: change to DB load
+    var timeOptions = [Constants.FilterDay.ALL_TIME_DISPLAY,Constants.FilterDay.TODAY_DISPLAY,Constants.FilterDay.TOMORROW_DISPLAY,Constants.FilterDay.LATER_DISPLAY]
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -87,7 +95,7 @@ class ExploreViewController: UIViewController {
         actIndicator.hidesWhenStopped = true
         //        locationManager.startUpdatingLocation()
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
-//        fixManuallyImportedRoutes()
+        fixManuallyImportedRoutes()
         //        emptyPublicRoute()
         
         selectTimeButton.layer.cornerRadius = 3
@@ -108,25 +116,42 @@ class ExploreViewController: UIViewController {
         selectGroupButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         selectGroupButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         selectGroupButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
+
+        setupFilterButtons()
+        hideKeyboardWhenTappedAround()
+    }
+    
+    func setupFilterButtons(){
+        typePicker.delegate = self
+        typePicker.isHidden = true
+        groupPicker.delegate = self
+        groupPicker.isHidden = true
+        timePicker.delegate = self
+        timePicker.isHidden = true
     }
     
     @IBAction func selectTime(_ sender: UIButton) {
         buildDisplayRoute()
-        
-        let selectTimeVC = SelectTimeViewController(nibName: "SelectTimeViewController", bundle: nil)
-        selectTimeVC.modalPresentationStyle = UIModalPresentationStyle.popover
-        
-        selectTimeVC.popoverPresentationController?.delegate = self
-        selectTimeVC.popoverPresentationController?.sourceView = sender
-        selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
-        selectTimeVC.preferredContentSize.height = 180
-        
-        selectTimeVC.delegate = self
-        // present the popover
-        self.present(selectTimeVC, animated: true, completion: nil)
-        //selectTimeButton.titleLabel?.text = Constants.timeData[newFilterDay]
+        timePicker.isHidden = false
+//        let selectTimeVC = SelectTimeViewController(nibName: "SelectTimeViewController", bundle: nil)
+//        selectTimeVC.modalPresentationStyle = UIModalPresentationStyle.popover
+//        
+//        selectTimeVC.popoverPresentationController?.delegate = self
+//        selectTimeVC.popoverPresentationController?.sourceView = sender
+//        selectTimeVC.popoverPresentationController?.sourceRect = sender.bounds //sender.bounds
+//        selectTimeVC.preferredContentSize.height = 180
+//        
+//        selectTimeVC.delegate = self
+//        // present the popover
+//        self.present(selectTimeVC, animated: true, completion: nil)
     }
     
+    @IBAction func selectGroup(_ sender: UIButton) {
+        groupPicker.isHidden = false
+    }
+    @IBAction func selectType(_ sender: UIButton) {
+        typePicker.isHidden = false
+    }
     override func viewWillAppear(_ animated: Bool){
         if foundCurrentLoc {
             queryRouteInRegion(myRegion: mapView.region)
@@ -177,14 +202,13 @@ class ExploreViewController: UIViewController {
     func filterRoutesData(newTime: String) throws {
         displayRoute.removeAll()
         if newTime != displayingTime{
-            switch newTime {
-            case "0"://All time
+            if newTime == Constants.FilterDay.ALL_TIME_DISPLAY {
                 displayRoute = allRoute
-            case "1"://Today
+            } else if newTime == Constants.FilterDay.TODAY_DISPLAY {
                 displayRoute = todayRoute
-            case "2"://Tomorrow
+            } else if newTime == Constants.FilterDay.TOMORROW_DISPLAY {
                 displayRoute = tomorrowRoute
-            default://Later
+            } else {
                 displayRoute = laterRoute
             }
         } else {
@@ -219,82 +243,102 @@ class ExploreViewController: UIViewController {
     }
     
     func drawRoute(route: Route) throws {
-        let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
-        mapView.add(myPolyline)
-        print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
-        let routeMarker = RouteAnnotation()
-        routeMarker.routeId = route.routeId
-        routeMarker.route = route
-        let pin = RoutePoint()
-        pin.coordinate = route.locations.first!
-        var foundUser = false
-        
-        if let firstEvent = route.displayEvent {
-            if  firstEvent.participants.count > 0 {
-                let firstPersonID = firstEvent.participants[0] as String
-                userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
-                    if let userData = snapshot.value as? NSDictionary{
-                        let firstUser = UserObject(snapshot: snapshot)
-                        routeMarker.pinType = RouteAnnotation.PIN_EVENT
-                        routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
-                        routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
-                        routeMarker.personCount = route.participant_count(displayingDate: self.displayingTime)
-                        routeMarker.setTitleEvent(scheduled: firstEvent.start_time, firstEventDay: route.firstEventDay)
-                        
-                        //                    let imageUrl = NSURL(string: routeMarker.pinCustomImage)
-                        //                    if let data = NSData(contentsOf: imageUrl as! URL){
-                        //                        routeMarker.imageView = UIImage(data: data as Data)!
-                        //                    }
-                        //                    self.loadAnnoImage(imageURL: routeMarker.pinCustomImage, anno: routeMarker)
-                        routeMarker.image = UIImage(named: "default-avatar")!
-                        firstUser.avatarImg = routeMarker.image
-                        routeMarker.route.displayEvent?.firstUser = firstUser
-                        
-                        let request = NSMutableURLRequest(url: URL(string: routeMarker.pinCustomImage)!)
-                        request.httpMethod = "GET"
-                        
-                        //                    let session = URLSession(configuration: URLSessionConfiguration.default)
-                        let dataTask = self.loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
-                            if error == nil {
-                                routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
-                                firstUser.avatarImg = routeMarker.image
-                                routeMarker.route.displayEvent?.firstUser = firstUser
-                                foundUser = true
-                                DispatchQueue.main.async {
-                                    pin.title = routeMarker.title
-                                    pin.AnnoView = routeMarker
-                                    self.mapView.addAnnotation(pin)
-                                }
-                            } else {
-                                print("ERROR: \(error)")
-                                self.alert(message: "\(error)",title: "Error loading user avatar")
-                            }
-                        }
-                        dataTask.resume()
-                    } else {
-                        self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
+        print(displayingType)
+        print(route.type)
+        if displayingType == route.type || displayingType == Constants.SPORT_TYPE.ALL || (displayingType == Constants.SPORT_TYPE.RUN && route.type == "") {
+            let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
+            mapView.add(myPolyline)
+            print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
+            let routeMarker = RouteAnnotation()
+            routeMarker.routeId = route.routeId
+            routeMarker.route = route
+            routeMarker.loc_type = route.type
+            let pin = RoutePoint()
+            pin.coordinate = route.locations.first!
+            
+            if let firstEvent = route.displayEvent {
+                var userOnPinImgId = ""
+                if let creatorId = route.displayEvent?.createdBy {
+                    userOnPinImgId = creatorId
+                }
+                if  firstEvent.participants.count > 0 {
+                    if userOnPinImgId == "" {
+                        userOnPinImgId = firstEvent.participants[0] as String
                     }
-                })
+                    userRef.child(userOnPinImgId).observeSingleEvent(of: .value, with: { (snapshot) in
+                        if let userData = snapshot.value as? NSDictionary{
+                            let firstUser = UserObject(snapshot: snapshot)
+                            routeMarker.pinType = RouteAnnotation.PIN_EVENT
+                            routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
+                            routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
+                            routeMarker.personCount = route.participant_count(displayingDate: self.displayingTime)
+                            routeMarker.personCount = firstEvent.participants.count
+                            routeMarker.setTitleEvent(scheduled: firstEvent.start_time, firstEventDay: route.firstEventDay)
+                            
+//                            routeMarker.image = UIImage(named: "default-avatar")!
+                            firstUser.avatarImg = routeMarker.image
+                            routeMarker.route.displayEvent?.firstUser = firstUser
+                            
+                            let request = NSMutableURLRequest(url: URL(string: routeMarker.pinCustomImage)!)
+                            request.httpMethod = "GET"
+                            
+                            //                    let session = URLSession(configuration: URLSessionConfiguration.default)
+                            let dataTask = self.loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
+                                if error == nil {
+                                    // Resize image
+                                    let pinImage = UIImage(data: data!, scale: UIScreen.main.scale)
+                                    let size = CGSize(width: 30, height: 30)
+                                    UIGraphicsBeginImageContext(size)
+                                    pinImage!.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
+                                    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+                                    UIGraphicsEndImageContext()
+                                    
+                                    routeMarker.image = resizedImage
+                                    firstUser.avatarImg = routeMarker.image
+                                    routeMarker.route.displayEvent?.firstUser = firstUser
+                                    DispatchQueue.main.async {
+                                        pin.title = routeMarker.title
+                                        pin.AnnoView = routeMarker
+                                        self.mapView.addAnnotation(pin)
+                                        self.actIndicator.stopAnimating()
+                                    }
+                                } else {
+                                    print("ERROR: \(error)")
+                                    self.alert(message: "\(error)",title: "Error loading user avatar")
+                                }
+                            }
+                            dataTask.resume()
+                        } else {
+                            self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
+                        }
+                    })
+                } else {
+                    self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: routeMarker.loc_type)
+                }
             } else {
-                self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
+                self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: routeMarker.loc_type)
             }
-        } else {
-            self.setDefaultPinImg(routeMarker: routeMarker, pin: pin, sportType: "")
         }
     }
     func setDefaultPinImg(routeMarker: RouteAnnotation, pin: RoutePoint, sportType: String?){
         if (sportType == "") || (sportType == "RUN") {
-            routeMarker.setTitleDistance()
             routeMarker.image = UIImage(named: "avatar-run")
-            pin.title = routeMarker.title
-            pin.AnnoView = routeMarker
-            self.mapView.addAnnotation(pin)
-            self.actIndicator.stopAnimating()
+        } else if (sportType == "yoga"){
+            routeMarker.image = UIImage(named: "pin-yoga")
+        } else if (sportType == "swim"){
+            routeMarker.image = UIImage(named: "pin-swimming")
+        } else {
+            routeMarker.image = UIImage(named: "map-pin")
         }
+        routeMarker.setDefaultTitle()
+        pin.title = routeMarker.title
+        pin.AnnoView = routeMarker
+        self.mapView.addAnnotation(pin)
+        self.actIndicator.stopAnimating()
+
     }
     func changeTime(selectTimeVC: SelectTimeViewController, selectedTime: String){
 //        selectTimeButton.titleLabel?.text = selectedTime
-//        filterRoutesData(newTime: selectedTime)
 //        refreshDisplayRoute()
         newFilterDay = selectedTime
         filterDataByTime()
@@ -305,7 +349,7 @@ class ExploreViewController: UIViewController {
         print("\(nearByRouteCount). Route \(routeid)")
         // QueryCount 2: for each Route, check if Route is GLOBAL ROUTE
         actIndicator.isHidden = false
-        actIndicator.startAnimating()
+//        actIndicator.startAnimating()
 //        ref.child(Constants.Route.TABLE_NAME+"/"+routeid).observeSingleEvent(of: .value, with: { (snapshot) in
 //            if snapshot.hasChild(Constants.Route.IS_GLOBAL) {
 //                print("Route \(routeid) IS GLOBAL")
@@ -327,12 +371,13 @@ class ExploreViewController: UIViewController {
                                 route.events.removeAll()
                                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                                     if let oneEvent = eventData.value as? NSDictionary{
-                                        if let start_time = oneEvent.value(forKey: "start_time") as? Double{
+                                        if let start_time = oneEvent.value(forKey: Constants.Event.START_TIME) as? Double{
                                             if start_time >= currentTime {
                                                 let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                                 let event = Event(route_id: "", start_time: event_datetime as Date)
                                                 event.eventId = eventData.key
-                                                if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
+                                                event.createdBy = oneEvent.value(forKey: Constants.Event.CREATED_BY) as? String
+                                                if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
                                                     if participants.count > 0 {
                                                         for (key, _) in participants{
                                                             event.participants.append(key as! String)
@@ -359,7 +404,7 @@ class ExploreViewController: UIViewController {
                                 
                             }
                             //FILTER HERE TOO!!
-                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_VALUE) || ((self.displayingTime == Constants.FilterDay.TODAY_VALUE) && (route.todayEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.TOMORROW_VALUE) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.LATER_VALUE) && (route.laterEvents.count > 0 )) {
+                            if (self.displayingTime == Constants.FilterDay.ALL_TIME_DISPLAY) || ((self.displayingTime == Constants.FilterDay.TODAY_DISPLAY) && (route.todayEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.TOMORROW_DISPLAY) && (route.tomorrowEvents.count > 0 )) || ((self.displayingTime == Constants.FilterDay.LATER_DISPLAY) && (route.laterEvents.count > 0 )) {
                                 do {
                                     try self.drawRoute(route: route)
                                 } catch {
@@ -370,6 +415,7 @@ class ExploreViewController: UIViewController {
                             }
                         })
                         self.allRoute.append(route)
+                        self.displayRoute.append(route)
                     }
                     if self.publicRouteInSpan == 0{
                         self.actIndicator.stopAnimating()
@@ -499,7 +545,47 @@ class ExploreViewController: UIViewController {
         navigationController?.pushViewController(routeDetailVC, animated: true)
 //        self.present(routeDetailVC, animated: true, completion: nil)
     }
-
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == typePicker {
+            return typeOptions.count
+        } else if pickerView == groupPicker {
+            return groupOptions.count
+        } else {
+            return timeOptions.count
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
+        if pickerView == typePicker {
+            return typeOptions[row]
+        } else if pickerView == groupPicker {
+            return groupOptions[row]
+        } else {
+            return timeOptions[row]
+        }
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        if pickerView == typePicker {
+            selectTypeButton.titleLabel?.text = typeOptions[row]
+            typePicker.isHidden = true
+            displayingType = typeOptions[row]
+            do {
+                try refreshDisplayRoute()
+            } catch {
+                print("ERROR!!!!!!: \(error)")
+            }
+        } else if pickerView == groupPicker {
+            selectGroupButton.titleLabel?.text = groupOptions[row]
+            groupPicker.isHidden = true
+        } else {
+            selectTimeButton.titleLabel?.text = timeOptions[row]
+            newFilterDay = timeOptions[row]
+            filterDataByTime()
+            timePicker.isHidden = true
+        }
+    }
 }
 extension ExploreViewController: CLLocationManagerDelegate, UIPopoverPresentationControllerDelegate, SelectTimeViewControllerDelegate, MKMapViewDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

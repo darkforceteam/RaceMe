@@ -23,6 +23,7 @@ class RouteAnnotation: MKAnnotationView {
     var title: String!
     var routeId: String!
     var route: Route!
+    var loc_type = ""
     
     //    var startLoc: CLLocationCoordinate2D
     func setTitleEvent(scheduled: Date?, firstEventDay: Int){
@@ -37,16 +38,35 @@ class RouteAnnotation: MKAnnotationView {
             dateFormatter.dateFormat = dateFormat
             date = dateFormatter.string(from: scheduled!)
         }
-        if personCount > 1 {
-            self.title = "\(pinUsername!) and \(personCount-1) person at \(time) \(date)"
+        var actType = loc_type
+        if actType == "" ||  actType == Constants.SPORT_TYPE.RUN{
+            actType = Constants.SPORT_TYPE.RUN
+            if personCount > 1 {
+                self.title = "\(pinUsername!) and \(personCount-1) person will \(actType) at \(time) \(date)"
+            } else {
+                self.title = "\(pinUsername!) will \(actType) at \(time) \(date)"
+            }
         } else {
-            self.title = "\(pinUsername!) will run at \(time) \(date)"
+            var strAppend = ""
+            if personCount > 1 {
+                strAppend = ": \(personCount) person at \(time) \(date)"
+            } else {
+                strAppend = ": \(pinUsername!) will join at \(time) \(date)"
+            }
+            self.title = "\(route.name) \(strAppend)"
         }
     }
     //    var startLoc: CLLocationCoordinate2D
-    func setTitleDistance(){
-        let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
-        self.title = "\(route.name): \(distStr) km"
+    func setDefaultTitle(){
+        var strAppend = ""
+        if route.distance > 0.0 {
+            strAppend = ": \(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
+        } else {
+//            if self.loc_type != "" {
+//                strAppend = self.loc_type
+//            }
+        }
+        self.title = "\(route.name) \(strAppend)"
     }
     
     func getNameDistance() -> String{

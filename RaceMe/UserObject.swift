@@ -20,6 +20,7 @@ class UserObject: NSObject {
     var height: String?
     var photoUrl: String?
     var avatarImg: UIImage?
+    var bio: String?
     var isReady = false
     init(snapshot: FIRDataSnapshot){
         key = snapshot.ref.key
@@ -31,6 +32,7 @@ class UserObject: NSObject {
         weight = (snapshot.value! as! NSDictionary)["weight"] as? String
         height = (snapshot.value! as! NSDictionary)["height"] as? String
         photoUrl = (snapshot.value! as! NSDictionary)["photoUrl"] as? String
+        bio = (snapshot.value! as! NSDictionary)[Constants.USERS.bio] as? String
     }
     
     init(authData: FIRUser) {

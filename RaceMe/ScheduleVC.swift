@@ -38,6 +38,7 @@ class ScheduleVC: UIViewController {
     var participants = [UserObject]()
     var userId: String!
     var currentUser: UserObject!
+    var creator: UserObject!
     var delegate: ScheduleVCDelegate!
     var startDate: Date!
     var targetDistance: Int?
@@ -46,8 +47,17 @@ class ScheduleVC: UIViewController {
     var startLocSet = false
     var startLoc: CLLocationCoordinate2D?
     
+    @IBOutlet weak var loadCoverAct: UIActivityIndicatorView!
+
+    @IBOutlet weak var nextSessionLabel: UILabel!
+    @IBOutlet weak var creatorImgView: UIImageView!
+    @IBOutlet weak var classDescripLabel: UILabel!
+    @IBOutlet weak var classNameLabel: UILabel!
+    @IBOutlet weak var creatorInfoView: UIView!
+    @IBOutlet weak var coverImgView: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ref = FIRDatabase.database().reference()
         if event != nil{
             mapView.isScrollEnabled = false
@@ -80,12 +90,31 @@ class ScheduleVC: UIViewController {
             } else if route.locations.count > 0 {
                 setStartLoc(coordinate: route.locations.first!)
             }
+            
+            if self.route.type == "" || self.route.type == Constants.SPORT_TYPE.RUN {
+                creatorInfoView.isHidden = true
+            } else {
+                loadCoverAct.hidesWhenStopped = true
+                let creatorAvatarGesture = UITapGestureRecognizer(target: self, action: #selector(openCreatorView))
+                let coverGesture = UITapGestureRecognizer(target: self, action: #selector(openCreatorView))
+                if event?.createdBy != nil {
+                    loadCreator(creatorId: event!.createdBy!)
+                    creatorImgView.isUserInteractionEnabled = true
+                    creatorImgView.addGestureRecognizer(creatorAvatarGesture)
+                }
+                if route.bannerUrl != "" {
+                    loadCoverAct.startAnimating()
+                    loadBanner(imgUrl: route.bannerUrl)
+                    coverImgView.isUserInteractionEnabled = true
+                    coverImgView.addGestureRecognizer(coverGesture)
+                }
+            }
         } else {
             coundownLabel.isHidden = true
             let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
             targetDistTextField.text = distStr
         }
-        
+
         mapView.delegate = self
         tableView.dataSource = self
         tableView.delegate = self
@@ -243,17 +272,54 @@ class ScheduleVC: UIViewController {
     func loadCurrentUser(){
         _ = ref.child("USERS/\(userId!)").observeSingleEvent(of: .value, with: { (snapshot) in
             if (snapshot.value as? NSDictionary) != nil{
-            self.currentUser = UserObject(snapshot: snapshot)
-            
-            let request = NSMutableURLRequest(url: URL(string: self.currentUser.photoUrl!)!)
-            request.httpMethod = "GET"
-            let session = URLSession(configuration: URLSessionConfiguration.default)
-            let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                if error == nil {
+                self.currentUser = UserObject(snapshot: snapshot)
+                
+                let request = NSMutableURLRequest(url: URL(string: self.currentUser.photoUrl!)!)
+                request.httpMethod = "GET"
+                let session = URLSession(configuration: URLSessionConfiguration.default)
+                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                    if error == nil {
                         self.currentUser.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                    }
                 }
+                dataTask.resume()
             }
-            dataTask.resume()
+        })
+    }
+    func loadBanner(imgUrl: String){
+        var session = URLSession.shared
+        var task = URLSessionDataTask()
+        let request = NSMutableURLRequest(url: URL(string: imgUrl)!)
+        request.httpMethod = "GET"
+        session = URLSession(configuration: URLSessionConfiguration.default)
+        task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            if error == nil {
+                let img = UIImage(data: data!, scale: UIScreen.main.scale)
+                self.coverImgView.image = img
+                self.loadCoverAct.stopAnimating()
+            }
+        }
+        task.resume()
+    }
+    func loadCreator(creatorId: String){
+        _ = self.ref.child("USERS/\(creatorId)").observeSingleEvent(of: .value, with: { (snapshot) in
+            if (snapshot.value as? NSDictionary) != nil{
+                self.creator = UserObject(snapshot: snapshot)
+                //display creator name, bio and next schedule
+                self.nextSessionLabel.text = self.event?.start_time.friendlyDate()
+                
+                self.classNameLabel.text = self.creator.displayName
+                self.classDescripLabel.text = self.creator.bio
+                let request = NSMutableURLRequest(url: URL(string: self.creator.photoUrl!)!)
+                request.httpMethod = "GET"
+                let session = URLSession(configuration: URLSessionConfiguration.default)
+                let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
+                    if error == nil {
+                        self.creator.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
+                        self.creatorImgView.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                    }
+                }
+                dataTask.resume()
             }
         })
     }
@@ -433,6 +499,13 @@ class ScheduleVC: UIViewController {
                 }
             }
         })
+    }
+
+    func openCreatorView()
+    {
+        let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+        profileViewController.uid = creator.uid
+        navigationController?.pushViewController(profileViewController, animated: true)
     }
 }
 extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource{

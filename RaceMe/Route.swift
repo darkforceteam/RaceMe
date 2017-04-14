@@ -20,6 +20,9 @@ class Route: NSObject {
     var displayEvent: Event?
     var routeId: String!
     var firstEventDay = 0
+    var type = ""
+    var address = ""
+    var bannerUrl = ""
     func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
         case "1":
@@ -90,10 +93,16 @@ class Route: NSObject {
                 }
             } else {
                 if let key = loc.key as String? {
-                    if key == "DISTANCE" {
+                    if key == Constants.PublicRoute.ROUTE_DISTANCE {
                         distance = loc.value! as! Double
-                    } else if key == "NAME" {
+                    } else if key == Constants.PublicRoute.NAME {
                         name = loc.value! as! String
+                    } else if key == Constants.PublicRoute.TYPE {
+                        type = loc.value! as! String
+                    } else if key == Constants.PublicRoute.ADDR {
+                        address = loc.value! as! String
+                    } else if key == Constants.PublicRoute.BANNER {
+                        bannerUrl = loc.value! as! String
                     } else {
 
                     }
