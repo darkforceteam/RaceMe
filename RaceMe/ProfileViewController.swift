@@ -205,9 +205,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if ( sender.tag == 1 ) {
             ref.child("USERS/\(current_uid)/following/\(uid)").removeValue()
             ref.child("USERS/\(uid)/followers/\(current_uid)").removeValue()
-            print("Unfollowed")
         } else {
-            print("Followed")
             ref.child("USERS/\(current_uid)/following/\(uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
             ref.child("USERS/\(uid)/followers/\(current_uid)").setValue(NSDate().timeIntervalSince1970 * 1000)
         }
