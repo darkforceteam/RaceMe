@@ -264,7 +264,7 @@ class ScheduleVC: UIViewController {
 //        print(diff)
         if now < (event?.start_time)!
         {
-            coundownLabel.text = "\(diff)"
+            coundownLabel.text = "\(diff)".uppercased()
         } else {
             //RACE TIME!
             coundownLabel.text = "The run starts now!!!"
