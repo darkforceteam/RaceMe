@@ -17,17 +17,8 @@ class ChallengeViewCell: UITableViewCell {
     @IBOutlet weak var fromDateLabel: UILabel!
     @IBOutlet weak var toDateLabel: UILabel!
 
-    
-    @IBOutlet weak var totWOLabel: UILabel!
-    
-    @IBOutlet weak var totDistLabel: UILabel!
-    @IBOutlet weak var weeklyWOLabel: UILabel!
-    @IBOutlet weak var weeklyDistLabel: UILabel!
-    @IBOutlet weak var miWODistLabel: UILabel!
-    
-    @IBOutlet weak var longRunDistLabel: UILabel!
-    @IBOutlet weak var longRunNoLabel: UILabel!
-    @IBOutlet weak var minWOPaceLabel: UILabel!
+    @IBOutlet weak var chalDescLabel: UILabel!
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

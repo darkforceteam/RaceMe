@@ -28,6 +28,8 @@ class Challenge: NSObject {
     var min_wo_pace: Double?
     var chal_photo: String?
     var chalImg: UIImage?
+    var chal_name: String?
+    var chal_desc: String?
     //    struct participants {
     //        static let participants = "participants"
     //        static let status = "status"
@@ -55,6 +57,8 @@ class Challenge: NSObject {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         created_by = snapshotValue[Constants.Challenge.created_by]  as? String
         chal_photo = snapshotValue[Constants.Challenge.chal_photo]  as? String
+        chal_name = snapshotValue[Constants.Challenge.challenge_name]  as? String
+        chal_desc = snapshotValue[Constants.Challenge.description]  as? String
         for_group = snapshotValue[Constants.Challenge.for_group]  as? String
         start_date = snapshotValue[Constants.Challenge.start_date] as? Double
         end_date = snapshotValue[Constants.Challenge.end_date] as? Double

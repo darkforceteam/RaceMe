@@ -85,6 +85,7 @@ struct Constants {
     }
     struct Challenge{
         static let table_name = "challenges"
+        static let description = "description"
         static let challenge_name = "name"
         static let chal_photo = "photo"
         static let created_by = "created_by"
