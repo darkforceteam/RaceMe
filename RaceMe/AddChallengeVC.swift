@@ -10,8 +10,10 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 import FirebaseStorage
+import WDImagePicker
 class AddChallengeVC: UIViewController {
 
+    @IBOutlet weak var uploadPhotoBtn: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var groupPick: UITextField!
     @IBOutlet weak var startDatePick: UITextField!
@@ -44,7 +46,9 @@ class AddChallengeVC: UIViewController {
     var endDate: Date?
     var challenge: Challenge?
     var userId: String?
-    let imagePicker = UIImagePickerController()
+    var imagePicker: WDImagePicker!
+    var chalImg: UIImage?
+//    let imagePicker = UIImagePickerController()
     @IBOutlet weak var chalImage: UIImageView!
     @IBOutlet weak var uploadImgProgress: UIProgressView!
     var photoIsUploading = false
@@ -66,7 +70,7 @@ class AddChallengeVC: UIViewController {
         }
         createBtn.backgroundColor = UIColor(136, 192, 87)
         createBtn.layer.cornerRadius = 5
-        imagePicker.delegate = self
+//        imagePicker.delegate = self
         dataPicker.delegate = self
         groupPick.inputView = dataPicker
         hideKeyboardWhenTappedAround()
@@ -215,10 +219,10 @@ class AddChallengeVC: UIViewController {
     }
 
     @IBAction func selectImage(_ sender: UIButton) {
-        imagePicker.allowsEditing = false
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
-        present(imagePicker, animated: true, completion: nil)
+        imagePicker = WDImagePicker()
+        imagePicker.cropSize = CGSize(width: 200, height: 200)
+        imagePicker.delegate = self
+        present(imagePicker.imagePickerController, animated: true, completion: nil)
     }
     @IBAction func deleteChallenge(_ sender: UIButton) {
         let challengePath = "\(Constants.Challenge.table_name)/\(self.challenge!.id)"
@@ -248,16 +252,14 @@ class AddChallengeVC: UIViewController {
         woMinDistPick.text = ""
         woMinPacePick.text = ""
     }
-    var selectedImgFilename: String?
     var savedImgId: String?
     func uploadPhoto(){
         savedImgId = ""
-        if let data: Data = UIImagePNGRepresentation(chalImage.image!){
+        if let data: Data = UIImagePNGRepresentation(chalImg!){
             uploadImgProgress.isHidden = false
             uploadImgProgress.setProgress(0.0, animated: true)
             let randomId = UUID().uuidString
-            selectedImgFilename = randomId.appending(selectedImgFilename!)
-            let chalImgRef = chalStorageRef.child(selectedImgFilename!)
+            let chalImgRef = chalStorageRef.child(randomId)
             photoIsUploading = true
             createBtn.isEnabled = false
             
@@ -267,8 +269,7 @@ class AddChallengeVC: UIViewController {
                     return
                 }
                 // Metadata contains file metadata such as size, content-type, and download URL.
-                self.selectedImgFilename = "\(metadata.downloadURL()!)"
-                self.savedImgId = self.selectedImgFilename
+                self.savedImgId = "\(metadata.downloadURL()!)"
                 self.uploadImgProgress.isHidden = true
                 self.photoIsUploading = false
                 self.createBtn.isEnabled = true
@@ -296,7 +297,7 @@ class AddChallengeVC: UIViewController {
         }
     }
 }
-extension AddChallengeVC: UIPickerViewDelegate, UIPickerViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension AddChallengeVC: UIPickerViewDelegate, UIPickerViewDataSource, WDImagePickerDelegate, UINavigationControllerDelegate {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -333,18 +334,41 @@ extension AddChallengeVC: UIPickerViewDelegate, UIPickerViewDataSource, UIImageP
         groupPick.resignFirstResponder()
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let url = info[UIImagePickerControllerReferenceURL] as! NSURL
-        selectedImgFilename = url.lastPathComponent
-        chalImage.contentMode = .scaleAspectFit
-        chalImage.image = chosenImage
+    func imagePicker(_ imagePicker: WDImagePicker, pickedImage: UIImage) {
+        chalImg = resizeImage(image: pickedImage, targetSize: CGSize(width: 200, height: 200))
+        uploadPhotoBtn.setImage(chalImg, for: .normal)
         uploadPhoto()
-        dismiss(animated:true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+    func imagePickerDidCancel(_ imagePicker: WDImagePicker) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / image.size.width
+        let heightRatio = targetSize.height / image.size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
     }
 }
 extension UIViewController {

@@ -288,19 +288,16 @@ class ScheduleVC: UIViewController {
         })
     }
     func loadBanner(imgUrl: String){
-        var session = URLSession.shared
-        var task = URLSessionDataTask()
         let request = NSMutableURLRequest(url: URL(string: imgUrl)!)
         request.httpMethod = "GET"
-        session = URLSession(configuration: URLSessionConfiguration.default)
-        task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+        let session = URLSession(configuration: URLSessionConfiguration.default)
+        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
             if error == nil {
-                let img = UIImage(data: data!, scale: UIScreen.main.scale)
-                self.coverImgView.image = img
+                self.coverImgView.image = UIImage(data: data!, scale: UIScreen.main.scale)
                 self.loadCoverAct.stopAnimating()
             }
         }
-        task.resume()
+        dataTask.resume()
     }
     func loadCreator(creatorId: String){
         _ = self.ref.child("USERS/\(creatorId)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -316,8 +313,9 @@ class ScheduleVC: UIViewController {
                 let session = URLSession(configuration: URLSessionConfiguration.default)
                 let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
                     if error == nil {
-                        self.creator.avatarImg = UIImage(data: data!, scale: UIScreen.main.scale)
-                        self.creatorImgView.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                        let image = UIImage(data: data!, scale: UIScreen.main.scale)
+                        self.creator.avatarImg = image
+                        self.creatorImgView.image = image
                     }
                 }
                 dataTask.resume()
