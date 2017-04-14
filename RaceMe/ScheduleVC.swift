@@ -123,14 +123,14 @@ class ScheduleVC: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        addScheBtn.backgroundColor = UIColor.orange
-        addScheBtn.layer.cornerRadius = 5
-        joinRunBtn.backgroundColor = UIColor.orange
-        joinRunBtn.layer.cornerRadius = 5
-        readyBtn.backgroundColor = UIColor(136, 192, 87)
-        readyBtn.layer.cornerRadius = 5
-        cancelBtn.backgroundColor = UIColor.red
-        cancelBtn.layer.cornerRadius = 5
+        addScheBtn.backgroundColor = warningColor
+        addScheBtn.layer.cornerRadius = 3
+        joinRunBtn.backgroundColor = warningColor
+        joinRunBtn.layer.cornerRadius = 3
+        readyBtn.backgroundColor = successColor
+        readyBtn.layer.cornerRadius = 3
+        cancelBtn.backgroundColor = dangerColor
+        cancelBtn.layer.cornerRadius = 3
         
         setupDatePicker()
         setupInputComponents()
@@ -510,7 +510,7 @@ class ScheduleVC: UIViewController {
 extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSource{
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.red
+        renderer.strokeColor = dangerColor
         renderer.lineWidth = 4.0
         
         let mapRect = MKPolygon(points: renderer.polyline.points(), count: renderer.polyline.pointCount)

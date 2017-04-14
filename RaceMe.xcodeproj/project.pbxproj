@@ -617,7 +617,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = D7RX787JDX;
+						DevelopmentTeam = 566T8PK976;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -961,7 +961,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -969,7 +969,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.WeRunApp;
+				PRODUCT_BUNDLE_IDENTIFIER = today.werun.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -981,7 +981,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = D7RX787JDX;
+				DEVELOPMENT_TEAM = 566T8PK976;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -989,7 +989,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.WeRunApp;
+				PRODUCT_BUNDLE_IDENTIFIER = today.werun.ios;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
