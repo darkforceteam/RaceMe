@@ -65,11 +65,10 @@ class ChallengeViewController: UIViewController {
         }
     }
     func loadChallenges() {
-        self.challenges.removeAll()
         self.ref.child(Constants.Challenge.table_name).observe(.value, with: { (snapshot) in
             if snapshot.hasChildren(){
+                self.challenges.removeAll()
                 for challengeData in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                    print(challengeData)
                     let challenge = Challenge(snapshot: challengeData)
                     //                    if challenge.created_by != nil && challenge.created_by != ""{
                     //                        self.userRef.child("\(challenge.created_by!)").observeSingleEvent(of: .value, with: { (snapshot) in
@@ -81,6 +80,8 @@ class ChallengeViewController: UIViewController {
                     if challenge.chal_photo != nil && challenge.chal_photo != "" {
                         if (self.cache.object(forKey: challenge.chal_photo as AnyObject) != nil){
                             challenge.chalImg = self.cache.object(forKey: challenge.chal_photo as AnyObject) as? UIImage
+                            self.challenges.append(challenge)
+                            self.tableView.reloadData()
                         } else {
                             let request = NSMutableURLRequest(url: URL(string: (challenge.chal_photo!))!)
                             request.httpMethod = "GET"
@@ -137,26 +138,34 @@ extension ChallengeViewController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let updateCell = tableView.dequeueReusableCell(withIdentifier: "ChallengeViewCell", for: indexPath) as! ChallengeViewCell
-        let chal = challenges[indexPath.row]
-        if chal.chalImg != nil {
-            updateCell.chalImage.image = chal.chalImg
-        }
-        if chal.chal_name != nil {
-            updateCell.chalNameLabel.text = chal.chal_name!
-        }
-        if chal.creator_name != nil {
-            updateCell.creatorLabel.text = chal.creator_name!
-        }
-        if chal.chal_desc != nil {
-            updateCell.chalDescLabel.text = chal.chal_desc!
-        }
-        if chal.start_date != nil {
-            updateCell.fromDateLabel.text = "\(chal.start_date!.toDateOnly())"
-        }
-        if chal.end_date != nil {
-            updateCell.toDateLabel.text = "\(chal.end_date!.toDateOnly())"
+        if challenges.count > 0 {
+            let chal = challenges[indexPath.row]
+            if chal.chalImg != nil {
+                updateCell.chalImage.image = chal.chalImg
+            }
+            if chal.chal_name != nil {
+                updateCell.chalNameLabel.text = chal.chal_name!
+            }
+            if chal.creator_name != nil {
+                updateCell.creatorLabel.text = chal.creator_name!
+            }
+            if chal.chal_desc != nil {
+                updateCell.chalDescLabel.text = chal.chal_desc!
+            }
+            if chal.start_date != nil {
+                updateCell.fromDateLabel.text = "\(chal.start_date!.toDateOnly())"
+            }
+            if chal.end_date != nil {
+                updateCell.toDateLabel.text = "\(chal.end_date!.toDateOnly())"
+            }
         }
         return updateCell
     }
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if challenges.count > 0 {
+        let viewChalVC = ChallengeDetailVC(nibName: "ChallengeDetailVC", bundle: nil)
+        viewChalVC.challenge = challenges[indexPath.row]
+        navigationController?.pushViewController(viewChalVC, animated: true)
+        }
+    }
 }
