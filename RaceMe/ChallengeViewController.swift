@@ -42,6 +42,9 @@ class ChallengeViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ChallengeViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeViewCell")
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 150
+        
         //        tableView.estimatedRowHeight = 400
         //        tableView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
@@ -70,6 +73,7 @@ class ChallengeViewController: UIViewController {
                 self.challenges.removeAll()
                 for challengeData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     let challenge = Challenge(snapshot: challengeData)
+                    self.challenges.append(challenge)
                     //                    if challenge.created_by != nil && challenge.created_by != ""{
                     //                        self.userRef.child("\(challenge.created_by!)").observeSingleEvent(of: .value, with: { (snapshot) in
                     //                            if let oneChal = snapshot.value as? NSDictionary{
@@ -77,39 +81,41 @@ class ChallengeViewController: UIViewController {
                     //                            }
                     //                        })
                     //                    }
-                    if challenge.chal_photo != nil && challenge.chal_photo != "" {
-                        if (self.cache.object(forKey: challenge.chal_photo as AnyObject) != nil){
-                            challenge.chalImg = self.cache.object(forKey: challenge.chal_photo as AnyObject) as? UIImage
-                            self.challenges.append(challenge)
-                            self.tableView.reloadData()
-                        } else {
-                            let request = NSMutableURLRequest(url: URL(string: (challenge.chal_photo!))!)
-                            request.httpMethod = "GET"
-                            
-                            self.session = URLSession(configuration: URLSessionConfiguration.default)
-                            self.task = self.session.dataTask(with: request as URLRequest) { (data, response, error) in
-                                if error == nil {
-                                    DispatchQueue.main.async {
-                                        let img = UIImage(data: data!, scale: UIScreen.main.scale)
-                                        let size = CGSize(width: 68, height: 68)
-                                        UIGraphicsBeginImageContext(size)
-                                        img!.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
-                                        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
-                                        UIGraphicsEndImageContext()
-                                        self.cache.setObject(resizedImage!, forKey: challenge.chal_photo as AnyObject)
-                                        challenge.chalImg = resizedImage
-                                        
-                                        self.challenges.append(challenge)
-                                        self.tableView.reloadData()
-                                    }
-                                }
-                            }
-                            self.task.resume()
-                        }
-                    } else {
-                        self.challenges.append(challenge)
-                    }
+                    
+//                    if challenge.chal_photo != nil && challenge.chal_photo != "" {
+//                        if (self.cache.object(forKey: challenge.chal_photo as AnyObject) != nil){
+//                            challenge.chalImg = self.cache.object(forKey: challenge.chal_photo as AnyObject) as? UIImage
+//                            self.challenges.append(challenge)
+//                            self.tableView.reloadData()
+//                        } else {
+//                            let request = NSMutableURLRequest(url: URL(string: (challenge.chal_photo!))!)
+//                            request.httpMethod = "GET"
+//                            
+//                            self.session = URLSession(configuration: URLSessionConfiguration.default)
+//                            self.task = self.session.dataTask(with: request as URLRequest) { (data, response, error) in
+//                                if error == nil {
+//                                    DispatchQueue.main.async {
+//                                        let img = UIImage(data: data!, scale: UIScreen.main.scale)
+//                                        let size = CGSize(width: 68, height: 68)
+//                                        UIGraphicsBeginImageContext(size)
+//                                        img!.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
+//                                        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+//                                        UIGraphicsEndImageContext()
+//                                        self.cache.setObject(resizedImage!, forKey: challenge.chal_photo as AnyObject)
+//                                        challenge.chalImg = resizedImage
+//                                        
+//                                        self.challenges.append(challenge)
+//                                        self.tableView.reloadData()
+//                                    }
+//                                }
+//                            }
+//                            self.task.resume()
+//                        }
+//                    } else {
+//                        self.challenges.append(challenge)
+//                    }
                 }
+                self.tableView.reloadData()
             }
         }, withCancel: { (error) in
             print(error)
@@ -132,25 +138,27 @@ extension ChallengeViewController: UITableViewDelegate, UITableViewDataSource{
         return challenges.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 138
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 138
+//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let updateCell = tableView.dequeueReusableCell(withIdentifier: "ChallengeViewCell", for: indexPath) as! ChallengeViewCell
         if challenges.count > 0 {
             let chal = challenges[indexPath.row]
-            if chal.chalImg != nil {
-                updateCell.chalImage.image = chal.chalImg
+            print(chal.chal_photo!)
+            if chal.chal_photo != nil {
+                updateCell.chalImage.setImageWith(URL(string: chal.chal_photo!)!)
             }
             if chal.chal_name != nil {
                 updateCell.chalNameLabel.text = chal.chal_name!
             }
+            
+            if chal.chal_desc != nil {
+                updateCell.chalDescLabel.text = chal.chal_desc
+            }
             if chal.creator_name != nil {
                 updateCell.creatorLabel.text = chal.creator_name!
-            }
-            if chal.chal_desc != nil {
-                updateCell.chalDescLabel.text = chal.chal_desc!
             }
             if chal.start_date != nil {
                 updateCell.fromDateLabel.text = "\(chal.start_date!.toDateOnly())"
