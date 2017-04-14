@@ -119,6 +119,7 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         let rateRef = ref?.child(path)
         _ = rateRef?.observe(.value, with: { (snapshot) in
             print(snapshot)
+            if snapshot.hasChildren() {
             for rateData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                 if let questData = rateData.value as? NSDictionary{
                     print("///////////")
@@ -181,6 +182,7 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
                 }
             }
             self.updateUI()
+            }
         })
     }
     func updateUI(){
