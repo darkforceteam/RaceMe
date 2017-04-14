@@ -48,9 +48,9 @@ class RouteDetailVC: UIViewController {
         // Do any additional setup after loading the view.
         generalInfoLabel.text = route.name
         if self.route.type == "" || self.route.type == Constants.SPORT_TYPE.RUN {
-            runNowBtn.backgroundColor = UIColor(136, 192, 87)
+            runNowBtn.backgroundColor = successColor
             runNowBtn.layer.cornerRadius = 3
-            addScheBtn.backgroundColor = UIColor.orange
+            addScheBtn.backgroundColor = warningColor
             addScheBtn.layer.cornerRadius = 3
             distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
         } else {
