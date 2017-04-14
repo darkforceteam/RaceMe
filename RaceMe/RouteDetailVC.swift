@@ -195,6 +195,12 @@ class RouteDetailVC: UIViewController {
             }
         })
     }
+
+    @IBAction func openRateVC(_ sender: UIButton) {
+        let rateVC = RateCommentVC(nibName: "RateCommentVC", bundle: nil)
+        rateVC.route = route
+        navigationController?.pushViewController(rateVC, animated: true)
+    }
     func setStartLoc(coordinate: CLLocationCoordinate2D){
         let annotation = MKPointAnnotation()
         if route.address == "" {

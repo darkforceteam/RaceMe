@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -88,16 +88,26 @@
                             <rect key="frame" x="210" y="10" width="100" height="20"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBY-3V-fnh">
-                            <rect key="frame" x="14" y="11" width="77.5" height="18"/>
+                            <rect key="frame" x="14" y="11.5" width="77.5" height="18"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jxd-iA-FPT">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                            <connections>
+                                <action selector="openRateVC:" destination="-1" eventType="touchUpInside" id="kwd-AY-s4U"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstItem="Jxd-iA-FPT" firstAttribute="top" secondItem="XPP-QF-gqk" secondAttribute="top" id="4Et-82-eHn"/>
+                        <constraint firstItem="Jxd-iA-FPT" firstAttribute="leading" secondItem="XPP-QF-gqk" secondAttribute="leading" id="5aO-76-w33"/>
                         <constraint firstAttribute="trailing" secondItem="ZBd-QW-TOu" secondAttribute="trailing" constant="10" id="JpO-zH-wrf"/>
                         <constraint firstItem="PBY-3V-fnh" firstAttribute="leading" secondItem="XPP-QF-gqk" secondAttribute="leading" constant="14" id="Tmm-ds-gcm"/>
+                        <constraint firstAttribute="bottom" secondItem="Jxd-iA-FPT" secondAttribute="bottom" id="ac3-hn-9vQ"/>
+                        <constraint firstAttribute="trailing" secondItem="Jxd-iA-FPT" secondAttribute="trailing" id="iQN-in-rHV"/>
                         <constraint firstAttribute="height" constant="40" id="sUj-zp-W1G"/>
                         <constraint firstItem="ZBd-QW-TOu" firstAttribute="centerY" secondItem="XPP-QF-gqk" secondAttribute="centerY" id="t3R-Qq-i8W"/>
                         <constraint firstItem="PBY-3V-fnh" firstAttribute="centerY" secondItem="XPP-QF-gqk" secondAttribute="centerY" id="uGG-hj-wDo"/>
@@ -113,7 +123,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yaj-eX-Mnh">
-                            <rect key="frame" x="257.5" y="11.5" width="52.5" height="18"/>
+                            <rect key="frame" x="257.5" y="11" width="52.5" height="18"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
