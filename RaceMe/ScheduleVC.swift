@@ -111,6 +111,7 @@ class ScheduleVC: UIViewController {
             }
         } else {
             coundownLabel.isHidden = true
+            creatorInfoView.isHidden = true
             let distStr = String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))
             targetDistTextField.text = distStr
         }

@@ -151,10 +151,10 @@ extension ChallengeViewController: UITableViewDelegate, UITableViewDataSource{
             updateCell.chalDescLabel.text = chal.chal_desc!
         }
         if chal.start_date != nil {
-            updateCell.fromDateLabel.text = "\(chal.start_date!)"
+            updateCell.fromDateLabel.text = "\(chal.start_date!.toDateOnly())"
         }
         if chal.end_date != nil {
-            updateCell.toDateLabel.text = "\(chal.end_date!)"
+            updateCell.toDateLabel.text = "\(chal.end_date!.toDateOnly())"
         }
         return updateCell
     }
