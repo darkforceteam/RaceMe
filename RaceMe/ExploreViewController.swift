@@ -52,7 +52,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var oldVersion = false
     var nearByRouteCount = 0
     var publicRouteInSpan = 0
-    var displayingType = ""
+    var displayingType = Constants.SPORT_TYPE.ALL
 
     @IBOutlet weak var typePicker: UIPickerView!
     @IBOutlet weak var groupPicker: UIPickerView!
@@ -64,7 +64,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     @IBOutlet weak var selectTypeButton: UIButton!
     @IBOutlet weak var selectGroupButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
-    var typeOptions = [Constants.SPORT_TYPE.RUN,Constants.SPORT_TYPE.YOGA,Constants.SPORT_TYPE.SWIM]//FIXED FOR NOW. TODO: change to DB load
+    var typeOptions = [Constants.SPORT_TYPE.ALL,Constants.SPORT_TYPE.RUN,Constants.SPORT_TYPE.YOGA,Constants.SPORT_TYPE.SWIM]//FIXED FOR NOW. TODO: change to DB load
     var groupOptions = ["Public", "Friends"]//FIXED FOR NOW. TODO: change to DB load
     var timeOptions = [Constants.FilterDay.ALL_TIME_DISPLAY,Constants.FilterDay.TODAY_DISPLAY,Constants.FilterDay.TOMORROW_DISPLAY,Constants.FilterDay.LATER_DISPLAY]
     override func viewDidLoad() {
@@ -243,7 +243,9 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     func drawRoute(route: Route) throws {
-        if displayingType == route.type || displayingType == "" || (displayingType == Constants.SPORT_TYPE.RUN && route.type == "") {
+        print(displayingType)
+        print(route.type)
+        if displayingType == route.type || displayingType == Constants.SPORT_TYPE.ALL || (displayingType == Constants.SPORT_TYPE.RUN && route.type == "") {
             let myPolyline = MKGeodesicPolyline(coordinates: route.locations, count: route.locations.count)
             mapView.add(myPolyline)
             print("ROUTE has event with \(route.displayEvent?.participants.count) participant")
@@ -255,18 +257,25 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             pin.coordinate = route.locations.first!
             
             if let firstEvent = route.displayEvent {
+                var userOnPinImgId = ""
+                if let creatorId = route.displayEvent?.createdBy {
+                    userOnPinImgId = creatorId
+                }
                 if  firstEvent.participants.count > 0 {
-                    let firstPersonID = firstEvent.participants[0] as String
-                    userRef.child(firstPersonID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    if userOnPinImgId == "" {
+                        userOnPinImgId = firstEvent.participants[0] as String
+                    }
+                    userRef.child(userOnPinImgId).observeSingleEvent(of: .value, with: { (snapshot) in
                         if let userData = snapshot.value as? NSDictionary{
                             let firstUser = UserObject(snapshot: snapshot)
                             routeMarker.pinType = RouteAnnotation.PIN_EVENT
                             routeMarker.pinCustomImage = userData.value(forKey: "photoUrl") as! String!
                             routeMarker.pinUsername = userData.value(forKey: "displayName") as! String!
                             routeMarker.personCount = route.participant_count(displayingDate: self.displayingTime)
+                            routeMarker.personCount = firstEvent.participants.count
                             routeMarker.setTitleEvent(scheduled: firstEvent.start_time, firstEventDay: route.firstEventDay)
                             
-                            routeMarker.image = UIImage(named: "default-avatar")!
+//                            routeMarker.image = UIImage(named: "default-avatar")!
                             firstUser.avatarImg = routeMarker.image
                             routeMarker.route.displayEvent?.firstUser = firstUser
                             
@@ -276,7 +285,15 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                             //                    let session = URLSession(configuration: URLSessionConfiguration.default)
                             let dataTask = self.loadUrlImgSession.dataTask(with: request as URLRequest) { (data, response, error) in
                                 if error == nil {
-                                    routeMarker.image = UIImage(data: data!, scale: UIScreen.main.scale)
+                                    // Resize image
+                                    let pinImage = UIImage(data: data!, scale: UIScreen.main.scale)
+                                    let size = CGSize(width: 30, height: 30)
+                                    UIGraphicsBeginImageContext(size)
+                                    pinImage!.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
+                                    let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+                                    UIGraphicsEndImageContext()
+                                    
+                                    routeMarker.image = resizedImage
                                     firstUser.avatarImg = routeMarker.image
                                     routeMarker.route.displayEvent?.firstUser = firstUser
                                     DispatchQueue.main.async {
@@ -354,12 +371,13 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
                                 route.events.removeAll()
                                 for eventData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                                     if let oneEvent = eventData.value as? NSDictionary{
-                                        if let start_time = oneEvent.value(forKey: "start_time") as? Double{
+                                        if let start_time = oneEvent.value(forKey: Constants.Event.START_TIME) as? Double{
                                             if start_time >= currentTime {
                                                 let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                                 let event = Event(route_id: "", start_time: event_datetime as Date)
                                                 event.eventId = eventData.key
-                                                if let participants = oneEvent.value(forKey: "participants") as? NSDictionary{
+                                                event.createdBy = oneEvent.value(forKey: Constants.Event.CREATED_BY) as? String
+                                                if let participants = oneEvent.value(forKey: Constants.Event.PARTICIPANTS) as? NSDictionary{
                                                     if participants.count > 0 {
                                                         for (key, _) in participants{
                                                             event.participants.append(key as! String)

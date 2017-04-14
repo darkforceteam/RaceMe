@@ -39,13 +39,21 @@ class RouteAnnotation: MKAnnotationView {
             date = dateFormatter.string(from: scheduled!)
         }
         var actType = loc_type
-        if actType == "" {
+        if actType == "" ||  actType == Constants.SPORT_TYPE.RUN{
             actType = Constants.SPORT_TYPE.RUN
-        }
-        if personCount > 1 {
-            self.title = "\(pinUsername!) and \(personCount-1) person at \(time) \(date)"
+            if personCount > 1 {
+                self.title = "\(pinUsername!) and \(personCount-1) person will \(actType) at \(time) \(date)"
+            } else {
+                self.title = "\(pinUsername!) will \(actType) at \(time) \(date)"
+            }
         } else {
-            self.title = "\(pinUsername!) will \(actType) at \(time) \(date)"
+            var strAppend = ""
+            if personCount > 1 {
+                strAppend = ": \(personCount) person at \(time) \(date)"
+            } else {
+                strAppend = ": \(pinUsername!) will join at \(time) \(date)"
+            }
+            self.title = "\(route.name) \(strAppend)"
         }
     }
     //    var startLoc: CLLocationCoordinate2D

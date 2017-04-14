@@ -452,8 +452,6 @@
 		B6946A331E97B70C00931B0F /* Explore */ = {
 			isa = PBXGroup;
 			children = (
-				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
-				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
 				B68177A51E7EC6B800FF760F /* ExploreViewController.swift */,
 				B68177A61E7EC6B800FF760F /* ExploreViewController.xib */,
 				D9DA30C61E92395E00F10849 /* RouteDetailVC.swift */,
@@ -520,6 +518,8 @@
 		D94C62D31E93D60E000E5A5E /* Explores */ = {
 			isa = PBXGroup;
 			children = (
+				D9F7B2011E88119600B692FF /* SelectTimeViewController.swift */,
+				D9F7B2021E88119600B692FF /* SelectTimeViewController.xib */,
 				D902147A1E8A6EC3000DB7DF /* RouteAnnotation.swift */,
 				D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */,
 				D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */,
