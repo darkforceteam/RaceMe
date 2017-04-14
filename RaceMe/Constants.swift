@@ -48,6 +48,7 @@ struct Constants {
         static let LATITUDE = "latitude"
         static let TIMESTAMP = "timestamp"
         static let SPEED = "speed"
+        static let ELAPSED = "elapsed"
     }
     struct Event{
         static let TABLE_NAME = "EVENTS"

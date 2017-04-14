@@ -50,8 +50,6 @@ class LoginViewController: UIViewController {
         loadSlides()
         
         view.addSubview(myView)
-        
-        
     }
     
     override func viewWillLayoutSubviews() {

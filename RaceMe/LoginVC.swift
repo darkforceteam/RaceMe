@@ -115,7 +115,7 @@ extension LoginVC {
                         print(error!.localizedDescription)
                     }
                     
-                    let request = GraphRequest(graphPath: "me", parameters: ["fields": "email,name,picture,gender"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
+                    let request = GraphRequest(graphPath: "me", parameters: ["fields": "id,email,name,picture,gender"], accessToken: AccessToken.current, httpMethod: .GET, apiVersion: FacebookCore.GraphAPIVersion.defaultVersion)
                     request.start { (response, result) in
                         switch result {
                         case .success(let value):
@@ -125,6 +125,10 @@ extension LoginVC {
                             let userID = FIRAuth.auth()?.currentUser?.uid
                             ref.child("USERS").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
                                 let value = snapshot.value as? NSDictionary
+                                if nil == value?["id"] {
+                                    ref.child("USERS/\(userID!)/auth_id").setValue(profile["id"])
+                                    ref.child("USERS/\(userID!)/auth_provider").setValue("facebook")
+                                }
                                 if nil == value?["displayName"] {
                                     ref.child("USERS/\(userID!)/displayName").setValue(profile["name"])
                                 }
