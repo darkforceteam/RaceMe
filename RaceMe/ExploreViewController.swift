@@ -95,7 +95,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         actIndicator.hidesWhenStopped = true
         //        locationManager.startUpdatingLocation()
         //        ref.child(Constants.Route.TABLE_NAME).removeValue()
-        fixManuallyImportedRoutes()
+//        fixManuallyImportedRoutes()
         //        emptyPublicRoute()
         
         selectTimeButton.layer.cornerRadius = 3
