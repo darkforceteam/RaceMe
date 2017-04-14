@@ -322,13 +322,13 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     func setDefaultPinImg(routeMarker: RouteAnnotation, pin: RoutePoint, sportType: String?){
         if (sportType == "") || (sportType == "RUN") {
-            routeMarker.image = UIImage(named: "avatar-run")
+            routeMarker.image = UIImage(named: "pin-run")
         } else if (sportType == "yoga"){
             routeMarker.image = UIImage(named: "pin-yoga")
         } else if (sportType == "swim"){
             routeMarker.image = UIImage(named: "pin-swimming")
         } else {
-            routeMarker.image = UIImage(named: "map-pin")
+            routeMarker.image = UIImage(named: "pin-start")
         }
         routeMarker.setDefaultTitle()
         pin.title = routeMarker.title
