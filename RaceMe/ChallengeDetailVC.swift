@@ -10,24 +10,8 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 class ChallengeDetailVC: UIViewController {
-
-    @IBOutlet weak var chalName: UILabel!
-    @IBOutlet weak var chalDesc: UILabel!
-    @IBOutlet weak var groupName: UILabel!
-    @IBOutlet weak var startDate: UILabel!
-    @IBOutlet weak var endDate: UILabel!
-    @IBOutlet weak var chalWO: UILabel!
-    @IBOutlet weak var chalDist: UILabel!
-    @IBOutlet weak var chalLongWO: UILabel!
-    @IBOutlet weak var chalLongDist: UILabel!
     
-    @IBOutlet weak var weekWO: UILabel!
-    @IBOutlet weak var weekDist: UILabel!
-    @IBOutlet weak var weekLongWO: UILabel!
-    @IBOutlet weak var weekLongDist: UILabel!
-    @IBOutlet weak var minWODist: UILabel!
-    @IBOutlet weak var minPace: UILabel!
-    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var leaveBtn: UIButton!
     @IBOutlet weak var joinBtn: UIButton!
     var challenge: Challenge?
@@ -37,17 +21,19 @@ class ChallengeDetailVC: UIViewController {
     var currentStatus: Int?
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: "RightDetailCell", bundle: nil), forCellReuseIdentifier: "RightDetailCell")
         userId = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
         
-        joinBtn.backgroundColor = UIColor(136, 192, 87)
-        joinBtn.layer.cornerRadius = 5
-        leaveBtn.backgroundColor = UIColor.red
-        leaveBtn.layer.cornerRadius = 5
+        joinBtn.backgroundColor = successColor
+        joinBtn.layer.cornerRadius = 3
+        leaveBtn.backgroundColor = warningColor
+        leaveBtn.layer.cornerRadius = 3
         
         if challenge != nil{
             chalRef = ref.child(Constants.Challenge.table_name).child(challenge!.id!)
-            fillChalDetail()
             userJoinStatus()
         }
         // Do any additional setup after loading the view.
@@ -58,53 +44,7 @@ class ChallengeDetailVC: UIViewController {
             chalRef.removeAllObservers()
         }
     }
-    func fillChalDetail(){
-        if challenge?.chal_name != nil {
-            chalName.text = challenge!.chal_name!
-        }
-        if challenge?.chal_desc != nil {
-            chalDesc.text = challenge!.chal_desc!
-        }
-        if challenge?.for_group != nil {
-            groupName.text = challenge!.for_group!
-        }
-        if challenge?.start_date != nil {
-            startDate.text = challenge!.start_date!.toDateOnly()
-        }
-        if challenge?.end_date != nil {
-            endDate.text = challenge!.end_date!.toDateOnly()
-        }
-        if challenge?.total_wo_no != nil {
-            chalWO.text = "\(challenge!.total_wo_no!)"
-        }
-        if challenge?.total_distant != nil {
-            chalDist.text = "\(challenge!.total_distant!)"
-        }
-        if challenge?.total_long_wo_no != nil {
-            chalLongWO.text = "\(challenge!.total_long_wo_no!)"
-        }
-        if challenge?.total_long_wo_dist != nil {
-            chalLongDist.text = "\(challenge!.total_long_wo_dist!)"
-        }
-        if challenge?.week_wo_no != nil {
-            weekWO.text = "\(challenge!.week_wo_no!)"
-        }
-        if challenge?.week_distant != nil {
-            weekDist.text = "\(challenge!.week_distant!)"
-        }
-        if challenge?.week_long_wo_no != nil {
-            weekLongWO.text = "\(challenge!.week_long_wo_no!)"
-        }
-        if challenge?.week_long_wo_dist != nil {
-            weekLongDist.text = "\(challenge!.week_long_wo_dist!)"
-        }
-        if challenge?.min_wo_dist != nil {
-            minWODist.text = "\(challenge!.min_wo_dist!)"
-        }
-        if challenge?.min_wo_pace != nil {
-            minPace.text = "\(challenge!.min_wo_pace!)"
-        }
-    }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -153,4 +93,104 @@ class ChallengeDetailVC: UIViewController {
     }
     */
 
+}
+
+extension ChallengeDetailVC: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case 0:
+            return "General Info"
+        case 1:
+            return "Challenge Target"
+        case 2:
+            return "Weekly Target"
+        default:
+            return "Workout Target"
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 3:
+            return 2
+        default:
+            return 4
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RightDetailCell", for: indexPath) as! RightDetailCell
+        cell.selectionStyle = .none
+        switch indexPath.section {
+        case 0:
+            switch indexPath.row {
+            case 0:
+                cell.titleLabel.text = "Name"
+                cell.detailLabel.text = challenge!.chal_name!
+            case 1:
+                cell.titleLabel.text = "Group"
+                cell.detailLabel.text = challenge!.for_group!
+            case 2:
+                cell.titleLabel.text = "Start"
+                cell.detailLabel.text = challenge!.start_date!.toDateOnly()
+            case 3:
+                cell.titleLabel.text = "End"
+                cell.detailLabel.text = challenge!.end_date!.toDateOnly()
+            default:
+                break
+            }
+        case 1:
+            switch indexPath.row {
+            case 0:
+                cell.titleLabel.text = "Total Workout"
+                cell.detailLabel.text = "\(challenge!.total_wo_no!)"
+            case 1:
+                cell.titleLabel.text = "Total Distance"
+                cell.detailLabel.text = "\(challenge!.total_distant!)"
+            case 2:
+                cell.titleLabel.text = "Total Long Run"
+                cell.detailLabel.text = "\(challenge!.total_long_wo_no!)"
+            case 3:
+                cell.titleLabel.text = "Total Long Run Distance"
+                cell.detailLabel.text = "\(challenge!.total_long_wo_dist!)"
+            default:
+                break
+            }
+        case 2:
+            switch indexPath.row {
+            case 0:
+                cell.titleLabel.text = "Total Workout"
+                cell.detailLabel.text = "\(challenge!.week_wo_no!)"
+            case 1:
+                cell.titleLabel.text = "Total Distance"
+                cell.detailLabel.text = "\(challenge!.week_distant!)"
+            case 2:
+                cell.titleLabel.text = "Total Long Run"
+                cell.detailLabel.text = "\(challenge!.week_long_wo_no!)"
+            case 3:
+                cell.titleLabel.text = "Total Long Run Distance"
+                cell.detailLabel.text = "\(challenge!.week_long_wo_dist!)"
+            default:
+                break
+            }
+        case 3:
+            switch indexPath.row {
+            case 0:
+                cell.titleLabel.text = "Minimum Distance"
+                cell.detailLabel.text = "\(challenge!.min_wo_dist!)"
+            case 1:
+                cell.titleLabel.text = "Slowest Pace"
+                cell.detailLabel.text = "\(challenge!.min_wo_pace!)"
+            default:
+                break
+            }
+        default:
+            break
+        }
+        return cell
+    }
 }

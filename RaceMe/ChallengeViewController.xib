@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,6 +7,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeViewController" customModule="RaceMe" customModuleProvider="target">
             <connections>
@@ -22,16 +27,16 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Med-Mb-0xX">
-                    <rect key="frame" x="0.0" y="44" width="375" height="519"/>
+                    <rect key="frame" x="0.0" y="48" width="375" height="494"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgm-fB-jWE">
-                    <rect key="frame" x="16" y="571" width="343" height="45"/>
-                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <rect key="frame" x="15" y="552" width="345" height="50"/>
+                    <color key="backgroundColor" red="0.47450980390000003" green="0.71764705880000002" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="45" id="1Oh-fa-P23"/>
+                        <constraint firstAttribute="height" constant="50" id="1Oh-fa-P23"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
                     <state key="normal" title="CREATE">
                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
@@ -40,26 +45,27 @@
                     </connections>
                 </button>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="5Ua-j4-xCu">
-                    <rect key="frame" x="16" y="8" width="343" height="29"/>
+                    <rect key="frame" x="15" y="10" width="345" height="29"/>
                     <segments>
                         <segment title="All"/>
                         <segment title="Near by"/>
                         <segment title="Your group"/>
                     </segments>
+                    <color key="tintColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                 </segmentedControl>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="mgm-fB-jWE" secondAttribute="trailing" constant="16" id="BvO-Zd-msE"/>
-                <constraint firstItem="5Ua-j4-xCu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="Oz1-pm-SWd"/>
-                <constraint firstAttribute="bottom" secondItem="mgm-fB-jWE" secondAttribute="bottom" constant="51" id="chE-lF-DMl"/>
-                <constraint firstItem="mgm-fB-jWE" firstAttribute="top" secondItem="Med-Mb-0xX" secondAttribute="bottom" constant="8" id="ebf-Iq-bBo"/>
-                <constraint firstAttribute="trailing" secondItem="5Ua-j4-xCu" secondAttribute="trailing" constant="16" id="lEP-PB-EuA"/>
+                <constraint firstAttribute="trailing" secondItem="mgm-fB-jWE" secondAttribute="trailing" constant="15" id="BvO-Zd-msE"/>
+                <constraint firstItem="5Ua-j4-xCu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Oz1-pm-SWd"/>
+                <constraint firstAttribute="bottom" secondItem="mgm-fB-jWE" secondAttribute="bottom" constant="65" id="chE-lF-DMl"/>
+                <constraint firstItem="mgm-fB-jWE" firstAttribute="top" secondItem="Med-Mb-0xX" secondAttribute="bottom" constant="10" id="ebf-Iq-bBo"/>
+                <constraint firstAttribute="trailing" secondItem="5Ua-j4-xCu" secondAttribute="trailing" constant="15" id="lEP-PB-EuA"/>
                 <constraint firstItem="Med-Mb-0xX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="m3C-A8-dCJ"/>
-                <constraint firstItem="mgm-fB-jWE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="16" id="t5G-Lq-uUF"/>
+                <constraint firstItem="mgm-fB-jWE" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="t5G-Lq-uUF"/>
                 <constraint firstAttribute="trailing" secondItem="Med-Mb-0xX" secondAttribute="trailing" id="vHt-B2-bEX"/>
-                <constraint firstItem="5Ua-j4-xCu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="vUy-dW-LU6"/>
-                <constraint firstItem="Med-Mb-0xX" firstAttribute="top" secondItem="5Ua-j4-xCu" secondAttribute="bottom" constant="8" id="zDM-qL-o7L"/>
+                <constraint firstItem="5Ua-j4-xCu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="10" id="vUy-dW-LU6"/>
+                <constraint firstItem="Med-Mb-0xX" firstAttribute="top" secondItem="5Ua-j4-xCu" secondAttribute="bottom" constant="10" id="zDM-qL-o7L"/>
             </constraints>
             <point key="canvasLocation" x="26.5" y="52.5"/>
         </view>
