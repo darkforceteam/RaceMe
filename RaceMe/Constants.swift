@@ -80,6 +80,8 @@ struct Constants {
     struct USERS{
         static let table_name = "USERS"
         static let display_name = "displayName"
+        static let bio = "bio"
+        static let photoUrl = "photoUrl"
     }
     struct Challenge{
         static let table_name = "challenges"

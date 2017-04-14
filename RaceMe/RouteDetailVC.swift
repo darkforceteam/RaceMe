@@ -132,6 +132,7 @@ class RouteDetailVC: UIViewController {
                                 let event_datetime = NSDate(timeIntervalSince1970: start_time )
                                 let event = Event(route_id: self.routeId, start_time: event_datetime as Date)
                                 event.eventId = eventData.ref.key
+                                event.createdBy = oneEvent.value(forKey: Constants.Event.CREATED_BY) as? String
                                 if let distance = oneEvent.value(forKey: Constants.Event.TARGET_DISTANT) as? Double{
                                     event.targetDistance = distance
                                 }
