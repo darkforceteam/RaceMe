@@ -14,8 +14,8 @@ class Challenge: NSObject {
     var created_by: String?
     var creator_name: String?
     var for_group: String?
-    var start_date: Double?
-    var end_date: Double?
+    var start_date: Date?
+    var end_date: Date?
     var total_wo_no: Int?
     var total_distant: Double?
     var total_long_wo_no: Int?
@@ -28,6 +28,8 @@ class Challenge: NSObject {
     var min_wo_pace: Double?
     var chal_photo: String?
     var chalImg: UIImage?
+    var chal_name: String?
+    var chal_desc: String?
     //    struct participants {
     //        static let participants = "participants"
     //        static let status = "status"
@@ -55,9 +57,15 @@ class Challenge: NSObject {
         let snapshotValue = snapshot.value as! [String: AnyObject]
         created_by = snapshotValue[Constants.Challenge.created_by]  as? String
         chal_photo = snapshotValue[Constants.Challenge.chal_photo]  as? String
+        chal_name = snapshotValue[Constants.Challenge.challenge_name]  as? String
+        chal_desc = snapshotValue[Constants.Challenge.description]  as? String
         for_group = snapshotValue[Constants.Challenge.for_group]  as? String
-        start_date = snapshotValue[Constants.Challenge.start_date] as? Double
-        end_date = snapshotValue[Constants.Challenge.end_date] as? Double
+        if let startDate: Double = snapshotValue[Constants.Challenge.start_date] as! Double? {
+            start_date = NSDate(timeIntervalSince1970: startDate ) as Date
+        }
+        if let endDate: Double = snapshotValue[Constants.Challenge.end_date] as! Double?{
+            end_date = NSDate(timeIntervalSince1970:  endDate ) as Date
+        }
         total_wo_no = snapshotValue[Constants.Challenge.total_wo_no] as? Int
         total_distant = snapshotValue[Constants.Challenge.total_distant] as? Double
         week_wo_no = snapshotValue[Constants.Challenge.week_wo_no] as? Int

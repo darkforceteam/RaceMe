@@ -13,13 +13,17 @@ import FirebaseStorage
 class ChallengeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var chalTypeSegment: UISegmentedControl!
-
+    
     @IBOutlet weak var createBtn: UIButton!
     var challenges = [Challenge]()
     var ref: FIRDatabaseReference!
     var userRef: FIRDatabaseReference!
     var storageRef: FIRStorageReference!
     var chalStorageRef: FIRStorageReference!
+    var task: URLSessionDataTask!
+    var session: URLSession!
+    var cache:NSCache<AnyObject, AnyObject>!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ref = FIRDatabase.database().reference()
@@ -27,17 +31,22 @@ class ChallengeViewController: UIViewController {
         let storage = FIRStorage.storage()
         storageRef = storage.reference()
         chalStorageRef = storageRef.child(Constants.STORAGE.CHALLENGE)
+        
+        task = URLSessionDataTask()
+        
+        self.cache = NSCache()
+        
         createBtn.backgroundColor = UIColor(136, 192, 87)
         createBtn.layer.cornerRadius = 5
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UINib(nibName: "ChallengeViewCell", bundle: nil), forCellReuseIdentifier: "ChallengeViewCell")
-        tableView.estimatedRowHeight = 400
-        tableView.rowHeight = UITableViewAutomaticDimension
+        //        tableView.estimatedRowHeight = 400
+        //        tableView.rowHeight = UITableViewAutomaticDimension
         // Do any additional setup after loading the view.
     }
-
+    
     @IBAction func createChallenge(_ sender: UIButton) {
         let addChalVC = AddChallengeVC(nibName: "AddChallengeVC", bundle: nil)
         navigationController?.pushViewController(addChalVC, animated: true)
@@ -56,53 +65,66 @@ class ChallengeViewController: UIViewController {
         }
     }
     func loadChallenges() {
-        self.challenges.removeAll()
-        self.ref.child(Constants.Challenge.table_name).observeSingleEvent(of: .value, with: { (snapshot) in
+        self.ref.child(Constants.Challenge.table_name).observe(.value, with: { (snapshot) in
             if snapshot.hasChildren(){
+                self.challenges.removeAll()
                 for challengeData in snapshot.children.allObjects as! [FIRDataSnapshot] {
                     let challenge = Challenge(snapshot: challengeData)
-                    if challenge.created_by != nil && challenge.created_by != ""{
-                        self.userRef.child("\(challenge.created_by!)").observeSingleEvent(of: .value, with: { (snapshot) in
-                            if let oneChal = snapshot.value as? NSDictionary{
-                                challenge.creator_name = oneChal.value(forKey: Constants.USERS.display_name) as? String
-                            }
-                        })
-                    }
-                    if challenge.chal_photo != nil {
-                        let request = NSMutableURLRequest(url: URL(string: (challenge.chal_photo!))!)
-                        request.httpMethod = "GET"
-                        
-                        let session = URLSession(configuration: URLSessionConfiguration.default)
-                        let dataTask = session.dataTask(with: request as URLRequest) { (data, response, error) in
-                            if error == nil {
-                                DispatchQueue.main.async {
-                                    challenge.chalImg = UIImage(data: data!, scale: UIScreen.main.scale)
-                                    self.challenges.append(challenge)
-                                    self.tableView.reloadData()
+                    //                    if challenge.created_by != nil && challenge.created_by != ""{
+                    //                        self.userRef.child("\(challenge.created_by!)").observeSingleEvent(of: .value, with: { (snapshot) in
+                    //                            if let oneChal = snapshot.value as? NSDictionary{
+                    //                                challenge.creator_name = oneChal.value(forKey: Constants.USERS.display_name) as? String
+                    //                            }
+                    //                        })
+                    //                    }
+                    if challenge.chal_photo != nil && challenge.chal_photo != "" {
+                        if (self.cache.object(forKey: challenge.chal_photo as AnyObject) != nil){
+                            challenge.chalImg = self.cache.object(forKey: challenge.chal_photo as AnyObject) as? UIImage
+                            self.challenges.append(challenge)
+                            self.tableView.reloadData()
+                        } else {
+                            let request = NSMutableURLRequest(url: URL(string: (challenge.chal_photo!))!)
+                            request.httpMethod = "GET"
+                            
+                            self.session = URLSession(configuration: URLSessionConfiguration.default)
+                            self.task = self.session.dataTask(with: request as URLRequest) { (data, response, error) in
+                                if error == nil {
+                                    DispatchQueue.main.async {
+                                        let img = UIImage(data: data!, scale: UIScreen.main.scale)
+                                        let size = CGSize(width: 68, height: 68)
+                                        UIGraphicsBeginImageContext(size)
+                                        img!.draw(in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height))
+                                        let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+                                        UIGraphicsEndImageContext()
+                                        self.cache.setObject(resizedImage!, forKey: challenge.chal_photo as AnyObject)
+                                        challenge.chalImg = resizedImage
+                                        
+                                        self.challenges.append(challenge)
+                                        self.tableView.reloadData()
+                                    }
                                 }
                             }
+                            self.task.resume()
                         }
-                        dataTask.resume()
                     } else {
                         self.challenges.append(challenge)
                     }
                 }
-                self.tableView.reloadData()
             }
         }, withCancel: { (error) in
             print(error)
         })
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension ChallengeViewController: UITableViewDelegate, UITableViewDataSource{
@@ -110,47 +132,40 @@ extension ChallengeViewController: UITableViewDelegate, UITableViewDataSource{
         return challenges.count
     }
     
-    
-    // Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-    // Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 138
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChallengeViewCell", for: indexPath) as! ChallengeViewCell
-        let chal = challenges[indexPath.row]
-        if chal.chalImg != nil {
-            cell.chalImage.image = chal.chalImg
+        let updateCell = tableView.dequeueReusableCell(withIdentifier: "ChallengeViewCell", for: indexPath) as! ChallengeViewCell
+        if challenges.count > 0 {
+            let chal = challenges[indexPath.row]
+            if chal.chalImg != nil {
+                updateCell.chalImage.image = chal.chalImg
+            }
+            if chal.chal_name != nil {
+                updateCell.chalNameLabel.text = chal.chal_name!
+            }
+            if chal.creator_name != nil {
+                updateCell.creatorLabel.text = chal.creator_name!
+            }
+            if chal.chal_desc != nil {
+                updateCell.chalDescLabel.text = chal.chal_desc!
+            }
+            if chal.start_date != nil {
+                updateCell.fromDateLabel.text = "\(chal.start_date!.toDateOnly())"
+            }
+            if chal.end_date != nil {
+                updateCell.toDateLabel.text = "\(chal.end_date!.toDateOnly())"
+            }
         }
-        if chal.creator_name != nil {
-            cell.creatorLabel.text = chal.creator_name!
-        }
-        if chal.start_date != nil {
-            cell.fromDateLabel.text = "\(chal.start_date!)"
-        }
-        if chal.end_date != nil {
-            cell.toDateLabel.text = "\(chal.end_date!)"
-        }
-        if chal.total_wo_no != nil {
-            cell.totWOLabel.text = "\(chal.total_wo_no!)"
-        }
-        if chal.total_distant != nil {
-            cell.totDistLabel.text = "\(chal.total_distant!)"
-        }
-        if chal.week_wo_no != nil {
-            cell.weeklyWOLabel.text = "\(chal.week_wo_no!)"
-        }
-        if chal.week_distant != nil {
-            cell.weeklyDistLabel.text = "\(chal.week_distant!)"
-        }
-        if chal.min_wo_dist != nil {
-            cell.miWODistLabel.text = "\(chal.min_wo_dist!)"
-        }
-        if chal.total_long_wo_no != nil {
-            cell.longRunNoLabel.text = "\(chal.total_long_wo_no!)"
-        }
-        if chal.total_long_wo_dist != nil {
-            cell.longRunNoLabel.text = "\(chal.total_long_wo_dist!)"
-        }   
-        return cell
+        return updateCell
     }
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if challenges.count > 0 {
+        let viewChalVC = ChallengeDetailVC(nibName: "ChallengeDetailVC", bundle: nil)
+        viewChalVC.challenge = challenges[indexPath.row]
+        navigationController?.pushViewController(viewChalVC, animated: true)
+        }
+    }
 }

@@ -44,13 +44,14 @@ class RouteDetailVC: UIViewController {
         tableView.register(UINib(nibName: "ScheduleCell", bundle: nil), forCellReuseIdentifier: "ScheduleCell")
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
-        runNowBtn.backgroundColor = UIColor(136, 192, 87)
-        runNowBtn.layer.cornerRadius = 3
-        addScheBtn.backgroundColor = UIColor.orange
-        addScheBtn.layer.cornerRadius = 3
+
         // Do any additional setup after loading the view.
         generalInfoLabel.text = route.name
         if self.route.type == "" || self.route.type == Constants.SPORT_TYPE.RUN {
+            runNowBtn.backgroundColor = UIColor(136, 192, 87)
+            runNowBtn.layer.cornerRadius = 3
+            addScheBtn.backgroundColor = UIColor.orange
+            addScheBtn.layer.cornerRadius = 3
             distanceLabel.text =  "\(String(format: "%.2f", Utils.distanceInKm(distanceInMeter: route.distance))) km"
         } else {
             distanceLabel.text =  "\(route.type)"
@@ -302,6 +303,12 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
     }
 }
 extension Date {
+    func toDateOnly() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MMMM dd, yyyy"
+        return dateFormatter.string(from: self)
+    }
+
     func toStringWithoutSecond() -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMMM dd, yyyy 'at' h:mm a"

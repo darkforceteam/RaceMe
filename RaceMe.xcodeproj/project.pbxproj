@@ -102,6 +102,8 @@
 		D94C62D11E93D5CE000E5A5E /* ParticipantViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */; };
 		D94C62D21E93D5CE000E5A5E /* ParticipantViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */; };
 		D96BFB521E99CEBD002719A9 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D96BFB511E99CEBD002719A9 /* Utils.swift */; };
+		D981CFA31EA0BECD00BBCA05 /* ChallengeDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D981CFA11EA0BECD00BBCA05 /* ChallengeDetailVC.swift */; };
+		D981CFA41EA0BECD00BBCA05 /* ChallengeDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = D981CFA21EA0BECD00BBCA05 /* ChallengeDetailVC.xib */; };
 		D9A4F8821E9BD96D00558860 /* Challenge.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9A4F8811E9BD96D00558860 /* Challenge.swift */; };
 		D9D35F011E925963008C3AB3 /* ScheduleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */; };
 		D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D9D35F001E925963008C3AB3 /* ScheduleCell.xib */; };
@@ -231,6 +233,8 @@
 		D94C62CF1E93D5CE000E5A5E /* ParticipantViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantViewCell.swift; sourceTree = "<group>"; };
 		D94C62D01E93D5CE000E5A5E /* ParticipantViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ParticipantViewCell.xib; sourceTree = "<group>"; };
 		D96BFB511E99CEBD002719A9 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		D981CFA11EA0BECD00BBCA05 /* ChallengeDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChallengeDetailVC.swift; sourceTree = "<group>"; };
+		D981CFA21EA0BECD00BBCA05 /* ChallengeDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChallengeDetailVC.xib; sourceTree = "<group>"; };
 		D9A4F8811E9BD96D00558860 /* Challenge.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Challenge.swift; sourceTree = "<group>"; };
 		D9D35EFF1E925963008C3AB3 /* ScheduleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleCell.swift; sourceTree = "<group>"; };
 		D9D35F001E925963008C3AB3 /* ScheduleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScheduleCell.xib; sourceTree = "<group>"; };
@@ -473,6 +477,8 @@
 			children = (
 				B6946A351E97F3F500931B0F /* ChallengeViewController.swift */,
 				B6946A361E97F3F500931B0F /* ChallengeViewController.xib */,
+				D981CFA11EA0BECD00BBCA05 /* ChallengeDetailVC.swift */,
+				D981CFA21EA0BECD00BBCA05 /* ChallengeDetailVC.xib */,
 				D93253341E9C917400C59630 /* AddChallengeVC.swift */,
 				D93253351E9C917400C59630 /* AddChallengeVC.xib */,
 				D938E2741E9B9C1B0058CBCD /* ChallengeViewCell.swift */,
@@ -611,7 +617,7 @@
 				TargetAttributes = {
 					B6A6C26C1E76DF550021EFC0 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 566T8PK976;
+						DevelopmentTeam = D7RX787JDX;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
@@ -689,6 +695,7 @@
 				B6CF33F71E8CB5860087614C /* RightDetailArrowCell.xib in Resources */,
 				D9D35F021E925963008C3AB3 /* ScheduleCell.xib in Resources */,
 				D9F7B2061E88119600B692FF /* SelectTimeViewController.xib in Resources */,
+				D981CFA41EA0BECD00BBCA05 /* ChallengeDetailVC.xib in Resources */,
 				B679DD2E1E8C00EF000744E8 /* ProfileRecordsViewController.xib in Resources */,
 				B6492DC41E954E0900C490F0 /* ActivityDetailsViewController.xib in Resources */,
 				B6B068B81E9A4B8B0095875D /* GroupInfoCell.xib in Resources */,
@@ -810,6 +817,7 @@
 				B692F6231E9BC55B0004E339 /* MemberListViewController.swift in Sources */,
 				B679DD251E8BFFB4000744E8 /* ActivitiesViewController.swift in Sources */,
 				D9F7B2051E88119600B692FF /* SelectTimeViewController.swift in Sources */,
+				D981CFA31EA0BECD00BBCA05 /* ChallengeDetailVC.swift in Sources */,
 				B6CF33F61E8CB5860087614C /* RightDetailArrowCell.swift in Sources */,
 				D9D9DF1C1E810EB5008C086C /* Constants.swift in Sources */,
 				B61B85431E940C160008BCF3 /* SlideView.swift in Sources */,
@@ -953,7 +961,7 @@
 			baseConfigurationReference = B5E4083712718B9C48665E65 /* Pods-RaceMe.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -961,7 +969,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = today.werun.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.WeRunApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -973,7 +981,7 @@
 			baseConfigurationReference = E1DD169E40379E9D88C93CD3 /* Pods-RaceMe.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 566T8PK976;
+				DEVELOPMENT_TEAM = D7RX787JDX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/RaceMe",
@@ -981,7 +989,7 @@
 				INFOPLIST_FILE = RaceMe/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = today.werun.ios;
+				PRODUCT_BUNDLE_IDENTIFIER = com.vulong.WeRunApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "RaceMe/CICRun-Header.h";
 				SWIFT_VERSION = 3.0;
