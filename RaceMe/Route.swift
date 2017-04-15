@@ -23,6 +23,7 @@ class Route: NSObject {
     var type = ""
     var address = ""
     var bannerUrl = ""
+    var overallRate = 0.0
     func participant_count(displayingDate: String) -> Int {
         switch displayingDate {
         case "1":
@@ -83,13 +84,15 @@ class Route: NSObject {
             
             if let oneLoc = loc.value as? NSDictionary{
                 if let latValue = oneLoc.value(forKey: Constants.Location.LATITUDE) as! Double? {
+//                    print(oneLoc)
                     let longVal = oneLoc.value(forKey: Constants.Location.LONGTITUDE) as! Double?
-                let location = CLLocationCoordinate2D(latitude: latValue , longitude: longVal!)
-                locations.append(location)
-                locCount += 1
+                    let location = CLLocationCoordinate2D(latitude: latValue , longitude: longVal!)
+                    locations.append(location)
+                    locCount += 1
                 } else {
-                    //LONG TODO handle GeoFire Data
-                    //no need. Moved GeoFire marking to global
+                    if let rateVal = oneLoc.value(forKey: Constants.PublicRoute.OVERALL) as! Int? {
+                        overallRate = Double(rateVal)
+                    }
                 }
             } else {
                 if let key = loc.key as String? {
@@ -104,7 +107,7 @@ class Route: NSObject {
                     } else if key == Constants.PublicRoute.BANNER {
                         bannerUrl = loc.value! as! String
                     } else {
-
+                        
                     }
                 }
             }

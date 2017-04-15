@@ -23,6 +23,7 @@
                 <outlet property="generalInfoLabel" destination="wOg-MO-3h7" id="qip-1v-gRc"/>
                 <outlet property="infoSegment" destination="7fc-wQ-Jcq" id="Mng-AD-EO2"/>
                 <outlet property="mapView" destination="6bo-Qc-NuP" id="JYX-sK-rDx"/>
+                <outlet property="rateImg" destination="ZBd-QW-TOu" id="6t0-CG-eGI"/>
                 <outlet property="runNowBtn" destination="srK-kq-6IA" id="jk6-g9-sTF"/>
                 <outlet property="tableView" destination="FMR-iS-v0n" id="3qu-DM-g71"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -88,7 +89,7 @@
                             <rect key="frame" x="210" y="10" width="100" height="20"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PBY-3V-fnh">
-                            <rect key="frame" x="14" y="11.5" width="77.5" height="18"/>
+                            <rect key="frame" x="14" y="11" width="77.5" height="18"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -123,7 +124,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Distance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yaj-eX-Mnh">
-                            <rect key="frame" x="257.5" y="11" width="52.5" height="18"/>
+                            <rect key="frame" x="257.5" y="11.5" width="52.5" height="18"/>
                             <fontDescription key="fontDescription" name="OpenSans" family="Open Sans" pointSize="13"/>
                             <color key="textColor" red="0.26274509800000001" green="0.3411764706" blue="0.4039215686" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>

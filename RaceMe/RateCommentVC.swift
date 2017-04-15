@@ -13,7 +13,7 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     @IBOutlet weak var q1Label: UILabel!
     @IBOutlet weak var q2Label: UILabel!
     @IBOutlet weak var q3Label: UILabel!
-
+    
     @IBOutlet weak var q4Label: UILabel!
     @IBOutlet weak var q5Label: UILabel!
     @IBOutlet weak var overallImg: UIImageView!
@@ -22,13 +22,13 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
     @IBOutlet weak var a3Img: UIImageView!
     @IBOutlet weak var a4Img: UIImageView!
     @IBOutlet weak var a5Img: UIImageView!
-
+    
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var btn3: UIButton!
     @IBOutlet weak var btn4: UIButton!
     @IBOutlet weak var btn5: UIButton!
-
+    
     @IBAction func tap1(_ sender: UIButton) {
         picker1.isHidden = false
     }
@@ -49,12 +49,12 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         picker5.isHidden = false
     }
     
-    let noStarImg = UIImage(named: "star-0")
-    let oneStarImg = UIImage(named: "star-1")
-    let twoStarImg = UIImage(named: "star-2")
-    let threeStarImg = UIImage(named: "star-3")
-    let fourStarImg = UIImage(named: "star-4")
-    let fiveStarImg = UIImage(named: "star-5")
+    static let noStarImg = UIImage(named: "star-0")
+    static let oneStarImg = UIImage(named: "star-1")
+    static let twoStarImg = UIImage(named: "star-2")
+    static let threeStarImg = UIImage(named: "star-3")
+    static let fourStarImg = UIImage(named: "star-4")
+    static let fiveStarImg = UIImage(named: "star-5")
     
     @IBOutlet weak var picker1: UIPickerView!
     @IBOutlet weak var picker2: UIPickerView!
@@ -72,6 +72,7 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         super.viewDidLoad()
         userId = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
+        updateUI()
         loadData()
         picker1.isHidden = true
         picker2.isHidden = true
@@ -85,7 +86,7 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         picker5.delegate = self
         // Do any additional setup after loading the view.
     }
-
+    
     var oneScore = 0
     var twoScore = 0
     var threeScore = 0
@@ -120,79 +121,117 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         _ = rateRef?.observe(.value, with: { (snapshot) in
             print(snapshot)
             if snapshot.hasChildren() {
-            for rateData in snapshot.children.allObjects as! [FIRDataSnapshot] {
-                if let questData = rateData.value as? NSDictionary{
-                    print("///////////")
-                    print(questData)
-                    if rateData.key == "1" {
-                        if questData.count > 0 {
-                            for (key, value) in questData{
-                                self.oneVoteCount += 1
-                                self.oneScore += value as! Int
-                                if key as! String == self.userId {
-                                    self.voted1 = true
+                for rateData in snapshot.children.allObjects as! [FIRDataSnapshot] {
+                    if let questData = rateData.value as? NSDictionary{
+                        print("///////////")
+                        print(questData)
+                        if rateData.key == "1" {
+                            if questData.count > 0 {
+                                for (key, value) in questData{
+                                    self.oneVoteCount += 1
+                                    self.oneScore += value as! Int
+                                    if key as! String == self.userId {
+                                        self.voted1 = true
+                                    }
                                 }
                             }
                         }
-                    }
-                    if rateData.key == "2" {
-                        if questData.count > 0 {
-                            for (key, value) in questData{
-                                self.twoVoteCount += 1
-                                self.twoScore += value as! Int
-                                if key as! String == self.userId {
-                                    self.voted2 = true
+                        if rateData.key == "2" {
+                            if questData.count > 0 {
+                                for (key, value) in questData{
+                                    self.twoVoteCount += 1
+                                    self.twoScore += value as! Int
+                                    if key as! String == self.userId {
+                                        self.voted2 = true
+                                    }
                                 }
                             }
                         }
-                    }
-                    if rateData.key == "3" {
-                        if questData.count > 0 {
-                            for (key, value) in questData{
-                                self.threeVoteCount += 1
-                                self.threeScore += value as! Int
-                                if key as! String == self.userId {
-                                    self.voted3 = true
+                        if rateData.key == "3" {
+                            if questData.count > 0 {
+                                for (key, value) in questData{
+                                    self.threeVoteCount += 1
+                                    self.threeScore += value as! Int
+                                    if key as! String == self.userId {
+                                        self.voted3 = true
+                                    }
                                 }
                             }
                         }
-                    }
-                    if rateData.key == "4" {
-                        if questData.count > 0 {
-                            for (key, value) in questData{
-                                self.fourVoteCount += 1
-                                self.fourScore += value as! Int
-                                if key as! String == self.userId {
-                                    self.voted4 = true
+                        if rateData.key == "4" {
+                            if questData.count > 0 {
+                                for (key, value) in questData{
+                                    self.fourVoteCount += 1
+                                    self.fourScore += value as! Int
+                                    if key as! String == self.userId {
+                                        self.voted4 = true
+                                    }
                                 }
                             }
                         }
-                    }
-                    if rateData.key == "5" {
-                        if questData.count > 0 {
-                            for (key, value) in questData{
-                                self.fiveVoteCount += 1
-                                self.fiveScore += value as! Int
-                                if key as! String == self.userId {
-                                    self.voted5 = true
+                        if rateData.key == "5" {
+                            if questData.count > 0 {
+                                for (key, value) in questData{
+                                    self.fiveVoteCount += 1
+                                    self.fiveScore += value as! Int
+                                    if key as! String == self.userId {
+                                        self.voted5 = true
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
-            self.updateUI()
+                self.updateUI()
             }
         })
     }
     func updateUI(){
-        let oneAverage = oneScore/oneVoteCount
-        let twoAverage = twoScore/twoVoteCount
-        let threeAverage = threeScore/threeVoteCount
-        let fourAverage = fourScore/fourVoteCount
-        let fiveAverage = fiveScore/fiveVoteCount
+        var oneAverage = 0
+        if oneVoteCount > 0 {
+            oneAverage = oneScore/oneVoteCount
+        }
+        var twoAverage = 0
+        if twoVoteCount > 0 {
+            twoAverage = twoScore/twoVoteCount
+        }
+        var threeAverage = 0
+        if threeVoteCount > 0 {
+            threeAverage = threeScore/threeVoteCount
+        }
+        var fourAverage = 0
+        if fourVoteCount > 0 {
+            fourAverage = fourScore/fourVoteCount
+        }
+        var fiveAverage = 0
+        if fiveVoteCount > 0 {
+            fiveAverage = fiveScore/fiveVoteCount
+        }
         overallScore = (Double(oneAverage + twoAverage + threeAverage + fourAverage + fiveAverage) ).divided(by: 5.0)
-        print("\(overallScore)")
+        
+        RateCommentVC.updateImg(view: a1Img,val: Int(oneAverage))
+        RateCommentVC.updateImg(view: a2Img,val: Int(twoAverage))
+        RateCommentVC.updateImg(view: a3Img,val: Int(threeAverage))
+        RateCommentVC.updateImg(view: a4Img,val: Int(fourAverage))
+        RateCommentVC.updateImg(view: a5Img,val: Int(fiveAverage))
+        RateCommentVC.updateImg(view: overallImg,val: Int(overallScore))
+    }
+    static func updateImg(view: UIImageView, val: Int){
+        switch val{
+        case 1:
+            view.image = oneStarImg
+        case 2:
+            view.image = twoStarImg
+        case 3:
+            view.image = threeStarImg
+        case 4:
+            view.image = fourStarImg
+        case 5:
+            view.image = fiveStarImg
+        default:
+            view.image = noStarImg
+        }
+        
     }
     deinit {
         if ref != nil {
@@ -203,7 +242,7 @@ class RateCommentVC: UIViewController, UIPickerViewDelegate, UIPickerViewDataSou
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
