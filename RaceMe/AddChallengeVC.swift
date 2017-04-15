@@ -13,6 +13,7 @@ import FirebaseStorage
 import WDImagePicker
 class AddChallengeVC: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var uploadPhotoBtn: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var groupPick: UITextField!
@@ -31,6 +32,7 @@ class AddChallengeVC: UIViewController {
 
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var createBtn: UIButton!
+
     let startDatePicker = UIDatePicker()
     let endDatePicker = UIDatePicker()
     let dateFormatter = DateFormatter()
@@ -54,6 +56,7 @@ class AddChallengeVC: UIViewController {
     var photoIsUploading = false
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         userId = FIRAuth.auth()?.currentUser?.uid
         ref = FIRDatabase.database().reference()
         let storage = FIRStorage.storage()
@@ -382,3 +385,87 @@ extension UIViewController {
         view.endEditing(true)
     }
 }
+//
+//extension AddChallengeVC: UITableViewDelegate, UITableViewDataSource {
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//    
+////    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+////        switch section {
+////        case 0:
+////            return "Challenge Target"
+////        case 1:
+////            return "Weekly Target"
+////        default:
+////            return "Workout Target"
+////        }
+////    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 10
+////        switch section {
+////        case 2:
+////            return 2
+////        default:
+////            return 4
+////        }
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "TextSettingCell", for: indexPath) as! TextSettingCell
+//        values[indexPath.row] = cell.settingTextField.text!
+//        cell.selectionStyle = .none
+//        switch indexPath.row {
+//        case 0:
+//            cell.settingLabel.text = "Total Workout"
+//            cell.settingTextField.placeholder = "22"
+//        case 1:
+//            cell.settingLabel.text = "Total Distance"
+//            cell.settingTextField.placeholder = "70.0"
+//        case 2:
+//            cell.settingLabel.text = "Total Long Run"
+//            cell.settingTextField.placeholder = "4"
+//        case 3:
+//            cell.settingLabel.text = "Min. Long Run Distance"
+//            cell.settingTextField.placeholder = "6.0"
+//        case 4:
+//            cell.settingLabel.text = "Weekly Workout"
+//            cell.settingTextField.placeholder = "4"
+//        case 5:
+//            cell.settingLabel.text = "Weekly Distance"
+//            cell.settingTextField.placeholder = "15.0"
+//        case 6:
+//            cell.settingLabel.text = "Weekly Long Run"
+//            cell.settingTextField.placeholder = "1"
+////            if ( "" != cell.currentVar ) {
+////                cell.settingTextField.text = "\(cell.currentVar)"
+////                chalWeekTotalLongRun = Int(cell.currentVar)!
+////            }
+//        case 7:
+//            cell.settingLabel.text = "Weekly Long Run Dist."
+//            cell.settingTextField.placeholder = "6.0"
+////            if ( "" != cell.currentVar ) {
+////                cell.settingTextField.text = "\(cell.currentVar)"
+////                chalWeekMinLongRunDistance = Double(cell.currentVar)!
+////            }
+//        case 8:
+//            cell.settingLabel.text = "Minimum Distance"
+//            cell.settingTextField.placeholder = "3.0"
+////            if ( "" != cell.currentVar ) {
+////                cell.settingTextField.text = "\(cell.currentVar)"
+////                chalTargetDistance = Double(cell.currentVar)!
+////            }
+//        default:
+//            cell.settingLabel.text = "Minimum Pace"
+//            cell.settingTextField.placeholder = "8.0"
+////            if ( "" != cell.currentVar ) {
+////                cell.settingTextField.text = "\(cell.currentVar)"
+////                chalTargetPace = Double(cell.currentVar)!
+////            }
+//        }
+//        return cell
+//    }
+//
+//    
+//}

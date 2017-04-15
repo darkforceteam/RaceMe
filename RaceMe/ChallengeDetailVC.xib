@@ -7,6 +7,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Semibold.ttf">
+            <string>OpenSans-Semibold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChallengeDetailVC" customModule="RaceMe" customModuleProvider="target">
             <connections>
@@ -22,11 +27,12 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vOn-Xe-tIg">
-                    <rect key="frame" x="10" y="458" width="300" height="45"/>
+                    <rect key="frame" x="10" y="463" width="300" height="45"/>
                     <color key="backgroundColor" red="0.93333333330000001" green="0.68627450980000004" blue="0.29411764709999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="VB4-IJ-a8S"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
                     <state key="normal" title="LEAVE">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -35,11 +41,12 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iEQ-ge-r54">
-                    <rect key="frame" x="10" y="458" width="300" height="45"/>
+                    <rect key="frame" x="10" y="463" width="300" height="45"/>
                     <color key="backgroundColor" red="0.47450980390000003" green="0.71764705880000002" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="45" id="P2w-4m-xer"/>
                     </constraints>
+                    <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
                     <state key="normal" title="JOIN">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -48,7 +55,7 @@
                     </connections>
                 </button>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="fVR-wl-x7f">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="453"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                 </tableView>
             </subviews>
@@ -58,7 +65,7 @@
                 <constraint firstAttribute="trailing" secondItem="iEQ-ge-r54" secondAttribute="trailing" constant="10" id="Hbr-4V-fLl"/>
                 <constraint firstAttribute="trailing" secondItem="fVR-wl-x7f" secondAttribute="trailing" id="LNp-SN-msg"/>
                 <constraint firstItem="fVR-wl-x7f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Nt8-d3-nkI"/>
-                <constraint firstAttribute="bottom" secondItem="vOn-Xe-tIg" secondAttribute="bottom" constant="65" id="O4S-9l-M2H"/>
+                <constraint firstAttribute="bottom" secondItem="vOn-Xe-tIg" secondAttribute="bottom" constant="60" id="O4S-9l-M2H"/>
                 <constraint firstItem="vOn-Xe-tIg" firstAttribute="top" secondItem="fVR-wl-x7f" secondAttribute="bottom" constant="10" id="bYo-L9-DZI"/>
                 <constraint firstItem="fVR-wl-x7f" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="u4X-xF-WFi"/>
                 <constraint firstItem="vOn-Xe-tIg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="x3C-MR-tQr"/>

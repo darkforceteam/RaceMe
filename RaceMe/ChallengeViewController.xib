@@ -27,14 +27,14 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Med-Mb-0xX">
-                    <rect key="frame" x="0.0" y="48" width="375" height="494"/>
+                    <rect key="frame" x="0.0" y="48" width="375" height="504"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mgm-fB-jWE">
-                    <rect key="frame" x="15" y="552" width="345" height="50"/>
+                    <rect key="frame" x="15" y="562" width="345" height="45"/>
                     <color key="backgroundColor" red="0.47450980390000003" green="0.71764705880000002" blue="0.24313725489999999" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="1Oh-fa-P23"/>
+                        <constraint firstAttribute="height" constant="45" id="1Oh-fa-P23"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="17"/>
                     <state key="normal" title="CREATE">
@@ -58,7 +58,7 @@
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="mgm-fB-jWE" secondAttribute="trailing" constant="15" id="BvO-Zd-msE"/>
                 <constraint firstItem="5Ua-j4-xCu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Oz1-pm-SWd"/>
-                <constraint firstAttribute="bottom" secondItem="mgm-fB-jWE" secondAttribute="bottom" constant="65" id="chE-lF-DMl"/>
+                <constraint firstAttribute="bottom" secondItem="mgm-fB-jWE" secondAttribute="bottom" constant="60" id="chE-lF-DMl"/>
                 <constraint firstItem="mgm-fB-jWE" firstAttribute="top" secondItem="Med-Mb-0xX" secondAttribute="bottom" constant="10" id="ebf-Iq-bBo"/>
                 <constraint firstAttribute="trailing" secondItem="5Ua-j4-xCu" secondAttribute="trailing" constant="15" id="lEP-PB-EuA"/>
                 <constraint firstItem="Med-Mb-0xX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="m3C-A8-dCJ"/>
