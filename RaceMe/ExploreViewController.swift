@@ -55,14 +55,14 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     var displayingType = Constants.SPORT_TYPE.ALL
 
     @IBOutlet weak var typePicker: UIPickerView!
-    @IBOutlet weak var groupPicker: UIPickerView!
+//    @IBOutlet weak var groupPicker: UIPickerView!
     @IBOutlet weak var timePicker: UIPickerView!
 
     
     @IBOutlet weak var actIndicator: UIActivityIndicatorView!
     @IBOutlet weak var selectTimeButton: UIButton!
     @IBOutlet weak var selectTypeButton: UIButton!
-    @IBOutlet weak var selectGroupButton: UIButton!
+//    @IBOutlet weak var selectGroupButton: UIButton!
     @IBOutlet weak var mapView: MKMapView!
     var typeOptions = [Constants.SPORT_TYPE.ALL,Constants.SPORT_TYPE.RUN,Constants.SPORT_TYPE.YOGA,Constants.SPORT_TYPE.SWIM]//FIXED FOR NOW. TODO: change to DB load
     var groupOptions = ["Public", "Friends"]//FIXED FOR NOW. TODO: change to DB load
@@ -111,11 +111,11 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
         selectTypeButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
         selectTypeButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
         
-        selectGroupButton.layer.cornerRadius = 3
-        selectGroupButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-        selectGroupButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-        selectGroupButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
-        selectGroupButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
+//        selectGroupButton.layer.cornerRadius = 3
+//        selectGroupButton.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+//        selectGroupButton.titleLabel?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+//        selectGroupButton.imageView?.transform = CGAffineTransform(scaleX: -1.0, y: 1.0)
+//        selectGroupButton.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 10)
 
         setupFilterButtons()
         hideKeyboardWhenTappedAround()
@@ -124,8 +124,8 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     func setupFilterButtons(){
         typePicker.delegate = self
         typePicker.isHidden = true
-        groupPicker.delegate = self
-        groupPicker.isHidden = true
+//        groupPicker.delegate = self
+//        groupPicker.isHidden = true
         timePicker.delegate = self
         timePicker.isHidden = true
     }
@@ -147,7 +147,7 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     }
     
     @IBAction func selectGroup(_ sender: UIButton) {
-        groupPicker.isHidden = false
+//        groupPicker.isHidden = false
     }
     @IBAction func selectType(_ sender: UIButton) {
         typePicker.isHidden = false
@@ -551,24 +551,31 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == typePicker {
             return typeOptions.count
-        } else if pickerView == groupPicker {
-            return groupOptions.count
-        } else {
+        }
+//        else if pickerView == groupPicker {
+//            return groupOptions.count
+//        }
+        else {
             return timeOptions.count
         }
     }
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
         if pickerView == typePicker {
             return typeOptions[row]
-        } else if pickerView == groupPicker {
-            return groupOptions[row]
-        } else {
+        }
+//        else if pickerView == groupPicker {
+//            return groupOptions[row]
+//        }
+        else {
             return timeOptions[row]
         }
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
         if pickerView == typePicker {
-            selectTypeButton.titleLabel?.text = typeOptions[row]
+//            selectTypeButton.titleLabel?.text = typeOptions[row]
+            selectTypeButton.setTitle(typeOptions[row], for: UIControlState.normal)
+            selectTypeButton.setTitle(typeOptions[row], for: UIControlState.selected)
+
             typePicker.isHidden = true
             displayingType = typeOptions[row]
             do {
@@ -576,11 +583,15 @@ class ExploreViewController: UIViewController, UIPickerViewDataSource, UIPickerV
             } catch {
                 print("ERROR!!!!!!: \(error)")
             }
-        } else if pickerView == groupPicker {
-            selectGroupButton.titleLabel?.text = groupOptions[row]
-            groupPicker.isHidden = true
-        } else {
-            selectTimeButton.titleLabel?.text = timeOptions[row]
+        }
+//        else if pickerView == groupPicker {
+//            selectGroupButton.titleLabel?.text = groupOptions[row]
+//            groupPicker.isHidden = true
+//        }
+        else {
+//            selectTimeButton.titleLabel?.text = timeOptions[row]
+            selectTimeButton.setTitle(timeOptions[row], for: UIControlState.normal)
+            selectTimeButton.setTitle(timeOptions[row], for: UIControlState.selected)
             newFilterDay = timeOptions[row]
             filterDataByTime()
             timePicker.isHidden = true

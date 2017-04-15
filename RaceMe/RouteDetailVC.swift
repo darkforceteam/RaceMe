@@ -256,7 +256,7 @@ extension RouteDetailVC: MKMapViewDelegate, UITableViewDelegate, UITableViewData
 //        cell.dateLabel.text = "\(event.start_time.toStringWithoutSecond())"
         cell.dateLabel.text = "\(event.start_time.friendlyDate())"
         
-        var strRunnerNum = " will run alone"
+        var strRunnerNum = " will practice alone"
         if event.participants.count > 1{
             
             strRunnerNum = " and \(event.participants.count-1) person"
@@ -333,7 +333,7 @@ extension Date {
         } else if NSCalendar.current.isDateInTomorrow(self){
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "h:mm a"
-            return "Tomorrow at" + dateFormatter.string(from: self)
+            return "Tomorrow at " + dateFormatter.string(from: self)
 
         } else {
             let dateFormatter = DateFormatter()

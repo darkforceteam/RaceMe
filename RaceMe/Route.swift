@@ -90,9 +90,8 @@ class Route: NSObject {
                     locations.append(location)
                     locCount += 1
                 } else {
-//                    print(oneLoc)
-                    if let rateVal = oneLoc.value(forKey: Constants.PublicRoute.RATING) as! Double? {
-                        overallRate = rateVal
+                    if let rateVal = oneLoc.value(forKey: Constants.PublicRoute.OVERALL) as! Int? {
+                        overallRate = Double(rateVal)
                     }
                 }
             } else {
