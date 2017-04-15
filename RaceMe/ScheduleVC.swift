@@ -557,6 +557,14 @@ extension ScheduleVC: MKMapViewDelegate, UITableViewDelegate, UITableViewDataSou
         //        let participant = event?.participants[indexPath.row]
         //        cell.statusLabel.text = participant
     }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedUser = participants[indexPath.row]
+        if selectedUser != nil {
+            let profileViewController = ProfileViewController(nibName: "ProfileViewController", bundle: nil)
+            profileViewController.uid = selectedUser.uid
+            navigationController?.pushViewController(profileViewController, animated: true)
+        }
+    }
 }
 extension ScheduleVC: UIGestureRecognizerDelegate{
     
