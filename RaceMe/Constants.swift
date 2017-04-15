@@ -23,6 +23,7 @@ struct Constants {
         static let ADDR = "ADDR"
         static let BANNER = "BANNER"
         static let RATING = "RATING"
+        static let OVERALL = "OVERALL"
     }
     struct Route{
         static let TABLE_NAME = "ROUTES"

@@ -338,7 +338,7 @@ class ScheduleVC: UIViewController {
         eventRef.child(Constants.Event.PARTICIPANTS).child(userId!).setValue(false)
         eventRef.child(Constants.Event.CREATED_BY).setValue(userId)
         if targetDistTextField.text != "" {
-            eventRef.child(Constants.Event.TARGET_DISTANT).setValue(Int(targetDistTextField.text!))
+            eventRef.child(Constants.Event.TARGET_DISTANT).setValue(Int(targetDistTextField.text!)!*1000)//TODO remember to make this avariable so that Miles can be calculated too
         }
         eventRef.child(Constants.Event.START_LOC).child(Constants.Location.LATITUDE).setValue(startLoc?.latitude)
         eventRef.child(Constants.Event.START_LOC).child(Constants.Location.LONGTITUDE).setValue(startLoc?.longitude)

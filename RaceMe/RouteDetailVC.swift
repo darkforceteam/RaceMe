@@ -18,6 +18,8 @@ class RouteDetailVC: UIViewController {
     @IBOutlet weak var addScheBtn: UIButton!
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var rateImg: UIImageView!
     var routeId: String!
     var route: Route!
     var event: Event!
@@ -57,7 +59,9 @@ class RouteDetailVC: UIViewController {
             distanceLabel.text =  "\(route.type)"
             setStartLoc(coordinate: route.locations.first!)
         }
-        
+        if route.overallRate != nil {
+            RateCommentVC.updateImg(view: rateImg, val: Int(route.overallRate))
+        }
     }
     
     @IBAction func addSchedule(_ sender: UIButton) {
